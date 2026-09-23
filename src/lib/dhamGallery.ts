@@ -101,15 +101,15 @@ export const INITIAL_DHAM_GALLERY: DhamGalleryPhoto[] = [
   // Kedarnath Dham (Authentic Tour Photos)
   {
     id: "dham-kedarnath-auth-1",
-    url: "/gallery/chardham_10d_img_13.jpg",
-    caption: "Shri Kedarnath Temple Entrance & Holy Nandi Darshan",
+    url: "/gallery/kedarnath_temple.png",
+    caption: "Shri Kedarnath Temple & Snow Himalayas Darshan",
     dham: "kedarnath",
     dhamLabel: "Kedarnath Dham",
     isDefault: true
   },
   {
     id: "dham-kedarnath-auth-2",
-    url: "/gallery/chardham_10d_img_12.jpg",
+    url: "/gallery/kedarnath_temple.png",
     caption: "Shri Kedarnath Dham Temple & Snow Himalaya Peaks",
     dham: "kedarnath",
     dhamLabel: "Kedarnath Dham",
@@ -147,8 +147,8 @@ export const INITIAL_DHAM_GALLERY: DhamGalleryPhoto[] = [
   // Yamunotri Dham & Foothills (Authentic Tour Photos)
   {
     id: "dham-yamunotri-auth-1",
-    url: "/gallery/chardham_10d_img_7.jpg",
-    caption: "Sacred Shri Yamunotri Dham Foothills & Scenic Himalayan Ridge",
+    url: "/gallery/chardham_10d_img_5.jpg",
+    caption: "Sacred Shri Yamunotri Dham Temple & Scenic Himalayan Valley",
     dham: "yamunotri",
     dhamLabel: "Yamunotri Dham",
     isDefault: true
@@ -164,35 +164,7 @@ export const INITIAL_DHAM_GALLERY: DhamGalleryPhoto[] = [
     isDefault: true
   },
 
-  // Kedarnath Helicopter Sector (Authentic Photos)
-  {
-    id: "dham-heli-auth-1",
-    url: "/gallery/chardham_10d_img_9.jpg",
-    caption: "Kedarnath Valley Helipad & Helicopter Shuttle Darshan",
-    dham: "helicopter",
-    dhamLabel: "Helicopter Darshan",
-    isDefault: true
-  },
-  {
-    id: "dham-heli-auth-2",
-    url: "/gallery/chardham_10d_img_10.jpg",
-    caption: "Himalayan Aerial Kedarnath Helicopter Flight",
-    dham: "helicopter",
-    dhamLabel: "Helicopter Darshan",
-    isDefault: true
-  },
-
-  // Chopta, Tungnath & Chandrashila (Authentic Photos)
-  {
-    id: "dham-chopta-auth-1",
-    url: "/gallery/chardham_10d_img_14.jpg",
-    caption: "Chopta Tungnath & Chandrashila Sacred Himalayan Ridge",
-    dham: "chopta_tungnath",
-    dhamLabel: "Chopta & Tungnath",
-    isDefault: true
-  },
-
-  // Sacred River Confluences & Temples (Maa Dhari Devi & Ganga Aarti)
+  // Sacred River Confluences & Temples (Maa Dhari Devi & Devprayag)
   {
     id: "dham-dharidevi-auth-1",
     url: "/gallery/chardham_10d_img_18.jpg",
@@ -210,6 +182,16 @@ export const INITIAL_DHAM_GALLERY: DhamGalleryPhoto[] = [
     isDefault: true
   },
 
+  // Chopta, Tungnath & Chandrashila (Authentic Photos)
+  {
+    id: "dham-chopta-auth-1",
+    url: "/gallery/chardham_10d_img_14.jpg",
+    caption: "Chopta Tungnath & Chandrashila Sacred Himalayan Ridge",
+    dham: "chopta_tungnath",
+    dhamLabel: "Chopta & Tungnath",
+    isDefault: true
+  },
+
   // Deluxe Hotels & Group Travel
   {
     id: "dham-hotel-deluxe-1",
@@ -221,8 +203,8 @@ export const INITIAL_DHAM_GALLERY: DhamGalleryPhoto[] = [
   },
   {
     id: "dham-group-tempo-1",
-    url: "/gallery/chardham_10d_img_4.jpg",
-    caption: "Pilgrimage Group & Luxury Tempo Traveller",
+    url: "/reviews/review_3.jpeg",
+    caption: "Traymbhkam Pilgrimage Group & Luxury Hill Transport",
     dham: "custom",
     dhamLabel: "Group Transport",
     isDefault: true

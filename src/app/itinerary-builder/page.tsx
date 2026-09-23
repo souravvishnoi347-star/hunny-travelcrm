@@ -403,7 +403,7 @@ const CHARDHAM_PRESET: ItineraryData = {
     },
     {
       id: "ph-2",
-      url: "/gallery/chardham_10d_img_13.jpg",
+      url: "/gallery/kedarnath_temple.png",
       caption: "Shri Kedarnath Temple & Holy Nandi Darshan"
     },
     {
@@ -634,7 +634,7 @@ const CHARDHAM_12P_10D_PRESET: ItineraryData = {
     },
     {
       id: "ph-12p-2",
-      url: "/gallery/chardham_10d_img_13.jpg",
+      url: "/gallery/kedarnath_temple.png",
       caption: "Shri Kedarnath Temple & Holy Nandi Darshan"
     },
     {
@@ -803,7 +803,7 @@ export const DODHAM_6D_PRESET: ItineraryData = {
   photos: [
     {
       id: "ph-dd-1",
-      url: "/gallery/chardham_10d_img_13.jpg",
+      url: "/gallery/kedarnath_temple.png",
       caption: "Shri Kedarnath Temple & Holy Nandi Darshan"
     },
     {
@@ -833,8 +833,8 @@ const CURATED_PHOTO_PRESETS = [
   },
   {
     id: "preset-kedarnath-real",
-    url: "/gallery/chardham_10d_img_13.jpg",
-    caption: "Shri Kedarnath Temple Entrance"
+    url: "/gallery/kedarnath_temple.png",
+    caption: "Shri Kedarnath Temple & Snow Himalayas"
   },
   {
     id: "preset-badrinath-real",
@@ -847,9 +847,9 @@ const CURATED_PHOTO_PRESETS = [
     caption: "Shri Gangotri Dham Temple"
   },
   {
-    id: "preset-heli-real",
-    url: "/gallery/chardham_10d_img_9.jpg",
-    caption: "Kedarnath Helicopter Shuttle"
+    id: "preset-yamunotri-real",
+    url: "/gallery/chardham_10d_img_5.jpg",
+    caption: "Shri Yamunotri Dham Temple"
   },
   {
     id: "preset-chopta-real",
@@ -868,8 +868,8 @@ const CURATED_PHOTO_PRESETS = [
   },
   {
     id: "preset-group",
-    url: "/gallery/chardham_10d_img_4.jpg",
-    caption: "Pilgrimage Group & Tempo Traveller"
+    url: "/reviews/review_3.jpeg",
+    caption: "Traymbhkam Pilgrimage Group & Coach"
   }
 ];
 
@@ -2202,7 +2202,7 @@ ${data.motto}`;
   // =========================================================
   
   const renderPage1 = (prefix: string) => {
-    const heroPhotoUrl = data.photos?.[0]?.url || "/gallery/chardham_10d_img_0.jpg";
+    const heroPhotoUrl = data.photos?.[0]?.url || "/gallery/kedarnath_temple.png";
     return (
       <div
         id={`${prefix}-itinerary-page-1`}
@@ -2368,9 +2368,9 @@ ${data.motto}`;
 
   const renderPage2 = (prefix: string) => {
     const previewPhotos = (data.photos && data.photos.length > 0) ? data.photos.slice(0, 3) : [
-      { id: "p1", url: "/gallery/chardham_10d_img_0.jpg", caption: "Kedarnath Temple & Himalayas" },
-      { id: "p2", url: "/gallery/chardham_10d_img_1.jpg", caption: "Badrinath Sacred Dham" },
-      { id: "p3", url: "/gallery/chardham_10d_img_2.jpg", caption: "Yamunotri & Gangotri Valley" }
+      { id: "p1", url: "/gallery/chardham_10d_img_1.jpg", caption: "Char Dham Yatra - 4 Sacred Shrines" },
+      { id: "p2", url: "/gallery/kedarnath_temple.png", caption: "Shri Kedarnath Temple & Holy Nandi Darshan" },
+      { id: "p3", url: "/gallery/chardham_10d_img_15.jpg", caption: "Holy Shri Badrinath Ji Temple" }
     ];
 
     return (
@@ -2815,10 +2815,10 @@ ${data.motto}`;
 
   const renderPage5 = (prefix: string) => {
     const hotelList = (data.hotelPhotos && data.hotelPhotos.length > 0) ? data.hotelPhotos.slice(0, 4) : [
-      { id: "h1", url: "/gallery/chardham_10d_img_10.jpg", hotelName: "Hotel Yamuna View", location: "Barkot / Jankichatti", roomType: "Deluxe Room" },
-      { id: "h2", url: "/gallery/chardham_10d_img_12.jpg", hotelName: "Bhagirathi Grand", location: "Uttarkashi / Netala", roomType: "Deluxe Room" },
+      { id: "h1", url: "/hotels_custom/hotel_stay_2.jpeg", hotelName: "Hotel Yamuna View", location: "Barkot / Jankichatti", roomType: "Deluxe Room" },
+      { id: "h2", url: "/hotels_custom/hotel_stay_4.jpeg", hotelName: "Bhagirathi Grand", location: "Uttarkashi / Netala", roomType: "Deluxe Room" },
       { id: "h3", url: "/gallery/kedarnath_alpine_tent.jpg", hotelName: "Kedarnath Alpine Camp", location: "Kedarnath Base", roomType: "Alpine Camp" },
-      { id: "h4", url: "/gallery/chardham_10d_img_20.jpg", hotelName: "Hotel Badri Kedar", location: "Badrinath / Pipalkoti", roomType: "Super Deluxe Room" }
+      { id: "h4", url: "/hotels_custom/hotel_stay_3.jpeg", hotelName: "Hotel Badri Kedar", location: "Badrinath / Pipalkoti", roomType: "Super Deluxe Room" }
     ];
 
     const landmarkPhotos = (data.photos && data.photos.length >= 6) 
@@ -2826,9 +2826,9 @@ ${data.motto}`;
       : (data.photos && data.photos.length > 0)
       ? data.photos.slice(0, 3)
       : [
-        { id: "l1", url: "/gallery/chardham_10d_img_1.jpg", caption: "Badrinath Sacred Valley" },
-        { id: "l2", url: "/gallery/chardham_10d_img_2.jpg", caption: "Gangotri River Bhagirathi" },
-        { id: "l3", url: "/gallery/chardham_10d_img_0.jpg", caption: "Kedarnath Jyotirlinga Shrine" }
+        { id: "l1", url: "/gallery/chardham_10d_img_15.jpg", caption: "Holy Shri Badrinath Ji Temple" },
+        { id: "l2", url: "/gallery/chardham_10d_img_8.jpg", caption: "Holy Shri Gangotri Dham Temple" },
+        { id: "l3", url: "/gallery/kedarnath_temple.png", caption: "Shri Kedarnath Jyotirlinga Shrine" }
       ];
 
     const heroTier = data.pricingTiers?.[0];
