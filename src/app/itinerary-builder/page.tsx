@@ -200,199 +200,190 @@ export const CURATED_HOTEL_PHOTO_PRESETS: HotelPhoto[] = [
   }
 ];
 
-// Exact preset matching standard 10 Days / 09 Nights Chardham Yatra (Haridwar / Dehradun)
+// Exact preset matching the client's official 09 Nights / 10 Days Chardham Yatra 2026 Plan (Traymbhkam Tour and Travels)
 const CHARDHAM_PRESET: ItineraryData = {
-  title: "CHARDHAM YATRA",
+  title: "CHARDHAM YATRA 2026",
   subTitle: "UTTARAKHAND",
-  spiritualHeadline: "10 Days · 09 Nights Spiritual Journey",
+  spiritualHeadline: "09 Nights · 10 Days Spiritual Journey",
   dhamsSubtitle: "Yamunotri · Gangotri · Kedarnath · Badrinath",
   preparedFor: "Valued Guest",
-  travelDates: "10 – 19 May 2026",
-  duration: "10 Days / 09 Nights",
-  startingPoint: "Haridwar / Dehradun, Uttarakhand",
-  routeCovered: "Haridwar – Barkot – Yamunotri – Uttarkashi – Gangotri – Guptkashi – Kedarnath – Badrinath – Rudraprayag – Rishikesh – Haridwar",
-  overviewSummary: "A sacred 10 Days / 09 Nights Chardham Yatra covering all four holiest shrines of Uttarakhand — Yamunotri, Gangotri, Kedarnath and Badrinath — starting and concluding at Haridwar / Dehradun. Designed with well-paced travel, comfortable overnight stays, and complete ground support for a peaceful pilgrimage.",
+  travelDates: "May – Oct 2026 Season",
+  duration: "09 Nights / 10 Days",
+  startingPoint: "Haridwar, Uttarakhand",
+  routeCovered: "Haridwar – Mussoorie (Kempty Falls) – Barkot – Yamunotri – Uttarkashi – Harsil – Gangotri – Guptkashi – Kedarnath – Chopta – Pipalkoti – Badrinath – Mana Village – Dhari Devi – Haridwar",
+  overviewSummary: "A sacred 09 Nights / 10 Days Char Dham Yatra covering all four revered Himalayan shrines — Yamunotri, Gangotri, Kedarnath, and Badrinath — starting and concluding at Haridwar. Thoughtfully paced with comfortable overnight stays at Barkot (2N), Uttarkashi (2N), Guptkashi (2N), Kedarnath (1N Tent), and Pipalkoti (2N) for a peaceful and well-acclimatized pilgrimage.",
   
-  glanceDuration: "10 Days / 09 Nights",
+  glanceDuration: "09 Nights / 10 Days",
   glanceDhams: "Yamunotri · Gangotri · Kedarnath · Badrinath",
   glanceSector: "Haridwar ⇄ Complete Chardham Circuit",
-  glanceStartEnd: "Haridwar / Dehradun (both ways)",
+  glanceStartEnd: "Haridwar (Pickup & Drop)",
   glancePackages: "Standard Package",
 
   days: [
     {
       id: 1,
       dayNumber: 1,
-      dateStr: "Day 1 (10 May)",
-      route: "Haridwar / Dehradun → Barkot",
+      dateStr: "Arrival & The Ascent",
+      route: "Haridwar → Mussoorie & Kempty Falls → Barkot",
       activities: [
-        "Morning pickup from Haridwar Railway Station / Dehradun Airport.",
-        "Scenic drive through the foothills of the Garhwal Himalayas via Mussoorie / Kempty Falls.",
-        "Arrive at Barkot in the evening; check in to hotel, relax and prepare for Yamunotri trek."
+        "Leave the plains of Haridwar and climb into the scenic Shivalik ranges via Mussoorie.",
+        "Stop at the cascading Kempty Falls en route for refreshments and mountain photography.",
+        "Arrive in Barkot (the gateway to Yamunotri with views of Bandarpunch peak); check in at the hotel and spend the evening acclimatizing."
       ],
-      overnightStay: "Barkot"
+      overnightStay: "Barkot (Hotel)"
     },
     {
       id: 2,
       dayNumber: 2,
-      dateStr: "Day 2 (11 May)",
-      route: "Barkot → Yamunotri Dham Darshan → Barkot",
+      dateStr: "The First Dham – Yamunotri",
+      route: "Barkot → Janki Chatti → Yamunotri Dham → Barkot (36 km Drive + 6 km Trek)",
       activities: [
-        "Early morning drive to Janki Chatti, the base point for the Yamunotri trek.",
-        "Trek 6 km to Yamunotri Dham (trek / pony / palki as per individual preference).",
-        "Holy dip in Surya Kund, cook rice prasad in Divya Shila, and have sacred Darshan of Maa Yamuna.",
-        "Trek back to Janki Chatti and drive back to Barkot for overnight stay."
+        "Early morning 36 km drive to Janki Chatti and begin the 6 km trek (one way) to Shri Yamunotri Dham (via trek, pony, or palki).",
+        "Visit the sacred Yamunotri Temple and offer prayers to Goddess Yamuna.",
+        "Witness the thermal hot springs of Surya Kund (where rice/potatoes are cooked as Prasad) and worship Divya Shila.",
+        "Trek back to Janki Chatti and drive back to Barkot for dinner and overnight stay."
       ],
-      overnightStay: "Barkot"
+      overnightStay: "Barkot (Hotel)"
     },
     {
       id: 3,
       dayNumber: 3,
-      dateStr: "Day 3 (12 May)",
-      route: "Barkot → Uttarkashi",
+      dateStr: "River Valleys",
+      route: "Barkot → Bhagirathi River Valley → Uttarkashi",
       activities: [
-        "Post breakfast, drive towards Uttarkashi along the scenic Bhagirathi river valley.",
-        "En route, pass through the historical Dharasu bend.",
-        "On arrival in Uttarkashi, visit the ancient Kashi Vishwanath Temple and Shakti Temple.",
-        "Evening at leisure by the Bhagirathi river."
+        "Post breakfast, check out from Barkot and enjoy a scenic drive along the banks of the holy Bhagirathi River to Uttarkashi.",
+        "Upon arrival in Uttarkashi, check in at the hotel and freshen up.",
+        "Visit the ancient Kashi Vishwanath Temple, housing the massive 6-meter-high iron trident (Shakti Stambh), and attend evening Aarti."
       ],
-      overnightStay: "Uttarkashi"
+      overnightStay: "Uttarkashi (Hotel)"
     },
     {
       id: 4,
       dayNumber: 4,
-      dateStr: "Day 4 (13 May)",
-      route: "Uttarkashi → Gangotri Dham Darshan → Uttarkashi",
+      dateStr: "Origin of the Ganges – Gangotri",
+      route: "Uttarkashi → Harsil Valley → Gangotri Dham → Uttarkashi",
       activities: [
-        "Early morning departure for Gangotri Dham through the picturesque Harsil Valley.",
-        "Take a holy dip in the Bhagirathi River at Gangotri.",
-        "Perform Pooja and seek divine blessings of Maa Ganga at the Gangotri Temple.",
-        "Return drive through apple orchards of Harsil to Uttarkashi for night stay."
+        "Early morning departure for Shri Gangotri Dham through the breathtaking Harsil Valley, famous for its dense deodar forests and apple orchards.",
+        "Take a holy dip in the sacred waters of the Bhagirathi River (called Ganga from Devprayag onwards) at Gangotri.",
+        "Offer prayers and spend peaceful time in meditation at the Gangotri Temple, then drive back to Uttarkashi for overnight stay."
       ],
-      overnightStay: "Uttarkashi"
+      overnightStay: "Uttarkashi (Hotel)"
     },
     {
       id: 5,
       dayNumber: 5,
-      dateStr: "Day 5 (14 May)",
-      route: "Uttarkashi → Guptkashi / Sitapur",
+      dateStr: "The Long Stretch",
+      route: "Uttarkashi → Mandakini Valley → Guptkashi",
       activities: [
-        "After breakfast, drive to Guptkashi / Sitapur via Chamba and Srinagar Garhwal.",
-        "Enjoy spectacular views of the Mandakini River valley as you approach the Kedarnath base sector.",
-        "Check in at hotel/resort in Guptkashi or Sitapur; evening briefing for Kedarnath Yatra."
+        "Post breakfast, embark on the scenic mountain journey crossing the ridge from the Bhagirathi valley into the Mandakini river valley.",
+        "Arrive at Guptkashi and check in to the hotel.",
+        "Complete mandatory medical check-up and biometric registration verification for the next day's Kedarnath trek; early dinner and rest."
       ],
-      overnightStay: "Guptkashi / Sitapur"
+      overnightStay: "Guptkashi (Hotel)"
     },
     {
       id: 6,
       dayNumber: 6,
-      dateStr: "Day 6 (15 May)",
-      route: "Guptkashi / Sitapur → Kedarnath Dham Darshan",
+      dateStr: "Abode of Shiva – Kedarnath",
+      route: "Guptkashi → Sonprayag → Gaurikund → Shri Kedarnath Dham",
       activities: [
-        "Early morning transfer to Sonprayag / Gaurikund (or helipad for helicopter shuttle).",
-        "Ascend to Shri Kedarnath Dham via trek/pony/helicopter.",
-        "Perform evening Aarti and sacred Darshan of the 11th Jyotirlinga of Lord Shiva.",
-        "Night stay at Kedarnath (Base camp / Sitapur as per package selection)."
+        "Start early at 5:00 AM and drive to Sonprayag, then take the local union shuttle jeep to Gaurikund.",
+        "Begin the 18 km trek to Shri Kedarnath Dham (you can walk on foot or hire a pony / palki / helicopter shuttle).",
+        "Witness the soul-stirring Evening Aarti at the ancient Kedarnath Temple, one of the 12 sacred Jyotirlingas of Lord Shiva."
       ],
-      overnightStay: "Kedarnath / Sitapur"
+      overnightStay: "Kedarnath (Tent House - Without Food)"
     },
     {
       id: 7,
       dayNumber: 7,
-      dateStr: "Day 7 (16 May)",
-      route: "Kedarnath / Sitapur → Badrinath Dham",
+      dateStr: "The Descent",
+      route: "Shri Kedarnath Dham → Gaurikund → Sonprayag → Guptkashi",
       activities: [
-        "Morning Darshan at Kedarnath Temple; descend back to Gaurikund / Sonprayag.",
-        "Rejoin vehicle and commence scenic drive to Shri Badrinath Dham via Chopta and Joshimath.",
-        "Reach Badrinath Dham by late afternoon/evening; check in at hotel.",
-        "Evening Darshan and attend the divine evening Aarti at Badrinath Temple."
+        "Wake up early for the sacred 'Abhishek' ceremony and morning Darshan at Shri Kedarnath Temple.",
+        "Visit the revered Bhairav Nath Temple perched above the shrine for a panoramic view of the Kedarnath valley.",
+        "After Darshan, descend back to Gaurikund, take the shuttle to Sonprayag, and return to Guptkashi for hot meals and a restful stay."
       ],
-      overnightStay: "Badrinath"
+      overnightStay: "Guptkashi (Hotel)"
     },
     {
       id: 8,
       dayNumber: 8,
-      dateStr: "Day 8 (17 May)",
-      route: "Badrinath Dham Darshan & Mana Village → Pipalkoti / Joshimath",
+      dateStr: "To the Vaikuntha",
+      route: "Guptkashi → Chopta (Mini Switzerland) → Pipalkoti",
       activities: [
-        "Early morning holy bath in Tapt Kund followed by Maha Abhishek / Darshan of Lord Badri Vishal.",
-        "Visit Mana Village (India's first village), Bhim Pul, Vyas Gufa and Saraswati River Udgam.",
-        "Afternoon drive down to Pipalkoti / Joshimath enjoying mountain vistas.",
-        "Overnight stay at hotel in Pipalkoti / Joshimath."
+        "Post breakfast, embark on a scenic drive through the heart of the Garhwal Himalayas towards Pipalkoti.",
+        "Pass through Chopta ('Mini Switzerland of Uttarakhand'), surrounded by lush alpine meadows and majestic Himalayan peaks.",
+        "Arrive at Pipalkoti by evening; check in to the hotel for dinner and overnight stay."
       ],
-      overnightStay: "Pipalkoti / Joshimath"
+      overnightStay: "Pipalkoti (Hotel)"
     },
     {
       id: 9,
       dayNumber: 9,
-      dateStr: "Day 9 (18 May)",
-      route: "Pipalkoti → Rudraprayag → Rishikesh / Haridwar",
+      dateStr: "Drive to Badrinath & Return",
+      route: "Pipalkoti → Shri Badrinath Dham & Mana Village → Pipalkoti (140 km Round Trip)",
       activities: [
-        "Post breakfast, drive towards Rishikesh along the Alaknanda and Ganga valleys.",
-        "Witness sacred river confluences (Panch Prayag): Karnaprayag, Nandaprayag, Rudraprayag and Devprayag.",
-        "Arrive in Rishikesh / Haridwar; attend the world-renowned Ganga Aarti at Parmarth Niketan or Har Ki Pauri."
+        "After breakfast, start the journey to Shri Badrinath Dham (approx. 140 km UP/DOWN from Pipalkoti).",
+        "Take a holy dip in Tapt Kund and have divine Darshan of Lord Badri Vishal at Badrinath Temple.",
+        "Explore Mana Village (the First Indian Village before the Tibet border), Vyas Gufa, and Bhim Pul (the natural rock bridge over the roaring Saraswati River), then return to Pipalkoti for night stay."
       ],
-      overnightStay: "Rishikesh / Haridwar"
+      overnightStay: "Pipalkoti (Hotel)"
     },
     {
       id: 10,
       dayNumber: 10,
-      dateStr: "Day 10 (19 May)",
-      route: "Rishikesh / Haridwar → Local Sightseeing (Optional) & Departure Drop",
+      dateStr: "The Return to Haridwar",
+      route: "Pipalkoti → Joshimath → Maa Dhari Devi Temple & Panch Prayag → Haridwar",
       activities: [
-        "Post breakfast, departure drive towards Haridwar / Dehradun along the scenic Ganga valley.",
-        "Rishikesh local sightseeing (Ram Jhula, Laxman Jhula & Triveni Ghat) is optional & subject to time/traffic; possible only if arriving before 06:00 PM.",
-        "Timely transfer to Haridwar Railway Station or Dehradun Jolly Grant Airport for onward journey.",
-        "Tour concludes with divine memories of Char Dham Yatra."
+        "Final leg of the pilgrimage descending back to the plains of Haridwar; en route visit Narsingh Temple at Joshimath.",
+        "Visit the sacred Dhari Devi Temple on the banks of the Alaknanda River at Kalyasaur (between Srinagar and Rudraprayag), revered as the guardian deity of Uttarakhand.",
+        "Witness the holy Panch Prayag river confluences (Vishnuprayag, Nandprayag, Karnaprayag, Rudraprayag & Devprayag) before drop-off at Haridwar."
       ],
-      overnightStay: "Tour Concludes (Drop Off)"
+      overnightStay: "Tour Concludes (Haridwar Drop)"
     }
   ],
 
-  pricingSubtitle: "Confirmed Standard Package covering the full 10-day itinerary with dedicated mountain transport and experienced pilgrimage team.",
+  pricingSubtitle: "Confirmed Standard Package covering the complete 09 Nights / 10 Days Char Dham Yatra with dedicated hill vehicle and verified stays.",
   pricingTiers: [
-    { package: "Standard Package", price: "₹ 28,500 / Pax", hotelCategory: "Standard Clean Rooms / Verified Stays", meals: "Breakfast & Dinner (MAP)", specialFeature: "Covered Sightseeing & Dedicated Vehicle" }
+    { package: "Standard Package", price: "₹ 28,500 / Pax", hotelCategory: "Standard Clean Rooms (Triple/Quad) & Kedarnath Tent", meals: "Breakfast & Dinner (As per Hotel Menu)", specialFeature: "All Toll, Tax & Parking Included" }
   ],
-  pricingNote: "Note: Rates are per person on twin/triple sharing basis. All tolls, parking, and driver allowances included.",
+  pricingNote: "Note: All stays are on Triple or Quad-sharing basis (in Kedarnath 5 to 6 sharing Tent House without food). All toll, tax, and parking included.",
 
   inclusions: [
-    "Dedicated Hill Vehicle (Innova Crysta / Tempo Traveller - Non-AC in hill areas) for the entire 10-day yatra",
-    "Accommodation for 09 nights as per selected package category",
-    "Meal plan as per package selected",
-    "Kedarnath helicopter tickets, both ways (Guptkashi/Phata ⇄ Kedarnath)",
-    "All toll tax, parking charges and driver allowance",
-    "Assistance with Char Dham registration / biometric formalities",
-    "Sightseeing: Yamunotri, Gangotri, Kedarnath, Badrinath, Chopta, Mana Gaon (Rishikesh sightseeing optional if reached before 6 PM)",
-    "Support team assistance throughout the yatra"
+    "Dedicated Hill Vehicle (Innova Crysta / Tempo Traveller / Dzire - Non-AC in hill areas) from Haridwar to Haridwar",
+    "09 Nights Accommodation: Barkot (2N), Uttarkashi (2N), Guptkashi (2N), Kedarnath (1N Tent House), Pipalkoti (2N)",
+    "Meals provided as per hotel menu (Breakfast & Dinner at hotels; Kedarnath Tent Stay is without food)",
+    "All toll taxes, state taxes, parking charges and driver allowance included in the package",
+    "All stays on Triple or Quad-sharing basis; Kedarnath stay on Five to Six sharing basis in Tent House",
+    "Sightseeing: Kempty Falls, Yamunotri, Kashi Vishwanath (Shakti Stambh), Harsil Valley, Gangotri, Kedarnath & Bhairav Nath Temple, Chopta, Badrinath, Mana Village, Vyas Gufa, Bhim Pul, Narsingh Temple Joshimath, Dhari Devi Temple & Panch Prayag",
+    "Assistance with Char Dham Yatra biometric registration & medical check-up formalities"
   ],
   exclusions: [
-    "Personal expenses — laundry, tips, phone calls, shopping",
-    "Pony, palki, doli or porter charges at Yamunotri & other trek points",
-    "Overnight stay at Kedarnath (optional, available on request at extra cost)",
-    "Any meals not specified in the chosen package",
-    "VIP / special darshan charges, if opted",
-    "Travel insurance",
-    "Costs arising from natural calamities, road blockages or heli cancellation due to weather",
-    "Anything not specifically mentioned under Inclusions"
+    "Meals during Kedarnath overnight stay (Kedarnath Tent House stay is strictly without food)",
+    "Pony, palki, doli, porter or helicopter shuttle tickets at Yamunotri & Kedarnath",
+    "AC will not be allowed/operated on the Yatra in hill areas due to steep mountain gradients",
+    "Personal expenses — laundry, tips, telephone calls, lunch, mineral water, room heaters",
+    "VIP / special darshan or Abhishek puja ticket charges, if opted",
+    "Travel / medical insurance or extra costs arising from natural calamities, landslides, or road closures",
+    "Anything not specifically mentioned under Package Inclusions"
   ],
 
   goodToKnow: [
-    "Char Dham Yatra registration is mandatory as per Uttarakhand Government / Devasthanam Board guidelines — our team will assist with the process.",
-    "Kedarnath helicopter tickets are subject to weather conditions and availability. In case of cancellation, alternate arrangements (pony/palki/trek) or rescheduling will apply as per operator policy.",
-    "Rishikesh local sightseeing on return journey is optional and strictly subject to reaching Rishikesh before 06:00 PM due to traffic restrictions.",
-    "A valid photo ID proof is mandatory for all travelers throughout the yatra.",
-    "A basic medical fitness check is recommended before undertaking high-altitude travel.",
-    "Warm clothing, rain gear and comfortable trekking shoes are strongly recommended.",
-    "This itinerary is subject to minor changes due to weather, road conditions or local administration guidelines."
+    "All hotel stays are on Triple or Quad-sharing basis; in Kedarnath, stay will be on Five to Six sharing basis in Tent House (without food).",
+    "Meals are provided as per the hotel menu (pure vegetarian Breakfast & Dinner at hotels).",
+    "AC will not be allowed on the Yatra in mountain/hill areas; all hill hotels and vehicles operate as Non-AC.",
+    "All toll, tax, and parking charges are included in the package.",
+    "Carry valid government photo ID proof, warm woollens, raincoat, thermal layers, and comfortable trekking shoes."
   ],
   bookingPayment: [
-    "Booking is confirmed against advance payment; balance is payable before the start of the yatra.",
-    "Exact payment schedule and cancellation policy will be shared by your travel consultant at the time of booking."
+    "25% advance payment is mandatory at the time of booking to confirm hotels and vehicle.",
+    "Balance 75% amount is to be deposited before starting the Yatra at Haridwar.",
+    "Official Website: www.traymbhkamtour.com | Helpline: Hunny (+91 82660 16066, 9389880277)."
   ],
 
   contactAgency: "Traymbhkam Tour and Travels",
-  contactPerson: "Mr. Gagandeep",
-  contactPhone: "+91 82660 16066",
+  contactPerson: "Mr. Gagandeep (Hunny)",
+  contactPhone: "+91 82660 16066 · 9389880277",
   motto: "जय श्री केदार · जय बद्री विशाल",
 
   photos: [
@@ -435,195 +426,191 @@ const CHARDHAM_PRESET: ItineraryData = {
   showTrustSection: true
 };
 
-// Exact preset matching the client's 10 Days / 09 Nights 12-Pax Chardham Yatra Package
+// Exact preset matching the client's 09 Nights / 10 Days 12-Pax Group Chardham Yatra Package (Traymbhkam Tour and Travels)
 const CHARDHAM_12P_10D_PRESET: ItineraryData = {
   title: "CHARDHAM YATRA PACKAGE 2026",
   subTitle: "UTTARAKHAND",
-  spiritualHeadline: "10 Days · 09 Nights Pilgrimage Package",
+  spiritualHeadline: "09 Nights · 10 Days Pilgrimage Package",
   dhamsSubtitle: "Yamunotri · Gangotri · Kedarnath · Badrinath",
   preparedFor: "12 Pax Pilgrimage Group",
   travelDates: "May – Oct 2026 Season",
-  duration: "10 Days / 09 Nights",
-  startingPoint: "Haridwar / Rishikesh / Dehradun Airport",
-  routeCovered: "Haridwar – Barkot – Yamunotri – Uttarkashi – Gangotri – Phata – Sonprayag – Kedarnath – Chopta – Badrinath – Pipalkoti – Haridwar",
-  overviewSummary: "The Char Dham Yatra is a sacred pilgrimage in India that encompasses a journey to four significant religious sites (Yamunotri, Gangotri, Kedarnath, & Badrinath) in the Himalayas. This is a total journey of 10 days in Tempo Traveller with family basis standard clean rooms, MAP meals and complete sightseeing en-route.",
+  duration: "09 Nights / 10 Days",
+  startingPoint: "Haridwar / Rishikesh / Dehradun",
+  routeCovered: "Haridwar – Mussoorie (Kempty Falls) – Barkot – Yamunotri – Uttarkashi – Harsil – Gangotri – Guptkashi – Kedarnath – Chopta – Pipalkoti – Badrinath – Mana Village – Dhari Devi – Haridwar",
+  overviewSummary: "The Char Dham Yatra is a sacred 09 Nights / 10 Days Himalayan pilgrimage covering Yamunotri, Gangotri, Kedarnath, and Badrinath in a dedicated Tempo Traveller. Includes verified stays at Barkot (2N), Uttarkashi (2N), Guptkashi (2N), Kedarnath (1N Tent House), and Pipalkoti (2N) with meals as per hotel menu and complete en-route sightseeing.",
   
-  glanceDuration: "10 Days / 09 Nights",
+  glanceDuration: "09 Nights / 10 Days",
   glanceDhams: "Yamunotri · Gangotri · Kedarnath · Badrinath",
   glanceSector: "Haridwar to Haridwar (Tempo Traveller)",
-  glanceStartEnd: "Haridwar / Rishikesh / Dehradun Airport",
+  glanceStartEnd: "Haridwar / Rishikesh / Dehradun",
   glancePackages: "Standard Package",
 
   days: [
     {
       id: 1,
       dayNumber: 1,
-      dateStr: "Day 01",
-      route: "Haridwar To Barkot-Kharadi (via Kempty Falls)",
+      dateStr: "Arrival & The Ascent",
+      route: "Haridwar → Mussoorie & Kempty Falls → Barkot",
       activities: [
-        "Pick up from Haridwar / Rishikesh / Dehradun airport and drive to Barkot.",
-        "Enroute enjoy scenic mountain sightseeing including famous Kempty Falls.",
-        "Check-in at hotel in Barkot/Kharadi; evening at leisure for rest and preparation."
+        "Leave the plains of Haridwar and climb into the Shivalik ranges via Mussoorie in your dedicated Tempo Traveller.",
+        "Stop at the cascading Kempty Falls en route for refreshments and scenic mountain views.",
+        "Arrive in Barkot (the gateway to Yamunotri with views of Bandarpunch peak); check in at the hotel and acclimatize."
       ],
-      overnightStay: "Barkot"
+      overnightStay: "Barkot (Hotel)"
     },
     {
       id: 2,
       dayNumber: 2,
-      dateStr: "Day 02",
-      route: "Barkot To Janki Chatti & Yamunotri Darshan",
+      dateStr: "The First Dham – Yamunotri",
+      route: "Barkot → Janki Chatti → Yamunotri Dham → Barkot (36 km Drive + 6 km Trek)",
       activities: [
-        "Early morning drive to Janki Chatti (45 km), base point for Yamunotri trek (6 km one way).",
-        "Take a holy bath in Surya Kund hot spring and perform Pooja of pious Yamuna Ji at Divya Shila.",
-        "Perform Darshan of Shri Yamunotri Temple; trek back to Janki Chatti and drive back to Barkot."
+        "Early morning 36 km drive to Janki Chatti and begin the 6 km trek (one way) to Shri Yamunotri Dham (on foot, pony, or palki).",
+        "Visit the sacred Yamunotri Temple and offer prayers to Goddess Yamuna.",
+        "Witness the thermal hot springs of Surya Kund (where rice is cooked in hot water as Prasad) and worship Divya Shila; return to Barkot."
       ],
-      overnightStay: "Barkot"
+      overnightStay: "Barkot (Hotel)"
     },
     {
       id: 3,
       dayNumber: 3,
-      dateStr: "Day 03",
-      route: "Barkot To Uttarkashi (Kashi Vishwanath Darshan)",
+      dateStr: "River Valleys",
+      route: "Barkot → Bhagirathi River Valley → Uttarkashi",
       activities: [
-        "Post breakfast, check out from Barkot hotel and embark on a scenic drive to Uttarkashi.",
-        "Arrive in Uttarkashi and check-in at hotel; relax along the sacred Bhagirathi river valley.",
-        "In the evening, visit the ancient and revered Kashi Vishwanath Temple and Shakti Temple."
+        "Post breakfast, check out from Barkot and embark on a scenic drive along the banks of the holy Bhagirathi River to Uttarkashi.",
+        "Arrive in Uttarkashi and check in at the hotel along the sacred river valley.",
+        "Visit the ancient Kashi Vishwanath Temple, housing the massive 6-meter-high iron trident (Shakti Stambh), and attend evening Aarti."
       ],
-      overnightStay: "Uttarkashi"
+      overnightStay: "Uttarkashi (Hotel)"
     },
     {
       id: 4,
       dayNumber: 4,
-      dateStr: "Day 04",
-      route: "Uttarkashi – Gangotri Darshan – Uttarkashi",
+      dateStr: "Origin of the Ganges – Gangotri",
+      route: "Uttarkashi → Harsil Valley → Gangotri Dham → Uttarkashi",
       activities: [
-        "Leave early morning for Gangotri Dham; enjoy the breathtaking Harsil Valley on the way.",
-        "On arrival at Gangotri, visit the sacred Gangotri Mata Temple and offer prayers & holy dip.",
-        "Drive back to Uttarkashi through scenic apple orchards of Harsil; evening at leisure for rest."
+        "Leave early morning for Gangotri Dham through the stunning Harsil Valley, famous for its apple orchards and deodar forests.",
+        "Take a holy dip in the icy waters of the Bhagirathi River at Gangotri and offer prayers at the sacred Gangotri Temple.",
+        "Spend peaceful time in meditation and drive back to Uttarkashi for dinner and overnight stay."
       ],
-      overnightStay: "Uttarkashi"
+      overnightStay: "Uttarkashi (Hotel)"
     },
     {
       id: 5,
       dayNumber: 5,
-      dateStr: "Day 05",
-      route: "Uttarkashi – Phata / Rampur / Guptkashi",
+      dateStr: "The Long Stretch",
+      route: "Uttarkashi → Mandakini Valley → Guptkashi",
       activities: [
-        "After breakfast, check out and drive through picturesque Garhwal hills to Phata / Rampur / Guptkashi.",
-        "Arrive at the base sector for Kedarnath Yatra; check-in at hotel / resort.",
-        "Evening briefing for next day's Kedarnath trek or helicopter shuttle."
+        "After breakfast, cross the mountain ridge from the Bhagirathi valley into the scenic Mandakini valley towards Guptkashi.",
+        "Check in at the hotel in Guptkashi and complete medical check-up & registration verification for the Kedarnath trek.",
+        "Evening briefing and restful overnight stay."
       ],
-      overnightStay: "Phata / Rampur"
+      overnightStay: "Guptkashi (Hotel)"
     },
     {
       id: 6,
       dayNumber: 6,
-      dateStr: "Day 06",
-      route: "Phata/Guptkashi – Kedarnath Trek & Darshan",
+      dateStr: "Abode of Shiva – Kedarnath",
+      route: "Guptkashi → Sonprayag → Gaurikund → Shri Kedarnath Dham",
       activities: [
-        "Early morning transfer to Sonprayag & Gaurikund; commence trek towards Shri Kedarnath Temple.",
-        "Walk the sacred mountain trail (or hire pony/doli/helicopter as per individual choice).",
-        "Perform evening Aarti, Pooja and divine Darshan of Shri Kedarnath Jyotirlinga.",
-        "Night stay at Kedarnath in standard room / camp."
+        "Start at 5:00 AM to Sonprayag, then take the local union shuttle to Gaurikund.",
+        "Begin the 18 km climb to Shri Kedarnath Dham (walk on foot or hire a pony / palki / helicopter).",
+        "Witness the soul-stirring Evening Aarti at the Kedarnath Temple, one of the 12 sacred Jyotirlingas of Lord Shiva."
       ],
-      overnightStay: "Kedarnath (Tent Only - Without Food)"
+      overnightStay: "Kedarnath (Tent House - Without Food)"
     },
     {
       id: 7,
       dayNumber: 7,
-      dateStr: "Day 07",
-      route: "Kedarnath – Gaurikund – Sitapur / Phata / Guptkashi",
+      dateStr: "The Descent",
+      route: "Shri Kedarnath Dham → Gaurikund → Sonprayag → Guptkashi",
       activities: [
-        "Early morning check-out from Bhawan / camp; trek down from Kedarnath to Gaurikund.",
-        "Take local jeep transfer to Sonprayag and rejoin your private Tempo Traveller.",
-        "Drive to Sitapur / Phata / Guptkashi; check in at hotel for hot meals and restful overnight stay."
+        "Wake up early for the sacred 'Abhishek' ceremony and morning Darshan at Kedarnath Temple.",
+        "Visit the ancient Bhairav Nath Temple for a panoramic view of the Kedarnath valley and snow peaks.",
+        "Descend back to Gaurikund, take the shuttle to Sonprayag, and return to Guptkashi for hot meals and overnight stay."
       ],
-      overnightStay: "Sitapur / Phata / Guptkashi"
+      overnightStay: "Guptkashi (Hotel)"
     },
     {
       id: 8,
       dayNumber: 8,
-      dateStr: "Day 08",
-      route: "Phata/Guptkashi – Chopta – Badrinath",
+      dateStr: "To the Vaikuntha",
+      route: "Guptkashi → Chopta (Mini Switzerland) → Pipalkoti",
       activities: [
-        "Post breakfast, check out and drive towards Shri Badrinath Dham.",
-        "Pass through Chopta, famous as 'Mini Switzerland of Uttarakhand' with spectacular alpine views.",
-        "Arrive at Badrinath, check-in at hotel; attend the divine evening Aarti at Shri Badrinath Temple."
+        "Post breakfast, check out and enjoy a scenic drive through the heart of the Garhwal Himalayas passing through Chopta.",
+        "Admire the lush alpine meadows of Chopta ('Mini Switzerland of Uttarakhand') en route.",
+        "Arrive at Pipalkoti by evening; check in at the hotel for dinner and overnight stay."
       ],
-      overnightStay: "Badrinath"
+      overnightStay: "Pipalkoti (Hotel)"
     },
     {
       id: 9,
       dayNumber: 9,
-      dateStr: "Day 09",
-      route: "Badrinath Darshan & Mana Village → Pipalkoti / Karanprayag",
+      dateStr: "Drive to Badrinath & Return",
+      route: "Pipalkoti → Shri Badrinath Dham & Mana Village → Pipalkoti (140 km UP/DOWN)",
       activities: [
-        "Holy dip in Taptkund followed by morning Darshan of Lord Badri Vishal and Brahma Kamal.",
-        "Sightseeing of Mana Village (First Indian Village), Vyas Gufa, Mata Murti Temple, Bhim Pul & Saraswati River Mukh.",
-        "Drive down towards Pipalkoti / Karanprayag; witness the sacred Panch Prayag river confluences."
+        "After breakfast, start the journey to Shri Badrinath Dham (approx. 140 km UP/DOWN round trip from Pipalkoti).",
+        "Take a holy dip in Tapt Kund and perform sacred Darshan at Shri Badrinath Temple.",
+        "Explore Mana Village (First Indian Village before Tibet border), Vyas Gufa, and Bhim Pul over the Saraswati River, then return to Pipalkoti for night stay."
       ],
-      overnightStay: "Pipalkoti / Karanprayag"
+      overnightStay: "Pipalkoti (Hotel)"
     },
     {
       id: 10,
       dayNumber: 10,
-      dateStr: "Day 10",
-      route: "Pipalkoti – Maa Dhari Devi & Devprayag – Haridwar",
+      dateStr: "The Return to Haridwar",
+      route: "Pipalkoti → Joshimath → Maa Dhari Devi Temple & Panch Prayag → Haridwar",
       activities: [
-        "Post breakfast, drive towards Haridwar; enroute seek blessings at Maa Dhari Devi Temple.",
-        "Stop at Devprayag, holy confluence of Alaknanda & Bhagirathi where Ganga formally begins.",
-        "Rishikesh sightseeing (Ram Jhula & Laxman Jhula) is optional & subject to time/traffic; possible only if arriving before 06:00 PM.",
-        "Timely transfer to Haridwar Railway Station or Dehradun Airport for return journey."
+        "Final leg descending back to the plains of Haridwar; en route visit Narsingh Temple at Joshimath.",
+        "Seek blessings at the revered Dhari Devi Temple on the banks of the Alaknanda River at Kalyasaur (between Srinagar and Rudraprayag), the guardian deity of Uttarakhand.",
+        "Witness the sacred Panch Prayag confluences (Vishnuprayag, Nandprayag, Karnaprayag, Rudraprayag & Devprayag) before drop-off at Haridwar."
       ],
-      overnightStay: "Tour Concludes (Happy Memories)"
+      overnightStay: "Tour Concludes (Haridwar Drop)"
     }
   ],
 
-  pricingSubtitle: "Special Standard Package with dedicated Tempo Traveller, confirmed standard clean stays and MAP meals.",
+  pricingSubtitle: "Special Standard Package with dedicated Tempo Traveller, confirmed stays (Triple/Quad basis) and meals as per hotel menu.",
   pricingTiers: [
-    { package: "Standard Package", price: "₹ 32,500 / Pax", hotelCategory: "Standard Clean Rooms (Family Basis)", meals: "Breakfast & Dinner (MAP)", specialFeature: "Tempo Traveller Included" }
+    { package: "Standard Package", price: "₹ 32,500 / Pax", hotelCategory: "Standard Clean Rooms (Triple/Quad) & Kedarnath Tent", meals: "Breakfast & Dinner (As per Hotel Menu)", specialFeature: "Tempo Traveller + All Toll, Tax & Parking" }
   ],
-  pricingNote: "Note: Total package cost for 12 Persons = ₹ 3,90,000/- (at ₹ 32,500 per person). All tolls, parking, and driver charges included.",
+  pricingNote: "Note: Total package cost for 12 Persons = ₹ 3,90,000/- (at ₹ 32,500 per person). All toll, tax, and parking included.",
 
   inclusions: [
-    "Personal Taxi / Tempo Traveller Haridwar To Haridwar (Assistance On Arrival)",
-    "2 Night Stay At Barkot (Standard Clean Rooms)",
-    "2 Night Stay At Uttarkashi (Standard Clean Rooms)",
-    "2 Night Stay At Sitapur / Phata / Guptkashi / Rampur (Standard Clean Rooms)",
-    "1 Night Stay At Shri Kedarnath Dham (Tent Only)",
-    "1 Night Stay At Shri Badrinath Dham (Standard Clean Rooms)",
-    "1 Night Stay At Pipalkoti / Karanprayag / Rudraprayag (Standard Clean Rooms)",
-    "Meal As Per Plan: Breakfast & Dinner (At Hotels Only)",
-    "All Interstate Taxes, Tolls, Driver Allowance and Parking Etc.",
-    "Sightseeing: Kashi Vishwanath Temple (Day 3 evening), Chopta, Mana Gaon, Saraswati Mukh, Vyas Gufa, Bhim Pul, Panch Prayag, Maa Dhari Devi Temple (Rishikesh optional if reached before 6 PM)"
+    "Dedicated Tempo Traveller / Taxi from Haridwar to Haridwar (Non-AC in hill areas)",
+    "2 Nights Stay at Barkot (Hotel - Meal as per hotel menu)",
+    "2 Nights Stay at Uttarkashi (Hotel - Meal as per hotel menu)",
+    "2 Nights Stay at Guptkashi (Hotel - Meal as per hotel menu)",
+    "1 Night Stay at Shri Kedarnath Dham (Tent House - Without Food, 5 to 6 sharing basis)",
+    "2 Nights Stay at Pipalkoti (Hotel - Meal as per hotel menu)",
+    "All Toll, State Tax, Parking charges and Driver Allowance included in the package",
+    "All hotel stays on Triple or Quad-sharing basis",
+    "Sightseeing: Kempty Falls, Yamunotri, Kashi Vishwanath (Shakti Stambh), Harsil Valley, Gangotri, Kedarnath, Bhairav Nath Temple, Chopta, Badrinath, Mana Village, Vyas Gufa, Bhim Pul, Narsingh Temple Joshimath, Dhari Devi Temple & Panch Prayag"
   ],
   exclusions: [
+    "Meals at Kedarnath Night Stay (Kedarnath Tent House stay is without food)",
+    "AC will not be allowed on the Yatra in mountain/hill areas",
+    "Horse / pony charges, Palki / Doli or Helicopter tickets at Yamunotri & Kedarnath",
     "Any extra sightseeing or destinations apart from mentioned inclusions",
-    "Heater charges if available & Any Adventure Activities",
-    "Meal At Kedarnath Night & Double Bed Room (During Kedarnath Stay without food)",
-    "Monument & museum entry fee, guide fee, camera fee",
-    "Train / Flight and Helicopter / Chopper tickets fare (unless opted)",
-    "Horse / pony charges, Palki / Doli etc. at trek points",
-    "Extra personal costs e.g. laundry, telephone, tips, extra food, Lunch, Drinks, Mineral water",
-    "Medical insurance, medical costs or expenses of any other nature not mentioned"
+    "Room heater charges, monument/camera fees, or adventure activities",
+    "Extra personal costs e.g. laundry, telephone, tips, lunch, cold drinks, mineral water",
+    "Medical insurance or extra expenses due to natural calamities / road blockages"
   ],
 
   goodToKnow: [
-    "Things to Carry: Woolen cap, muffler, gloves, sweater, warm jacket, thermal socks, comfortable trekking shoes, raincoat, trekking stick, water bottle, power bank, sunscreen.",
-    "Room Sharing: 2 / 3 / 4 / 6 bed family basis (depends upon total persons & hotel room layout).",
-    "Kedarnath Room Sharing: 3 / 4 / 6 / 8 sharing depends upon availability of hotel/camp at high altitude.",
-    "Rishikesh local sightseeing on return journey is optional and strictly subject to reaching Rishikesh before 06:00 PM due to traffic restrictions.",
-    "Non-AC Rooms & Vehicle: All hotel rooms in hill areas are non-AC as per mountain climate. In hill/ghat areas, vehicle AC does not operate due to steep climbs and engine safety norms.",
-    "Vehicles are driven between 5:00 AM and 10:00 PM for maximum mountain road safety."
+    "All stays are on Triple or Quad-sharing basis; in Kedarnath stay will be on Five to Six sharing basis (Tent House without food).",
+    "Meals are provided as per hotel menu (Breakfast & Dinner at hotels only).",
+    "AC will not be allowed on the Yatra in hill areas due to steep climbs and engine safety norms.",
+    "All toll, tax, and parking charges are included in the package.",
+    "Things to Carry: Warm jacket, woollen cap, gloves, thermal socks, trekking shoes, raincoat, water bottle, power bank, and valid Photo ID."
   ],
   bookingPayment: [
-    "Booking Advance: 25% mandatory deposit at time of confirmation; remaining balance before starting journey at Haridwar.",
-    "Advance deposit is completely non-refundable once hotels & vehicle are blocked."
+    "25% advance at the time of booking and balance amount to be deposited before starting the Yatra.",
+    "Advance deposit is non-refundable once hotels & vehicle are blocked for the season.",
+    "Official Website: www.traymbhkamtour.com | Contact: Hunny (+91 82660 16066, 9389880277)."
   ],
 
   contactAgency: "Traymbhkam Tour and Travels",
-  contactPerson: "Mr. Gagandeep",
-  contactPhone: "+91 82660 16066 · 7818952740",
+  contactPerson: "Mr. Gagandeep (Hunny)",
+  contactPhone: "+91 82660 16066 · 9389880277",
   motto: "जय श्री केदार · जय बद्री विशाल",
 
   photos: [
@@ -666,138 +653,140 @@ const CHARDHAM_12P_10D_PRESET: ItineraryData = {
   showTrustSection: true
 };
 
-// Dedicated 6 Days / 5 Nights Do Dham Yatra (Kedarnath + Badrinath) Preset
+// Dedicated 05 Nights / 06 Days Do Dham Yatra (Kedarnath + Badrinath) Preset matching client's official PDF
 export const DODHAM_6D_PRESET: ItineraryData = {
-  title: "DO DHAM YATRA PACKAGE 2026",
-  subTitle: "UTTARAKHAND",
-  spiritualHeadline: "6 Days · 05 Nights Pilgrimage Tour",
-  dhamsSubtitle: "Kedarnath Dham · Badrinath Dham",
+  title: "KEDARNATH BADRINATH YATRA 2026",
+  subTitle: "DO DHAM YATRA · UTTARAKHAND",
+  spiritualHeadline: "05 Nights · 06 Days Pilgrimage Plan",
+  dhamsSubtitle: "Shri Kedarnath Dham · Shri Badrinath Dham",
   preparedFor: "Valued Pilgrims / Family Group",
   travelDates: "May – Oct 2026 Season",
-  duration: "6 Days / 05 Nights",
-  startingPoint: "Haridwar / Rishikesh / Dehradun Airport",
-  routeCovered: "Haridwar – Guptkashi – Kedarnath – Chopta – Badrinath – Pipalkoti – Rishikesh – Haridwar",
-  overviewSummary: "A sacred 6 Days / 05 Nights Do Dham Yatra dedicated to Shri Kedarnath Jyotirlinga and Shri Badrinath Dham. Journey seamlessly through the scenic Garhwal Himalayas via Guptkashi, Chopta (Mini Switzerland of Uttarakhand), and Pipalkoti with dedicated hill vehicle and confirmed stays.",
+  duration: "05 Nights / 06 Days",
+  startingPoint: "Haridwar, Uttarakhand",
+  routeCovered: "Haridwar – Guptkashi / Sitapur – Sonprayag – Kedarnath – Sitapur – Chopta – Pipalkoti – Badrinath & Mana Village – Dhari Devi – Haridwar",
+  overviewSummary: "A sacred 05 Nights / 06 Days Kedarnath & Badrinath Do Dham Yatra starting and concluding at Haridwar. Journey along the holy Ganga, Alaknanda, and Mandakini rivers with well-paced stays at Guptkashi / Sitapur (2N), Kedarnath (1N Tent House), and Pipalkoti (2N), covering Chopta, Mana Village, Vyas Gufa, Bhim Pul, Dhari Devi Temple, and Panch Prayag.",
   
-  glanceDuration: "6 Days / 05 Nights",
-  glanceDhams: "Kedarnath · Badrinath",
+  glanceDuration: "05 Nights / 06 Days",
+  glanceDhams: "Kedarnath Dham · Badrinath Dham",
   glanceSector: "Haridwar ⇄ Do Dham Circuit",
-  glanceStartEnd: "Haridwar / Rishikesh (both ways)",
+  glanceStartEnd: "Haridwar (Pickup & Drop)",
   glancePackages: "Standard Package",
 
   days: [
     {
       id: 1,
       dayNumber: 1,
-      dateStr: "Day 01",
-      route: "Haridwar / Rishikesh → Guptkashi / Sitapur",
+      dateStr: "Haridwar to Guptkashi / Sitapur",
+      route: "Haridwar → Devprayag & Rudraprayag → Guptkashi / Sitapur",
       activities: [
-        "Morning pickup from Haridwar Railway Station / Dehradun Airport and proceed to Guptkashi / Sitapur.",
-        "En route witness scenic river confluences at Devprayag (Alaknanda & Bhagirathi) and Rudraprayag (Mandakini & Alaknanda).",
-        "Arrive at Guptkashi / Sitapur, check in at hotel; evening briefing for Kedarnath Yatra."
+        "Start early in the morning from Haridwar and enjoy a scenic drive along the holy Ganges and Alaknanda rivers.",
+        "Witness the sacred river confluences at Devprayag and Rudraprayag along the mountain highway.",
+        "Arrive for overnight stay in Guptkashi or Sitapur (Sitapur is closer to the Kedarnath trek starting point); check in at hotel and rest."
       ],
-      overnightStay: "Guptkashi / Sitapur"
+      overnightStay: "Guptkashi / Sitapur (Hotel)"
     },
     {
       id: 2,
       dayNumber: 2,
-      dateStr: "Day 02",
-      route: "Guptkashi / Sitapur → Kedarnath Dham Trek & Darshan",
+      dateStr: "Kedarnath Yatra",
+      route: "Guptkashi / Sitapur → Sonprayag → Gaurikund → Shri Kedarnath Dham",
       activities: [
-        "Early morning drive to Sonprayag / Gaurikund, base point for the holy Kedarnath trek.",
-        "Ascend 16-18 km towards Shri Kedarnath Dham (via trek, pony, doli or helicopter shuttle).",
-        "Attend divine evening Aarti and perform holy Darshan of the 11th Jyotirlinga of Lord Shiva.",
-        "Night stay at Kedarnath in camp / tent."
+        "Start at 5:00 AM and drive to Sonprayag, then take a local union shuttle to Gaurikund.",
+        "Begin the 18 km climb to Shri Kedarnath Dham (you can walk on foot or hire a pony / palki / helicopter).",
+        "Witness the soul-stirring Evening Aarti at the ancient Kedarnath Temple, one of the 12 sacred Jyotirlingas of Lord Shiva."
       ],
-      overnightStay: "Kedarnath (Tent Only - Without Food)"
+      overnightStay: "Kedarnath (Tent House - Without Food)"
     },
     {
       id: 3,
       dayNumber: 3,
-      dateStr: "Day 03",
-      route: "Kedarnath Dham → Descend to Gaurikund → Guptkashi / Sitapur",
+      dateStr: "After Darshan Return to Sitapur",
+      route: "Shri Kedarnath Dham → Bhairav Nath Temple → Gaurikund → Sitapur / Guptkashi",
       activities: [
-        "Early morning Darshan at Kedarnath Temple; commence trek down to Gaurikund.",
-        "Board vehicle at Sonprayag and drive back to hotel in Guptkashi / Sitapur.",
-        "Relax and enjoy a warm dinner after the mountain descent; overnight stay."
+        "Wake up early for the sacred 'Abhishek' ceremony and morning Darshan at Shri Kedarnath Temple.",
+        "Visit the revered Bhairav Nath Temple perched above the temple for a panoramic view of the Kedarnath valley.",
+        "After Darshan, descend back to Gaurikund, take the shuttle to Sonprayag, and return to Sitapur / Guptkashi for hot meals and overnight stay."
       ],
-      overnightStay: "Guptkashi / Sitapur"
+      overnightStay: "Sitapur / Guptkashi (Hotel)"
     },
     {
       id: 4,
       dayNumber: 4,
-      dateStr: "Day 04",
-      route: "Guptkashi / Sitapur → Chopta → Badrinath Dham",
+      dateStr: "Drive to Pipalkoti via Chopta",
+      route: "Sitapur / Guptkashi → Chopta (Mini Switzerland) → Pipalkoti",
       activities: [
-        "Post breakfast, check out and drive towards Shri Badrinath Dham.",
-        "Pass through Chopta, famously known as the 'Mini Switzerland of Uttarakhand' with scenic meadows.",
-        "Arrive at Badrinath by late afternoon, check in at hotel; attend the divine evening Aarti at Badrinath Temple."
+        "Post breakfast, check out and embark on a scenic drive through the heart of the Garhwal Himalayas passing through Chopta.",
+        "Enjoy breathtaking views of snow-clad peaks and lush alpine meadows at Chopta ('Mini Switzerland of Uttarakhand').",
+        "Arrive at Pipalkoti by evening; check in at the hotel for dinner and overnight stay."
       ],
-      overnightStay: "Badrinath"
+      overnightStay: "Pipalkoti (Hotel)"
     },
     {
       id: 5,
       dayNumber: 5,
-      dateStr: "Day 05",
-      route: "Badrinath Darshan & Mana Village → Pipalkoti / Joshimath",
+      dateStr: "Drive to Badrinath & Return",
+      route: "Pipalkoti → Shri Badrinath Dham & Mana Village → Pipalkoti (140 km UP/DOWN)",
       activities: [
-        "Early morning sacred bath at Tapt Kund followed by Darshan of Lord Badri Vishal.",
-        "Visit Mana Village (India's First Village), Bhim Pul, Vyas Gufa and Saraswati River Udgam.",
-        "Afternoon scenic drive down to Pipalkoti / Joshimath for an evening of relaxation."
+        "After breakfast, start the sacred journey to Shri Badrinath Dham (approx. 140 km UP/DOWN round trip from Pipalkoti).",
+        "Take a holy dip in Tapt Kund and have divine Darshan of Lord Badri Vishal at Shri Badrinath Temple.",
+        "Explore Mana Village (the First Indian Village before the Tibet border), Vyas Gufa, and Bhim Pul (the natural rock bridge over the Saraswati River), then return to Pipalkoti."
       ],
-      overnightStay: "Pipalkoti / Joshimath"
+      overnightStay: "Pipalkoti (Hotel)"
     },
     {
       id: 6,
       dayNumber: 6,
-      dateStr: "Day 06",
-      route: "Pipalkoti → Rishikesh Sightseeing (Optional) → Haridwar Drop",
+      dateStr: "Return to Haridwar",
+      route: "Pipalkoti → Joshimath → Maa Dhari Devi Temple & Panch Prayag → Haridwar",
       activities: [
-        "Post breakfast, drive towards Haridwar via Karnaprayag and Maa Dhari Devi Temple.",
-        "Rishikesh sightseeing (Ram Jhula, Laxman Jhula & Triveni Ghat) is optional & subject to time/traffic; possible only if arriving before 06:00 PM.",
-        "Timely transfer to Haridwar Railway Station or Dehradun Airport for onward journey."
+        "Final leg of the journey descending back to the plains of Haridwar; en route visit Narsingh Temple at Joshimath.",
+        "Visit the sacred Dhari Devi Temple on the banks of the Alaknanda River at Kalyasaur (between Srinagar and Rudraprayag), revered as the guardian deity of Uttarakhand.",
+        "Witness the holy Panch Prayag confluences (Vishnuprayag, Nandprayag, Karnaprayag, Rudraprayag & Devprayag) before drop-off at Haridwar."
       ],
-      overnightStay: "Tour Concludes (Happy Memories)"
+      overnightStay: "Tour Concludes (Haridwar Drop)"
     }
   ],
 
-  pricingSubtitle: "Special Do Dham (Kedarnath + Badrinath) 6D/5N Standard Package with dedicated mountain vehicle and confirmed stays.",
+  pricingSubtitle: "Confirmed 05 Nights / 06 Days Kedarnath Badrinath Do Dham Package with dedicated hill vehicle and verified stays.",
   pricingTiers: [
-    { package: "Standard Package", price: "₹ 19,500 / Pax", hotelCategory: "Standard Clean Rooms / Alpine Camp", meals: "Breakfast & Dinner (MAP)", specialFeature: "Dedicated Mountain Vehicle" }
+    { package: "Standard Package", price: "₹ 19,500 / Pax", hotelCategory: "Standard Clean Rooms (Triple/Quad) & Kedarnath Tent", meals: "Breakfast & Dinner (As per Hotel Menu)", specialFeature: "All Toll, Tax & Parking Included" }
   ],
-  pricingNote: "Note: Rates are per person on twin/triple sharing basis. All mountain tolls, parking, and driver allowances included.",
+  pricingNote: "Note: All stays are on Triple or Quad-sharing basis (in Kedarnath 5 to 6 sharing Tent House without food). All toll, tax, and parking included.",
 
   inclusions: [
-    "Personal Hill Vehicle (Innova / Swift Dzire / Tempo Traveller as per group size) Haridwar to Haridwar",
-    "2 Nights Stay at Guptkashi / Sitapur (Standard Clean Rooms)",
-    "1 Night Stay at Shri Kedarnath Dham (Tent Only)",
-    "1 Night Stay at Shri Badrinath Dham (Standard Clean Rooms)",
-    "1 Night Stay at Pipalkoti / Joshimath (Standard Clean Rooms)",
-    "Meals as per plan: Breakfast & Dinner (At hotels only)",
-    "All Interstate Taxes, Tolls, Driver Allowance and Parking charges",
-    "Sightseeing: Chopta, Mana Gaon, Saraswati Mukh, Vyas Gufa, Bhim Pul, Panch Prayag confluences, Maa Dhari Devi Temple (Rishikesh optional if reached before 6 PM)"
+    "Dedicated Hill Vehicle (Innova / Dzire / Tempo Traveller - Non-AC in hill areas) from Haridwar to Haridwar",
+    "2 Nights Stay at Guptkashi / Sitapur (Hotel - Meal as per hotel menu)",
+    "1 Night Stay at Shri Kedarnath Dham (Tent House - Without Food, 5 to 6 sharing basis)",
+    "2 Nights Stay at Pipalkoti (Hotel - Meal as per hotel menu)",
+    "Meals provided as per hotel menu (Breakfast & Dinner at hotels only)",
+    "All Toll, State Tax, Parking charges and Driver Allowance included in the package",
+    "All hotel stays on Triple or Quad-sharing basis",
+    "Sightseeing: Shri Kedarnath Dham, Bhairav Nath Temple, Chopta, Shri Badrinath Dham, Mana Village (First Indian Village), Vyas Gufa, Bhim Pul, Narsingh Temple Joshimath, Dhari Devi Temple & Panch Prayag"
   ],
   exclusions: [
+    "Meals during Kedarnath overnight stay (Kedarnath Tent House stay is strictly without food)",
+    "AC will not be allowed on the Yatra in mountain/hill areas",
+    "Pony, palki, doli, porter or helicopter shuttle charges at Kedarnath trek",
     "Any extra sightseeing or destinations apart from mentioned inclusions",
-    "Meals at Kedarnath Dham & personal porter / pony / palki / helicopter charges",
-    "VIP / special puja tickets, room heaters, laundry, tips or personal shopping",
+    "VIP / special puja tickets, room heaters, laundry, tips, lunch or mineral water",
     "Costs arising from natural calamities, landslides or road closures"
   ],
 
   goodToKnow: [
-    "Char Dham biometric registration is mandatory — our team provides complete assistance.",
-    "Kedarnath night accommodation is provided in clean alpine tents/camps (without food).",
-    "Rishikesh sightseeing on return journey is optional and strictly subject to reaching Rishikesh before 06:00 PM due to traffic restrictions.",
-    "Warm woollens, raincoats and comfortable trekking shoes are strongly recommended."
+    "All stays are on Triple or Quad-sharing basis; in Kedarnath stay will be on Five to Six sharing basis (Tent House without food).",
+    "Meals are provided as per hotel menu (Breakfast & Dinner at hotels only).",
+    "AC will not be allowed on the Yatra in hill areas due to steep mountain climbs.",
+    "All toll, tax, and parking charges are included in the package.",
+    "Carry valid government photo ID proof, warm woollens, raincoats, and comfortable trekking shoes."
   ],
   bookingPayment: [
-    "Booking confirmed against advance deposit; balance payable before start of journey.",
-    "All payments are processed securely with valid booking confirmation and bank remittance receipts."
+    "25% advance at the time of booking and balance amount to be deposited before starting the Yatra.",
+    "Official Website: www.traymbhkamtour.com | Contact: Hunny (+91 82660 16066, 9389880277)."
   ],
 
   contactAgency: "Traymbhkam Tour and Travels",
-  contactPerson: "Mr. Gagandeep",
-  contactPhone: "+91 82660 16066",
+  contactPerson: "Mr. Gagandeep (Hunny)",
+  contactPhone: "+91 82660 16066 · 9389880277",
   motto: "जय श्री केदार · जय बद्री विशाल",
 
   photos: [
@@ -815,6 +804,21 @@ export const DODHAM_6D_PRESET: ItineraryData = {
       id: "ph-dd-3",
       url: "/gallery/chardham_10d_img_14.jpg",
       caption: "Chopta Tungnath Alpine Meadows"
+    },
+    {
+      id: "ph-dd-4",
+      url: "/gallery/chardham_10d_img_18.jpg",
+      caption: "Maa Dhari Devi Sacred Shrine"
+    },
+    {
+      id: "ph-dd-5",
+      url: "/gallery/chardham_10d_img_19.jpg",
+      caption: "Sacred Panch Prayag Confluence"
+    },
+    {
+      id: "ph-dd-6",
+      url: "/gallery/chardham_10d_img_1.jpg",
+      caption: "Sacred Himalayan Darshan"
     }
   ],
   hotelPhotos: CURATED_HOTEL_PHOTO_PRESETS,
@@ -1020,69 +1024,119 @@ export default function ItineraryBuilder() {
       }
     }
     // 4. Fetch latest itinerary from local cache or cloud
+    const migrateLegacyItinerary = (itin: any) => {
+      if (!itin || !Array.isArray(itin.days)) return itin;
+      // Auto-migrate legacy 3-tier pricing to single Standard Package
+      if (Array.isArray(itin.pricingTiers) && itin.pricingTiers.length > 1) {
+        itin.pricingTiers = [
+          {
+            package: "Standard Package",
+            price: itin.pricingTiers[0].price || "₹ 28,500 / Pax",
+            hotelCategory: itin.pricingTiers[0].hotelCategory || "Standard Clean Rooms (Triple/Quad) & Kedarnath Tent",
+            meals: itin.pricingTiers[0].meals || "Breakfast & Dinner (As per Hotel Menu)",
+            specialFeature: itin.pricingTiers[0].specialFeature || "All Toll, Tax & Parking Included"
+          }
+        ];
+        itin.glancePackages = "Standard Package";
+      }
+      // Auto-migrate legacy 10-Day Chardham day sequence (where Day 7 or Day 8 stayed at Badrinath instead of Guptkashi/Pipalkoti)
+      if (
+        itin.days.length === 10 &&
+        (itin.days[6]?.overnightStay?.toLowerCase().includes("badrinath") ||
+          itin.days[7]?.overnightStay?.toLowerCase().includes("badrinath") ||
+          itin.days[8]?.overnightStay?.toLowerCase().includes("rishikesh"))
+      ) {
+        const is12Pax = itin.preparedFor?.toLowerCase().includes("12 pax");
+        const targetPreset = is12Pax ? CHARDHAM_12P_10D_PRESET : CHARDHAM_PRESET;
+        itin.days = targetPreset.days;
+        itin.duration = targetPreset.duration;
+        itin.glanceDuration = targetPreset.glanceDuration;
+        itin.spiritualHeadline = targetPreset.spiritualHeadline;
+        itin.routeCovered = targetPreset.routeCovered;
+        itin.overviewSummary = targetPreset.overviewSummary;
+        itin.inclusions = targetPreset.inclusions;
+        itin.exclusions = targetPreset.exclusions;
+        itin.goodToKnow = targetPreset.goodToKnow;
+        itin.bookingPayment = targetPreset.bookingPayment;
+        itin.contactPerson = targetPreset.contactPerson;
+        itin.contactPhone = targetPreset.contactPhone;
+      }
+      // Auto-migrate legacy 6-Day Do Dham day sequence (where Day 4 stayed at Badrinath instead of Pipalkoti)
+      if (
+        itin.days.length === 6 &&
+        (itin.days[3]?.overnightStay?.toLowerCase().includes("badrinath") ||
+          itin.days[4]?.route?.toLowerCase().startsWith("badrinath"))
+      ) {
+        itin.days = DODHAM_6D_PRESET.days;
+        itin.title = DODHAM_6D_PRESET.title;
+        itin.subTitle = DODHAM_6D_PRESET.subTitle;
+        itin.duration = DODHAM_6D_PRESET.duration;
+        itin.glanceDuration = DODHAM_6D_PRESET.glanceDuration;
+        itin.spiritualHeadline = DODHAM_6D_PRESET.spiritualHeadline;
+        itin.routeCovered = DODHAM_6D_PRESET.routeCovered;
+        itin.overviewSummary = DODHAM_6D_PRESET.overviewSummary;
+        itin.inclusions = DODHAM_6D_PRESET.inclusions;
+        itin.exclusions = DODHAM_6D_PRESET.exclusions;
+        itin.goodToKnow = DODHAM_6D_PRESET.goodToKnow;
+        itin.bookingPayment = DODHAM_6D_PRESET.bookingPayment;
+        itin.contactPerson = DODHAM_6D_PRESET.contactPerson;
+        itin.contactPhone = DODHAM_6D_PRESET.contactPhone;
+      }
+      // Auto-migrate to Hindi blessing motto
+      if (!itin.motto || itin.motto === "ॐ नमः शिवाय" || itin.motto === "!! HAR HAR MAHADEV !!") {
+        itin.motto = "जय श्री केदार · जय बद्री विशाल";
+      }
+      // Auto-migrate hotel photos to real verified hotel photos
+      if (Array.isArray(itin.hotelPhotos)) {
+        itin.hotelPhotos = itin.hotelPhotos.map((hp: any) => {
+          if (hp.url === "/gallery/chardham_10d_img_32.jpg" || (hp.roomType?.toLowerCase().includes("tent") && hp.url?.includes("img_32"))) {
+            return { ...hp, url: "/gallery/kedarnath_alpine_tent.jpg" };
+          }
+          if (hp.url === "/gallery/chardham_10d_img_31.jpg") {
+            return { ...hp, url: "/hotels_custom/hotel_stay_2.jpeg", roomType: hp.roomType || "Standard Triple / Quad Room" };
+          }
+          if (hp.url === "/gallery/chardham_10d_img_29.jpg") {
+            return { ...hp, url: "/hotels_custom/hotel_stay_4.jpeg", roomType: hp.roomType || "Standard Double Room" };
+          }
+          if (hp.url === "/gallery/chardham_10d_img_30.jpg") {
+            return { ...hp, url: "/hotels_custom/hotel_stay_3.jpeg", roomType: hp.roomType || "Standard Family Room" };
+          }
+          return hp;
+        });
+      }
+      // Auto-migrate trust & credentials photos with all 4 items
+      if (
+        !itin.trustPhotos || 
+        !itin.trustPhotos.certificatePhoto || 
+        !itin.trustPhotos.certificatePhoto.trim() ||
+        !itin.trustPhotos.certificate2Photo ||
+        itin.trustPhotos.ownerPhoto?.includes("img_7")
+      ) {
+        itin.trustPhotos = {
+          ownerPhoto: itin.trustPhotos?.ownerPhoto || "/certificates/owner.jpeg",
+          ownerName: itin.trustPhotos?.ownerName || "Mr. Gagandeep",
+          ownerTitle: itin.trustPhotos?.ownerTitle || "Founder & Managing Director",
+          certificatePhoto: itin.trustPhotos?.certificatePhoto?.trim() || "/certificates/uttrakhand_tourism.jpeg",
+          certificateCaption: itin.trustPhotos?.certificateCaption?.trim() || "Uttarakhand Tourism Reg: UTTR/HARIDWAR/08-2022/004983",
+          certificate2Photo: itin.trustPhotos?.certificate2Photo?.trim() || "/certificates/certificate.jpeg",
+          certificate2Caption: itin.trustPhotos?.certificate2Caption?.trim() || "Dehradun Transport Authority License: 010/RTA/23",
+          officePhoto: itin.trustPhotos?.officePhoto || "/certificates/office_front.jpeg",
+          officeCaption: itin.trustPhotos?.officeCaption || "Purusharthi Market, Opp. Railway Station Gate No. 2, Haridwar"
+        };
+        itin.showTrustSection = true;
+      }
+      return itin;
+    };
+
     if (typeof window !== "undefined") {
       const stored = localStorage.getItem("traymbhkam_current_itinerary");
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
           if (parsed && Array.isArray(parsed.days)) {
-            // Auto-migrate legacy 3-tier pricing to single Standard Package
-            if (Array.isArray(parsed.pricingTiers) && parsed.pricingTiers.length > 1) {
-              parsed.pricingTiers = [
-                {
-                  package: "Standard Package",
-                  price: parsed.pricingTiers[0].price || "₹ 28,500 / Pax",
-                  hotelCategory: parsed.pricingTiers[0].hotelCategory || "Standard Clean Rooms / Mountain Stays",
-                  meals: parsed.pricingTiers[0].meals || "Breakfast & Dinner (MAP)",
-                  specialFeature: parsed.pricingTiers[0].specialFeature || "Dedicated Hill Vehicle Included"
-                }
-              ];
-              parsed.glancePackages = "Standard Package";
-            }
-            // Auto-migrate to Hindi blessing motto
-            if (!parsed.motto || parsed.motto === "ॐ नमः शिवाय" || parsed.motto === "!! HAR HAR MAHADEV !!") {
-              parsed.motto = "जय श्री केदार · जय बद्री विशाल";
-            }
-            // Auto-migrate hotel photos to real verified hotel photos
-            if (Array.isArray(parsed.hotelPhotos)) {
-              parsed.hotelPhotos = parsed.hotelPhotos.map((hp: any) => {
-                if (hp.url === "/gallery/chardham_10d_img_32.jpg" || (hp.roomType?.toLowerCase().includes("tent") && hp.url?.includes("img_32"))) {
-                  return { ...hp, url: "/gallery/kedarnath_alpine_tent.jpg" };
-                }
-                if (hp.url === "/gallery/chardham_10d_img_31.jpg") {
-                  return { ...hp, url: "/hotels_custom/hotel_stay_2.jpeg", roomType: hp.roomType || "Standard Triple / Quad Room" };
-                }
-                if (hp.url === "/gallery/chardham_10d_img_29.jpg") {
-                  return { ...hp, url: "/hotels_custom/hotel_stay_4.jpeg", roomType: hp.roomType || "Standard Double Room" };
-                }
-                if (hp.url === "/gallery/chardham_10d_img_30.jpg") {
-                  return { ...hp, url: "/hotels_custom/hotel_stay_3.jpeg", roomType: hp.roomType || "Standard Family Room" };
-                }
-                return hp;
-              });
-            }
-            // Auto-migrate trust & credentials photos with all 4 items
-            if (
-              !parsed.trustPhotos || 
-              !parsed.trustPhotos.certificatePhoto || 
-              !parsed.trustPhotos.certificatePhoto.trim() ||
-              !parsed.trustPhotos.certificate2Photo ||
-              parsed.trustPhotos.ownerPhoto?.includes("img_7")
-            ) {
-              parsed.trustPhotos = {
-                ownerPhoto: parsed.trustPhotos?.ownerPhoto || "/certificates/owner.jpeg",
-                ownerName: parsed.trustPhotos?.ownerName || "Mr. Gagandeep",
-                ownerTitle: parsed.trustPhotos?.ownerTitle || "Founder & Managing Director",
-                certificatePhoto: parsed.trustPhotos?.certificatePhoto?.trim() || "/certificates/uttrakhand_tourism.jpeg",
-                certificateCaption: parsed.trustPhotos?.certificateCaption?.trim() || "Uttarakhand Tourism Reg: UTTR/HARIDWAR/08-2022/004983",
-                certificate2Photo: parsed.trustPhotos?.certificate2Photo?.trim() || "/certificates/certificate.jpeg",
-                certificate2Caption: parsed.trustPhotos?.certificate2Caption?.trim() || "Dehradun Transport Authority License: 010/RTA/23",
-                officePhoto: parsed.trustPhotos?.officePhoto || "/certificates/office_front.jpeg",
-                officeCaption: parsed.trustPhotos?.officeCaption || "Purusharthi Market, Opp. Railway Station Gate No. 2, Haridwar"
-              };
-              parsed.showTrustSection = true;
-            }
-            setData(parsed);
+            const migrated = migrateLegacyItinerary(parsed);
+            setData(migrated);
+            localStorage.setItem("traymbhkam_current_itinerary", JSON.stringify(migrated));
           }
         } catch {}
       } else {
@@ -1096,58 +1150,7 @@ export default function ItineraryBuilder() {
               .single();
 
             if (cloudItin && cloudItin.document_data && Array.isArray((cloudItin.document_data as any).days)) {
-              const cloudData = cloudItin.document_data as any;
-              if (Array.isArray(cloudData.pricingTiers) && cloudData.pricingTiers.length > 1) {
-                cloudData.pricingTiers = [
-                  {
-                    package: "Standard Package",
-                    price: cloudData.pricingTiers[0].price || "₹ 28,500 / Pax",
-                    hotelCategory: cloudData.pricingTiers[0].hotelCategory || "Standard Clean Rooms / Mountain Stays",
-                    meals: cloudData.pricingTiers[0].meals || "Breakfast & Dinner (MAP)",
-                    specialFeature: cloudData.pricingTiers[0].specialFeature || "Dedicated Hill Vehicle Included"
-                  }
-                ];
-                cloudData.glancePackages = "Standard Package";
-              }
-              if (!cloudData.motto || cloudData.motto === "ॐ नमः शिवाय" || cloudData.motto === "!! HAR HAR MAHADEV !!") {
-                cloudData.motto = "जय श्री केदार · जय बद्री विशाल";
-              }
-              if (Array.isArray(cloudData.hotelPhotos)) {
-                cloudData.hotelPhotos = cloudData.hotelPhotos.map((hp: any) => {
-                  if (hp.url === "/gallery/chardham_10d_img_32.jpg" || (hp.roomType?.toLowerCase().includes("tent") && hp.url?.includes("img_32"))) {
-                    return { ...hp, url: "/gallery/kedarnath_alpine_tent.jpg" };
-                  }
-                  if (hp.url === "/gallery/chardham_10d_img_31.jpg") {
-                    return { ...hp, url: "/hotels_custom/hotel_stay_2.jpeg", roomType: hp.roomType || "Standard Triple / Quad Room" };
-                  }
-                  if (hp.url === "/gallery/chardham_10d_img_29.jpg") {
-                    return { ...hp, url: "/hotels_custom/hotel_stay_4.jpeg", roomType: hp.roomType || "Standard Double Room" };
-                  }
-                  if (hp.url === "/gallery/chardham_10d_img_30.jpg") {
-                    return { ...hp, url: "/hotels_custom/hotel_stay_3.jpeg", roomType: hp.roomType || "Standard Family Room" };
-                  }
-                  return hp;
-                });
-              }
-              if (
-                !cloudData.trustPhotos || 
-                !cloudData.trustPhotos.certificatePhoto || 
-                !cloudData.trustPhotos.certificatePhoto.trim() ||
-                !cloudData.trustPhotos.certificate2Photo
-              ) {
-                cloudData.trustPhotos = {
-                  ownerPhoto: cloudData.trustPhotos?.ownerPhoto || "/certificates/owner.jpeg",
-                  ownerName: cloudData.trustPhotos?.ownerName || "Mr. Gagandeep",
-                  ownerTitle: cloudData.trustPhotos?.ownerTitle || "Founder & Managing Director",
-                  certificatePhoto: cloudData.trustPhotos?.certificatePhoto?.trim() || "/certificates/uttrakhand_tourism.jpeg",
-                  certificateCaption: cloudData.trustPhotos?.certificateCaption?.trim() || "Uttarakhand Tourism Reg: UTTR/HARIDWAR/08-2022/004983",
-                  certificate2Photo: cloudData.trustPhotos?.certificate2Photo?.trim() || "/certificates/certificate.jpeg",
-                  certificate2Caption: cloudData.trustPhotos?.certificate2Caption?.trim() || "Dehradun Transport Authority License: 010/RTA/23",
-                  officePhoto: cloudData.trustPhotos?.officePhoto || "/certificates/office_front.jpeg",
-                  officeCaption: cloudData.trustPhotos?.officeCaption || "Purusharthi Market, Opp. Railway Station Gate No. 2, Haridwar"
-                };
-                cloudData.showTrustSection = true;
-              }
+              const cloudData = migrateLegacyItinerary(cloudItin.document_data as any);
               setData(cloudData);
               localStorage.setItem("traymbhkam_current_itinerary", JSON.stringify(cloudData));
             }
@@ -1212,8 +1215,8 @@ export default function ItineraryBuilder() {
 
   // Quick Prompt Chips
   const QUICK_PROMPTS = [
-    "a trip to do dham (badrinath and kedarnath for 7D/6N)",
-    "Chardham Yatra 12D/11N from Haridwar/Delhi with Kedarnath Heli",
+    "Do Dham Yatra (Kedarnath & Badrinath 5 Nights / 6 Days Plan)",
+    "Chardham Yatra 9 Nights / 10 Days Official Plan from Haridwar",
     "Kashmir Paradise 6D/5N (Srinagar, Gulmarg, Pahalgam)",
     "Golden Triangle Delhi-Agra-Jaipur 5D/4N luxury tour",
     "Kerala Honeymoon 6D/5N (Munnar, Thekkady, Alleppey Houseboat)"
@@ -1238,73 +1241,76 @@ export default function ItineraryBuilder() {
 CRITICAL RULES:
 1. Write in flawless, elegant British/Indian English. Absolutely ZERO spelling mistakes, grammatical errors, or garbled characters.
 2. Under NO circumstance should you use weird symbols, unreadable encoding, or corrupted Unicode characters (e.g., do NOT output weird symbols like , special smart quotes, or corrupted apostrophes). Use only clean standard alphanumeric characters, commas, periods, hyphens (-), and simple arrows (→).
-3. DAY NUMBERING: In the "days" array, "dayNumber" must be an integer (1, 2, 3...). In "dateStr", do NOT repeat the word "Day" or write "Day - Day 1" or "Day 1". Provide either an actual calendar date format (e.g. "Day 01 - Haridwar Arrival" or "15 May 2026 (Fri)") or just "Sightseeing & Transit".
-4. ACTIVITIES: Each activity bullet must be a clean, well-formed sentence describing sightseeing, temple darshan, scenic drives, or night halts.
+3. DAY NUMBERING: In the "days" array, "dayNumber" must be an integer (1, 2, 3...). In "dateStr", do NOT repeat the word "Day" or write "Day - Day 1" or "Day 1". Provide a concise day title (e.g. "Arrival & The Ascent", "The First Dham - Yamunotri", "Drive to Badrinath & Return").
+4. OFFICIAL TRAYMBHKAM DAY-BY-DAY ROUTING FOR CHAR DHAM (9N/10D) & DO DHAM (5N/6D):
+   - For 10 Days / 9 Nights Char Dham Yatra: Day 1 Haridwar to Barkot via Kempty Falls (Stay: Barkot), Day 2 Barkot to Janki Chatti & Yamunotri Dham Trek 6km & return (Stay: Barkot), Day 3 Barkot to Uttarkashi & Kashi Vishwanath Shakti Stambh (Stay: Uttarkashi), Day 4 Uttarkashi to Harsil Valley & Gangotri Dham & return (Stay: Uttarkashi), Day 5 Uttarkashi to Guptkashi & registration check (Stay: Guptkashi), Day 6 Guptkashi to Sonprayag/Gaurikund & 18km trek to Kedarnath Evening Aarti (Stay: Kedarnath Tent House - Without Food), Day 7 Kedarnath morning Abhishek & Bhairav Nath Temple then descend to Guptkashi (Stay: Guptkashi), Day 8 Guptkashi to Pipalkoti via Chopta (Stay: Pipalkoti), Day 9 Pipalkoti to Badrinath Dham & Mana Village (Vyas Gufa, Bhim Pul) 140km UP/DOWN & return to Pipalkoti (Stay: Pipalkoti), Day 10 Pipalkoti to Haridwar via Narsingh Temple Joshimath, Dhari Devi Temple & Panch Prayag (Tour Concludes).
+   - For 6 Days / 5 Nights Do Dham (Kedarnath + Badrinath) Yatra: Day 1 Haridwar to Guptkashi / Sitapur (Stay: Guptkashi / Sitapur), Day 2 Guptkashi/Sitapur to Sonprayag/Gaurikund & 18km trek to Kedarnath (Stay: Kedarnath Tent House - Without Food), Day 3 Kedarnath & Bhairav Nath Temple then descend to Sitapur / Guptkashi (Stay: Sitapur / Guptkashi), Day 4 Sitapur/Guptkashi to Pipalkoti via Chopta (Stay: Pipalkoti), Day 5 Pipalkoti to Badrinath Dham & Mana Village (Vyas Gufa, Bhim Pul) 140km UP/DOWN & return to Pipalkoti (Stay: Pipalkoti), Day 6 Pipalkoti to Haridwar via Narsingh Temple Joshimath, Dhari Devi Temple & Panch Prayag (Tour Concludes).
 5. SIGHTSEEING ROUTE: Use clean arrow formatting like "Haridwar → Guptkashi → Kedarnath".
 6. RETURN ONLY valid, raw JSON (strictly no markdown wrappers, no \`\`\`json).
 7. SINGLE PACKAGE ONLY: In "pricingTiers", generate strictly ONE package tier titled "Standard Package". Never generate 3 packages or multiple package tiers.
 8. BLESSING MOTTO: "motto" must strictly be in Hindi: "जय श्री केदार · जय बद्री विशाल". Only this blessing tagline must be used.
-9. VEHICLE & NON-AC IN HILLS: In Uttarakhand mountain and hill areas, vehicle AC does NOT work due to steep mountain gradients and engine safety norms. In inclusions, transport details, and goodToKnow, strictly write "Dedicated Hill Vehicle (Innova Crysta / Tempo Traveller - Non-AC in hill areas)". NEVER write "AC vehicle" or "sanitised AC vehicle". All hill transport and hill hotel rooms must be strictly designated as Non-AC.
-10. STANDARD PACKAGE BY DEFAULT & NO SPECIFIC HOTEL NAMES: 95% of guests choose Standard Package. Default hotelCategory strictly to "Standard Clean Rooms / Mountain Stays". Never use Deluxe by default. In hotel stays and itinerary description, never write specific private hotel names; always use generic verified stay descriptions like "Standard Clean Room at [Location]". In goodToKnow or booking terms, NEVER mention GST.
+9. VEHICLE & NON-AC IN HILLS: In Uttarakhand mountain and hill areas, AC is not allowed on the Yatra. Strictly write "Dedicated Hill Vehicle (Innova Crysta / Tempo Traveller - Non-AC in hill areas)".
+10. STANDARD PACKAGE & SHARING TERMS: All hotel stays are on Triple or Quad-sharing basis (Meal provided as per hotel menu); in Kedarnath stay is on Five to Six sharing basis in Tent House (Without Food). 25% advance at the time of booking and balance amount to be deposited before starting the Yatra. In goodToKnow or booking terms, NEVER mention GST.
 
 SCHEMA:
 {
-  "title": "Main Trip Title in CAPS e.g. DO DHAM YATRA",
+  "title": "Main Trip Title in CAPS e.g. KEDARNATH BADRINATH YATRA 2026",
   "subTitle": "Region/State in CAPS e.g. UTTARAKHAND",
-  "spiritualHeadline": "e.g. 7 Days · 6 Nights Spiritual Journey",
-  "dhamsSubtitle": "Key highlights e.g. Haridwar · Guptkashi · Kedarnath (Heli) · Badrinath",
+  "spiritualHeadline": "e.g. 05 Nights · 06 Days Pilgrimage Plan",
+  "dhamsSubtitle": "Key highlights e.g. Shri Kedarnath Dham · Shri Badrinath Dham",
   "preparedFor": "Honourable Guest",
   "travelDates": "e.g. May – October 2026",
-  "duration": "e.g. 7 Days / 6 Nights",
-  "startingPoint": "e.g. Haridwar / Dehradun",
-  "routeCovered": "e.g. Haridwar – Guptkashi – Kedarnath – Joshimath – Badrinath – Rishikesh – Haridwar",
+  "duration": "e.g. 05 Nights / 06 Days",
+  "startingPoint": "e.g. Haridwar, Uttarakhand",
+  "routeCovered": "e.g. Haridwar – Guptkashi – Kedarnath – Sitapur – Chopta – Pipalkoti – Badrinath & Mana Village – Dhari Devi – Haridwar",
   "overviewSummary": "A compelling 2-3 sentence overview describing the holy pilgrimage/trip journey, key holy spots, and highlights.",
-  "glanceDuration": "7 Days / 6 Nights",
+  "glanceDuration": "05 Nights / 06 Days",
   "glanceDhams": "Kedarnath · Badrinath",
-  "glanceSector": "By Helicopter or Trek",
+  "glanceSector": "Haridwar ⇄ Do Dham Circuit",
   "glanceStartEnd": "Haridwar, Uttarakhand",
   "glancePackages": "Standard Package",
   "days": [
     {
       "dayNumber": 1,
-      "dateStr": "Haridwar Arrival & Transit",
-      "route": "Haridwar → Guptkashi",
+      "dateStr": "Haridwar to Guptkashi / Sitapur",
+      "route": "Haridwar → Devprayag & Rudraprayag → Guptkashi / Sitapur",
       "activities": [
-        "Morning pickup and scenic foothills drive along the Alaknanda river.",
-        "Visit Devprayag and Rudraprayag holy river confluences.",
-        "Evening arrival at Guptkashi and hotel check-in."
+        "Start early in the morning from Haridwar and enjoy a scenic drive along the holy Ganges and Alaknanda rivers.",
+        "Witness the sacred river confluences at Devprayag and Rudraprayag.",
+        "Overnight stay in Guptkashi or Sitapur (Hotel - Meal as per hotel menu)."
       ],
-      "overnightStay": "Guptkashi"
+      "overnightStay": "Guptkashi / Sitapur (Hotel)"
     }
   ],
-  "pricingSubtitle": "Confirmed Standard Package with dedicated mountain transport and standard clean accommodations.",
+  "pricingSubtitle": "Confirmed Standard Package with dedicated mountain transport and verified accommodations.",
   "pricingTiers": [
-    { "package": "Standard Package", "price": "₹ 24,500 / Pax", "hotelCategory": "Standard Clean Rooms / Mountain Stays", "meals": "Breakfast & Dinner (MAP)", "specialFeature": "Dedicated Vehicle & Sightseeing" }
+    { "package": "Standard Package", "price": "₹ 19,500 / Pax", "hotelCategory": "Standard Clean Rooms (Triple/Quad) & Kedarnath Tent", "meals": "Breakfast & Dinner (As per Hotel Menu)", "specialFeature": "All Toll, Tax & Parking Included" }
   ],
-  "pricingNote": "Note: Rates are per person on twin/triple sharing basis. All tolls, parking, and driver allowances included.",
+  "pricingNote": "Note: All stays are on Triple or Quad-sharing basis (in Kedarnath 5 to 6 sharing Tent House without food). All toll, tax, and parking included.",
   "inclusions": [
     "Dedicated Hill Vehicle (Innova Crysta / Tempo Traveller - Non-AC in hill areas) for entire tour",
-    "Selected hotel accommodation with specified meal plan",
-    "All toll taxes, parking fees and driver allowance",
-    "24/7 on-ground assistance and registration support"
+    "Accommodation on Triple/Quad sharing basis (Kedarnath 5-6 sharing Tent House without food)",
+    "Meals provided as per hotel menu (Breakfast & Dinner at hotels)",
+    "All toll, tax, parking and driver allowance included in the package"
   ],
   "exclusions": [
-    "Personal expenses (laundry, phone, tips)",
-    "Pony, palki or VIP darshan charges",
-    "Anything not mentioned in inclusions"
+    "Meals at Kedarnath Tent House stay (Without Food)",
+    "AC will not be allowed on the Yatra in hill areas",
+    "Pony, palki, helicopter or VIP darshan charges",
+    "Personal expenses (laundry, phone, tips, lunch)"
   ],
   "goodToKnow": [
-    "Mandatory yatra registration will be facilitated by our team.",
-    "Carry valid government-issued photo ID cards.",
-    "High altitude warm clothing and comfortable footwear are recommended."
+    "All stays are on Triple or Quad-sharing basis; in Kedarnath stay will be on Five to Six sharing basis (Tent House without food).",
+    "Meals are provided as per hotel menu; AC will not be allowed on the Yatra in hill areas.",
+    "All toll, tax and parking are included in the package."
   ],
   "bookingPayment": [
-    "Booking confirmed on receipt of advance deposit.",
-    "Balance payment due prior to departure."
+    "25% advance at the time of booking and balance amount to be deposited before starting the Yatra.",
+    "Official Website: www.traymbhkamtour.com | Contact: Hunny (+91 82660 16066, 9389880277)."
   ],
   "contactAgency": "Traymbhkam Tour and Travels",
-  "contactPerson": "Mr. Gagandeep",
-  "contactPhone": "+91 82660 16066",
+  "contactPerson": "Mr. Gagandeep (Hunny)",
+  "contactPhone": "+91 82660 16066 · 9389880277",
   "motto": "जय श्री केदार · जय बद्री विशाल"
 }`;
 
@@ -2278,23 +2284,27 @@ ${data.motto}`;
             </p>
 
             {/* Sacred Circuit Badges */}
-            <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
-              <span className="px-3 py-1 bg-amber-50 border border-amber-300 text-amber-900 rounded-full text-[10.5px] font-display font-bold shadow-2xs">
-                Yamunotri
-              </span>
-              <span className="text-amber-500 font-bold">◆</span>
-              <span className="px-3 py-1 bg-amber-50 border border-amber-300 text-amber-900 rounded-full text-[10.5px] font-display font-bold shadow-2xs">
-                Gangotri
-              </span>
-              <span className="text-amber-500 font-bold">◆</span>
-              <span className="px-3 py-1 bg-amber-50 border border-amber-300 text-amber-900 rounded-full text-[10.5px] font-display font-bold shadow-2xs">
-                Kedarnath
-              </span>
-              <span className="text-amber-500 font-bold">◆</span>
-              <span className="px-3 py-1 bg-amber-50 border border-amber-300 text-amber-900 rounded-full text-[10.5px] font-display font-bold shadow-2xs">
-                Badrinath
-              </span>
-            </div>
+            {(() => {
+              const isDoDham =
+                data.days.length <= 7 ||
+                (data.title?.toLowerCase().includes("do dham") || data.subTitle?.toLowerCase().includes("do dham")) ||
+                (!data.dhamsSubtitle?.toLowerCase().includes("yamunotri") && !data.routeCovered?.toLowerCase().includes("yamunotri"));
+              const badges = isDoDham
+                ? ["Shri Kedarnath Dham", "Chopta Valley", "Shri Badrinath Dham", "Mana Village & Dhari Devi"]
+                : ["Yamunotri", "Gangotri", "Kedarnath", "Badrinath"];
+              return (
+                <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+                  {badges.map((badge, bIdx) => (
+                    <span key={bIdx} className="inline-flex items-center gap-2">
+                      <span className="px-3 py-1 bg-amber-50 border border-amber-300 text-amber-900 rounded-full text-[10.5px] font-display font-bold shadow-2xs">
+                        {badge}
+                      </span>
+                      {bIdx < badges.length - 1 && <span className="text-amber-500 font-bold">◆</span>}
+                    </span>
+                  ))}
+                </div>
+              );
+            })()}
           </div>
 
           {/* Trust Strip */}
@@ -2417,7 +2427,9 @@ ${data.motto}`;
               <p className="text-[12px] font-bold text-white mt-1 leading-tight">
                 {data.glanceDhams || "4 Dhams Complete"}
               </p>
-              <span className="text-[8.5px] text-slate-300 mt-1">Yamunotri · Gangotri · Kedar · Badri</span>
+              <span className="text-[8.5px] text-slate-300 mt-1 truncate">
+                {data.dhamsSubtitle || "Yamunotri · Gangotri · Kedar · Badri"}
+              </span>
             </div>
 
             <div className="bg-[#0f2744] text-white p-3 rounded-xl border border-amber-400/30 shadow-xs flex flex-col justify-between">
@@ -2445,9 +2457,9 @@ ${data.motto}`;
                 PACKAGE OPTIONS
               </span>
               <p className="text-[12px] font-bold text-amber-300 mt-1 leading-tight">
-                {data.glancePackages || "Deluxe · Super Deluxe · Luxury"}
+                {data.glancePackages || "Standard Package"}
               </p>
-              <span className="text-[8.5px] text-slate-300 mt-1">Customizable meal &amp; vehicle tiers</span>
+              <span className="text-[8.5px] text-slate-300 mt-1">Meals as per hotel menu &amp; vehicle</span>
             </div>
           </div>
 
@@ -2563,7 +2575,13 @@ ${data.motto}`;
   };
 
   const renderPage3 = (prefix: string) => {
-    const daysSlice = data.days.slice(0, 5);
+    const totalDays = data.days.length;
+    const splitIdx = totalDays <= 8 ? Math.ceil(totalDays / 2) : 5;
+    const daysSlice = data.days.slice(0, splitIdx);
+    const isDoDham =
+      totalDays <= 7 ||
+      data.title?.toLowerCase().includes("do dham") ||
+      (!data.dhamsSubtitle?.toLowerCase().includes("yamunotri") && !data.routeCovered?.toLowerCase().includes("yamunotri"));
 
     return (
       <div
@@ -2589,10 +2607,12 @@ ${data.motto}`;
           <div className="flex items-center justify-between border-b-2 border-amber-400/40 pb-2">
             <div>
               <h2 className="text-xl font-serif-luxury font-black text-[#0f2744] tracking-tight uppercase flex items-center gap-2">
-                <span>✦ Day-Wise Itinerary (Days 1 to 5)</span>
+                <span>✦ Day-Wise Itinerary (Days 1 to {splitIdx})</span>
               </h2>
               <p className="text-[11px] text-gray-600 font-medium mt-0.5">
-                Haridwar to Kedarnath Sector · Yamunotri &amp; Gangotri Sacred Darshan
+                {isDoDham
+                  ? "Haridwar to Guptkashi / Sitapur & Shri Kedarnath Dham Sacred Darshan"
+                  : "Haridwar to Guptkashi Sector · Yamunotri & Gangotri Sacred Darshan"}
               </p>
             </div>
             <span className="text-[10.5px] font-display font-bold text-amber-900 bg-amber-50 border border-amber-300 px-3 py-1 rounded-full shadow-2xs">
@@ -2600,126 +2620,13 @@ ${data.motto}`;
             </span>
           </div>
 
-          {/* Days 1 to 5 Timeline Cards */}
-          <div className="space-y-3">
+          {/* Days Timeline Cards */}
+          <div className={daysSlice.length <= 3 ? "space-y-4" : "space-y-3"}>
             {daysSlice.map((day) => {
               const cleanDate = day.dateStr ? day.dateStr.replace(/^Day\s*[-–:]*\s*Day\s*\d*\s*[-–:]*/i, "").replace(/^Day\s*\d+\s*[-–:]*\s*/i, "").trim() : "";
 
               return (
-                <div key={day.id} className="bg-white rounded-xl border border-amber-200/80 shadow-2xs p-3 space-y-1.5 transition">
-                  {/* Card Header Strip */}
-                  <div className="flex items-center justify-between gap-2 bg-gradient-to-r from-[#0a192f] via-[#0f2744] to-[#0a192f] text-white px-3 py-1.5 rounded-lg border-l-4 border-amber-400">
-                    <div className="flex items-center gap-2 min-w-0">
-                      <span className="px-2 py-0.5 bg-amber-500 text-white font-display font-black text-[10px] rounded uppercase tracking-wider shrink-0 shadow-2xs">
-                        DAY 0{day.dayNumber}
-                      </span>
-                      {cleanDate && (
-                        <span className="text-[11px] font-display font-bold text-amber-300 shrink-0">
-                          {cleanDate}
-                        </span>
-                      )}
-                      <span className="text-slate-400 text-xs">|</span>
-                      <span className="text-[11.5px] font-bold text-white truncate">
-                        {day.route}
-                      </span>
-                    </div>
-
-                    {day.overnightStay && (
-                      <span className="text-[9.5px] font-display font-bold text-amber-200 bg-amber-950/80 border border-amber-400/40 px-2 py-0.5 rounded shrink-0">
-                        STAY · {day.overnightStay}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Day Activities List */}
-                  <ul className="pl-2 space-y-1 text-gray-800 text-[10.5px] pt-0.5">
-                    {day.activities.map((act, aIdx) => (
-                      <li key={aIdx} className="flex items-start gap-2 leading-relaxed">
-                        <span className="text-amber-600 font-bold text-[10px] shrink-0 mt-0.5">◆</span>
-                        <span>{act}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Continuation Pill */}
-          <div className="bg-amber-50 border border-amber-300/80 rounded-xl p-2.5 text-center shadow-2xs">
-            <p className="text-[11px] font-display font-bold text-amber-950 flex items-center justify-center gap-2">
-              <span>✦ Days 6 to 10 (Kedarnath Darshan &amp; Badrinath Sacred Valley) continues on Page 4</span>
-              <span className="text-amber-600 text-xs font-black">➔</span>
-            </p>
-          </div>
-
-        </div>
-
-        {/* Page 3 Footer */}
-        <div className="relative z-10 border-t border-slate-300/80 pt-2 flex justify-between items-center text-[9.5px] text-gray-500 font-sans-body">
-          <span className="font-semibold text-gray-700">Traymbhkam Tour and Travels · {data.contactPhone || "+91 82660 16066"}</span>
-          <div className="flex items-center gap-3">
-            <span className="font-bold text-[#0f2744] flex items-center gap-1">
-              <span>📍 Opp. Railway Station Gate No. 2, Haridwar</span>
-            </span>
-            <span className="text-amber-500">•</span>
-            <span className="font-bold text-amber-900 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
-              Govt. Reg: UTTR/HARIDWAR/08-2022/004983 · 010/RTA/23
-            </span>
-          </div>
-          <span className="font-display font-bold text-amber-900 bg-amber-100/80 px-2 py-0.5 rounded">Page 3 of 6</span>
-        </div>
-      </div>
-    );
-  };
-
-  const renderPage4 = (prefix: string) => {
-    const daysSlice = data.days.slice(5, 10);
-    const extraDays = data.days.slice(10);
-
-    return (
-      <div
-        id={`${prefix}-itinerary-page-4`}
-        className="w-[794px] min-h-[1122px] h-[1122px] max-h-[1122px] bg-[#fcfbf9] shadow-2xl shrink-0 px-9 py-8 flex flex-col justify-between relative overflow-hidden text-gray-900 border border-amber-300/60 font-sans-body"
-        style={{ boxSizing: "border-box" }}
-      >
-        {/* Background Watermark */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
-          <img src="/logo.png" alt="watermark" className="w-[500px] h-[500px] object-contain" />
-        </div>
-
-        {/* Top Decorative Chevron Band */}
-        <div className="relative z-10 w-full flex items-center justify-between gap-2 mb-1">
-          <div className="h-1 flex-1 bg-gradient-to-r from-amber-500 via-amber-400 to-[#0f2744] rounded-full" />
-          <span className="text-[10px] font-display font-black uppercase tracking-[0.25em] text-amber-700">✦ SACRED CHRONICLES · PART 2 ✦</span>
-          <div className="h-1 flex-1 bg-gradient-to-r from-[#0f2744] via-amber-400 to-amber-500 rounded-full" />
-        </div>
-
-        <div className="relative z-10 space-y-3">
-          
-          {/* Header */}
-          <div className="flex items-center justify-between border-b-2 border-amber-400/40 pb-2">
-            <div>
-              <h2 className="text-xl font-serif-luxury font-black text-[#0f2744] tracking-tight uppercase flex items-center gap-2">
-                <span>✦ Day-Wise Itinerary (Days 6 to {Math.max(10, data.days.length)})</span>
-              </h2>
-              <p className="text-[11px] text-gray-600 font-medium mt-0.5">
-                Kedarnath Sacred Darshan, Badrinath Dham &amp; Return to Haridwar
-              </p>
-            </div>
-            <span className="text-[10.5px] font-display font-bold text-amber-900 bg-amber-50 border border-amber-300 px-3 py-1 rounded-full shadow-2xs">
-              Sector 2 · Divine Culmination
-            </span>
-          </div>
-
-          {/* Days 6 to 10 Timeline Cards */}
-          <div className="space-y-2.5">
-            {daysSlice.map((day) => {
-              const cleanDate = day.dateStr ? day.dateStr.replace(/^Day\s*[-–:]*\s*Day\s*\d*\s*[-–:]*/i, "").replace(/^Day\s*\d+\s*[-–:]*\s*/i, "").trim() : "";
-              const isLastDay = day.dayNumber === data.days.length;
-
-              return (
-                <div key={day.id} className="bg-white rounded-xl border border-amber-200/80 shadow-2xs p-3 space-y-1.5 transition">
+                <div key={day.id} className={`bg-white rounded-xl border border-amber-200/80 shadow-2xs ${daysSlice.length <= 3 ? "p-4 space-y-2" : "p-3 space-y-1.5"} transition`}>
                   {/* Card Header Strip */}
                   <div className="flex items-center justify-between gap-2 bg-gradient-to-r from-[#0a192f] via-[#0f2744] to-[#0a192f] text-white px-3 py-1.5 rounded-lg border-l-4 border-amber-400">
                     <div className="flex items-center gap-2 min-w-0">
@@ -2745,7 +2652,137 @@ ${data.motto}`;
                   </div>
 
                   {/* Day Activities List */}
-                  <ul className="pl-2 space-y-1 text-gray-800 text-[10px] pt-0.5">
+                  <ul className={`pl-2 ${daysSlice.length <= 3 ? "space-y-1.5 text-[11px]" : "space-y-1 text-[10.5px]"} text-gray-800 pt-0.5`}>
+                    {day.activities.map((act, aIdx) => (
+                      <li key={aIdx} className="flex items-start gap-2 leading-relaxed">
+                        <span className="text-amber-600 font-bold text-[10px] shrink-0 mt-0.5">◆</span>
+                        <span>{act}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Continuation Pill */}
+          {totalDays > splitIdx && (
+            <div className="bg-amber-50 border border-amber-300/80 rounded-xl p-2.5 text-center shadow-2xs">
+              <p className="text-[11px] font-display font-bold text-amber-950 flex items-center justify-center gap-2">
+                <span>
+                  ✦ Days {splitIdx + 1} to {totalDays} (
+                  {isDoDham
+                    ? "Chopta, Pipalkoti, Shri Badrinath Dham, Mana Village & Return"
+                    : "Shri Kedarnath Dham, Chopta, Pipalkoti, Badrinath & Return"}
+                  ) continues on Page 4
+                </span>
+                <span className="text-amber-600 text-xs font-black">➔</span>
+              </p>
+            </div>
+          )}
+
+        </div>
+
+        {/* Page 3 Footer */}
+        <div className="relative z-10 border-t border-slate-300/80 pt-2 flex justify-between items-center text-[9.5px] text-gray-500 font-sans-body">
+          <span className="font-semibold text-gray-700">Traymbhkam Tour and Travels · {data.contactPhone || "+91 82660 16066"}</span>
+          <div className="flex items-center gap-3">
+            <span className="font-bold text-[#0f2744] flex items-center gap-1">
+              <span>📍 Opp. Railway Station Gate No. 2, Haridwar</span>
+            </span>
+            <span className="text-amber-500">•</span>
+            <span className="font-bold text-amber-900 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+              Govt. Reg: UTTR/HARIDWAR/08-2022/004983 · 010/RTA/23
+            </span>
+          </div>
+          <span className="font-display font-bold text-amber-900 bg-amber-100/80 px-2 py-0.5 rounded">Page 3 of 6</span>
+        </div>
+      </div>
+    );
+  };
+
+  const renderPage4 = (prefix: string) => {
+    const totalDays = data.days.length;
+    const splitIdx = totalDays <= 8 ? Math.ceil(totalDays / 2) : 5;
+    const endIdx = Math.min(splitIdx + 5, totalDays);
+    const daysSlice = data.days.slice(splitIdx, endIdx);
+    const extraDays = data.days.slice(endIdx);
+    const isDoDham =
+      totalDays <= 7 ||
+      data.title?.toLowerCase().includes("do dham") ||
+      (!data.dhamsSubtitle?.toLowerCase().includes("yamunotri") && !data.routeCovered?.toLowerCase().includes("yamunotri"));
+
+    return (
+      <div
+        id={`${prefix}-itinerary-page-4`}
+        className="w-[794px] min-h-[1122px] h-[1122px] max-h-[1122px] bg-[#fcfbf9] shadow-2xl shrink-0 px-9 py-8 flex flex-col justify-between relative overflow-hidden text-gray-900 border border-amber-300/60 font-sans-body"
+        style={{ boxSizing: "border-box" }}
+      >
+        {/* Background Watermark */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
+          <img src="/logo.png" alt="watermark" className="w-[500px] h-[500px] object-contain" />
+        </div>
+
+        {/* Top Decorative Chevron Band */}
+        <div className="relative z-10 w-full flex items-center justify-between gap-2 mb-1">
+          <div className="h-1 flex-1 bg-gradient-to-r from-amber-500 via-amber-400 to-[#0f2744] rounded-full" />
+          <span className="text-[10px] font-display font-black uppercase tracking-[0.25em] text-amber-700">✦ SACRED CHRONICLES · PART 2 ✦</span>
+          <div className="h-1 flex-1 bg-gradient-to-r from-[#0f2744] via-amber-400 to-amber-500 rounded-full" />
+        </div>
+
+        <div className="relative z-10 space-y-3">
+          
+          {/* Header */}
+          <div className="flex items-center justify-between border-b-2 border-amber-400/40 pb-2">
+            <div>
+              <h2 className="text-xl font-serif-luxury font-black text-[#0f2744] tracking-tight uppercase flex items-center gap-2">
+                <span>✦ Day-Wise Itinerary (Days {splitIdx + 1} to {totalDays})</span>
+              </h2>
+              <p className="text-[11px] text-gray-600 font-medium mt-0.5">
+                {isDoDham
+                  ? "Chopta Alpine Drive, Pipalkoti, Shri Badrinath Dham, Mana Village & Return"
+                  : "Shri Kedarnath Dham, Chopta, Pipalkoti, Badrinath Darshan & Haridwar Return"}
+              </p>
+            </div>
+            <span className="text-[10.5px] font-display font-bold text-amber-900 bg-amber-50 border border-amber-300 px-3 py-1 rounded-full shadow-2xs">
+              Sector 2 · Divine Culmination
+            </span>
+          </div>
+
+          {/* Days Part 2 Timeline Cards */}
+          <div className={daysSlice.length <= 3 ? "space-y-4" : "space-y-2.5"}>
+            {daysSlice.map((day) => {
+              const cleanDate = day.dateStr ? day.dateStr.replace(/^Day\s*[-–:]*\s*Day\s*\d*\s*[-–:]*/i, "").replace(/^Day\s*\d+\s*[-–:]*\s*/i, "").trim() : "";
+              const isLastDay = day.dayNumber === data.days.length;
+
+              return (
+                <div key={day.id} className={`bg-white rounded-xl border border-amber-200/80 shadow-2xs ${daysSlice.length <= 3 ? "p-4 space-y-2" : "p-3 space-y-1.5"} transition`}>
+                  {/* Card Header Strip */}
+                  <div className="flex items-center justify-between gap-2 bg-gradient-to-r from-[#0a192f] via-[#0f2744] to-[#0a192f] text-white px-3 py-1.5 rounded-lg border-l-4 border-amber-400">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <span className="px-2 py-0.5 bg-amber-500 text-white font-display font-black text-[10px] rounded uppercase tracking-wider shrink-0 shadow-2xs">
+                        DAY {day.dayNumber < 10 ? `0${day.dayNumber}` : day.dayNumber}
+                      </span>
+                      {cleanDate && (
+                        <span className="text-[11px] font-display font-bold text-amber-300 shrink-0">
+                          {cleanDate}
+                        </span>
+                      )}
+                      <span className="text-slate-400 text-xs">|</span>
+                      <span className="text-[11.5px] font-bold text-white truncate">
+                        {day.route}
+                      </span>
+                    </div>
+
+                    {day.overnightStay && (
+                      <span className="text-[9.5px] font-display font-bold text-amber-200 bg-amber-950/80 border border-amber-400/40 px-2 py-0.5 rounded shrink-0">
+                        STAY · {day.overnightStay}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Day Activities List */}
+                  <ul className={`pl-2 ${daysSlice.length <= 3 ? "space-y-1.5 text-[10.5px]" : "space-y-1 text-[10px]"} text-gray-800 pt-0.5`}>
                     {day.activities.map((act, aIdx) => (
                       <li key={aIdx} className="flex items-start gap-2 leading-relaxed">
                         <span className="text-amber-600 font-bold text-[9.5px] shrink-0 mt-0.5">◆</span>
@@ -2757,7 +2794,7 @@ ${data.motto}`;
                   {isLastDay && (
                     <div className="mt-1 bg-emerald-50 border border-emerald-300/80 px-2.5 py-1 rounded-lg flex items-center justify-between text-[10px] font-display font-bold text-emerald-900">
                       <span>✦ TOUR CONCLUDES WITH SACRED MEMORIES &amp; BLESSINGS</span>
-                      <span>Haridwar / Dehradun Drop</span>
+                      <span>Haridwar Drop</span>
                     </div>
                   )}
                 </div>
@@ -2769,7 +2806,7 @@ ${data.motto}`;
           {extraDays.length > 0 && (
             <div className="bg-amber-50/80 border border-amber-300 rounded-xl p-2.5 space-y-1">
               <h4 className="text-[11px] font-display font-bold text-amber-950 uppercase tracking-wider">
-                Extended Days (Days 11 to {data.days.length})
+                Extended Days (Days {endIdx + 1} to {data.days.length})
               </h4>
               <div className="grid grid-cols-2 gap-2 text-[10px] text-gray-800">
                 {extraDays.map((ed) => (
@@ -3109,18 +3146,30 @@ ${data.motto}`;
               </ul>
             </div>
 
-            <div className="bg-amber-50/50 rounded-xl border border-amber-200/80 p-2.5 space-y-1">
-              <h4 className="font-display font-bold text-amber-950 text-[11px] uppercase tracking-wider">
-                Booking &amp; Payment Policy
-              </h4>
-              <ul className="space-y-0.5 text-gray-700 text-[9.5px]">
-                {data.bookingPayment.slice(0, 3).map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-1.5 leading-snug">
-                    <span className="text-amber-600 shrink-0">•</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+            <div className="bg-amber-50/50 rounded-xl border border-amber-200/80 p-2.5 flex items-center justify-between gap-2.5">
+              <div className="space-y-1 flex-1 min-w-0">
+                <h4 className="font-display font-bold text-amber-950 text-[11px] uppercase tracking-wider">
+                  Booking &amp; Payment Policy
+                </h4>
+                <ul className="space-y-0.5 text-gray-700 text-[9.5px]">
+                  {data.bookingPayment.slice(0, 3).map((item, idx) => (
+                    <li key={idx} className="flex items-start gap-1.5 leading-snug">
+                      <span className="text-amber-600 shrink-0">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="shrink-0 bg-white border border-amber-300 rounded-lg p-1 text-center shadow-2xs">
+                <img
+                  src="/certificates/payment_qr.jpeg"
+                  alt="PhonePe Payment QR - Gagan Deep"
+                  className="w-16 h-20 object-contain mx-auto rounded"
+                />
+                <span className="block text-[7.5px] font-display font-bold text-[#0f2744] leading-tight mt-0.5">
+                  Scan to Pay
+                </span>
+              </div>
             </div>
           </div>
 
@@ -3232,10 +3281,12 @@ ${data.motto}`;
                   {data.contactAgency || "Traymbhkam Tour and Travels"}
                 </h3>
                 <p className="text-[11px] text-slate-200 font-medium">
-                  {data.contactPerson || "Mr. Gagandeep"} · Founder &amp; Operations Head
+                  {data.contactPerson || "Mr. Gagandeep (Hunny)"} · Founder &amp; Operations Head
                 </p>
-                <p className="text-[10px] text-slate-300 flex items-center gap-1 mt-0.5">
+                <p className="text-[10px] text-slate-300 flex items-center gap-1.5 mt-0.5">
                   <span>📍 Shop 38, Purusharthi Market, Opp. Railway Station Gate No. 2, Haridwar</span>
+                  <span className="text-amber-400">•</span>
+                  <span className="text-amber-300 font-semibold">www.traymbhkamtour.com</span>
                 </p>
               </div>
             </div>
@@ -3247,10 +3298,10 @@ ${data.motto}`;
                 <span>24/7 Operations Helpline</span>
               </div>
               <div className="text-base font-display font-black text-white tracking-wider mt-0.5">
-                {data.contactPhone || "+91 82660 16066"}
+                {data.contactPhone || "+91 82660 16066 · 9389880277"}
               </div>
               <p className="text-[9px] text-amber-200 font-serif-luxury italic mt-0.5">
-                {data.motto || "अतिथि देवो भव: · Your Trusted Pilgrimage Partner"}
+                {data.motto || "जय श्री केदार · जय बद्री विशाल"}
               </p>
             </div>
           </div>
@@ -3294,9 +3345,14 @@ ${data.motto}`;
               </div>
             </div>
             <button
-              onClick={() => setData(CHARDHAM_PRESET)}
+              onClick={() => {
+                setData(CHARDHAM_PRESET);
+                if (typeof window !== "undefined") {
+                  localStorage.setItem("traymbhkam_current_itinerary", JSON.stringify(CHARDHAM_PRESET));
+                }
+              }}
               className="flex items-center gap-1.5 text-xs font-semibold text-gray-600 hover:text-sky-600 bg-gray-50 hover:bg-sky-50 px-3 py-1.5 rounded-lg transition cursor-pointer border border-gray-200"
-              title="Reload standard 10-day Chardham Yatra preset"
+              title="Reload official 09 Nights / 10 Days Chardham Yatra preset"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               Reset
@@ -3308,26 +3364,42 @@ ${data.motto}`;
             <span className="text-[10.5px] font-bold text-gray-500 uppercase tracking-wider mr-1">Quick Load:</span>
             <button
               type="button"
-              onClick={() => setData(CHARDHAM_12P_10D_PRESET)}
+              onClick={() => {
+                setData(CHARDHAM_12P_10D_PRESET);
+                if (typeof window !== "undefined") {
+                  localStorage.setItem("traymbhkam_current_itinerary", JSON.stringify(CHARDHAM_12P_10D_PRESET));
+                }
+              }}
               className="px-2.5 py-1 bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-300 rounded-lg text-xs font-semibold transition cursor-pointer shadow-2xs"
-              title="10 Days / 9 Nights Chardham Package for 12 Pax (Tempo Traveller & Standard Clean Stays)"
+              title="09 Nights / 10 Days Chardham Package for 12 Pax (Tempo Traveller & Standard Clean Stays)"
             >
               10D Chardham (12 Pax Standard)
             </button>
             <button
               type="button"
-              onClick={() => setData(CHARDHAM_PRESET)}
+              onClick={() => {
+                setData(CHARDHAM_PRESET);
+                if (typeof window !== "undefined") {
+                  localStorage.setItem("traymbhkam_current_itinerary", JSON.stringify(CHARDHAM_PRESET));
+                }
+              }}
               className="px-2.5 py-1 bg-sky-50 text-sky-700 hover:bg-sky-100 border border-sky-300 rounded-lg text-xs font-semibold transition cursor-pointer shadow-2xs"
+              title="Official 09 Nights / 10 Days Chardham Yatra 2026 Plan"
             >
-              10D Chardham (Standard)
+              10D Chardham (9N/10D Official)
             </button>
             <button
               type="button"
-              onClick={() => setData(DODHAM_6D_PRESET)}
+              onClick={() => {
+                setData(DODHAM_6D_PRESET);
+                if (typeof window !== "undefined") {
+                  localStorage.setItem("traymbhkam_current_itinerary", JSON.stringify(DODHAM_6D_PRESET));
+                }
+              }}
               className="px-2.5 py-1 bg-purple-50 text-purple-800 hover:bg-purple-100 border border-purple-300 rounded-lg text-xs font-semibold transition cursor-pointer shadow-2xs"
-              title="6 Days / 5 Nights Do Dham Yatra (Kedarnath + Badrinath via Guptkashi, Chopta & Pipalkoti)"
+              title="Official 05 Nights / 06 Days Do Dham Yatra (Kedarnath + Badrinath Plan)"
             >
-              6D Do Dham (Kedar + Badri)
+              6D Do Dham (5N/6D Official)
             </button>
             <button
               type="button"

@@ -30,25 +30,25 @@ const PRESET_TRANSPORT_CHARDHAM_ACTUAL = {
   exoNo: "BILL NO. 604",
   fileNo: "604",
   guestName: "Mr. Jayesh Bhai Babubhai Patel",
-  managerMobile: "+91 97190 38278",
+  managerMobile: "+91 82660 16066 · 9389880277",
   noOfAdults: "7 Members",
-  vehicleType: "01 Innova (Private Taxi)",
+  vehicleType: "01 Innova (Private Taxi - Non-AC in Hills)",
   arrivalDate: "14/05/2026 ~ Haridwar Railway Station",
   departureDate: "23/05/2026 ~ Haridwar Drop",
   favouringGuest: "Mr. Jayesh Bhai Patel",
   favouringPax: "7",
   favouringVehicle: "Innova",
   itinerary: [
-    { date: "14/05/2026", details: "Haridwar pickup, scenic drive to Barkot & check-in", hotel: "Hotel Sarutal (7818854893)" },
-    { date: "15/05/2026", details: "Barkot to Yamunotri Dham trek, Darshan & return to Barkot", hotel: "Hotel Sarutal (7818854893)" },
-    { date: "16/05/2026", details: "Scenic drive from Barkot to Uttarkashi, Vishwanath temple", hotel: "Hotel Skyline (8923184251)" },
-    { date: "17/05/2026", details: "Gangotri Dham Darshan via Harsil Valley & return", hotel: "Hotel Skyline (8923184251)" },
-    { date: "18/05/2026", details: "Uttarkashi to Phata Kedarnath base route", hotel: "Hotel Maa Paa (9634528441)" },
-    { date: "19/05/2026", details: "Transfer to Gaurikund, Kedarnath Trek & Darshan", hotel: "Bhagwari Ji (Tent Only - 9068648285)" },
-    { date: "20/05/2026", details: "Trek down to Gaurikund & transfer to Phata hotel", hotel: "Hotel Maa Paa (9634528441)" },
-    { date: "21/05/2026", details: "Drive Phata to Badrinath via Chopta, evening Aarti", hotel: "Hotel Dhansree (8395091744)" },
-    { date: "22/05/2026", details: "Badrinath Darshan, Mana Village & drive to Pipal Koti", hotel: "Hotel Dabral (7452827619)" },
-    { date: "23/05/2026", details: "Pipal Koti to Haridwar Drop, tour concludes", hotel: "Haridwar Drop" }
+    { date: "14/05/2026", details: "Haridwar pickup, drive to Barkot via Mussoorie & Kempty Falls", hotel: "Hotel Sarutal, Barkot (7818854893)" },
+    { date: "15/05/2026", details: "Barkot to Janki Chatti (36 km), Yamunotri Dham 6 km trek & return to Barkot", hotel: "Hotel Sarutal, Barkot (7818854893)" },
+    { date: "16/05/2026", details: "Scenic drive from Barkot to Uttarkashi, Kashi Vishwanath Temple (Shakti Stambh)", hotel: "Hotel Skyline, Uttarkashi (8923184251)" },
+    { date: "17/05/2026", details: "Uttarkashi to Gangotri Dham Darshan via Harsil Valley & return to Uttarkashi", hotel: "Hotel Skyline, Uttarkashi (8923184251)" },
+    { date: "18/05/2026", details: "Uttarkashi to Guptkashi via Mandakini valley & Kedarnath registration check", hotel: "Hotel Maa Paa, Guptkashi (9634528441)" },
+    { date: "19/05/2026", details: "5:00 AM transfer to Sonprayag/Gaurikund, 18 km Kedarnath Trek & Evening Aarti", hotel: "Kedarnath (Tent House - Without Food)" },
+    { date: "20/05/2026", details: "Morning Abhishek & Bhairav Nath Temple, trek down to Gaurikund & return to Guptkashi", hotel: "Hotel Maa Paa, Guptkashi (9634528441)" },
+    { date: "21/05/2026", details: "Scenic drive from Guptkashi to Pipalkoti via Chopta (Mini Switzerland)", hotel: "Hotel Dabral, Pipalkoti (7452827619)" },
+    { date: "22/05/2026", details: "Pipalkoti to Badrinath Dham Darshan, Mana Village, Vyas Gufa, Bhim Pul & return to Pipalkoti (140 km UP/DOWN)", hotel: "Hotel Dabral, Pipalkoti (7452827619)" },
+    { date: "23/05/2026", details: "Pipalkoti to Haridwar via Narsingh Temple Joshimath, Dhari Devi Temple & Panch Prayag", hotel: "Tour Concludes (Haridwar Drop)" }
   ]
 };
 
@@ -58,21 +58,21 @@ const PRESET_TRANSPORT_DODHAM_ACTUAL = {
   exoNo: "BILL NO. 626",
   fileNo: "626",
   guestName: "Mr. Surendar Kumar Patti",
-  managerMobile: "+91 97190 38278",
+  managerMobile: "+91 82660 16066 · 9389880277",
   noOfAdults: "24+2 Members",
-  vehicleType: "01 Tempo Traveller (Hall Package)",
+  vehicleType: "01 Tempo Traveller (Non-AC in Hills)",
   arrivalDate: "14/05/2026 ~ Haridwar",
   departureDate: "19/05/2026 ~ Haridwar Drop",
   favouringGuest: "Mr. Surendar Kumar Patti",
   favouringPax: "24+2",
   favouringVehicle: "Tempo Traveller",
   itinerary: [
-    { date: "14/05/2026", details: "Haridwar pickup & drive to Badashu / Guptkashi", hotel: "Hotel Omkara (8923334391)" },
-    { date: "15/05/2026", details: "Transfer to Sonprayag/Gaurikund, Kedarnath Trek & Darshan", hotel: "Bhagwari Ji (Tent Only - 9068648285)" },
-    { date: "16/05/2026", details: "Trek down to Gaurikund, transfer back to Badashu", hotel: "Hotel Omkara (8923334391)" },
-    { date: "17/05/2026", details: "Drive Badashu to Pipal Koti / Badrinath route", hotel: "Hotel Dabral (7452827619)" },
-    { date: "18/05/2026", details: "Badrinath Dham Darshan, Mana village & return to Pipal Koti", hotel: "Hotel Dabral (7452827619)" },
-    { date: "19/05/2026", details: "Pipal Koti to Haridwar Drop, tour concludes", hotel: "Haridwar Drop" }
+    { date: "14/05/2026", details: "Early morning Haridwar pickup & scenic drive to Guptkashi / Sitapur", hotel: "Hotel Omkara, Guptkashi/Sitapur (8923334391)" },
+    { date: "15/05/2026", details: "5:00 AM transfer to Sonprayag/Gaurikund, 18 km Kedarnath Trek & Evening Aarti", hotel: "Kedarnath (Tent House - Without Food)" },
+    { date: "16/05/2026", details: "Morning Abhishek & Bhairav Nath Temple, trek down to Gaurikund & return to Sitapur / Guptkashi", hotel: "Hotel Omkara, Sitapur/Guptkashi (8923334391)" },
+    { date: "17/05/2026", details: "Scenic drive from Sitapur / Guptkashi to Pipalkoti via Chopta", hotel: "Hotel Dabral, Pipalkoti (7452827619)" },
+    { date: "18/05/2026", details: "Pipalkoti to Badrinath Dham Darshan, Mana Village, Vyas Gufa, Bhim Pul & return to Pipalkoti (140 km UP/DOWN)", hotel: "Hotel Dabral, Pipalkoti (7452827619)" },
+    { date: "19/05/2026", details: "Pipalkoti to Haridwar via Narsingh Temple Joshimath, Dhari Devi Temple & Panch Prayag", hotel: "Tour Concludes (Haridwar Drop)" }
   ]
 };
 
@@ -81,25 +81,25 @@ const PRESET_TRANSPORT_12P_10D = {
   exoNo: "UK-TR-12P2026",
   fileNo: "12P-01",
   guestName: "12 Pax Pilgrimage Group",
-  managerMobile: "+91 97190 38278",
+  managerMobile: "+91 82660 16066 · 9389880277",
   noOfAdults: "12 Persons",
-  vehicleType: "01 Luxury 12-Seater Tempo Traveller",
+  vehicleType: "01 12-Seater Tempo Traveller (Non-AC in Hills)",
   arrivalDate: "Day 1 ~ Haridwar / Rishikesh / Dehradun",
-  departureDate: "Day 10 ~ Haridwar / Dehradun Drop",
+  departureDate: "Day 10 ~ Haridwar Drop",
   favouringGuest: "12 Pax Group",
   favouringPax: "12",
   favouringVehicle: "Tempo Traveller",
   itinerary: [
-    { date: "Day 1", details: "Haridwar/Dehradun pickup, drive to Barkot via Kempty Falls", hotel: "Barkot Deluxe Hotel" },
-    { date: "Day 2", details: "Drive to Janki Chatti, Yamunotri Dham trek, Darshan & return to Barkot", hotel: "Barkot Deluxe Hotel" },
-    { date: "Day 3", details: "Scenic drive from Barkot to Uttarkashi, Vishwanath Temple", hotel: "Uttarkashi Deluxe Hotel" },
-    { date: "Day 4", details: "Gangotri Dham Darshan via beautiful Harsil Valley & back to Uttarkashi", hotel: "Uttarkashi Deluxe Hotel" },
-    { date: "Day 5", details: "Scenic mountain transfer from Uttarkashi to Phata / Rampur / Guptkashi", hotel: "Phata / Rampur Resort" },
-    { date: "Day 6", details: "Transfer to Sonprayag/Gaurikund, Kedarnath Trek & Holy Darshan", hotel: "Kedarnath (Tent Only)" },
-    { date: "Day 7", details: "Morning trek down to Gaurikund, transfer to Sitapur / Phata hotel", hotel: "Phata / Sitapur Resort" },
-    { date: "Day 8", details: "Drive to Badrinath via Chopta alpine hill station, evening Aarti", hotel: "Badrinath Deluxe Hotel" },
-    { date: "Day 9", details: "Badrinath Darshan, Mana Village, Vyas Gufa, drive to Pipalkoti", hotel: "Pipalkoti Deluxe Hotel" },
-    { date: "Day 10", details: "Enroute Maa Dhari Devi & Devprayag, Rishikesh drop / Haridwar drop", hotel: "Tour Concludes" }
+    { date: "Day 1", details: "Haridwar pickup, climb into Shivalik ranges via Mussoorie & Kempty Falls to Barkot", hotel: "Hotel, Barkot (Meal as per menu)" },
+    { date: "Day 2", details: "36 km drive to Janki Chatti, 6 km trek to Yamunotri Dham, Surya Kund & return to Barkot", hotel: "Hotel, Barkot (Meal as per menu)" },
+    { date: "Day 3", details: "Scenic drive from Barkot to Uttarkashi along Bhagirathi River, Kashi Vishwanath Temple (Shakti Stambh)", hotel: "Hotel, Uttarkashi (Meal as per menu)" },
+    { date: "Day 4", details: "Drive through Harsil Valley to Gangotri Dham, holy dip & Darshan, return to Uttarkashi", hotel: "Hotel, Uttarkashi (Meal as per menu)" },
+    { date: "Day 5", details: "Cross mountain ridge to Mandakini valley, check-in at Guptkashi & Kedarnath registration check", hotel: "Hotel, Guptkashi (Meal as per menu)" },
+    { date: "Day 6", details: "5:00 AM drive to Sonprayag, shuttle to Gaurikund, 18 km trek to Kedarnath & Evening Aarti", hotel: "Kedarnath (Tent House - Without Food)" },
+    { date: "Day 7", details: "Morning Abhishek ceremony & Bhairav Nath Temple, descend to Gaurikund & return to Guptkashi", hotel: "Hotel, Guptkashi (Meal as per menu)" },
+    { date: "Day 8", details: "Scenic drive through Garhwal Himalayas from Guptkashi to Pipalkoti via Chopta", hotel: "Hotel, Pipalkoti (Meal as per menu)" },
+    { date: "Day 9", details: "Pipalkoti to Badrinath Dham (140 km UP/DOWN), Mana Village, Vyas Gufa, Bhim Pul & return to Pipalkoti", hotel: "Hotel, Pipalkoti (Meal as per menu)" },
+    { date: "Day 10", details: "Pipalkoti to Haridwar via Narsingh Temple Joshimath, Dhari Devi Temple & Panch Prayag", hotel: "Tour Concludes (Haridwar Drop)" }
   ]
 };
 
@@ -109,64 +109,64 @@ const DEFAULT_TRANSPORT_DATA = {
   exoNo: "UK-TR-2026",
   fileNo: "01",
   guestName: "Valued Guest & Family",
-  managerMobile: "+91 97190 38278",
+  managerMobile: "+91 82660 16066 · 9389880277",
   noOfAdults: "04 Adults",
-  vehicleType: "01 Innova Crysta (Non-AC in Hills)",
-  arrivalDate: "15 May 2026 ~ Haridwar / Dehradun",
-  departureDate: "24 May 2026 ~ Haridwar / Dehradun",
+  vehicleType: "01 Innova Crysta / Dzire (Non-AC in Hills)",
+  arrivalDate: "15 May 2026 ~ Haridwar",
+  departureDate: "24 May 2026 ~ Haridwar Drop",
   favouringGuest: "Valued Guest",
   favouringPax: "04",
-  favouringVehicle: "01 Innova Crysta (Non-AC in Hills)",
+  favouringVehicle: "01 Innova Crysta / Dzire (Non-AC in Hills)",
   itinerary: [
     { 
       date: "Day 1", 
-      details: "Haridwar / Dehradun pickup, scenic drive to Barkot & hotel check-in", 
-      hotel: "Hotel / Camp, Barkot" 
+      details: "Haridwar pickup, scenic drive via Mussoorie & Kempty Falls to Barkot & hotel check-in", 
+      hotel: "Hotel, Barkot (Meal as per menu)" 
     },
     { 
       date: "Day 2", 
-      details: "Barkot to Yamunotri Dham trek & darshan, evening return transfer", 
-      hotel: "Hotel / Camp, Barkot" 
+      details: "Barkot to Janki Chatti (36 km), 6 km trek to Yamunotri Dham & Surya Kund, return to Barkot", 
+      hotel: "Hotel, Barkot (Meal as per menu)" 
     },
     { 
       date: "Day 3", 
-      details: "Drive to Uttarkashi, Kashi Vishwanath temple darshan", 
-      hotel: "Hotel / Resort, Uttarkashi" 
+      details: "Scenic drive along Bhagirathi River to Uttarkashi, visit Kashi Vishwanath Temple (Shakti Stambh)", 
+      hotel: "Hotel, Uttarkashi (Meal as per menu)" 
     },
     { 
       date: "Day 4", 
-      details: "Gangotri Dham darshan, Harsil Valley scenic drive & return", 
-      hotel: "Hotel / Resort, Uttarkashi" 
+      details: "Drive through Harsil Valley to Gangotri Dham, holy dip & Darshan, return to Uttarkashi", 
+      hotel: "Hotel, Uttarkashi (Meal as per menu)" 
     },
     { 
       date: "Day 5", 
-      details: "Scenic transfer from Uttarkashi to Guptkashi / Sitapur", 
-      hotel: "Hotel / Resort, Guptkashi" 
+      details: "Mountain transfer from Uttarkashi to Guptkashi, medical check-up & registration for Kedarnath", 
+      hotel: "Hotel, Guptkashi (Meal as per menu)" 
     },
     { 
       date: "Day 6", 
-      details: "Transfer to Sonprayag / Helipad for holy Kedarnath Dham darshan", 
-      hotel: "Kedarnath Base / Sitapur" 
+      details: "5:00 AM transfer to Sonprayag, shuttle to Gaurikund, 18 km trek to Kedarnath & Evening Aarti", 
+      hotel: "Kedarnath (Tent House - Without Food)" 
     },
     { 
       date: "Day 7", 
-      details: "Morning darshan, return transfer & scenic drive to Badrinath Dham", 
-      hotel: "Hotel, Badrinath" 
+      details: "Morning Abhishek & Bhairav Nath Temple Darshan, descend to Gaurikund & return to Guptkashi", 
+      hotel: "Hotel, Guptkashi (Meal as per menu)" 
     },
     { 
       date: "Day 8", 
-      details: "Badrinath Dham darshan, Mana village, Vyas Gufa & drive to Pipalkoti", 
-      hotel: "Hotel, Pipalkoti" 
+      details: "Scenic drive from Guptkashi to Pipalkoti passing through Chopta (Mini Switzerland)", 
+      hotel: "Hotel, Pipalkoti (Meal as per menu)" 
     },
     { 
       date: "Day 9", 
-      details: "Drive from Pipalkoti to Rishikesh, evening Ganga Aarti at Triveni Ghat", 
-      hotel: "Hotel / Resort, Rishikesh" 
+      details: "Drive Pipalkoti to Badrinath Dham (140 km UP/DOWN), Mana Village, Vyas Gufa, Bhim Pul & return to Pipalkoti", 
+      hotel: "Hotel, Pipalkoti (Meal as per menu)" 
     },
     { 
       date: "Day 10", 
-      details: "Morning check-out, Rishikesh local sightseeing & airport/station drop", 
-      hotel: "Tour Concludes" 
+      details: "Final leg from Pipalkoti to Haridwar visiting Narsingh Temple Joshimath, Dhari Devi Temple & Panch Prayag", 
+      hotel: "Tour Concludes (Haridwar Drop)" 
     },
   ]
 };
