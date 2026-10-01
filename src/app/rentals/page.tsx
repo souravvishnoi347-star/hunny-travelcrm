@@ -40,7 +40,8 @@ import {
   Check,
   PhoneCall,
   PhoneForwarded,
-  PhoneOutgoing
+  PhoneOutgoing,
+  Layers
 } from "lucide-react";
 import Link from "next/link";
 
@@ -275,6 +276,23 @@ export default function TwoWheelerRentalsPage() {
     image: "/vehicles/honda-activa-125.png"
   });
 
+  // Multiple / Bulk Vehicle State
+  const [addVehicleMode, setAddVehicleMode] = useState<"single" | "multiple">("multiple");
+  const [bulkQuantity, setBulkQuantity] = useState<number>(3);
+  const [bulkSeriesPrefix, setBulkSeriesPrefix] = useState<string>("UK 08 AB");
+  const [bulkStartNum, setBulkStartNum] = useState<number>(1101);
+  const [bulkPlatesText, setBulkPlatesText] = useState<string>("UK 08 AB 1101\nUK 08 AB 1102\nUK 08 AB 1103");
+
+  // Helper to auto-generate plates series for multiple vehicles
+  const handleGeneratePlateSeries = (qty: number, prefix: string, start: number) => {
+    const cleanPrefix = prefix.trim().toUpperCase() || "UK 08 AB";
+    const plates: string[] = [];
+    for (let i = 0; i < qty; i++) {
+      plates.push(`${cleanPrefix} ${start + i}`);
+    }
+    setBulkPlatesText(plates.join("\n"));
+  };
+
   // New Booking Form State
   const [newBooking, setNewBooking] = useState<{
     vehicleId: string;
@@ -431,24 +449,72 @@ export default function TwoWheelerRentalsPage() {
     setViewAgreementBooking(bookingEntry);
   };
 
-  // Add Vehicle Submit
+  // Add Vehicle Submit (Single or Multiple Batch)
   const handleCreateVehicleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const vehicleId = `veh-${Date.now().toString().slice(-4)}`;
-    const vehicleEntry: RentalVehicle = {
-      id: vehicleId,
-      name: newVehicle.name,
-      type: newVehicle.type,
-      plateNumber: newVehicle.plateNumber.toUpperCase(),
-      dailyRate: Number(newVehicle.dailyRate),
-      odometer: Number(newVehicle.odometer),
-      fuelLevel: newVehicle.fuelLevel,
-      status: "available",
-      helmetsIncluded: 2,
-      image: newVehicle.image
-    };
-    saveFleet([vehicleEntry, ...fleet]);
-    setShowAddVehicleModal(false);
+
+    if (addVehicleMode === "multiple") {
+      // Parse plate numbers from textarea (split by newline or comma)
+      let plates = bulkPlatesText
+        .split(/[\n,]/)
+        .map(p => p.trim())
+        .filter(p => p.length > 0);
+
+      // If user provided fewer plates than requested quantity, auto-fill remaining with series
+      if (plates.length < bulkQuantity) {
+        const needed = bulkQuantity - plates.length;
+        const prefix = bulkSeriesPrefix.trim().toUpperCase() || "UK 08 AB";
+        const start = Number(bulkStartNum) + plates.length;
+        for (let i = 0; i < needed; i++) {
+          plates.push(`${prefix} ${start + i}`);
+        }
+      }
+
+      // If more plates entered than quantity, limit to quantity
+      if (plates.length > bulkQuantity) {
+        plates = plates.slice(0, bulkQuantity);
+      }
+
+      if (plates.length === 0) {
+        alert("Please enter at least one registration plate number.");
+        return;
+      }
+
+      const timestamp = Date.now().toString().slice(-4);
+      const newEntries: RentalVehicle[] = plates.map((plate, idx) => ({
+        id: `veh-${timestamp}-${idx + 1}`,
+        name: newVehicle.name,
+        type: newVehicle.type,
+        plateNumber: plate.toUpperCase(),
+        dailyRate: Number(newVehicle.dailyRate),
+        odometer: Number(newVehicle.odometer),
+        fuelLevel: newVehicle.fuelLevel,
+        status: "available",
+        helmetsIncluded: 2,
+        image: newVehicle.image
+      }));
+
+      saveFleet([...newEntries, ...fleet]);
+      setShowAddVehicleModal(false);
+      alert(`✓ Successfully added ${newEntries.length} units of "${newVehicle.name}" to Haridwar Fleet!`);
+    } else {
+      const vehicleId = `veh-${Date.now().toString().slice(-4)}`;
+      const vehicleEntry: RentalVehicle = {
+        id: vehicleId,
+        name: newVehicle.name,
+        type: newVehicle.type,
+        plateNumber: newVehicle.plateNumber.toUpperCase(),
+        dailyRate: Number(newVehicle.dailyRate),
+        odometer: Number(newVehicle.odometer),
+        fuelLevel: newVehicle.fuelLevel,
+        status: "available",
+        helmetsIncluded: 2,
+        image: newVehicle.image
+      };
+      saveFleet([vehicleEntry, ...fleet]);
+      setShowAddVehicleModal(false);
+    }
+
     setNewVehicle({
       name: "",
       type: "scooty",
@@ -2073,14 +2139,79 @@ export default function TwoWheelerRentalsPage() {
               ))}
             </div>
 
-            <button
-              onClick={() => setShowAddVehicleModal(true)}
-              className="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-semibold transition cursor-pointer flex items-center gap-1 shadow-xs"
-            >
-              <Plus size={13} />
-              <span>Add Vehicle</span>
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => {
+                  setAddVehicleMode("multiple");
+                  setShowAddVehicleModal(true);
+                }}
+                className="px-3 py-1.5 bg-[#0b1320] hover:bg-slate-900 text-amber-300 border border-amber-400/40 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 shadow-xs"
+              >
+                <Layers size={13} className="text-amber-400" />
+                <span>+ Add Multiple (Bulk)</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setAddVehicleMode("single");
+                  setShowAddVehicleModal(true);
+                }}
+                className="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-semibold transition cursor-pointer flex items-center gap-1 shadow-xs"
+              >
+                <Plus size={13} />
+                <span>Add Vehicle</span>
+              </button>
+            </div>
           </div>
+
+          {/* Multi-Stock Model Inventory Breakdown */}
+          {(() => {
+            const modelSummary: Record<string, { total: number; ready: number; onRoad: number; rate: number; type: string; img?: string }> = {};
+            fleet.forEach(v => {
+              if (!modelSummary[v.name]) {
+                modelSummary[v.name] = { total: 0, ready: 0, onRoad: 0, rate: v.dailyRate, type: v.type, img: v.image };
+              }
+              modelSummary[v.name].total += 1;
+              if (v.status === "available") modelSummary[v.name].ready += 1;
+              if (v.status === "rented") modelSummary[v.name].onRoad += 1;
+            });
+            const list = Object.entries(modelSummary);
+            return (
+              <div className="bg-gradient-to-r from-[#0b1320] via-slate-900 to-[#16233b] text-white p-3 rounded-xl border border-amber-400/30 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-3">
+                <div className="space-y-0.5">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 bg-amber-500/20 px-2 py-0.5 rounded">
+                      Fleet Inventory Units
+                    </span>
+                    <span className="text-xs font-bold text-slate-200">
+                      {fleet.length} Total Vehicles Across {list.length} Models
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap gap-2 pt-1 text-[11px]">
+                    {list.map(([modelName, stats]) => (
+                      <span key={modelName} className="inline-flex items-center gap-1 bg-white/10 hover:bg-white/15 px-2 py-1 rounded-lg border border-white/10 transition">
+                        <span className="font-semibold text-slate-100">{modelName}:</span>
+                        <span className="font-bold text-amber-300">{stats.total} Units</span>
+                        <span className="text-[10px] text-emerald-400 font-bold">({stats.ready} Ready)</span>
+                        {stats.onRoad > 0 && <span className="text-[10px] text-amber-400 font-bold">({stats.onRoad} Road)</span>}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => {
+                    setAddVehicleMode("multiple");
+                    setShowAddVehicleModal(true);
+                  }}
+                  className="shrink-0 px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs rounded-lg transition cursor-pointer flex items-center gap-1.5 self-start md:self-auto shadow-xs"
+                >
+                  <Layers size={13} />
+                  <span>Add Units to Fleet</span>
+                </button>
+              </div>
+            );
+          })()}
 
           {/* Vehicle Cards Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -2858,6 +2989,36 @@ export default function TwoWheelerRentalsPage() {
               </button>
             </div>
 
+            {/* Mode Switcher: Single vs Multiple Fleet Addition */}
+            <div className="px-5 pt-4 pb-0 bg-slate-50 border-b border-slate-100">
+              <div className="grid grid-cols-2 p-1 bg-slate-200/80 rounded-xl mb-3">
+                <button
+                  type="button"
+                  onClick={() => setAddVehicleMode("multiple")}
+                  className={`py-1.5 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5 cursor-pointer ${
+                    addVehicleMode === "multiple"
+                      ? "bg-[#0b1320] text-amber-300 shadow-xs"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
+                >
+                  <Layers size={13} className={addVehicleMode === "multiple" ? "text-amber-400" : ""} />
+                  <span>Multiple Units (Bulk Fleet)</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setAddVehicleMode("single")}
+                  className={`py-1.5 text-xs font-bold rounded-lg transition flex items-center justify-center gap-1.5 cursor-pointer ${
+                    addVehicleMode === "single"
+                      ? "bg-white text-slate-900 shadow-xs"
+                      : "text-slate-600 hover:text-slate-900"
+                  }`}
+                >
+                  <Key size={13} />
+                  <span>Single Vehicle (1 Unit)</span>
+                </button>
+              </div>
+            </div>
+
             <form onSubmit={handleCreateVehicleSubmit} className="p-5 space-y-4 max-h-[80vh] overflow-y-auto">
               {/* Vehicle Name & Type */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -2888,22 +3049,11 @@ export default function TwoWheelerRentalsPage() {
                 </div>
               </div>
 
-              {/* Registration Plate & Daily Tariff */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="space-y-1">
-                  <label className="text-xs font-semibold text-slate-700">Registration Plate *</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="UK 08 AB 1234"
-                    value={newVehicle.plateNumber}
-                    onChange={e => setNewVehicle({ ...newVehicle, plateNumber: e.target.value })}
-                    className="w-full text-xs p-2 rounded-lg border border-slate-200 font-mono uppercase bg-white"
-                  />
-                </div>
-
-                <div className="space-y-1">
-                  <label className="text-xs font-semibold text-slate-700">Daily Tariff Rate (₹/day) *</label>
+              {/* Daily Tariff Rate */}
+              <div className="space-y-1">
+                <label className="text-xs font-semibold text-slate-700">Daily Tariff Rate (₹/day per vehicle) *</label>
+                <div className="relative">
+                  <span className="absolute left-3 top-2 text-xs font-bold text-slate-400">₹</span>
                   <input
                     type="number"
                     required
@@ -2911,10 +3061,175 @@ export default function TwoWheelerRentalsPage() {
                     placeholder="500"
                     value={newVehicle.dailyRate}
                     onChange={e => setNewVehicle({ ...newVehicle, dailyRate: Number(e.target.value) })}
-                    className="w-full text-xs p-2 rounded-lg border border-slate-200 bg-white"
+                    className="w-full text-xs pl-7 pr-3 py-2 rounded-lg border border-slate-200 bg-white font-semibold"
                   />
                 </div>
               </div>
+
+              {/* Multiple Vehicles Fleet Configuration vs Single Registration Plate */}
+              {addVehicleMode === "multiple" ? (
+                <div className="p-3.5 bg-gradient-to-br from-amber-50/80 via-slate-50 to-amber-50/40 rounded-xl border border-amber-300 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                        <Layers size={14} className="text-amber-600" />
+                        <span>Multiple Units (Fleet Stock Setup)</span>
+                      </h4>
+                      <p className="text-[10px] text-slate-500">
+                        Add multiple units of this model in 1 click with individual plate numbers
+                      </p>
+                    </div>
+                    <span className="text-[10px] font-bold text-amber-900 bg-amber-100 px-2 py-0.5 rounded-full border border-amber-300">
+                      Total: {bulkQuantity} Units
+                    </span>
+                  </div>
+
+                  {/* Quantity Selector */}
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-semibold text-slate-700 block">
+                      Number of Vehicles (Quantity) *
+                    </label>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <div className="flex items-center border border-slate-300 rounded-lg overflow-hidden bg-white shadow-2xs">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const newQty = Math.max(1, bulkQuantity - 1);
+                            setBulkQuantity(newQty);
+                            handleGeneratePlateSeries(newQty, bulkSeriesPrefix, bulkStartNum);
+                          }}
+                          className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs cursor-pointer"
+                        >
+                          -
+                        </button>
+                        <input
+                          type="number"
+                          min="1"
+                          max="50"
+                          value={bulkQuantity}
+                          onChange={e => {
+                            const val = Math.max(1, Number(e.target.value) || 1);
+                            setBulkQuantity(val);
+                            handleGeneratePlateSeries(val, bulkSeriesPrefix, bulkStartNum);
+                          }}
+                          className="w-14 text-center text-xs font-bold p-1 bg-white border-none outline-none"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const newQty = bulkQuantity + 1;
+                            setBulkQuantity(newQty);
+                            handleGeneratePlateSeries(newQty, bulkSeriesPrefix, bulkStartNum);
+                          }}
+                          className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs cursor-pointer"
+                        >
+                          +
+                        </button>
+                      </div>
+
+                      <div className="flex gap-1">
+                        {[2, 3, 5, 8, 10].map(qty => (
+                          <button
+                            type="button"
+                            key={qty}
+                            onClick={() => {
+                              setBulkQuantity(qty);
+                              handleGeneratePlateSeries(qty, bulkSeriesPrefix, bulkStartNum);
+                            }}
+                            className={`px-2 py-1 rounded text-[10.5px] font-bold border transition cursor-pointer ${
+                              bulkQuantity === qty
+                                ? "bg-[#0b1320] text-amber-300 border-[#0b1320]"
+                                : "bg-white text-slate-600 border-slate-200 hover:bg-slate-50"
+                            }`}
+                          >
+                            {qty} Units
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Auto-Generate Plate Series */}
+                  <div className="bg-white p-2.5 rounded-lg border border-slate-200 space-y-2">
+                    <div className="flex items-center justify-between text-[11px] font-bold text-slate-700">
+                      <span>Quick Plate Series Generator</span>
+                      <button
+                        type="button"
+                        onClick={() => handleGeneratePlateSeries(bulkQuantity, bulkSeriesPrefix, bulkStartNum)}
+                        className="text-[10px] text-amber-700 hover:text-amber-900 font-bold underline cursor-pointer"
+                      >
+                        ⚡ Re-Generate Series
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <label className="text-[10px] text-slate-500 font-medium block mb-0.5">Series Prefix</label>
+                        <input
+                          type="text"
+                          value={bulkSeriesPrefix}
+                          onChange={e => {
+                            setBulkSeriesPrefix(e.target.value);
+                            handleGeneratePlateSeries(bulkQuantity, e.target.value, bulkStartNum);
+                          }}
+                          placeholder="UK 08 AB"
+                          className="w-full text-xs p-1.5 rounded border border-slate-200 font-mono uppercase bg-slate-50"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-[10px] text-slate-500 font-medium block mb-0.5">Starting Number</label>
+                        <input
+                          type="number"
+                          value={bulkStartNum}
+                          onChange={e => {
+                            const val = Number(e.target.value) || 1000;
+                            setBulkStartNum(val);
+                            handleGeneratePlateSeries(bulkQuantity, bulkSeriesPrefix, val);
+                          }}
+                          placeholder="1101"
+                          className="w-full text-xs p-1.5 rounded border border-slate-200 font-mono bg-slate-50"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Number Plates Textarea */}
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between">
+                      <label className="text-xs font-semibold text-slate-700">
+                        Vehicle Number Plates (1 per line) *
+                      </label>
+                      <span className="text-[10px] font-mono text-slate-500">
+                        {bulkPlatesText.split(/[\n,]/).filter(p => p.trim().length > 0).length} of {bulkQuantity} entered
+                      </span>
+                    </div>
+                    <textarea
+                      rows={3}
+                      required
+                      value={bulkPlatesText}
+                      onChange={e => setBulkPlatesText(e.target.value)}
+                      placeholder={"UK 08 AB 1101\nUK 08 AB 1102\nUK 08 AB 1103"}
+                      className="w-full text-xs p-2 rounded-lg border border-slate-200 font-mono uppercase bg-white resize-y"
+                    />
+                    <p className="text-[9.5px] text-slate-500">
+                      💡 Tip: Each line creates a distinct vehicle in your fleet with its own odometer &amp; booking status.
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                /* Registration Plate for Single Vehicle */
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">Registration Plate *</label>
+                  <input
+                    type="text"
+                    required={addVehicleMode === "single"}
+                    placeholder="UK 08 AB 1234"
+                    value={newVehicle.plateNumber}
+                    onChange={e => setNewVehicle({ ...newVehicle, plateNumber: e.target.value })}
+                    className="w-full text-xs p-2 rounded-lg border border-slate-200 font-mono uppercase bg-white"
+                  />
+                </div>
+              )}
 
               {/* Odometer & Fuel Level */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -3031,10 +3346,19 @@ export default function TwoWheelerRentalsPage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-1.5 rounded-lg bg-[#0b1320] hover:bg-[#16233b] text-amber-300 hover:text-white font-semibold text-xs transition cursor-pointer shadow-xs flex items-center gap-1"
+                  className="px-4 py-2 rounded-lg bg-[#0b1320] hover:bg-[#16233b] text-amber-300 hover:text-white font-bold text-xs transition cursor-pointer shadow-xs flex items-center gap-1.5"
                 >
-                  <Plus size={13} />
-                  <span>Save Vehicle to Fleet</span>
+                  {addVehicleMode === "multiple" ? (
+                    <>
+                      <Layers size={14} className="text-amber-400" />
+                      <span>Add All {bulkQuantity} Vehicles to Fleet</span>
+                    </>
+                  ) : (
+                    <>
+                      <Plus size={14} />
+                      <span>Save Vehicle to Fleet</span>
+                    </>
+                  )}
                 </button>
               </div>
             </form>

@@ -149,6 +149,8 @@ export interface ItineraryData {
     certificate2Caption?: string;
     officePhoto?: string;
     officeCaption?: string;
+    vehiclePhoto?: string;
+    vehicleCaption?: string;
   };
   showTrustSection?: boolean;
 }
@@ -162,7 +164,9 @@ export const DEFAULT_TRUST_PHOTOS = {
   certificate2Photo: "/certificates/certificate.jpeg",
   certificate2Caption: "Dehradun Transport Authority License: 010/RTA/23",
   officePhoto: "/certificates/office_front.jpeg",
-  officeCaption: "Shop 38, Pursharthi Market, Opp. Railway Station Gate No. 2, Haridwar"
+  officeCaption: "Shop 38, Pursharthi Market, Opp. Railway Station Gate No. 2, Haridwar",
+  vehiclePhoto: "/gallery/traymbhkam_fleet_lineup.png",
+  vehicleCaption: "Traymbhkam Dedicated Mountain Fleet (Tempo Traveller & Hill Cabs)"
 };
 
 export const CURATED_HOTEL_PHOTO_PRESETS: HotelPhoto[] = [
@@ -404,8 +408,8 @@ const CHARDHAM_PRESET: ItineraryData = {
     },
     {
       id: "ph-4",
-      url: "/gallery/chardham_10d_img_8.jpg",
-      caption: "Holy Shri Gangotri Dham Temple"
+      url: "/gallery/chardham_10d_img_19.jpg",
+      caption: "Sacred Devprayag Sangam & Alaknanda Confluence"
     },
     {
       id: "ph-5",
@@ -631,8 +635,8 @@ const CHARDHAM_12P_10D_PRESET: ItineraryData = {
     },
     {
       id: "ph-12p-4",
-      url: "/gallery/chardham_10d_img_8.jpg",
-      caption: "Holy Shri Gangotri Dham Temple"
+      url: "/gallery/chardham_10d_img_19.jpg",
+      caption: "Sacred Devprayag Sangam & Alaknanda Confluence"
     },
     {
       id: "ph-12p-5",
@@ -1156,9 +1160,30 @@ export default function ItineraryBuilder() {
           certificate2Photo: itin.trustPhotos?.certificate2Photo?.trim() || "/certificates/certificate.jpeg",
           certificate2Caption: itin.trustPhotos?.certificate2Caption?.trim() || "Dehradun Transport Authority License: 010/RTA/23",
           officePhoto: itin.trustPhotos?.officePhoto || "/certificates/office_front.jpeg",
-          officeCaption: itin.trustPhotos?.officeCaption || "Purusharthi Market, Opp. Railway Station Gate No. 2, Haridwar"
+          officeCaption: itin.trustPhotos?.officeCaption || "Purusharthi Market, Opp. Railway Station Gate No. 2, Haridwar",
+          vehiclePhoto: itin.trustPhotos?.vehiclePhoto || "/gallery/traymbhkam_fleet_lineup.png",
+          vehicleCaption: itin.trustPhotos?.vehicleCaption || "Traymbhkam Dedicated Mountain Fleet (Tempo Traveller & Hill Cabs)"
         };
         itin.showTrustSection = true;
+      }
+      if (!itin.trustPhotos?.vehiclePhoto) {
+        itin.trustPhotos = {
+          ...(itin.trustPhotos || DEFAULT_TRUST_PHOTOS),
+          vehiclePhoto: "/gallery/traymbhkam_fleet_lineup.png",
+          vehicleCaption: "Traymbhkam Dedicated Mountain Fleet (Tempo Traveller & Hill Cabs)"
+        };
+      }
+      if (Array.isArray(itin.photos)) {
+        itin.photos = itin.photos.map((p: any, idx: number) => {
+          if (idx >= 3 && (p.url?.includes("img_8.jpg") || p.caption?.toLowerCase().includes("gangotri"))) {
+            return {
+              ...p,
+              url: "/gallery/chardham_10d_img_19.jpg",
+              caption: "Sacred Devprayag Sangam & Alaknanda Confluence"
+            };
+          }
+          return p;
+        });
       }
       return itin;
     };
@@ -2628,34 +2653,69 @@ ${data.motto}`;
             </table>
           </div>
 
+          {/* Dedicated Tourist Fleet Showcase (Tempo Travellers & Mountain Taxis) */}
+          <div className="rounded-xl border border-amber-300/80 bg-gradient-to-r from-amber-50/70 via-white to-amber-50/50 p-2.5 shadow-2xs flex items-center gap-3">
+            <div className="w-44 h-18 rounded-lg overflow-hidden bg-slate-900 border border-amber-200 shrink-0 relative shadow-inner">
+              <img
+                src={data.trustPhotos?.vehiclePhoto || "/gallery/traymbhkam_fleet_lineup.png"}
+                alt="Dedicated Mountain Tourist Fleet"
+                className="w-full h-full object-cover"
+              />
+              <span className="absolute bottom-1 right-1 text-[7px] font-display font-bold px-1.5 py-0.2 bg-[#0f2744]/90 text-amber-300 rounded shadow-xs">
+                Official Fleet
+              </span>
+            </div>
+            <div className="flex-1 min-w-0 space-y-0.5">
+              <div className="flex items-center justify-between">
+                <h4 className="text-[10.5px] font-serif-luxury font-bold text-[#0f2744] flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>Dedicated Mountain Tourist Fleet &amp; Expert Hill Drivers</span>
+                </h4>
+                <span className="text-[8px] font-display font-bold text-amber-900 bg-amber-100/80 px-2 py-0.2 rounded border border-amber-200 shrink-0">
+                  Govt Permit 010/RTA/23
+                </span>
+              </div>
+              <p className="text-[9px] text-gray-700 leading-tight">
+                {data.trustPhotos?.vehicleCaption || "Commercial yellow-plate Tempo Travellers & Luxury Hill Cabs (Innova Crysta / Dzire). Expert chauffeurs trained for safe high-altitude Himalayan mountain terrain."}
+              </p>
+              <div className="flex items-center gap-2.5 text-[8px] font-semibold text-slate-600 pt-0.5">
+                <span className="text-emerald-700 font-bold">✓ Dedicated Assigned Vehicle</span>
+                <span>•</span>
+                <span className="text-amber-800">✓ Uttarakhand Hill Permit</span>
+                <span>•</span>
+                <span className="text-[#0f2744]">✓ All Toll, Green Tax &amp; Parking Included</span>
+              </div>
+            </div>
+          </div>
+
           {/* 3 Feature Pillars */}
-          <div className="grid grid-cols-3 gap-3 pt-1">
-            <div className="p-3 bg-white rounded-xl border border-amber-200/80 shadow-2xs space-y-1">
-              <div className="flex items-center gap-1.5 text-amber-700 font-display font-bold text-[11px]">
-                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+          <div className="grid grid-cols-3 gap-3 pt-0.5">
+            <div className="p-2.5 bg-white rounded-xl border border-amber-200/80 shadow-2xs space-y-0.5">
+              <div className="flex items-center gap-1.5 text-amber-700 font-display font-bold text-[10.5px]">
+                <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
                 <span>Dedicated Mountain Fleet</span>
               </div>
-              <p className="text-[9.5px] text-gray-600 leading-tight">
+              <p className="text-[9px] text-gray-600 leading-tight">
                 Commercial taxi permit vehicles with experienced Uttarakhand hill drivers.
               </p>
             </div>
 
-            <div className="p-3 bg-white rounded-xl border border-amber-200/80 shadow-2xs space-y-1">
-              <div className="flex items-center gap-1.5 text-amber-700 font-display font-bold text-[11px]">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+            <div className="p-2.5 bg-white rounded-xl border border-amber-200/80 shadow-2xs space-y-0.5">
+              <div className="flex items-center gap-1.5 text-amber-700 font-display font-bold text-[10.5px]">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                 <span>Pre-Inspected Stays</span>
               </div>
-              <p className="text-[9.5px] text-gray-600 leading-tight">
+              <p className="text-[9px] text-gray-600 leading-tight">
                 Verified clean rooms with hot water &amp; hygienic pure vegetarian meals.
               </p>
             </div>
 
-            <div className="p-3 bg-white rounded-xl border border-amber-200/80 shadow-2xs space-y-1">
-              <div className="flex items-center gap-1.5 text-amber-700 font-display font-bold text-[11px]">
-                <Phone className="w-4 h-4 text-amber-600" />
+            <div className="p-2.5 bg-white rounded-xl border border-amber-200/80 shadow-2xs space-y-0.5">
+              <div className="flex items-center gap-1.5 text-amber-700 font-display font-bold text-[10.5px]">
+                <Phone className="w-3.5 h-3.5 text-amber-600" />
                 <span>24/7 Haridwar Control Desk</span>
               </div>
-              <p className="text-[9.5px] text-gray-600 leading-tight">
+              <p className="text-[9px] text-gray-600 leading-tight">
                 Direct management support for permits, weather &amp; yatra route guidance.
               </p>
             </div>
@@ -2965,15 +3025,29 @@ ${data.motto}`;
       { id: "h4", url: "/hotels_custom/hotel_stay_3.jpeg", hotelName: "Hotel Badri Kedar", location: "Badrinath / Pipalkoti", roomType: "Super Deluxe Room" }
     ];
 
-    const landmarkPhotos = (data.photos && data.photos.length >= 6) 
+    let landmarkPhotos = (data.photos && data.photos.length >= 6) 
       ? data.photos.slice(3, 6) 
       : (data.photos && data.photos.length > 0)
       ? data.photos.slice(0, 3)
       : [
-        { id: "l1", url: "/gallery/chardham_10d_img_15.jpg", caption: "Holy Shri Badrinath Ji Temple" },
-        { id: "l2", url: "/gallery/chardham_10d_img_8.jpg", caption: "Holy Shri Gangotri Dham Temple" },
-        { id: "l3", url: "/gallery/kedarnath_temple.png", caption: "Shri Kedarnath Jyotirlinga Shrine" }
+        { id: "l1", url: "/gallery/chardham_10d_img_19.jpg", caption: "Sacred Devprayag Sangam & Confluence" },
+        { id: "l2", url: "/gallery/chardham_10d_img_14.jpg", caption: "Chopta Tungnath Himalayan Ridge" },
+        { id: "l3", url: "/gallery/chardham_10d_img_18.jpg", caption: "Maa Dhari Devi Sacred Shrine" }
       ];
+
+    // Ensure Sightseeing Highlights displays genuine en-route sightseeing places (Devprayag Sangam, Chopta, Dhari Devi) and NOT Dham temples
+    landmarkPhotos = landmarkPhotos.map(p => {
+      const lowerCaption = (p.caption || "").toLowerCase();
+      const isDhamPhoto = p.url.includes("img_8.jpg") || lowerCaption.includes("gangotri") || lowerCaption.includes("badrinath") || lowerCaption.includes("kedarnath") || lowerCaption.includes("yamunotri");
+      if (isDhamPhoto) {
+        return {
+          id: p.id,
+          url: "/gallery/chardham_10d_img_19.jpg",
+          caption: "Sacred Devprayag Sangam & Alaknanda Confluence"
+        };
+      }
+      return p;
+    });
 
     const heroTier = data.pricingTiers?.[0];
 
@@ -4845,6 +4919,77 @@ ${data.motto}`;
                         onChange={e => setData(prev => ({ ...prev, trustPhotos: { ...prev.trustPhotos, officeCaption: e.target.value } }))}
                         className="w-full px-2 py-1 bg-gray-50 border border-gray-200 rounded text-xs"
                         placeholder="Shop 38, Pursharthi Market, Haridwar"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Card 5: Dedicated Tourist Vehicle Fleet */}
+                  <div className="bg-white p-2.5 rounded-xl border border-amber-300 md:col-span-2 space-y-2 shadow-2xs">
+                    <div className="flex items-center justify-between">
+                      <label className="block text-[10.5px] font-bold text-amber-950 flex items-center gap-1.5">
+                        <span>🚐 5. Dedicated Tourist Vehicle Fleet (Tempo &amp; Cabs Lineup)</span>
+                        <span className="text-[9px] bg-amber-100 text-amber-800 px-1.5 py-0.2 rounded font-semibold">Featured on Itinerary Brochure</span>
+                      </label>
+                      <label className="text-[9px] text-amber-800 hover:text-amber-950 font-bold flex items-center gap-0.5 cursor-pointer bg-amber-50 hover:bg-amber-100 px-2 py-0.5 rounded border border-amber-200">
+                        📤 Upload Custom Fleet Photo
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={e => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              const reader = new FileReader();
+                              reader.onload = () => {
+                                setData(prev => ({
+                                  ...prev,
+                                  trustPhotos: { ...prev.trustPhotos, vehiclePhoto: reader.result as string }
+                                }));
+                              };
+                              reader.readAsDataURL(file);
+                            }
+                          }}
+                          className="hidden"
+                        />
+                      </label>
+                    </div>
+
+                    <div className="flex gap-1.5 items-center">
+                      <button
+                        type="button"
+                        onClick={() => setData(prev => ({
+                          ...prev,
+                          trustPhotos: {
+                            ...prev.trustPhotos,
+                            vehiclePhoto: "/gallery/traymbhkam_fleet_lineup.png",
+                            vehicleCaption: "Traymbhkam Dedicated Mountain Fleet (Tempo Traveller & Hill Cabs)"
+                          }
+                        }))}
+                        className={`text-[9px] px-2.5 py-1 rounded font-semibold border flex-1 text-center transition ${
+                          data.trustPhotos?.vehiclePhoto === "/gallery/traymbhkam_fleet_lineup.png"
+                            ? "bg-amber-600 text-white border-amber-700 font-bold"
+                            : "bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100"
+                        }`}
+                      >
+                        Official White Lineup Photo (Studio Fleet)
+                      </button>
+                    </div>
+
+                    <div className="h-28 rounded-lg overflow-hidden border border-amber-200 bg-slate-900 flex items-center justify-center p-1">
+                      <img 
+                        src={data.trustPhotos?.vehiclePhoto || "/gallery/traymbhkam_fleet_lineup.png"} 
+                        alt="Fleet Lineup" 
+                        className="w-full h-full object-contain" 
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-[9.5px] text-gray-500 font-medium mb-0.5">Vehicle Fleet Caption / Description</label>
+                      <input
+                        type="text"
+                        value={data.trustPhotos?.vehicleCaption || ""}
+                        onChange={e => setData(prev => ({ ...prev, trustPhotos: { ...prev.trustPhotos, vehicleCaption: e.target.value } }))}
+                        className="w-full px-2 py-1 bg-gray-50 border border-gray-200 rounded text-xs"
+                        placeholder="Traymbhkam Dedicated Mountain Fleet (Tempo Traveller & Hill Cabs)"
                       />
                     </div>
                   </div>

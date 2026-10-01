@@ -213,10 +213,18 @@ export const INITIAL_DHAM_GALLERY: DhamGalleryPhoto[] = [
   },
   {
     id: "dham-group-tempo-1",
-    url: "/reviews/review_3.jpeg",
-    caption: "Traymbhkam Pilgrimage Group & Luxury Hill Transport",
+    url: "/gallery/traymbhkam_fleet_lineup.png",
+    caption: "Dedicated Mountain Tourist Fleet — Traymbhkam Tour and Travels",
     dham: "custom",
-    dhamLabel: "Group Transport",
+    dhamLabel: "Tourist Fleet",
+    isDefault: true
+  },
+  {
+    id: "dham-fleet-lineup-auth",
+    url: "/gallery/traymbhkam_fleet_lineup.png",
+    caption: "Official Commercial Tour Fleet & Hill Vehicles",
+    dham: "haridwar_rishikesh",
+    dhamLabel: "Tourist Fleet",
     isDefault: true
   }
 ];
