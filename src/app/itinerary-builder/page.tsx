@@ -667,8 +667,8 @@ export const DODHAM_6D_PRESET: ItineraryData = {
   travelDates: "May – Oct 2026 Season",
   duration: "05 Nights / 06 Days",
   startingPoint: "Haridwar, Uttarakhand",
-  routeCovered: "Haridwar – Guptkashi / Sitapur – Sonprayag – Kedarnath – Sitapur – Chopta – Pipalkoti – Badrinath & Mana Village – Dhari Devi – Haridwar",
-  overviewSummary: "A sacred 05 Nights / 06 Days Kedarnath & Badrinath Do Dham Yatra starting and concluding at Haridwar. Journey along the holy Ganga, Alaknanda, and Mandakini rivers with well-paced stays at Guptkashi / Sitapur (2N), Kedarnath (1N Tent House), and Pipalkoti (2N), covering Chopta, Mana Village, Vyas Gufa, Bhim Pul, Dhari Devi Temple, and Panch Prayag.",
+  routeCovered: "Haridwar – Devprayag – Rudraprayag – Guptkashi / Sitapur – Kedarnath – Sitapur – Badrinath & Mana Village – Pipalkoti – Dhari Devi – Haridwar",
+  overviewSummary: "A sacred 05 Nights / 06 Days Kedarnath & Badrinath Do Dham Yatra starting and concluding at Haridwar. Well-paced stays at Guptkashi / Sitapur (2N), Kedarnath (1N Tent House), Badrinath (1N), and Pipalkoti (1N), covering Mana Village, Vyas Gufa, Bhim Pul, Dhari Devi Temple, Rudraprayag, and Panch Prayag.",
   
   glanceDuration: "05 Nights / 06 Days",
   glanceDhams: "Kedarnath Dham · Badrinath Dham",
@@ -704,48 +704,48 @@ export const DODHAM_6D_PRESET: ItineraryData = {
     {
       id: 3,
       dayNumber: 3,
-      dateStr: "After Darshan Return to Sitapur",
-      route: "Shri Kedarnath Dham → Bhairav Nath Temple → Gaurikund → Sitapur / Guptkashi",
+      dateStr: "After Darshan — Return to Sitapur",
+      route: "Shri Kedarnath Dham → Bhairav Nath Temple → Gaurikund → Sonprayag → Sitapur",
       activities: [
         "Wake up early for the sacred 'Abhishek' ceremony and morning Darshan at Shri Kedarnath Temple.",
-        "Visit the revered Bhairav Nath Temple perched above the temple for a panoramic view of the Kedarnath valley.",
-        "After Darshan, descend back to Gaurikund, take the shuttle to Sonprayag, and return to Sitapur / Guptkashi for hot meals and overnight stay."
+        "Visit the revered Bhairav Nath Temple perched above the shrine for a panoramic view of the Kedarnath valley and surrounding snow peaks.",
+        "After Darshan, descend back to Gaurikund, take the local union shuttle to Sonprayag, and return to Sitapur for hot meals and a restful overnight stay."
       ],
-      overnightStay: "Sitapur / Guptkashi (Hotel)"
+      overnightStay: "Sitapur (Hotel)"
     },
     {
       id: 4,
       dayNumber: 4,
-      dateStr: "Drive to Pipalkoti via Chopta",
-      route: "Sitapur / Guptkashi → Chopta (Mini Switzerland) → Pipalkoti",
+      dateStr: "Sitapur to Badrinath",
+      route: "Sitapur → Rudraprayag → Chamoli → Shri Badrinath Dham",
       activities: [
-        "Post breakfast, check out and embark on a scenic drive through the heart of the Garhwal Himalayas passing through Chopta.",
-        "Enjoy breathtaking views of snow-clad peaks and lush alpine meadows at Chopta ('Mini Switzerland of Uttarakhand').",
-        "Arrive at Pipalkoti by evening; check in at the hotel for dinner and overnight stay."
+        "Post breakfast, check out from Sitapur and begin the scenic drive towards Shri Badrinath Dham along the Alaknanda river valley.",
+        "Pass through Rudraprayag and Chamoli districts, witnessing the beautiful confluence points and Himalayan valleys en route.",
+        "Arrive at Badrinath by evening, check in at the hotel, freshen up, and attend the evening Aarti at the divine Badrinath Temple."
       ],
-      overnightStay: "Pipalkoti (Hotel)"
+      overnightStay: "Badrinath (Hotel)"
     },
     {
       id: 5,
       dayNumber: 5,
-      dateStr: "Drive to Badrinath & Return",
-      route: "Pipalkoti → Shri Badrinath Dham & Mana Village → Pipalkoti (140 km UP/DOWN)",
+      dateStr: "Badrinath Darshan & Drive to Pipalkoti",
+      route: "Shri Badrinath Dham → Mana Village → Pipalkoti (Depart by 5:00 PM)",
       activities: [
-        "After breakfast, start the sacred journey to Shri Badrinath Dham (approx. 140 km UP/DOWN round trip from Pipalkoti).",
-        "Take a holy dip in Tapt Kund and have divine Darshan of Lord Badri Vishal at Shri Badrinath Temple.",
-        "Explore Mana Village (the First Indian Village before the Tibet border), Vyas Gufa, and Bhim Pul (the natural rock bridge over the Saraswati River), then return to Pipalkoti."
+        "Rise early for the morning Abhishek Darshan and take a holy dip in the sacred Tapt Kund at Shri Badrinath Temple.",
+        "Explore Mana Village — the Last Indian Village before the Tibet border — visiting Vyas Gufa (cave where Mahabharata was written) and Bhim Pul (the natural rock bridge over the roaring Saraswati River).",
+        "We drive towards Pipalkoti by 5:00 PM; check in at the hotel for dinner and a relaxing overnight stay."
       ],
       overnightStay: "Pipalkoti (Hotel)"
     },
     {
       id: 6,
       dayNumber: 6,
-      dateStr: "Return to Haridwar",
-      route: "Pipalkoti → Joshimath → Maa Dhari Devi Temple & Panch Prayag → Haridwar",
+      dateStr: "Return to Haridwar via Rudraprayag",
+      route: "Pipalkoti → Joshimath → Maa Dhari Devi Temple → Rudraprayag → Haridwar",
       activities: [
-        "Final leg of the journey descending back to the plains of Haridwar; en route visit Narsingh Temple at Joshimath.",
-        "Visit the sacred Dhari Devi Temple on the banks of the Alaknanda River at Kalyasaur (between Srinagar and Rudraprayag), revered as the guardian deity of Uttarakhand.",
-        "Witness the holy Panch Prayag confluences (Vishnuprayag, Nandprayag, Karnaprayag, Rudraprayag & Devprayag) before drop-off at Haridwar."
+        "Final leg of the sacred journey; descend from the Himalayas back towards the plains of Haridwar.",
+        "En route, visit Narsingh Temple at Joshimath and seek blessings at the revered Dhari Devi Temple on the banks of the Alaknanda River (guardian deity of Uttarakhand).",
+        "Pass through the holy Rudraprayag confluence (Alaknanda & Mandakini rivers) and Panch Prayag sacred confluences before drop-off at Haridwar. Yatra Concludes."
       ],
       overnightStay: "Tour Concludes (Haridwar Drop)"
     }
@@ -753,7 +753,7 @@ export const DODHAM_6D_PRESET: ItineraryData = {
 
   pricingSubtitle: "Confirmed 05 Nights / 06 Days Kedarnath Badrinath Do Dham Package with dedicated hill vehicle and verified stays.",
   pricingTiers: [
-    { package: "Standard Package", price: "₹ 19,500 / Pax", hotelCategory: "Standard Clean Rooms (Triple/Quad) & Kedarnath Tent", meals: "Breakfast & Dinner (As per Hotel Menu)", specialFeature: "All Toll, Tax & Parking Included" }
+    { package: "Standard Package", price: "", hotelCategory: "Standard Clean Rooms (Triple/Quad) & Kedarnath Tent", meals: "Breakfast & Dinner (As per Hotel Menu)", specialFeature: "All Toll, Tax & Parking Included" }
   ],
   pricingNote: "Note: All stays are on Triple or Quad-sharing basis (in Kedarnath 5 to 6 sharing Tent House without food). All toll, tax, and parking included.",
 
@@ -761,11 +761,12 @@ export const DODHAM_6D_PRESET: ItineraryData = {
     "Dedicated Hill Vehicle (Innova / Dzire / Tempo Traveller - Non-AC in hill areas) from Haridwar to Haridwar",
     "2 Nights Stay at Guptkashi / Sitapur (Hotel - Meal as per hotel menu)",
     "1 Night Stay at Shri Kedarnath Dham (Tent House - Without Food, 5 to 6 sharing basis)",
-    "2 Nights Stay at Pipalkoti (Hotel - Meal as per hotel menu)",
+    "1 Night Stay at Badrinath (Hotel - Meal as per hotel menu)",
+    "1 Night Stay at Pipalkoti (Hotel - Meal as per hotel menu)",
     "Meals provided as per hotel menu (Breakfast & Dinner at hotels only)",
     "All Toll, State Tax, Parking charges and Driver Allowance included in the package",
     "All hotel stays on Triple or Quad-sharing basis",
-    "Sightseeing: Shri Kedarnath Dham, Bhairav Nath Temple, Chopta, Shri Badrinath Dham, Mana Village (First Indian Village), Vyas Gufa, Bhim Pul, Narsingh Temple Joshimath, Dhari Devi Temple & Panch Prayag"
+    "Sightseeing: Shri Kedarnath Dham, Bhairav Nath Temple, Shri Badrinath Dham, Mana Village (First Indian Village), Vyas Gufa, Bhim Pul, Narsingh Temple Joshimath, Dhari Devi Temple & Panch Prayag"
   ],
   exclusions: [
     "Meals during Kedarnath overnight stay (Kedarnath Tent House stay is strictly without food)",
