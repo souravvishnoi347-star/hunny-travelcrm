@@ -301,35 +301,35 @@ const CHARDHAM_PRESET: ItineraryData = {
       id: 7,
       dayNumber: 7,
       dateStr: "The Descent",
-      route: "Shri Kedarnath Dham → Gaurikund → Sonprayag → Guptkashi",
+      route: "Shri Kedarnath Dham → Gaurikund → Sonprayag → Sitapur",
       activities: [
         "Wake up early for the sacred 'Abhishek' ceremony and morning Darshan at Shri Kedarnath Temple.",
         "Visit the revered Bhairav Nath Temple perched above the shrine for a panoramic view of the Kedarnath valley.",
-        "After Darshan, descend back to Gaurikund, take the shuttle to Sonprayag, and return to Guptkashi for hot meals and a restful stay."
+        "After Darshan, descend back to Gaurikund, take the shuttle to Sonprayag, and return to Sitapur for hot meals and a restful stay."
       ],
-      overnightStay: "Guptkashi (Hotel)"
+      overnightStay: "Sitapur (Hotel)"
     },
     {
       id: 8,
       dayNumber: 8,
       dateStr: "To the Vaikuntha",
-      route: "Guptkashi → Chopta (Mini Switzerland) → Pipalkoti",
+      route: "Sitapur → Badrinath",
       activities: [
-        "Post breakfast, embark on a scenic drive through the heart of the Garhwal Himalayas towards Pipalkoti.",
-        "Pass through Chopta ('Mini Switzerland of Uttarakhand'), surrounded by lush alpine meadows and majestic Himalayan peaks.",
-        "Arrive at Pipalkoti by evening; check in to the hotel for dinner and overnight stay."
+        "Post breakfast, embark on a scenic drive through the heart of the Garhwal Himalayas towards Shri Badrinath Dham.",
+        "Enjoy the picturesque views along the way as you travel towards the holy town of Badrinath.",
+        "Arrive at Badrinath; check in to the hotel for dinner and overnight stay."
       ],
-      overnightStay: "Pipalkoti (Hotel)"
+      overnightStay: "Badrinath (Hotel)"
     },
     {
       id: 9,
       dayNumber: 9,
-      dateStr: "Drive to Badrinath & Return",
-      route: "Pipalkoti → Shri Badrinath Dham & Mana Village → Pipalkoti (140 km Round Trip)",
+      dateStr: "Badrinath Darshan & Mana Village",
+      route: "Shri Badrinath Dham → Mana Village → Pipalkoti",
       activities: [
-        "After breakfast, start the journey to Shri Badrinath Dham (approx. 140 km UP/DOWN from Pipalkoti).",
         "Take a holy dip in Tapt Kund and have divine Darshan of Lord Badri Vishal at Badrinath Temple.",
-        "Explore Mana Village (the First Indian Village before the Tibet border), Vyas Gufa, and Bhim Pul (the natural rock bridge over the roaring Saraswati River), then return to Pipalkoti for night stay."
+        "Explore Mana Village (the First Indian Village before the Tibet border), Vyas Gufa, and Bhim Pul.",
+        "At 5:00 PM, begin the scenic evening drive down to Pipalkoti. Check in and overnight stay."
       ],
       overnightStay: "Pipalkoti (Hotel)"
     },
@@ -337,11 +337,11 @@ const CHARDHAM_PRESET: ItineraryData = {
       id: 10,
       dayNumber: 10,
       dateStr: "The Return to Haridwar",
-      route: "Pipalkoti → Joshimath → Maa Dhari Devi Temple & Panch Prayag → Haridwar",
+      route: "Pipalkoti → Rudraprayag → Haridwar",
       activities: [
-        "Final leg of the pilgrimage descending back to the plains of Haridwar; en route visit Narsingh Temple at Joshimath.",
-        "Visit the sacred Dhari Devi Temple on the banks of the Alaknanda River at Kalyasaur (between Srinagar and Rudraprayag), revered as the guardian deity of Uttarakhand.",
-        "Witness the holy Panch Prayag river confluences (Vishnuprayag, Nandprayag, Karnaprayag, Rudraprayag & Devprayag) before drop-off at Haridwar."
+        "Final leg of the pilgrimage descending back to the plains of Haridwar.",
+        "Travel via Rudraprayag, witnessing the sacred confluence of the Alaknanda and Mandakini rivers.",
+        "Tour concludes with a peaceful drop-off at Haridwar."
       ],
       overnightStay: "Tour Concludes (Haridwar Drop)"
     }
@@ -526,35 +526,35 @@ const CHARDHAM_12P_10D_PRESET: ItineraryData = {
       id: 7,
       dayNumber: 7,
       dateStr: "The Descent",
-      route: "Shri Kedarnath Dham → Gaurikund → Sonprayag → Guptkashi",
+      route: "Shri Kedarnath Dham → Gaurikund → Sonprayag → Sitapur",
       activities: [
         "Wake up early for the sacred 'Abhishek' ceremony and morning Darshan at Kedarnath Temple.",
         "Visit the ancient Bhairav Nath Temple for a panoramic view of the Kedarnath valley and snow peaks.",
-        "Descend back to Gaurikund, take the shuttle to Sonprayag, and return to Guptkashi for hot meals and overnight stay."
+        "Descend back to Gaurikund, take the shuttle to Sonprayag, and return to Sitapur for hot meals and overnight stay."
       ],
-      overnightStay: "Guptkashi (Hotel)"
+      overnightStay: "Sitapur (Hotel)"
     },
     {
       id: 8,
       dayNumber: 8,
       dateStr: "To the Vaikuntha",
-      route: "Guptkashi → Chopta (Mini Switzerland) → Pipalkoti",
+      route: "Sitapur → Badrinath",
       activities: [
-        "Post breakfast, check out and enjoy a scenic drive through the heart of the Garhwal Himalayas passing through Chopta.",
-        "Admire the lush alpine meadows of Chopta ('Mini Switzerland of Uttarakhand') en route.",
-        "Arrive at Pipalkoti by evening; check in at the hotel for dinner and overnight stay."
+        "Post breakfast, check out and enjoy a scenic drive through the heart of the Garhwal Himalayas.",
+        "Travel towards the holy town of Badrinath, enjoying the majestic mountain views en route.",
+        "Arrive at Badrinath; check in at the hotel for dinner and overnight stay."
       ],
-      overnightStay: "Pipalkoti (Hotel)"
+      overnightStay: "Badrinath (Hotel)"
     },
     {
       id: 9,
       dayNumber: 9,
-      dateStr: "Drive to Badrinath & Return",
-      route: "Pipalkoti → Shri Badrinath Dham & Mana Village → Pipalkoti (140 km UP/DOWN)",
+      dateStr: "Badrinath Darshan & Mana Village",
+      route: "Shri Badrinath Dham → Mana Village → Pipalkoti",
       activities: [
-        "After breakfast, start the journey to Shri Badrinath Dham (approx. 140 km UP/DOWN round trip from Pipalkoti).",
         "Take a holy dip in Tapt Kund and perform sacred Darshan at Shri Badrinath Temple.",
-        "Explore Mana Village (First Indian Village before Tibet border), Vyas Gufa, and Bhim Pul over the Saraswati River, then return to Pipalkoti for night stay."
+        "Explore Mana Village (First Indian Village before Tibet border), Vyas Gufa, and Bhim Pul over the Saraswati River.",
+        "At 5:00 PM, begin the descent to Pipalkoti. Check in and overnight stay."
       ],
       overnightStay: "Pipalkoti (Hotel)"
     },
@@ -562,11 +562,11 @@ const CHARDHAM_12P_10D_PRESET: ItineraryData = {
       id: 10,
       dayNumber: 10,
       dateStr: "The Return to Haridwar",
-      route: "Pipalkoti → Joshimath → Maa Dhari Devi Temple & Panch Prayag → Haridwar",
+      route: "Pipalkoti → Rudraprayag → Haridwar",
       activities: [
-        "Final leg descending back to the plains of Haridwar; en route visit Narsingh Temple at Joshimath.",
-        "Seek blessings at the revered Dhari Devi Temple on the banks of the Alaknanda River at Kalyasaur (between Srinagar and Rudraprayag), the guardian deity of Uttarakhand.",
-        "Witness the sacred Panch Prayag confluences (Vishnuprayag, Nandprayag, Karnaprayag, Rudraprayag & Devprayag) before drop-off at Haridwar."
+        "Final leg descending back to the plains of Haridwar.",
+        "Travel via Rudraprayag, witnessing the sacred confluence of the Alaknanda and Mandakini rivers.",
+        "Tour concludes with a peaceful drop-off at Haridwar."
       ],
       overnightStay: "Tour Concludes (Haridwar Drop)"
     }
@@ -1349,7 +1349,7 @@ SCHEMA:
   ],
   "pricingSubtitle": "Confirmed Standard Package with dedicated mountain transport and verified accommodations.",
   "pricingTiers": [
-    { "package": "Standard Package", "price": "₹ 19,500 / Pax", "hotelCategory": "Standard Clean Rooms (Triple/Quad) & Kedarnath Tent", "meals": "Breakfast & Dinner (As per Hotel Menu)", "specialFeature": "All Toll, Tax & Parking Included" }
+    { "package": "Standard Package", "price": "", "hotelCategory": "Standard Clean Rooms (Triple/Quad) & Kedarnath Tent", "meals": "Breakfast & Dinner (As per Hotel Menu)", "specialFeature": "All Toll, Tax & Parking Included" }
   ],
   "pricingNote": "Note: All stays are on Triple or Quad-sharing basis (in Kedarnath 5 to 6 sharing Tent House without food). All toll, tax, and parking included.",
   "inclusions": [

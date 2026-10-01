@@ -1737,6 +1737,13 @@ export default function HotelVouchersPage() {
                             📞 {stay.contactNo}
                           </div>
                         )}
+                        {(stay.checkIn || stay.checkOut) && (
+                          <div className="text-[10.5px] text-slate-600 font-bold mt-1 bg-amber-50/50 inline-block px-1.5 py-0.5 rounded border border-amber-100/50">
+                            IN: <span className="text-[#0369a1]">{stay.checkIn || "-"}</span> 
+                            {" | "} 
+                            OUT: <span className="text-[#0369a1]">{stay.checkOut || "-"}</span>
+                          </div>
+                        )}
                         {stay.specialRequest && (
                           <div className="text-[10px] text-amber-900 bg-amber-50 border border-amber-200 px-1.5 py-0.5 rounded mt-0.5 inline-block font-semibold">
                             Note: {stay.specialRequest}
