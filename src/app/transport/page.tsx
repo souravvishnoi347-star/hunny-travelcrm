@@ -800,12 +800,11 @@ export default function TransportVouchers() {
                 <div>
                   <div className="flex items-center justify-between mb-0.5">
                     <label className="block text-[10px] text-gray-500">Date</label>
-                    <label className="text-[9.5px] text-sky-700 hover:underline cursor-pointer flex items-center gap-0.5">
+                    <label className="text-[9.5px] text-sky-700 hover:underline cursor-pointer flex items-center gap-0.5 relative">
                       <Calendar size={11} />
                       <span>Pick</span>
                       <input
-                        type="date"
-                        className="sr-only"
+                        type="date" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                         onChange={(e) => {
                           if (!e.target.value) return;
                           const d = new Date(e.target.value);
@@ -822,8 +821,7 @@ export default function TransportVouchers() {
                     <label className="absolute right-2 text-gray-400 hover:text-sky-700 cursor-pointer" title="Pick date">
                       <Calendar size={13} />
                       <input
-                        type="date"
-                        className="sr-only"
+                        type="date" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                         onChange={(e) => {
                           if (!e.target.value) return;
                           const d = new Date(e.target.value);
@@ -894,12 +892,11 @@ export default function TransportVouchers() {
                 <div>
                   <div className="flex items-center justify-between mb-0.5">
                     <label className="block text-[10px] text-gray-500">Arrival Transfer</label>
-                    <label className="text-[9.5px] text-sky-700 hover:underline cursor-pointer flex items-center gap-0.5">
+                    <label className="text-[9.5px] text-sky-700 hover:underline cursor-pointer flex items-center gap-0.5 relative">
                       <Calendar size={11} />
                       <span>Date</span>
                       <input
-                        type="date"
-                        className="sr-only"
+                        type="date" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                         onChange={(e) => {
                           if (!e.target.value) return;
                           const [y, m, d] = e.target.value.split("-");
@@ -914,8 +911,7 @@ export default function TransportVouchers() {
                     <label className="absolute right-2 text-gray-400 hover:text-sky-700 cursor-pointer" title="Pick Arrival Date">
                       <Calendar size={13} />
                       <input
-                        type="date"
-                        className="sr-only"
+                        type="date" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                         onChange={(e) => {
                           if (!e.target.value) return;
                           const [y, m, d] = e.target.value.split("-");
@@ -929,12 +925,11 @@ export default function TransportVouchers() {
                 <div>
                   <div className="flex items-center justify-between mb-0.5">
                     <label className="block text-[10px] text-gray-500">Departure Transfer</label>
-                    <label className="text-[9.5px] text-sky-700 hover:underline cursor-pointer flex items-center gap-0.5">
+                    <label className="text-[9.5px] text-sky-700 hover:underline cursor-pointer flex items-center gap-0.5 relative">
                       <Calendar size={11} />
                       <span>Date</span>
                       <input
-                        type="date"
-                        className="sr-only"
+                        type="date" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                         onChange={(e) => {
                           if (!e.target.value) return;
                           const [y, m, d] = e.target.value.split("-");
@@ -949,8 +944,7 @@ export default function TransportVouchers() {
                     <label className="absolute right-2 text-gray-400 hover:text-sky-700 cursor-pointer" title="Pick Departure Date">
                       <Calendar size={13} />
                       <input
-                        type="date"
-                        className="sr-only"
+                        type="date" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                         onChange={(e) => {
                           if (!e.target.value) return;
                           const [y, m, d] = e.target.value.split("-");

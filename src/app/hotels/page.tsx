@@ -2718,12 +2718,11 @@ export default function HotelVouchersPage() {
                 <div>
                   <div className="flex items-center justify-between mb-0.5">
                     <label className="block text-[10px] text-gray-500 font-medium">Issue Date</label>
-                    <label className="text-[10px] text-[#0369a1] hover:underline cursor-pointer flex items-center gap-0.5">
+                    <label className="text-[10px] text-[#0369a1] hover:underline cursor-pointer flex items-center gap-0.5 relative">
                       <Calendar className="w-3 h-3 text-[#0369a1]" />
                       <span>Calendar</span>
                       <input
-                        type="date"
-                        className="sr-only"
+                        type="date" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                         onChange={(e) => {
                           if (!e.target.value) return;
                           const d = new Date(e.target.value);
@@ -2745,8 +2744,7 @@ export default function HotelVouchersPage() {
                     <label className="absolute right-2 text-gray-400 hover:text-[#0369a1] cursor-pointer" title="Pick date">
                       <Calendar className="w-3.5 h-3.5" />
                       <input
-                        type="date"
-                        className="sr-only"
+                        type="date" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                         onChange={(e) => {
                           if (!e.target.value) return;
                           const d = new Date(e.target.value);
@@ -3085,17 +3083,19 @@ export default function HotelVouchersPage() {
                           value={stay.checkIn || ""} 
                           onChange={e => updateStay(idx, { checkIn: e.target.value })} 
                         />
-                        <input
-                          type="date"
-                          className="w-7 h-7 p-0 border border-gray-200 rounded bg-gray-50 cursor-pointer shrink-0 text-xs"
-                          title="Pick Check-In Date"
-                          onChange={(e) => {
-                            if (!e.target.value) return;
-                            const [y, m, d] = e.target.value.split("-");
-                            const timePart = stay.checkIn?.includes("(") ? stay.checkIn.substring(stay.checkIn.indexOf("(")) : "(12:00 PM)";
-                            updateStay(idx, { checkIn: `${d}/${m}/${y} ${timePart}` });
-                          }}
-                        />
+                        <div className="relative w-7 h-7 bg-sky-50 border border-sky-200 rounded flex items-center justify-center shrink-0 cursor-pointer hover:bg-sky-100 transition" title="Pick Check-In Date">
+                          <Calendar className="w-3.5 h-3.5 text-sky-700" />
+                          <input
+                            type="date"
+                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                            onChange={(e) => {
+                              if (!e.target.value) return;
+                              const [y, m, d] = e.target.value.split("-");
+                              const timePart = stay.checkIn?.includes("(") ? stay.checkIn.substring(stay.checkIn.indexOf("(")) : "(12:00 PM)";
+                              updateStay(idx, { checkIn: `${d}/${m}/${y} ${timePart}` });
+                            }}
+                          />
+                        </div>
                       </div>
                     </div>
                     <div>
@@ -3111,17 +3111,19 @@ export default function HotelVouchersPage() {
                           value={stay.checkOut || ""} 
                           onChange={e => updateStay(idx, { checkOut: e.target.value })} 
                         />
-                        <input
-                          type="date"
-                          className="w-7 h-7 p-0 border border-gray-200 rounded bg-gray-50 cursor-pointer shrink-0 text-xs"
-                          title="Pick Check-Out Date"
-                          onChange={(e) => {
-                            if (!e.target.value) return;
-                            const [y, m, d] = e.target.value.split("-");
-                            const timePart = stay.checkOut?.includes("(") ? stay.checkOut.substring(stay.checkOut.indexOf("(")) : "(08:00 AM)";
-                            updateStay(idx, { checkOut: `${d}/${m}/${y} ${timePart}` });
-                          }}
-                        />
+                        <div className="relative w-7 h-7 bg-sky-50 border border-sky-200 rounded flex items-center justify-center shrink-0 cursor-pointer hover:bg-sky-100 transition" title="Pick Check-Out Date">
+                          <Calendar className="w-3.5 h-3.5 text-sky-700" />
+                          <input
+                            type="date"
+                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                            onChange={(e) => {
+                              if (!e.target.value) return;
+                              const [y, m, d] = e.target.value.split("-");
+                              const timePart = stay.checkOut?.includes("(") ? stay.checkOut.substring(stay.checkOut.indexOf("(")) : "(08:00 AM)";
+                              updateStay(idx, { checkOut: `${d}/${m}/${y} ${timePart}` });
+                            }}
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
