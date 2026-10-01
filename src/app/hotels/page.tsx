@@ -2422,16 +2422,18 @@ export default function HotelVouchersPage() {
                                 value={hotel.date}
                                 onChange={e => updateGroupHotel(idx, { date: e.target.value })}
                               />
-                              <input
-                                type="date"
-                                className="w-6 h-6 p-0 border border-gray-200 rounded bg-gray-50 cursor-pointer shrink-0 text-xs"
-                                title="Pick Date"
-                                onChange={(e) => {
-                                  if (!e.target.value) return;
-                                  const [y, m, d] = e.target.value.split("-");
-                                  updateGroupHotel(idx, { date: `${d}/${m}/${y}` });
-                                }}
-                              />
+                              <div className="relative w-6 h-6 bg-sky-50 border border-sky-200 rounded flex items-center justify-center shrink-0 cursor-pointer hover:bg-sky-100 transition" title="Pick Date">
+                                <Calendar className="w-3 h-3 text-sky-700" />
+                                <input
+                                  type="date"
+                                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                  onChange={(e) => {
+                                    if (!e.target.value) return;
+                                    const [y, m, d] = e.target.value.split("-");
+                                    updateGroupHotel(idx, { date: `${d}/${m}/${y}` });
+                                  }}
+                                />
+                              </div>
                             </div>
                             <input
                               type="text"
