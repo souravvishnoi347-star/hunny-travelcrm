@@ -22,7 +22,7 @@ import {
   Check
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
-import { saveDocumentToHub } from "@/lib/documentsHub";
+import { saveDocumentToHub, generateNextDocNumber } from "@/lib/documentsHub";
 
 // Actual Old Voucher: Chardham 10D (Bill 604 - Jayesh Bhai Patel / Innova)
 const PRESET_TRANSPORT_CHARDHAM_ACTUAL = {
@@ -717,12 +717,18 @@ export default function TransportVouchers() {
               </div>
             </div>
             <button
-              onClick={() => updateData(DEFAULT_TRANSPORT_DATA)}
-              className="flex items-center gap-1.5 text-xs font-semibold text-gray-600 hover:text-sky-600 bg-gray-50 hover:bg-sky-50 px-3 py-1.5 rounded-lg transition cursor-pointer border border-gray-200"
-              title="Reset to default voucher data"
+              onClick={() => {
+                const nextNum = generateNextDocNumber("transport_voucher", "EXO-2026-001");
+                updateData({ ...DEFAULT_TRANSPORT_DATA, exoNo: nextNum });
+                if (typeof window !== "undefined") {
+                  localStorage.removeItem("traymbhkam_transport_voucher_data");
+                }
+              }}
+              className="flex items-center gap-1.5 text-xs font-semibold text-sky-700 hover:text-sky-800 bg-sky-100 hover:bg-sky-200 px-3 py-1.5 rounded-lg transition cursor-pointer border border-sky-300 shadow-sm"
+              title="Create new voucher with auto-generated number"
             >
               <RotateCcw className="w-3.5 h-3.5" />
-              Reset
+              New Voucher
             </button>
           </div>
 

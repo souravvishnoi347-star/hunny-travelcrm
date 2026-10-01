@@ -74,3 +74,25 @@ export function deleteDocumentFromHub(id: string): SavedDocument[] {
     return [];
   }
 }
+
+export function generateNextDocNumber(type: SavedDocument["type"], fallback: string): string {
+  const docs = getSavedDocuments().filter(d => d.type === type && d.docNumber);
+  if (docs.length === 0) return fallback;
+
+  // Sort by createdAt descending to find the latest
+  docs.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  const lastNumber = docs[0].docNumber;
+
+  // Extract the numeric part at the end
+  const match = lastNumber.match(/(.*?)(\d+)$/);
+  if (match) {
+    const prefix = match[1];
+    const numStr = match[2];
+    const nextNum = parseInt(numStr, 10) + 1;
+    // Pad with leading zeros if original had them
+    const padded = nextNum.toString().padStart(numStr.length, '0');
+    return `${prefix}${padded}`;
+  }
+
+  return fallback;
+}

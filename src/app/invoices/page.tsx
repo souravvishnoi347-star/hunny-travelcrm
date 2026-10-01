@@ -24,7 +24,7 @@ import {
   ZoomOut
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
-import { saveDocumentToHub } from "@/lib/documentsHub";
+import { saveDocumentToHub, generateNextDocNumber } from "@/lib/documentsHub";
 import QRCode from "qrcode";
 
 export type InvoiceType = "advance" | "receipt";
@@ -941,12 +941,18 @@ export default function InvoicesPage() {
               </div>
             </div>
             <button
-              onClick={() => setData(DEFAULT_INVOICE_DATA)}
-              className="flex items-center gap-1.5 text-xs font-semibold text-gray-600 hover:text-sky-600 bg-gray-50 hover:bg-sky-50 px-3 py-1.5 rounded-lg transition cursor-pointer border border-gray-200"
-              title="Reset to default invoice data"
+              onClick={() => {
+                const nextNum = generateNextDocNumber("invoice", DEFAULT_INVOICE_DATA.invoiceNumber);
+                setData({ ...DEFAULT_INVOICE_DATA, invoiceNumber: nextNum });
+                if (typeof window !== "undefined") {
+                  localStorage.removeItem("traymbhkam_invoice_data");
+                }
+              }}
+              className="flex items-center gap-1.5 text-xs font-semibold text-sky-700 hover:text-sky-800 bg-sky-100 hover:bg-sky-200 px-3 py-1.5 rounded-lg transition cursor-pointer border border-sky-300 shadow-sm"
+              title="Create new invoice with auto-generated number"
             >
               <RotateCcw className="w-3.5 h-3.5" />
-              Reset
+              New Invoice
             </button>
           </div>
 

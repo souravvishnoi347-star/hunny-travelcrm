@@ -40,7 +40,7 @@ import {
   BookOpen
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
-import { saveDocumentToHub } from "@/lib/documentsHub";
+import { saveDocumentToHub, generateNextDocNumber } from "@/lib/documentsHub";
 import { 
   MasterHotel, 
   getStoredHotelDirectory, 
@@ -2610,12 +2610,18 @@ export default function HotelVouchersPage() {
                 </div>
               </div>
               <button
-                onClick={() => updateData(BLANK_VOUCHER)}
-                className="flex items-center gap-1.5 text-xs font-semibold text-gray-600 hover:text-red-600 bg-gray-50 hover:bg-red-50 px-2.5 py-1.5 rounded-lg transition cursor-pointer border border-gray-200"
-                title="Clear all fields and start fresh"
+                onClick={() => {
+                  const nextNum = generateNextDocNumber("hotel_voucher", "BILL NO. 001");
+                  updateData({ ...BLANK_VOUCHER, voucherNo: nextNum });
+                  if (typeof window !== "undefined") {
+                    localStorage.removeItem("traymbhkam_multi_hotel_voucher");
+                  }
+                }}
+                className="flex items-center gap-1.5 text-xs font-semibold text-sky-700 hover:text-sky-800 bg-sky-100 hover:bg-sky-200 px-3 py-1.5 rounded-lg transition cursor-pointer border border-sky-300 shadow-sm"
+                title="Create new voucher with auto-generated number"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
-                Clear
+                New Voucher
               </button>
             </div>
 
