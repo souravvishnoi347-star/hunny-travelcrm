@@ -80,7 +80,7 @@ export async function POST(req: NextRequest) {
       `• Please keep your Char Dham Biometric / Yatra Registration Pass handy.\n` +
       `• Carry original Aadhaar/Government ID and warm woolens.\n` +
       `• Your driver and hotel vouchers will be sent 24 hours prior to travel.\n\n` +
-      `📞 *24x7 Yatra Helpline:* +91 82660 16066 (Mr. Gagandeep)\n` +
+      `📞 *24x7 Yatra Helpline:* +91 82660 16066 · +91 93898 80277 (Mr. Gagandeep - Hunny)\n` +
       `📍 *Office:* Opp. Railway Station Gate No. 2, Haridwar, Uttarakhand\n\n` +
       `May Baba Kedar and Badri Vishal bless your sacred pilgrimage with peace, health and divinity! 🌸🛕`
     );

@@ -7,7 +7,7 @@ export interface SalesContact {
 
 export const SALES_TEAM: SalesContact[] = [
   {
-    name: "Mr. Gagandeep",
+    name: "Mr. Gagandeep (Hunny)",
     phone: "+91 82660 16066",
     role: "Founder & Yatra Director",
     waLink: "https://wa.me/918266016066"
@@ -21,8 +21,8 @@ export const BOT_RESPONSES = {
 
 Aapke kisi bhi sawal, customized package, special requirements ya yatra planning ke liye kripya hamare authorized desk se seedhe sampark karein:
 
-👤 *Mr. Gagandeep* (Founder & Yatra Director)
-📞 Phone / WhatsApp: +91 82660 16066
+👤 *Mr. Gagandeep (Hunny)* (Founder & Yatra Director)
+📞 Phone / WhatsApp: +91 82660 16066 · +91 93898 80277
 💬 wa.me/918266016066
 📍 Purusharthi Market, Opp. Railway Station Gate No. 2, Haridwar
 
@@ -37,7 +37,7 @@ GST bill, tax invoice aur corporate billing se judi sabhi baatcheet aur formalit
 
 Kripya GST invoice aur billing ke liye hamare helpline par sampark karein:
 
-📞 *Mr. Gagandeep:* +91 82660 16066
+📞 *Mr. Gagandeep (Hunny):* +91 82660 16066
 📍 Purusharthi Market, Opp. Railway Station Gate No. 2, Haridwar
 
 Hamare yatra officer aapko GST compliance ke sath proper quotation pradan karenge. Dhanyawad! 🙏`,
@@ -66,7 +66,7 @@ Helicopter tickets can **ONLY** be booked directly through the official Governme
 Pilgrims can easily book tickets directly using their own IRCTC account and Chardham Yatra Registration.
 
 For ground transport, hotels, and yatra packages, please contact our team:
-📞 Mr. Gagandeep: +91 82660 16066
+📞 Mr. Gagandeep (Hunny): +91 82660 16066
 📍 Purusharthi Market, Opp. Railway Station Gate No. 2, Haridwar`,
 
   // 4. Package Pricing Range & Payment Policy (Ballpark only, no direct payment details)
@@ -83,7 +83,7 @@ For ground transport, hotels, and yatra packages, please contact our team:
 हम व्हाट्सएप चैट या ऑटोमेशन पर सीधे कोई बैंक खाता नंबर, यूपीआई आईडी या क्यूआर कोड शेयर नहीं करते हैं। 
 फाइनल कस्टमाइज्ड पैकेज, डेट्स फाइनल करने और अधिकृत पेमेंट के लिए कृपया सीधे हमारे संचालक से बात करें:
 
-📞 *Mr. Gagandeep:* +91 82660 16066 (wa.me/918266016066)
+📞 *Mr. Gagandeep (Hunny):* +91 82660 16066 (wa.me/918266016066)
 📍 Purusharthi Market, Opp. Railway Station Gate No. 2, Haridwar
 
 धोखाधड़ी से बचें और केवल आधिकारिक संचालक से ही पैकेज व पेमेंट फाइनल करें! 🙏`,
@@ -107,7 +107,7 @@ For ground transport, hotels, and yatra packages, please contact our team:
 • *नैनीताल & जागेश्वर धाम* - 12 ज्योतिर्लिंग व कुमाऊं दर्शन
 
 अपनी पसंदीदा यात्रा की विस्तृत जानकारी व बुकिंग के लिए संपर्क करें:
-📞 Mr. Gagandeep: +91 82660 16066
+📞 Mr. Gagandeep (Hunny): +91 82660 16066
 📍 Purusharthi Market, Opp. Railway Station Gate No. 2, Haridwar`
 };
 
@@ -240,7 +240,7 @@ export function matchBotResponse(input: string): MatchedRule {
     return {
       ruleId: "sales",
       title: "Direct Helpline & Contact",
-      description: "Direct phone & WhatsApp link for Mr. Gagandeep (Founder & Managing Director).",
+      description: "Direct phone & WhatsApp link for Mr. Gagandeep (Hunny) - Founder & Director.",
       response: BOT_RESPONSES.salesHandoff
     };
   }

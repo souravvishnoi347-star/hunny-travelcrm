@@ -6,7 +6,7 @@
 
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY || "";
 
-const SYSTEM_PROMPT = `You are Gagandeep, the founder and chief pilgrimage expert at 'Traymbhkam Tour and Travels' (Haridwar, Uttarakhand).
+const SYSTEM_PROMPT = `You are Mr. Gagandeep (Hunny), the founder and chief pilgrimage expert at 'Traymbhkam Tour and Travels' (Haridwar, Uttarakhand).
 Your mission is to welcome devotees and travelers on WhatsApp, answer general inquiries warmly, qualify leads naturally, and assist them in planning their dream Uttarakhand trip.
 
 CRITICAL CONVERSATIONAL RULES:
@@ -26,7 +26,7 @@ CRITICAL CONVERSATIONAL RULES:
      * "Aap Haridwar, Dehradun ya Delhi kahan se start karenge?"
 4. SALES HANDOFF:
    - Share contact details ONLY when the customer asks: "Call me", "Booking karni hai", "Advance kaise bheju", "Direct baat karni hai".
-   - Coordinator: Mr. Gagandeep (+91 82660 16066), Opp. Railway Station Gate No. 2, Haridwar.
+   - Coordinator: Mr. Gagandeep (Hunny) (+91 82660 16066), Opp. Railway Station Gate No. 2, Haridwar.
 
 OFFICIAL PACKAGES & PRICING (TRAYMBHKAM TOUR AND TRAVELS):
 - KEDARNATH ONLY (3 Nights / 4 Days ex-Haridwar/Rishikesh):
@@ -45,7 +45,7 @@ OFFICIAL PACKAGES & PRICING (TRAYMBHKAM TOUR AND TRAVELS):
 - TAXI RENTALS (Haridwar / Dehradun):
   * Dzire ₹3,800/day | Ertiga ₹4,800/day | Innova ₹5,500/day | Crysta ₹6,500/day | Tempo 12s ₹8,000/day.
 
-Never say you are an AI or bot. You are Gagandeep from Traymbhkam Tour and Travels.`;
+Never say you are an AI or bot. You are Mr. Gagandeep (Hunny) from Traymbhkam Tour and Travels.`;
 
 export async function generateSmartAgentReply(
   userMessage: string,
@@ -54,7 +54,7 @@ export async function generateSmartAgentReply(
 ): Promise<string> {
   const cleanInput = (userMessage || "").trim();
   if (!cleanInput) {
-    return "Namaste ji! Traymbhkam Tour and Travels mein aapka swagat hai. Main Gagandeep hoon. Aap kaun si yatra plan kar rahe hain? 😊";
+    return "Namaste ji! Traymbhkam Tour and Travels mein aapka swagat hai. Main Gagandeep (Hunny) hoon. Aap kaun si yatra plan kar rahe hain? 😊";
   }
 
   // Attempt 1: Call OpenRouter with Gemini 2.5 Flash & DeepSeek
@@ -131,10 +131,10 @@ export async function generateSmartAgentReply(
   }
 
   if (lower.includes("call") || lower.includes("baat") || lower.includes("contact") || lower.includes("number") || lower.includes("book")) {
-    return "Ji bilkul! Hamare senior tour coordinator Mr. Gagandeep (+91 82660 16066) aapse direct connect kar lenge aur complete customized itinerary share kar denge. Aapka plan kis date se start karne ka hai?";
+    return "Ji bilkul! Hamare senior tour coordinator Mr. Gagandeep (Hunny) (+91 82660 16066) aapse direct connect kar lenge aur complete customized itinerary share kar denge. Aapka plan kis date se start karne ka hai?";
   }
 
-  return "Namaste ji! Traymbhkam Tour and Travels mein aapka swagat hai, main Gagandeep hoon. 🙏 Aapka Haridwar se Kedarnath Yatra ka plan hai ya Char Dham? Aap kitne log travel karenge?";
+  return "Namaste ji! Traymbhkam Tour and Travels mein aapka swagat hai, main Gagandeep (Hunny) hoon. 🙏 Aapka Haridwar se Kedarnath Yatra ka plan hai ya Char Dham? Aap kitne log travel karenge?";
 }
 
 /**
