@@ -2221,38 +2221,40 @@ export default function HotelVouchersPage() {
                         value={groupData.yatraDates}
                         onChange={e => updateGroupData({ ...groupData, yatraDates: e.target.value })}
                       />
-                      <div className="flex items-center gap-1 mt-1 bg-sky-50/70 p-1 rounded-md border border-sky-100">
-                        <Calendar className="w-3 h-3 text-[#0369a1] shrink-0 ml-0.5" />
-                        <span className="text-[9px] font-bold text-[#0369a1]">From:</span>
-                        <input
-                          type="date"
-                          className="text-[10px] bg-white border border-sky-200 rounded px-1 py-0.5 font-mono cursor-pointer"
-                          title="Yatra Start Date"
-                          onChange={(e) => {
-                            if (!e.target.value) return;
-                            const d = new Date(e.target.value);
-                            const startStr = d.toLocaleDateString("en-GB", { day: "2-digit", month: "short" }).toUpperCase();
-                            const cur = groupData.yatraDates || "";
-                            const parts = cur.split(/TO|to|-/);
-                            const endStr = parts[1] ? parts[1].trim() : `${d.getFullYear()}`;
-                            updateGroupData({ ...groupData, yatraDates: `${startStr} TO ${endStr}` });
-                          }}
-                        />
-                        <span className="text-[9px] font-bold text-[#0369a1]">To:</span>
-                        <input
-                          type="date"
-                          className="text-[10px] bg-white border border-sky-200 rounded px-1 py-0.5 font-mono cursor-pointer"
-                          title="Yatra End Date"
-                          onChange={(e) => {
-                            if (!e.target.value) return;
-                            const d = new Date(e.target.value);
-                            const endStr = d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }).toUpperCase();
-                            const cur = groupData.yatraDates || "";
-                            const parts = cur.split(/TO|to|-/);
-                            const startStr = parts[0] ? parts[0].trim() : "";
-                            updateGroupData({ ...groupData, yatraDates: startStr ? `${startStr} TO ${endStr}` : endStr });
-                          }}
-                        />
+                      <div className="flex items-center gap-1.5 mt-1 bg-sky-50/70 p-1 rounded-md border border-sky-100">
+                        <span className="text-[9.5px] font-bold text-[#0369a1] ml-1">Range:</span>
+                        <div className="relative flex items-center justify-center w-6 h-6 bg-white border border-sky-200 rounded cursor-pointer hover:bg-sky-100" title="Yatra Start Date">
+                          <span className="text-[9px] font-bold text-sky-700">IN</span>
+                          <input
+                            type="date"
+                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                            onChange={(e) => {
+                              if (!e.target.value) return;
+                              const d = new Date(e.target.value);
+                              const startStr = d.toLocaleDateString("en-GB", { day: "2-digit", month: "short" }).toUpperCase();
+                              const cur = groupData.yatraDates || "";
+                              const parts = cur.split(/TO|to|-/);
+                              const endStr = parts[1] ? parts[1].trim() : `${d.getFullYear()}`;
+                              updateGroupData({ ...groupData, yatraDates: `${startStr} TO ${endStr}` });
+                            }}
+                          />
+                        </div>
+                        <div className="relative flex items-center justify-center w-6 h-6 bg-white border border-sky-200 rounded cursor-pointer hover:bg-sky-100" title="Yatra End Date">
+                          <span className="text-[9px] font-bold text-sky-700">OUT</span>
+                          <input
+                            type="date"
+                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                            onChange={(e) => {
+                              if (!e.target.value) return;
+                              const d = new Date(e.target.value);
+                              const endStr = d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }).toUpperCase();
+                              const cur = groupData.yatraDates || "";
+                              const parts = cur.split(/TO|to|-/);
+                              const startStr = parts[0] ? parts[0].trim() : "";
+                              updateGroupData({ ...groupData, yatraDates: startStr ? `${startStr} TO ${endStr}` : endStr });
+                            }}
+                          />
+                        </div>
                       </div>
                     </div>
                     <div>
@@ -2682,37 +2684,39 @@ export default function HotelVouchersPage() {
                     onChange={e => updateData({ ...data, tripDates: e.target.value, bookingId: e.target.value })} 
                   />
                   <div className="flex items-center gap-1.5 mt-1 bg-sky-50/70 p-1 rounded-md border border-sky-100">
-                    <Calendar className="w-3 h-3 text-[#0369a1] shrink-0 ml-0.5" />
-                    <span className="text-[9.5px] font-bold text-[#0369a1]">From:</span>
-                    <input
-                      type="date"
-                      className="text-[10px] bg-white border border-sky-200 rounded px-1 py-0.5 font-mono cursor-pointer"
-                      title="Trip Start Date"
-                      onChange={(e) => {
-                        if (!e.target.value) return;
-                        const [y, m, d] = e.target.value.split("-");
-                        const current = data.tripDates || "";
-                        const parts = current.split(/TO|to|-/);
-                        const endPart = parts[1] ? parts[1].trim() : "";
-                        const newRange = endPart ? `${d}/${m}/${y} TO ${endPart}` : `${d}/${m}/${y}`;
-                        updateData({ ...data, tripDates: newRange, bookingId: newRange });
-                      }}
-                    />
-                    <span className="text-[9.5px] font-bold text-[#0369a1]">To:</span>
-                    <input
-                      type="date"
-                      className="text-[10px] bg-white border border-sky-200 rounded px-1 py-0.5 font-mono cursor-pointer"
-                      title="Trip End Date"
-                      onChange={(e) => {
-                        if (!e.target.value) return;
-                        const [y, m, d] = e.target.value.split("-");
-                        const current = data.tripDates || "";
-                        const parts = current.split(/TO|to|-/);
-                        const startPart = parts[0] ? parts[0].trim() : `${d}/${m}/${y}`;
-                        const newRange = `${startPart} TO ${d}/${m}/${y}`;
-                        updateData({ ...data, tripDates: newRange, bookingId: newRange });
-                      }}
-                    />
+                    <span className="text-[9.5px] font-bold text-[#0369a1] ml-1">Range:</span>
+                    <div className="relative flex items-center justify-center w-6 h-6 bg-white border border-sky-200 rounded cursor-pointer hover:bg-sky-100" title="Trip Start Date">
+                      <span className="text-[9px] font-bold text-sky-700">IN</span>
+                      <input
+                        type="date"
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                        onChange={(e) => {
+                          if (!e.target.value) return;
+                          const [y, m, d] = e.target.value.split("-");
+                          const current = data.tripDates || "";
+                          const parts = current.split(/TO|to|-/);
+                          const endPart = parts[1] ? parts[1].trim() : "";
+                          const newRange = endPart ? `${d}/${m}/${y} TO ${endPart}` : `${d}/${m}/${y}`;
+                          updateData({ ...data, tripDates: newRange, bookingId: newRange });
+                        }}
+                      />
+                    </div>
+                    <div className="relative flex items-center justify-center w-6 h-6 bg-white border border-sky-200 rounded cursor-pointer hover:bg-sky-100" title="Trip End Date">
+                      <span className="text-[9px] font-bold text-sky-700">OUT</span>
+                      <input
+                        type="date"
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                        onChange={(e) => {
+                          if (!e.target.value) return;
+                          const [y, m, d] = e.target.value.split("-");
+                          const current = data.tripDates || "";
+                          const parts = current.split(/TO|to|-/);
+                          const startPart = parts[0] ? parts[0].trim() : `${d}/${m}/${y}`;
+                          const newRange = `${startPart} TO ${d}/${m}/${y}`;
+                          updateData({ ...data, tripDates: newRange, bookingId: newRange });
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
                 <div>
