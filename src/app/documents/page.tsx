@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { 
   FolderArchive, 
   FileText, 
@@ -37,6 +38,25 @@ export default function DocumentsHubPage() {
   const [deleteModalDoc, setDeleteModalDoc] = useState<SavedDocument | null>(null);
   const [loading, setLoading] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const router = useRouter();
+
+  const handleOpenDocument = (doc: SavedDocument) => {
+    try {
+      if (doc.type === "invoice") {
+        localStorage.setItem("traymbhkam_invoice_data", JSON.stringify(doc.rawPayload));
+      } else if (doc.type === "itinerary") {
+        localStorage.setItem("traymbhkam_current_itinerary", JSON.stringify(doc.rawPayload));
+      } else if (doc.type === "hotel_voucher") {
+        localStorage.setItem("traymbhkam_multi_hotel_voucher", JSON.stringify(doc.rawPayload));
+      } else if (doc.type === "transport_voucher") {
+        localStorage.setItem("traymbhkam_transport_voucher_data", JSON.stringify(doc.rawPayload));
+      }
+    } catch (e) {
+      console.error("Could not set document data to local storage", e);
+    }
+    // Use window.location.href instead of router.push to force a hard reload and bypass Next.js client cache.
+    window.location.href = doc.studioUrl;
+  };
 
   // Load from local hub without any mock/sample data
   const loadDocs = () => {
@@ -571,13 +591,13 @@ export default function DocumentsHubPage() {
                     </button>
 
                     {/* Open in Studio Button */}
-                    <Link
-                      href={doc.studioUrl}
+                    <button
+                      onClick={() => handleOpenDocument(doc)}
                       className="flex items-center gap-1 px-3 py-1.5 bg-sky-50 hover:bg-sky-100 text-[#0369a1] rounded-lg text-xs font-bold transition cursor-pointer border border-sky-200"
                     >
                       <span>Open</span>
                       <ExternalLink className="w-3 h-3" />
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </div>
