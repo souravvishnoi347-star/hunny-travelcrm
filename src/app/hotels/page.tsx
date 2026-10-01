@@ -2203,7 +2203,10 @@ export default function HotelVouchersPage() {
 
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <label className="block text-[10px] text-gray-500 mb-0.5">Yatra Travel Dates</label>
+                      <div className="flex items-center justify-between mb-0.5">
+                        <label className="block text-[10px] text-gray-500 font-medium">Yatra Travel Dates</label>
+                        <span className="text-[9.5px] text-[#0369a1] font-semibold">📅 Range</span>
+                      </div>
                       <input 
                         type="text" 
                         className="w-full px-2 py-1.5 bg-white border border-gray-200 rounded text-xs font-semibold text-[#0369a1]"
@@ -2211,6 +2214,39 @@ export default function HotelVouchersPage() {
                         value={groupData.yatraDates}
                         onChange={e => updateGroupData({ ...groupData, yatraDates: e.target.value })}
                       />
+                      <div className="flex items-center gap-1 mt-1 bg-sky-50/70 p-1 rounded-md border border-sky-100">
+                        <Calendar className="w-3 h-3 text-[#0369a1] shrink-0 ml-0.5" />
+                        <span className="text-[9px] font-bold text-[#0369a1]">From:</span>
+                        <input
+                          type="date"
+                          className="text-[10px] bg-white border border-sky-200 rounded px-1 py-0.5 font-mono cursor-pointer"
+                          title="Yatra Start Date"
+                          onChange={(e) => {
+                            if (!e.target.value) return;
+                            const d = new Date(e.target.value);
+                            const startStr = d.toLocaleDateString("en-GB", { day: "2-digit", month: "short" }).toUpperCase();
+                            const cur = groupData.yatraDates || "";
+                            const parts = cur.split(/TO|to|-/);
+                            const endStr = parts[1] ? parts[1].trim() : `${d.getFullYear()}`;
+                            updateGroupData({ ...groupData, yatraDates: `${startStr} TO ${endStr}` });
+                          }}
+                        />
+                        <span className="text-[9px] font-bold text-[#0369a1]">To:</span>
+                        <input
+                          type="date"
+                          className="text-[10px] bg-white border border-sky-200 rounded px-1 py-0.5 font-mono cursor-pointer"
+                          title="Yatra End Date"
+                          onChange={(e) => {
+                            if (!e.target.value) return;
+                            const d = new Date(e.target.value);
+                            const endStr = d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }).toUpperCase();
+                            const cur = groupData.yatraDates || "";
+                            const parts = cur.split(/TO|to|-/);
+                            const startStr = parts[0] ? parts[0].trim() : "";
+                            updateGroupData({ ...groupData, yatraDates: startStr ? `${startStr} TO ${endStr}` : endStr });
+                          }}
+                        />
+                      </div>
                     </div>
                     <div>
                       <label className="block text-[10px] text-gray-500 mb-0.5">Helpline Phone(s)</label>
@@ -2369,13 +2405,25 @@ export default function HotelVouchersPage() {
                       <div key={hotel.id || idx} className="bg-gray-50 p-2.5 rounded-xl border border-gray-200 space-y-2">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-1.5 flex-1">
-                            <input
-                              type="text"
-                              placeholder="Date (e.g. 28/04/2026)"
-                              className="px-2 py-1 bg-white border border-gray-200 rounded text-xs font-bold text-gray-800 w-28"
-                              value={hotel.date}
-                              onChange={e => updateGroupHotel(idx, { date: e.target.value })}
-                            />
+                            <div className="flex items-center gap-1 w-36">
+                              <input
+                                type="text"
+                                placeholder="Date (28/04/2026)"
+                                className="w-full px-2 py-1 bg-white border border-gray-200 rounded text-xs font-bold text-gray-800"
+                                value={hotel.date}
+                                onChange={e => updateGroupHotel(idx, { date: e.target.value })}
+                              />
+                              <input
+                                type="date"
+                                className="w-6 h-6 p-0 border border-gray-200 rounded bg-gray-50 cursor-pointer shrink-0 text-xs"
+                                title="Pick Date"
+                                onChange={(e) => {
+                                  if (!e.target.value) return;
+                                  const [y, m, d] = e.target.value.split("-");
+                                  updateGroupHotel(idx, { date: `${d}/${m}/${y}` });
+                                }}
+                              />
+                            </div>
                             <input
                               type="text"
                               placeholder="Place (e.g. BARKOT)"
@@ -2615,23 +2663,94 @@ export default function HotelVouchersPage() {
                   />
                 </div>
                 <div>
-                  <label className="block text-[10px] text-gray-500 mb-0.5">Trip Dates</label>
+                  <div className="flex items-center justify-between mb-0.5">
+                    <label className="block text-[10px] text-gray-500 font-medium">Trip Dates</label>
+                    <span className="text-[9.5px] text-[#0369a1] font-semibold">📅 Range</span>
+                  </div>
                   <input 
                     type="text" 
                     className="w-full px-2 py-1.5 bg-white border border-gray-200 rounded text-xs font-semibold text-[#0369a1]" 
-                    placeholder="e.g. 12 Sep 2026 to 20 Sep 2026"
+                    placeholder="e.g. 14/05/2026 TO 22/05/2026"
                     value={data.tripDates ?? data.bookingId ?? ""} 
                     onChange={e => updateData({ ...data, tripDates: e.target.value, bookingId: e.target.value })} 
                   />
+                  <div className="flex items-center gap-1.5 mt-1 bg-sky-50/70 p-1 rounded-md border border-sky-100">
+                    <Calendar className="w-3 h-3 text-[#0369a1] shrink-0 ml-0.5" />
+                    <span className="text-[9.5px] font-bold text-[#0369a1]">From:</span>
+                    <input
+                      type="date"
+                      className="text-[10px] bg-white border border-sky-200 rounded px-1 py-0.5 font-mono cursor-pointer"
+                      title="Trip Start Date"
+                      onChange={(e) => {
+                        if (!e.target.value) return;
+                        const [y, m, d] = e.target.value.split("-");
+                        const current = data.tripDates || "";
+                        const parts = current.split(/TO|to|-/);
+                        const endPart = parts[1] ? parts[1].trim() : "";
+                        const newRange = endPart ? `${d}/${m}/${y} TO ${endPart}` : `${d}/${m}/${y}`;
+                        updateData({ ...data, tripDates: newRange, bookingId: newRange });
+                      }}
+                    />
+                    <span className="text-[9.5px] font-bold text-[#0369a1]">To:</span>
+                    <input
+                      type="date"
+                      className="text-[10px] bg-white border border-sky-200 rounded px-1 py-0.5 font-mono cursor-pointer"
+                      title="Trip End Date"
+                      onChange={(e) => {
+                        if (!e.target.value) return;
+                        const [y, m, d] = e.target.value.split("-");
+                        const current = data.tripDates || "";
+                        const parts = current.split(/TO|to|-/);
+                        const startPart = parts[0] ? parts[0].trim() : `${d}/${m}/${y}`;
+                        const newRange = `${startPart} TO ${d}/${m}/${y}`;
+                        updateData({ ...data, tripDates: newRange, bookingId: newRange });
+                      }}
+                    />
+                  </div>
                 </div>
                 <div>
-                  <label className="block text-[10px] text-gray-500 mb-0.5">Issue Date</label>
-                  <input 
-                    type="text" 
-                    className="w-full px-2 py-1.5 bg-white border border-gray-200 rounded text-xs" 
-                    value={data.dateOfIssue} 
-                    onChange={e => updateData({ ...data, dateOfIssue: e.target.value })} 
-                  />
+                  <div className="flex items-center justify-between mb-0.5">
+                    <label className="block text-[10px] text-gray-500 font-medium">Issue Date</label>
+                    <label className="text-[10px] text-[#0369a1] hover:underline cursor-pointer flex items-center gap-0.5">
+                      <Calendar className="w-3 h-3 text-[#0369a1]" />
+                      <span>Calendar</span>
+                      <input
+                        type="date"
+                        className="sr-only"
+                        onChange={(e) => {
+                          if (!e.target.value) return;
+                          const d = new Date(e.target.value);
+                          if (!isNaN(d.getTime())) {
+                            const formatted = d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+                            updateData({ ...data, dateOfIssue: formatted });
+                          }
+                        }}
+                      />
+                    </label>
+                  </div>
+                  <div className="relative flex items-center">
+                    <input 
+                      type="text" 
+                      className="w-full pl-2 pr-7 py-1.5 bg-white border border-gray-200 rounded text-xs" 
+                      value={data.dateOfIssue} 
+                      onChange={e => updateData({ ...data, dateOfIssue: e.target.value })} 
+                    />
+                    <label className="absolute right-2 text-gray-400 hover:text-[#0369a1] cursor-pointer" title="Pick date">
+                      <Calendar className="w-3.5 h-3.5" />
+                      <input
+                        type="date"
+                        className="sr-only"
+                        onChange={(e) => {
+                          if (!e.target.value) return;
+                          const d = new Date(e.target.value);
+                          if (!isNaN(d.getTime())) {
+                            const formatted = d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+                            updateData({ ...data, dateOfIssue: formatted });
+                          }
+                        }}
+                      />
+                    </label>
+                  </div>
                 </div>
               </div>
 
@@ -2942,6 +3061,62 @@ export default function HotelVouchersPage() {
                       value={stay.contactNo} 
                       onChange={e => updateStay(idx, { contactNo: e.target.value })} 
                     />
+                  </div>
+
+                  {/* Check-In and Check-Out with Calendar Pickers */}
+                  <div className="grid grid-cols-2 gap-2 bg-white/70 p-2 rounded-lg border border-gray-200/70">
+                    <div>
+                      <div className="flex items-center justify-between mb-0.5">
+                        <label className="block text-[10px] font-bold text-gray-700">Check-In Date / Time</label>
+                        <span className="text-[9px] text-[#0369a1] font-semibold">📅 Pick</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <input 
+                          type="text" 
+                          className="flex-1 px-2 py-1 bg-white border border-gray-200 rounded text-xs font-medium text-gray-800" 
+                          placeholder="14/05/2026 (12:00 PM)" 
+                          value={stay.checkIn || ""} 
+                          onChange={e => updateStay(idx, { checkIn: e.target.value })} 
+                        />
+                        <input
+                          type="date"
+                          className="w-7 h-7 p-0 border border-gray-200 rounded bg-gray-50 cursor-pointer shrink-0 text-xs"
+                          title="Pick Check-In Date"
+                          onChange={(e) => {
+                            if (!e.target.value) return;
+                            const [y, m, d] = e.target.value.split("-");
+                            const timePart = stay.checkIn?.includes("(") ? stay.checkIn.substring(stay.checkIn.indexOf("(")) : "(12:00 PM)";
+                            updateStay(idx, { checkIn: `${d}/${m}/${y} ${timePart}` });
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <div className="flex items-center justify-between mb-0.5">
+                        <label className="block text-[10px] font-bold text-gray-700">Check-Out Date / Time</label>
+                        <span className="text-[9px] text-[#0369a1] font-semibold">📅 Pick</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <input 
+                          type="text" 
+                          className="flex-1 px-2 py-1 bg-white border border-gray-200 rounded text-xs font-medium text-gray-800" 
+                          placeholder="16/05/2026 (08:00 AM)" 
+                          value={stay.checkOut || ""} 
+                          onChange={e => updateStay(idx, { checkOut: e.target.value })} 
+                        />
+                        <input
+                          type="date"
+                          className="w-7 h-7 p-0 border border-gray-200 rounded bg-gray-50 cursor-pointer shrink-0 text-xs"
+                          title="Pick Check-Out Date"
+                          onChange={(e) => {
+                            if (!e.target.value) return;
+                            const [y, m, d] = e.target.value.split("-");
+                            const timePart = stay.checkOut?.includes("(") ? stay.checkOut.substring(stay.checkOut.indexOf("(")) : "(08:00 AM)";
+                            updateStay(idx, { checkOut: `${d}/${m}/${y} ${timePart}` });
+                          }}
+                        />
+                      </div>
+                    </div>
                   </div>
 
                   {/* Special Requests / Notes */}

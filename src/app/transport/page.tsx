@@ -798,8 +798,43 @@ export default function TransportVouchers() {
               <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wider block">Voucher Reference</span>
               <div className="grid grid-cols-3 gap-2">
                 <div>
-                  <label className="block text-[10px] text-gray-500 mb-0.5">Date</label>
-                  <input type="text" className="w-full px-2 py-1.5 bg-white border border-gray-200 rounded text-xs" value={data.date} onChange={e => updateData({ ...data, date: e.target.value })} />
+                  <div className="flex items-center justify-between mb-0.5">
+                    <label className="block text-[10px] text-gray-500">Date</label>
+                    <label className="text-[9.5px] text-sky-700 hover:underline cursor-pointer flex items-center gap-0.5">
+                      <Calendar size={11} />
+                      <span>Pick</span>
+                      <input
+                        type="date"
+                        className="sr-only"
+                        onChange={(e) => {
+                          if (!e.target.value) return;
+                          const d = new Date(e.target.value);
+                          if (!isNaN(d.getTime())) {
+                            const formatted = d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+                            updateData({ ...data, date: formatted });
+                          }
+                        }}
+                      />
+                    </label>
+                  </div>
+                  <div className="relative flex items-center">
+                    <input type="text" className="w-full pl-2 pr-7 py-1.5 bg-white border border-gray-200 rounded text-xs" value={data.date} onChange={e => updateData({ ...data, date: e.target.value })} />
+                    <label className="absolute right-2 text-gray-400 hover:text-sky-700 cursor-pointer" title="Pick date">
+                      <Calendar size={13} />
+                      <input
+                        type="date"
+                        className="sr-only"
+                        onChange={(e) => {
+                          if (!e.target.value) return;
+                          const d = new Date(e.target.value);
+                          if (!isNaN(d.getTime())) {
+                            const formatted = d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+                            updateData({ ...data, date: formatted });
+                          }
+                        }}
+                      />
+                    </label>
+                  </div>
                 </div>
                 <div>
                   <label className="block text-[10px] text-gray-500 mb-0.5">E.X.O. No.</label>
@@ -857,12 +892,74 @@ export default function TransportVouchers() {
               </div>
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-[10px] text-gray-500 mb-0.5">Arrival Transfer</label>
-                  <input type="text" className="w-full px-2 py-1.5 bg-white border border-gray-200 rounded text-xs" value={data.arrivalDate} onChange={e => updateData({ ...data, arrivalDate: e.target.value })} />
+                  <div className="flex items-center justify-between mb-0.5">
+                    <label className="block text-[10px] text-gray-500">Arrival Transfer</label>
+                    <label className="text-[9.5px] text-sky-700 hover:underline cursor-pointer flex items-center gap-0.5">
+                      <Calendar size={11} />
+                      <span>Date</span>
+                      <input
+                        type="date"
+                        className="sr-only"
+                        onChange={(e) => {
+                          if (!e.target.value) return;
+                          const [y, m, d] = e.target.value.split("-");
+                          const loc = data.arrivalDate?.includes("~") ? data.arrivalDate.split("~")[1].trim() : "Haridwar Railway Station";
+                          updateData({ ...data, arrivalDate: `${d}/${m}/${y} ~ ${loc}` });
+                        }}
+                      />
+                    </label>
+                  </div>
+                  <div className="relative flex items-center">
+                    <input type="text" className="w-full pl-2 pr-7 py-1.5 bg-white border border-gray-200 rounded text-xs" value={data.arrivalDate} onChange={e => updateData({ ...data, arrivalDate: e.target.value })} />
+                    <label className="absolute right-2 text-gray-400 hover:text-sky-700 cursor-pointer" title="Pick Arrival Date">
+                      <Calendar size={13} />
+                      <input
+                        type="date"
+                        className="sr-only"
+                        onChange={(e) => {
+                          if (!e.target.value) return;
+                          const [y, m, d] = e.target.value.split("-");
+                          const loc = data.arrivalDate?.includes("~") ? data.arrivalDate.split("~")[1].trim() : "Haridwar";
+                          updateData({ ...data, arrivalDate: `${d}/${m}/${y} ~ ${loc}` });
+                        }}
+                      />
+                    </label>
+                  </div>
                 </div>
                 <div>
-                  <label className="block text-[10px] text-gray-500 mb-0.5">Departure Transfer</label>
-                  <input type="text" className="w-full px-2 py-1.5 bg-white border border-gray-200 rounded text-xs" value={data.departureDate} onChange={e => updateData({ ...data, departureDate: e.target.value })} />
+                  <div className="flex items-center justify-between mb-0.5">
+                    <label className="block text-[10px] text-gray-500">Departure Transfer</label>
+                    <label className="text-[9.5px] text-sky-700 hover:underline cursor-pointer flex items-center gap-0.5">
+                      <Calendar size={11} />
+                      <span>Date</span>
+                      <input
+                        type="date"
+                        className="sr-only"
+                        onChange={(e) => {
+                          if (!e.target.value) return;
+                          const [y, m, d] = e.target.value.split("-");
+                          const loc = data.departureDate?.includes("~") ? data.departureDate.split("~")[1].trim() : "Haridwar Drop";
+                          updateData({ ...data, departureDate: `${d}/${m}/${y} ~ ${loc}` });
+                        }}
+                      />
+                    </label>
+                  </div>
+                  <div className="relative flex items-center">
+                    <input type="text" className="w-full pl-2 pr-7 py-1.5 bg-white border border-gray-200 rounded text-xs" value={data.departureDate} onChange={e => updateData({ ...data, departureDate: e.target.value })} />
+                    <label className="absolute right-2 text-gray-400 hover:text-sky-700 cursor-pointer" title="Pick Departure Date">
+                      <Calendar size={13} />
+                      <input
+                        type="date"
+                        className="sr-only"
+                        onChange={(e) => {
+                          if (!e.target.value) return;
+                          const [y, m, d] = e.target.value.split("-");
+                          const loc = data.departureDate?.includes("~") ? data.departureDate.split("~")[1].trim() : "Haridwar Drop";
+                          updateData({ ...data, departureDate: `${d}/${m}/${y} ~ ${loc}` });
+                        }}
+                      />
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
@@ -870,7 +967,31 @@ export default function TransportVouchers() {
             {/* 3. Schedule Table CRUD */}
             <div className="bg-gray-50 p-3 rounded-xl border border-gray-200 space-y-2.5">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wider block">Transport Schedule ({data.itinerary.length} Legs)</span>
+                <div>
+                  <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wider block">Transport Schedule ({data.itinerary.length} Legs)</span>
+                  <div className="flex items-center gap-1.5 mt-0.5">
+                    <Calendar size={11} className="text-sky-700" />
+                    <span className="text-[10px] text-slate-600 font-medium">Auto-sequence dates:</span>
+                    <input
+                      type="date"
+                      className="text-[10px] border border-sky-300 rounded px-1 py-0.5 bg-white cursor-pointer font-mono"
+                      title="Select Start Date to Auto-fill all leg dates"
+                      onChange={(e) => {
+                        if (!e.target.value) return;
+                        const startDate = new Date(e.target.value);
+                        const updated = data.itinerary.map((it, i) => {
+                          const cur = new Date(startDate);
+                          cur.setDate(startDate.getDate() + i);
+                          const dd = String(cur.getDate()).padStart(2, "0");
+                          const mm = String(cur.getMonth() + 1).padStart(2, "0");
+                          const yyyy = cur.getFullYear();
+                          return { ...it, date: `${dd}/${mm}/${yyyy}` };
+                        });
+                        updateData({ ...data, itinerary: updated });
+                      }}
+                    />
+                  </div>
+                </div>
                 <button onClick={addDay} className="flex items-center gap-1 px-2.5 py-1 bg-sky-600 text-white text-[11px] font-semibold rounded-lg hover:bg-sky-700 transition-colors cursor-pointer">
                   <Plus size={12} /> Add Day
                 </button>
@@ -886,8 +1007,23 @@ export default function TransportVouchers() {
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       <div>
-                        <label className="block text-[10px] text-gray-500 mb-0.5">Date</label>
-                        <input type="text" className="w-full px-2 py-1 bg-gray-50 border border-gray-200 rounded text-xs" value={item.date} onChange={e => handleItineraryChange(idx, 'date', e.target.value)} />
+                        <div className="flex items-center justify-between mb-0.5">
+                          <label className="block text-[10px] text-gray-500">Date</label>
+                          <span className="text-[9px] text-[#0369a1] font-semibold">📅 Pick</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <input type="text" className="w-full px-2 py-1 bg-gray-50 border border-gray-200 rounded text-xs" value={item.date} onChange={e => handleItineraryChange(idx, 'date', e.target.value)} />
+                          <input
+                            type="date"
+                            className="w-6 h-6 p-0 border border-gray-200 rounded bg-white cursor-pointer shrink-0 text-xs"
+                            title="Pick Date"
+                            onChange={(e) => {
+                              if (!e.target.value) return;
+                              const [y, m, d] = e.target.value.split("-");
+                              handleItineraryChange(idx, 'date', `${d}/${m}/${y}`);
+                            }}
+                          />
+                        </div>
                       </div>
                       <div>
                         <div className="flex items-center justify-between mb-0.5">

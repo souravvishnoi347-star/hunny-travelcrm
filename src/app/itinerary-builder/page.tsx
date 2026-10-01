@@ -3791,13 +3791,50 @@ ${data.motto}`;
                     />
                   </div>
                   <div>
-                    <label className="block font-medium text-gray-600 mb-0.5">Travel Dates</label>
+                    <div className="flex items-center justify-between mb-0.5">
+                      <label className="block font-medium text-gray-600">Travel Dates</label>
+                      <span className="text-[9.5px] text-[#0369a1] font-semibold">📅 Range</span>
+                    </div>
                     <input
                       type="text"
                       value={data.travelDates}
                       onChange={e => setData({ ...data, travelDates: e.target.value })}
+                      placeholder="e.g. 14 May 2026 to 23 May 2026"
                       className="w-full px-2.5 py-1.5 bg-white border border-gray-200 rounded text-xs"
                     />
+                    <div className="flex items-center gap-1 mt-1 bg-sky-50/70 p-1 rounded-md border border-sky-100">
+                      <Calendar className="w-3 h-3 text-[#0369a1] shrink-0 ml-0.5" />
+                      <span className="text-[9px] font-bold text-[#0369a1]">From:</span>
+                      <input
+                        type="date"
+                        className="text-[10px] bg-white border border-sky-200 rounded px-1 py-0.5 font-mono cursor-pointer"
+                        title="Tour Start Date"
+                        onChange={(e) => {
+                          if (!e.target.value) return;
+                          const d = new Date(e.target.value);
+                          const startStr = d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+                          const cur = data.travelDates || "";
+                          const parts = cur.split(/to|TO|-/);
+                          const endStr = parts[1] ? parts[1].trim() : "";
+                          setData({ ...data, travelDates: endStr ? `${startStr} to ${endStr}` : startStr });
+                        }}
+                      />
+                      <span className="text-[9px] font-bold text-[#0369a1]">To:</span>
+                      <input
+                        type="date"
+                        className="text-[10px] bg-white border border-sky-200 rounded px-1 py-0.5 font-mono cursor-pointer"
+                        title="Tour End Date"
+                        onChange={(e) => {
+                          if (!e.target.value) return;
+                          const d = new Date(e.target.value);
+                          const endStr = d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+                          const cur = data.travelDates || "";
+                          const parts = cur.split(/to|TO|-/);
+                          const startStr = parts[0] ? parts[0].trim() : "";
+                          setData({ ...data, travelDates: startStr ? `${startStr} to ${endStr}` : endStr });
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
 
@@ -3873,7 +3910,33 @@ ${data.motto}`;
           {activeTab === "days" && (
             <div className="space-y-4 text-xs">
               <div className="flex items-center justify-between">
-                <span className="font-semibold text-gray-700">Day-Wise Detailed Plans ({data.days.length} Days)</span>
+                <div>
+                  <span className="font-semibold text-gray-700 block">Day-Wise Detailed Plans ({data.days.length} Days)</span>
+                  <div className="flex items-center gap-1.5 mt-0.5">
+                    <Calendar size={11} className="text-sky-700" />
+                    <span className="text-[10px] text-slate-500 font-medium">Auto-date all days from:</span>
+                    <input
+                      type="date"
+                      className="text-[10px] border border-sky-300 rounded px-1 py-0.5 bg-white cursor-pointer font-mono"
+                      title="Auto-fill date for each day sequentially"
+                      onChange={(e) => {
+                        if (!e.target.value) return;
+                        const startDate = new Date(e.target.value);
+                        const updatedDays = data.days.map((day, i) => {
+                          const cur = new Date(startDate);
+                          cur.setDate(startDate.getDate() + i);
+                          const dateFmt = cur.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+                          const title = day.dateStr?.includes("-") ? day.dateStr.split("-").slice(1).join("-").trim() : day.dateStr;
+                          return {
+                            ...day,
+                            dateStr: `${dateFmt} - ${title || `Day ${day.dayNumber}`}`
+                          };
+                        });
+                        setData({ ...data, days: updatedDays });
+                      }}
+                    />
+                  </div>
+                </div>
                 <button
                   onClick={addDay}
                   className="flex items-center gap-1 px-2.5 py-1 bg-sky-500 hover:bg-sky-600 text-white rounded-lg font-semibold text-xs cursor-pointer shadow-xs"
@@ -3901,13 +3964,31 @@ ${data.motto}`;
 
                     <div className="grid grid-cols-2 gap-2">
                       <div>
-                        <label className="block text-[10px] font-medium text-gray-500 mb-0.5">Date & Day String</label>
-                        <input
-                          type="text"
-                          value={day.dateStr}
-                          onChange={e => updateDayField(day.id, "dateStr", e.target.value)}
-                          className="w-full px-2 py-1 bg-white border border-gray-200 rounded text-xs"
-                        />
+                        <div className="flex items-center justify-between mb-0.5">
+                          <label className="block text-[10px] font-medium text-gray-500">Date & Day String</label>
+                          <span className="text-[9px] text-sky-700 font-semibold">📅 Pick</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <input
+                            type="text"
+                            value={day.dateStr}
+                            onChange={e => updateDayField(day.id, "dateStr", e.target.value)}
+                            placeholder="e.g. 14 May 2026 - Arrival"
+                            className="w-full px-2 py-1 bg-white border border-gray-200 rounded text-xs"
+                          />
+                          <input
+                            type="date"
+                            className="w-6 h-6 p-0 border border-gray-200 rounded bg-white cursor-pointer shrink-0 text-xs"
+                            title="Pick Date for this day"
+                            onChange={(e) => {
+                              if (!e.target.value) return;
+                              const d = new Date(e.target.value);
+                              const formatted = d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
+                              const currentTitle = day.dateStr?.includes("-") ? day.dateStr.split("-").slice(1).join("-").trim() : (day.dateStr || `Day ${day.dayNumber}`);
+                              updateDayField(day.id, "dateStr", `${formatted} - ${currentTitle}`);
+                            }}
+                          />
+                        </div>
                       </div>
                       <div>
                         <label className="block text-[10px] font-medium text-gray-500 mb-0.5">Route (A → B → C)</label>

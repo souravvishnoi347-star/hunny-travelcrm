@@ -27,7 +27,17 @@ import {
   ChevronDown,
   Pencil,
   Trash2,
-  Upload
+  Upload,
+  TrendingUp,
+  DollarSign,
+  Download,
+  CalendarDays,
+  Filter,
+  BarChart3,
+  AlertTriangle,
+  Send,
+  BellRing,
+  Check
 } from "lucide-react";
 import Link from "next/link";
 
@@ -202,9 +212,25 @@ const DEFAULT_FLEET: RentalVehicle[] = [
 export default function TwoWheelerRentalsPage() {
   const [fleet, setFleet] = useState<RentalVehicle[]>([]);
   const [bookings, setBookings] = useState<RentalBooking[]>([]);
-  const [activeTab, setActiveTab] = useState<"bookings" | "fleet" | "rates">("bookings");
+  const [activeTab, setActiveTab] = useState<"bookings" | "followup" | "reports" | "fleet" | "rates">("bookings");
   const [filterType, setFilterType] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
+
+  // Follow-up & Reports State
+  const [followupFilter, setFollowupFilter] = useState<"all" | "due_today" | "overdue">("all");
+  const [showExtendModal, setShowExtendModal] = useState(false);
+  const [extendingBooking, setExtendingBooking] = useState<RentalBooking | null>(null);
+  const [extendDays, setExtendDays] = useState<number>(1);
+  const [extendExtraRent, setExtendExtraRent] = useState<number>(0);
+
+  // Revenue Report Range State
+  const [reportRange, setReportRange] = useState<"all" | "today" | "week" | "month" | "custom">("all");
+  const [reportStartDate, setReportStartDate] = useState<string>(
+    new Date(Date.now() - 30 * 86400000).toISOString().split("T")[0]
+  );
+  const [reportEndDate, setReportEndDate] = useState<string>(
+    new Date().toISOString().split("T")[0]
+  );
 
   // Modals
   const [showNewBookingModal, setShowNewBookingModal] = useState(false);
@@ -545,6 +571,193 @@ export default function TwoWheelerRentalsPage() {
     window.open(`https://wa.me/${waPhone}?text=${encodeURIComponent(text)}`, "_blank");
   };
 
+  // ----------------------------------------------------
+  // FOLLOW-UP & OVERDUE TRACKING HELPERS
+  // ----------------------------------------------------
+  const todayStr = new Date().toISOString().split("T")[0];
+  const activeBookings = bookings.filter(b => b.status === "active");
+
+  const dueTodayBookings = activeBookings.filter(b => b.expectedEndDate === todayStr);
+  const overdueBookings = activeBookings.filter(b => {
+    const end = new Date(`${b.expectedEndDate}T${b.expectedEndTime || "21:00"}`);
+    return new Date() > end;
+  });
+
+  const filteredFollowupBookings = activeBookings.filter(b => {
+    if (followupFilter === "due_today") {
+      return b.expectedEndDate === todayStr;
+    }
+    if (followupFilter === "overdue") {
+      const end = new Date(`${b.expectedEndDate}T${b.expectedEndTime || "21:00"}`);
+      return new Date() > end;
+    }
+    return true;
+  }).filter(b => {
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      return b.customerName.toLowerCase().includes(q) || 
+             b.customerPhone.includes(q) || 
+             b.plateNumber.toLowerCase().includes(q) ||
+             b.vehicleName.toLowerCase().includes(q) ||
+             b.id.toLowerCase().includes(q);
+    }
+    return true;
+  });
+
+  // Follow-up WhatsApp Sender
+  const handleSendFollowUpWhatsApp = (b: RentalBooking, type: "reminder" | "overdue" | "checkin") => {
+    const cleanPhone = b.customerPhone.replace(/\D/g, "");
+    const waPhone = cleanPhone.startsWith("91") ? cleanPhone : `91${cleanPhone}`;
+    let text = "";
+
+    if (type === "overdue") {
+      text = 
+        `*🚨 URGENT RENTAL RETURN REMINDER - TRAYMBHKAM TRAVELS HARIDWAR*\n\n` +
+        `Namaste ${b.customerName} ji!\n` +
+        `Aapki vehicle *${b.vehicleName}* (${b.plateNumber}) ka scheduled return time *${b.expectedEndDate} (${b.expectedEndTime})* tha, jo abhi overdue show kar raha hai.\n\n` +
+        `📍 *Return Hub:* Opp. Railway Station Gate No. 2, Haridwar\n` +
+        `Kripya turant vehicle return karein ya agar aap rental extend karana chahte hain toh hume call karein.\n\n` +
+        `📞 *24x7 Haridwar Rental Helpline:* +91 82660 16066 (Mr. Gagandeep)`;
+    } else if (type === "reminder") {
+      text = 
+        `*⚠️ RENTAL RETURN DUE TODAY - TRAYMBHKAM TRAVELS HARIDWAR*\n\n` +
+        `Namaste ${b.customerName} ji!\n` +
+        `Aapki rental vehicle *${b.vehicleName}* (${b.plateNumber}) ka return aaj *${b.expectedEndDate}* ko sham *${b.expectedEndTime}* baje scheduled hai.\n\n` +
+        `📍 *Return Hub:* Traymbhkam Tour & Travels, Opp. Railway Station Gate No. 2, Haridwar.\n` +
+        `Agar aap yatra extend karna chahte hain toh kripya hume pehle hi message/call karein.\n\n` +
+        `📞 *Helpline:* +91 82660 16066`;
+    } else {
+      text = 
+        `*🛵 YATRA STATUS & FOLLOW-UP - TRAYMBHKAM TRAVELS*\n\n` +
+        `Namaste ${b.customerName} ji! Kaisi chal rahi hai aapki yatra? Aapki rental vehicle *${b.vehicleName}* (${b.plateNumber}) ka scheduled return *${b.expectedEndDate} (${b.expectedEndTime})* ko hai.\n\n` +
+        `Raste mai kisi bhi roadside support ya query ke liye hume contact karein.\n\n` +
+        `📞 *Helpline:* +91 82660 16066`;
+    }
+
+    window.open(`https://wa.me/${waPhone}?text=${encodeURIComponent(text)}`, "_blank");
+  };
+
+  // Open Extension Modal
+  const handleOpenExtendModal = (b: RentalBooking) => {
+    setExtendingBooking(b);
+    setExtendDays(1);
+    setExtendExtraRent(b.dailyRate);
+    setShowExtendModal(true);
+  };
+
+  // Submit Extension
+  const handleExtendBooking = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!extendingBooking) return;
+    const addDays = Math.max(1, extendDays);
+    const extraRent = extendExtraRent > 0 ? extendExtraRent : (extendingBooking.dailyRate * addDays);
+
+    const prevEndDate = new Date(extendingBooking.expectedEndDate);
+    const newEndDateObj = new Date(prevEndDate.getTime() + addDays * 86400000);
+    const newExpectedEndDate = newEndDateObj.toISOString().split("T")[0];
+
+    const updatedBookings = bookings.map(b => {
+      if (b.id === extendingBooking.id) {
+        return {
+          ...b,
+          daysCount: b.daysCount + addDays,
+          expectedEndDate: newExpectedEndDate,
+          totalRent: b.totalRent + extraRent,
+          notes: `${b.notes ? b.notes + " | " : ""}Extended +${addDays} days (+₹${extraRent}) on ${new Date().toLocaleDateString("en-IN")}`
+        };
+      }
+      return b;
+    });
+
+    saveBookings(updatedBookings);
+    setShowExtendModal(false);
+    setExtendingBooking(null);
+
+    const cleanPhone = extendingBooking.customerPhone.replace(/\D/g, "");
+    const waPhone = cleanPhone.startsWith("91") ? cleanPhone : `91${cleanPhone}`;
+    const text = `*🛵 RENTAL EXTENSION CONFIRMED - TRAYMBHKAM TRAVELS HARIDWAR*\n\nNamaste ${extendingBooking.customerName} ji!\nAapki vehicle *${extendingBooking.vehicleName}* (${extendingBooking.plateNumber}) ka rental *+${addDays} Day(s)* extend kar diya gaya hai.\n• *New Return Date:* ${newExpectedEndDate} (${extendingBooking.expectedEndTime})\n• *Additional Rent:* ₹${extraRent}\n\nSafe riding in Uttarakhand! 🙏`;
+    window.open(`https://wa.me/${waPhone}?text=${encodeURIComponent(text)}`, "_blank");
+  };
+
+  // ----------------------------------------------------
+  // REVENUE & REPORTS CALCULATIONS
+  // ----------------------------------------------------
+  const filteredReportBookings = bookings.filter(b => {
+    if (reportRange === "today") {
+      return b.startDate === todayStr || b.createdAt?.startsWith(todayStr);
+    }
+    if (reportRange === "week") {
+      const now = new Date();
+      const weekAgo = new Date(now.getTime() - 7 * 86400000);
+      const bDate = new Date(b.startDate || b.createdAt);
+      return bDate >= weekAgo;
+    }
+    if (reportRange === "month") {
+      const now = new Date();
+      const monthAgo = new Date(now.getTime() - 30 * 86400000);
+      const bDate = new Date(b.startDate || b.createdAt);
+      return bDate >= monthAgo;
+    }
+    if (reportRange === "custom" && reportStartDate && reportEndDate) {
+      return b.startDate >= reportStartDate && b.startDate <= reportEndDate;
+    }
+    return true;
+  });
+
+  const totalReportRevenue = filteredReportBookings.reduce((sum, b) => sum + (Number(b.totalRent) || 0), 0);
+  const totalReportAdvance = filteredReportBookings.reduce((sum, b) => sum + (Number(b.advancePaid) || 0), 0);
+  const totalReportDeposits = filteredReportBookings.reduce((sum, b) => sum + (Number(b.securityDeposit) || 0), 0);
+  const completedCount = filteredReportBookings.filter(b => b.status === "completed").length;
+  const activeCount = filteredReportBookings.filter(b => b.status === "active").length;
+
+  // Vehicle Stats
+  const vehicleStats = fleet.map(v => {
+    const vBookings = filteredReportBookings.filter(b => b.vehicleId === v.id || b.plateNumber === v.plateNumber);
+    const rev = vBookings.reduce((sum, b) => sum + (Number(b.totalRent) || 0), 0);
+    const trips = vBookings.length;
+    return {
+      vehicle: v,
+      trips,
+      revenue: rev
+    };
+  }).sort((a, b) => b.revenue - a.revenue);
+
+  // Payment Stats
+  const paymentStats = {
+    upi: filteredReportBookings.filter(b => b.paymentMode === "upi").reduce((sum, b) => sum + (Number(b.totalRent) || 0), 0),
+    cash: filteredReportBookings.filter(b => b.paymentMode === "cash").reduce((sum, b) => sum + (Number(b.totalRent) || 0), 0),
+    card: filteredReportBookings.filter(b => b.paymentMode === "card").reduce((sum, b) => sum + (Number(b.totalRent) || 0), 0)
+  };
+
+  // CSV Exporter
+  const handleExportRevenueCsv = () => {
+    const headers = ["Booking ID", "Date", "Customer Name", "Phone", "Vehicle", "Plate Number", "Days", "Daily Rate", "Total Rent (INR)", "Advance Paid (INR)", "Deposit (INR)", "Deposit Mode", "Status"];
+    const rows = filteredReportBookings.map(b => [
+      `"${b.id}"`,
+      `"${b.startDate}"`,
+      `"${b.customerName.replace(/"/g, '""')}"`,
+      `"${b.customerPhone}"`,
+      `"${b.vehicleName.replace(/"/g, '""')}"`,
+      `"${b.plateNumber}"`,
+      b.daysCount,
+      b.dailyRate,
+      b.totalRent,
+      b.advancePaid,
+      b.securityDeposit,
+      `"${b.depositType.toUpperCase()}"`,
+      `"${b.status.toUpperCase()}"`
+    ]);
+
+    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(r => r.join(","))].join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `Traymbhkam_Rental_Revenue_Report_${new Date().toISOString().split("T")[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   // Fleet Counts
   const totalFleetCount = fleet.length;
   const onRentCount = fleet.filter(v => v.status === "rented").length;
@@ -675,41 +888,79 @@ export default function TwoWheelerRentalsPage() {
       {/* ========================================================================= */}
       {/* 3. TABS NAVIGATION */}
       {/* ========================================================================= */}
-      <div className="flex items-center justify-between border-b border-slate-200/80 pb-2">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between border-b border-slate-200/80 pb-2 flex-wrap gap-2">
+        <div className="flex items-center gap-1.5 flex-wrap">
           <button
             onClick={() => setActiveTab("bookings")}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 ${
               activeTab === "bookings"
                 ? "bg-[#0b1320] text-amber-300 shadow-xs"
                 : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
             }`}
           >
-            Rental Issues &amp; Check-in Desk ({bookings.length})
+            <FileText size={13} />
+            <span>Rental Issues ({bookings.length})</span>
           </button>
+
+          <button
+            onClick={() => setActiveTab("followup")}
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 relative ${
+              activeTab === "followup"
+                ? "bg-[#0b1320] text-amber-300 shadow-xs"
+                : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+            }`}
+          >
+            <BellRing size={13} className={overdueBookings.length > 0 ? "text-red-500 animate-pulse" : ""} />
+            <span>Issued Follow-Up Desk ({activeBookings.length})</span>
+            {overdueBookings.length > 0 ? (
+              <span className="text-[9.5px] px-1.5 py-0.2 bg-red-500 text-white rounded-full font-black">
+                {overdueBookings.length} Overdue
+              </span>
+            ) : dueTodayBookings.length > 0 ? (
+              <span className="text-[9.5px] px-1.5 py-0.2 bg-amber-500 text-slate-950 rounded-full font-bold">
+                {dueTodayBookings.length} Due Today
+              </span>
+            ) : null}
+          </button>
+
+          <button
+            onClick={() => setActiveTab("reports")}
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 ${
+              activeTab === "reports"
+                ? "bg-[#0b1320] text-amber-300 shadow-xs"
+                : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+            }`}
+          >
+            <BarChart3 size={13} />
+            <span>Revenue &amp; Reports</span>
+          </button>
+
           <button
             onClick={() => setActiveTab("fleet")}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 ${
               activeTab === "fleet"
                 ? "bg-[#0b1320] text-amber-300 shadow-xs"
                 : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
             }`}
           >
-            Fleet Inventory ({fleet.length})
+            <Bike size={13} />
+            <span>Fleet Inventory ({fleet.length})</span>
           </button>
+
           <button
             onClick={() => setActiveTab("rates")}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 ${
               activeTab === "rates"
                 ? "bg-[#0b1320] text-amber-300 shadow-xs"
                 : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
             }`}
           >
-            Haridwar Rates &amp; Policy
+            <Key size={13} />
+            <span>Haridwar Rates &amp; Policy</span>
           </button>
         </div>
 
-        {activeTab === "bookings" && (
+        {(activeTab === "bookings" || activeTab === "followup") && (
           <div className="relative w-56">
             <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
             <input
@@ -856,10 +1107,510 @@ export default function TwoWheelerRentalsPage() {
       )}
 
       {/* ========================================================================= */}
-      {/* 5. TAB 2: FLEET VEHICLES INVENTORY */}
+      {/* TAB: ISSUED VEHICLE FOLLOW-UP DESK */}
       {/* ========================================================================= */}
+      {activeTab === "followup" && (
+        <div className="space-y-4">
+          {/* Subheader Filter Bar */}
+          <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-3 rounded-xl border border-slate-200/70 shadow-2xs">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider mr-1">Status Filter:</span>
+              <button
+                type="button"
+                onClick={() => setFollowupFilter("all")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 ${
+                  followupFilter === "all"
+                    ? "bg-[#0b1320] text-amber-300 shadow-xs"
+                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                }`}
+              >
+                <span>All Active on Road</span>
+                <span className="px-1.5 py-0.2 bg-white/20 rounded-full text-[10px]">{activeBookings.length}</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setFollowupFilter("due_today")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 ${
+                  followupFilter === "due_today"
+                    ? "bg-amber-600 text-white shadow-xs"
+                    : "bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-100"
+                }`}
+              >
+                <span>⚠️ Due Today</span>
+                <span className="px-1.5 py-0.2 bg-amber-200 text-amber-900 rounded-full text-[10px] font-black">{dueTodayBookings.length}</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setFollowupFilter("overdue")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 ${
+                  followupFilter === "overdue"
+                    ? "bg-red-600 text-white shadow-xs"
+                    : "bg-red-50 text-red-700 border border-red-200 hover:bg-red-100"
+                }`}
+              >
+                <span>🚨 Overdue Attention</span>
+                <span className="px-1.5 py-0.2 bg-red-200 text-red-900 rounded-full text-[10px] font-black">{overdueBookings.length}</span>
+              </button>
+            </div>
+
+            <div className="text-xs text-slate-500 font-medium">
+              Showing {filteredFollowupBookings.length} vehicles currently with tourists
+            </div>
+          </div>
+
+          {filteredFollowupBookings.length === 0 ? (
+            <div className="bg-white rounded-xl p-12 text-center border border-slate-200/70 space-y-3">
+              <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto">
+                <CheckCircle2 size={24} />
+              </div>
+              <h3 className="text-sm font-bold text-slate-800">
+                {followupFilter === "overdue" 
+                  ? "Great! No Overdue Rentals" 
+                  : followupFilter === "due_today" 
+                  ? "No Rentals Due for Return Today" 
+                  : "No Vehicles Currently on Road"}
+              </h3>
+              <p className="text-xs text-slate-500 max-w-md mx-auto">
+                {followupFilter === "all" 
+                  ? "All vehicles are currently parked at Haridwar station hub ready for walk-in tourists."
+                  : "All tourists are currently riding within their scheduled booking period."}
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-3.5">
+              {filteredFollowupBookings.map((b) => {
+                const now = new Date();
+                const expectedEnd = new Date(`${b.expectedEndDate}T${b.expectedEndTime || "21:00"}`);
+                const isOverdue = now > expectedEnd;
+                const isDueToday = b.expectedEndDate === todayStr;
+                const diffHours = Math.round((expectedEnd.getTime() - now.getTime()) / (1000 * 60 * 60));
+                const vehicleObj = fleet.find(f => f.id === b.vehicleId);
+
+                return (
+                  <div
+                    key={b.id}
+                    className={`bg-white rounded-xl p-4 border transition-all shadow-xs flex flex-col lg:flex-row lg:items-center justify-between gap-4 ${
+                      isOverdue 
+                        ? "border-red-400 bg-red-50/20 ring-1 ring-red-400/40" 
+                        : isDueToday 
+                        ? "border-amber-300 bg-amber-50/20" 
+                        : "border-slate-200"
+                    }`}
+                  >
+                    {/* Left: Vehicle & Customer Info */}
+                    <div className="flex items-start gap-3.5 min-w-0 flex-1">
+                      {vehicleObj?.image ? (
+                        <img 
+                          src={vehicleObj.image} 
+                          alt={b.vehicleName} 
+                          className="w-20 h-16 object-contain rounded-lg bg-slate-50 border border-slate-100 p-1 shrink-0" 
+                        />
+                      ) : (
+                        <div className="w-16 h-16 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center shrink-0 border border-amber-200">
+                          <Bike size={24} />
+                        </div>
+                      )}
+
+                      <div className="space-y-1 min-w-0 flex-1">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="font-bold text-sm text-slate-900">{b.vehicleName}</span>
+                          <span className="font-mono text-xs font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                            {b.plateNumber}
+                          </span>
+                          <span className="text-[10px] font-mono text-slate-400">ID: {b.id}</span>
+                        </div>
+
+                        <div className="flex items-center gap-3 text-xs text-slate-600 flex-wrap">
+                          <span className="font-bold text-slate-800 flex items-center gap-1">
+                            <User size={13} className="text-slate-400" />
+                            {b.customerName}
+                          </span>
+                          <span className="font-mono font-semibold text-emerald-800 flex items-center gap-1">
+                            <Phone size={13} className="text-emerald-600" />
+                            {b.customerPhone}
+                          </span>
+                          <span className="text-[11px] text-slate-500 font-mono">
+                            DL: {b.dlNumber}
+                          </span>
+                        </div>
+
+                        {/* Dates & Urgency Status */}
+                        <div className="flex items-center gap-2 pt-1 flex-wrap text-xs">
+                          <span className="text-[11px] text-slate-500">
+                            Issued: <strong>{b.startDate} ({b.startTime})</strong> &rarr; Expected: <strong>{b.expectedEndDate} ({b.expectedEndTime})</strong>
+                          </span>
+                          {isOverdue ? (
+                            <span className="px-2 py-0.5 bg-red-100 text-red-700 border border-red-300 rounded font-black text-[10.5px] flex items-center gap-1 animate-pulse">
+                              <AlertTriangle size={12} />
+                              <span>OVERDUE ({Math.abs(diffHours)} hrs past return)</span>
+                            </span>
+                          ) : isDueToday ? (
+                            <span className="px-2 py-0.5 bg-amber-100 text-amber-900 border border-amber-300 rounded font-bold text-[10.5px] flex items-center gap-1">
+                              <Clock size={12} />
+                              <span>DUE TODAY by {b.expectedEndTime}</span>
+                            </span>
+                          ) : (
+                            <span className="px-2 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded font-semibold text-[10.5px]">
+                              🟢 Active on Road ({diffHours} hrs remaining)
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Middle: Financials */}
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-slate-50 p-2.5 rounded-xl border border-slate-200/80 text-xs shrink-0">
+                      <div>
+                        <span className="text-[9.5px] text-slate-400 block font-medium">Daily Rate</span>
+                        <span className="font-bold text-slate-800">₹{b.dailyRate}/day</span>
+                      </div>
+                      <div>
+                        <span className="text-[9.5px] text-slate-400 block font-medium">Total Rent</span>
+                        <span className="font-bold text-slate-900">₹{b.totalRent} ({b.daysCount}d)</span>
+                      </div>
+                      <div>
+                        <span className="text-[9.5px] text-slate-400 block font-medium">Advance Paid</span>
+                        <span className="font-bold text-emerald-700">₹{b.advancePaid}</span>
+                      </div>
+                      <div>
+                        <span className="text-[9.5px] text-slate-400 block font-medium">Deposit Held</span>
+                        <span className="font-bold text-amber-800">₹{b.securityDeposit}</span>
+                      </div>
+                    </div>
+
+                    {/* Right: Actions */}
+                    <div className="flex items-center gap-1.5 flex-wrap self-end lg:self-center shrink-0">
+                      <button
+                        type="button"
+                        onClick={() => handleSendFollowUpWhatsApp(b, isOverdue ? "overdue" : isDueToday ? "reminder" : "checkin")}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 shadow-2xs ${
+                          isOverdue 
+                            ? "bg-red-600 hover:bg-red-700 text-white" 
+                            : isDueToday 
+                            ? "bg-amber-600 hover:bg-amber-700 text-white" 
+                            : "bg-emerald-600 hover:bg-emerald-700 text-white"
+                        }`}
+                        title="Send customized WhatsApp reminder / status check"
+                      >
+                        <MessageSquare size={13} />
+                        <span>WhatsApp Reminder</span>
+                      </button>
+
+                      <a
+                        href={`tel:${b.customerPhone}`}
+                        className="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 text-xs font-semibold transition cursor-pointer flex items-center gap-1"
+                        title="Call Tourist Directly"
+                      >
+                        <Phone size={13} />
+                        <span className="hidden sm:inline">Call</span>
+                      </a>
+
+                      <button
+                        type="button"
+                        onClick={() => handleOpenExtendModal(b)}
+                        className="px-2.5 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 text-[#0369a1] border border-sky-200 text-xs font-semibold transition cursor-pointer flex items-center gap-1"
+                        title="Extend rental days"
+                      >
+                        <Plus size={13} />
+                        <span>Extend</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => handleOpenReturnModal(b)}
+                        className="px-3 py-1.5 rounded-lg bg-[#0b1320] hover:bg-[#16233b] text-amber-300 hover:text-white text-xs font-bold transition cursor-pointer flex items-center gap-1 shadow-xs"
+                        title="Check-in return and settle balance"
+                      >
+                        <CheckCircle2 size={13} />
+                        <span>Return</span>
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
       {/* ========================================================================= */}
-      {/* 5. TAB 2: FLEET VEHICLES INVENTORY */}
+      {/* TAB: REVENUE & REPORTS ANALYTICS */}
+      {/* ========================================================================= */}
+      {activeTab === "reports" && (
+        <div className="space-y-5">
+          {/* Filter Bar with Date Pickers */}
+          <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-3.5 rounded-xl border border-slate-200/70 shadow-2xs">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className="text-xs font-bold text-slate-500 uppercase tracking-wider mr-1 flex items-center gap-1">
+                <Filter size={13} />
+                <span>Period:</span>
+              </span>
+              {[
+                { id: "all", label: "All Time" },
+                { id: "today", label: "Today" },
+                { id: "week", label: "Last 7 Days" },
+                { id: "month", label: "This Month (30d)" },
+                { id: "custom", label: "Custom Dates" }
+              ].map(pill => (
+                <button
+                  key={pill.id}
+                  type="button"
+                  onClick={() => setReportRange(pill.id as any)}
+                  className={`px-3 py-1 rounded-lg text-xs font-bold transition cursor-pointer ${
+                    reportRange === pill.id
+                      ? "bg-[#0b1320] text-amber-300 shadow-xs"
+                      : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                  }`}
+                >
+                  {pill.label}
+                </button>
+              ))}
+
+              {reportRange === "custom" && (
+                <div className="flex items-center gap-1.5 bg-slate-50 p-1 rounded-lg border border-slate-200 ml-1">
+                  <span className="text-[10px] text-slate-500 font-bold px-1">From:</span>
+                  <input
+                    type="date"
+                    value={reportStartDate}
+                    onChange={e => setReportStartDate(e.target.value)}
+                    className="px-2 py-0.5 text-xs bg-white border border-slate-200 rounded"
+                  />
+                  <span className="text-[10px] text-slate-500 font-bold px-1">To:</span>
+                  <input
+                    type="date"
+                    value={reportEndDate}
+                    onChange={e => setReportEndDate(e.target.value)}
+                    className="px-2 py-0.5 text-xs bg-white border border-slate-200 rounded"
+                  />
+                </div>
+              )}
+            </div>
+
+            <button
+              type="button"
+              onClick={handleExportRevenueCsv}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition shadow-xs cursor-pointer"
+              title="Download CSV Spreadsheet with revenue & customer ledger"
+            >
+              <Download size={13} />
+              <span>Export CSV Report</span>
+            </button>
+          </div>
+
+          {/* KPI Summary Cards */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
+            <div className="bg-white rounded-xl p-4 border border-slate-200/80 shadow-2xs">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Gross Rental Revenue</span>
+              <p className="text-2xl font-black text-slate-900 tracking-tight mt-1 text-emerald-800">
+                ₹{totalReportRevenue.toLocaleString("en-IN")}
+              </p>
+              <p className="text-[10.5px] text-slate-500 mt-1">Advance Collected: ₹{totalReportAdvance.toLocaleString("en-IN")}</p>
+            </div>
+
+            <div className="bg-white rounded-xl p-4 border border-slate-200/80 shadow-2xs">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Total Trips Handled</span>
+              <p className="text-2xl font-black text-slate-900 tracking-tight mt-1 text-[#0369a1]">
+                {filteredReportBookings.length}
+              </p>
+              <p className="text-[10.5px] text-slate-500 mt-1">{completedCount} Completed &bull; {activeCount} On Road</p>
+            </div>
+
+            <div className="bg-white rounded-xl p-4 border border-slate-200/80 shadow-2xs">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Security Deposits Held</span>
+              <p className="text-2xl font-black text-amber-800 tracking-tight mt-1">
+                ₹{totalReportDeposits.toLocaleString("en-IN")}
+              </p>
+              <p className="text-[10.5px] text-slate-500 mt-1">Refundable upon vehicle return</p>
+            </div>
+
+            <div className="bg-white rounded-xl p-4 border border-slate-200/80 shadow-2xs">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Avg Trip Value</span>
+              <p className="text-2xl font-black text-slate-900 tracking-tight mt-1">
+                ₹{Math.round(totalReportRevenue / Math.max(1, filteredReportBookings.length)).toLocaleString("en-IN")}
+              </p>
+              <p className="text-[10.5px] text-slate-500 mt-1">Per vehicle rental cycle</p>
+            </div>
+          </div>
+
+          {/* Vehicle Revenue Breakdown & Payment Modes */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+            {/* Column 1 & 2: Vehicle-wise Performance Table */}
+            <div className="lg:col-span-2 bg-white rounded-xl p-4 border border-slate-200/80 shadow-2xs space-y-3">
+              <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                <h3 className="font-bold text-sm text-slate-900 flex items-center gap-1.5">
+                  <TrendingUp size={15} className="text-amber-600" />
+                  <span>Vehicle Fleet Performance &amp; Revenue Ranking</span>
+                </h3>
+                <span className="text-[11px] text-slate-400 font-medium">Ranked by Total Earnings</span>
+              </div>
+
+              <div className="divide-y divide-slate-100 overflow-x-auto">
+                <table className="w-full text-left text-xs">
+                  <thead className="text-[10px] font-bold uppercase text-slate-400 bg-slate-50/50">
+                    <tr>
+                      <th className="py-2 px-2.5">Vehicle</th>
+                      <th className="py-2 px-2 text-center">Category</th>
+                      <th className="py-2 px-2 text-center">Trips</th>
+                      <th className="py-2 px-2.5 text-right">Revenue (₹)</th>
+                      <th className="py-2 px-2.5 text-right">Share</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {vehicleStats.map((stat, i) => {
+                      const sharePct = totalReportRevenue > 0 ? Math.round((stat.revenue / totalReportRevenue) * 100) : 0;
+                      return (
+                        <tr key={stat.vehicle.id} className="hover:bg-slate-50/70 transition">
+                          <td className="py-2.5 px-2.5">
+                            <div className="flex items-center gap-2">
+                              <span className="w-5 h-5 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold flex items-center justify-center shrink-0">
+                                {i + 1}
+                              </span>
+                              <div>
+                                <span className="font-bold text-slate-900 block">{stat.vehicle.name}</span>
+                                <span className="font-mono text-[10.5px] text-slate-500 font-semibold">{stat.vehicle.plateNumber}</span>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="py-2.5 px-2 text-center">
+                            <span className="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 capitalize font-medium">
+                              {stat.vehicle.type}
+                            </span>
+                          </td>
+                          <td className="py-2.5 px-2 text-center font-bold text-slate-700">
+                            {stat.trips}
+                          </td>
+                          <td className="py-2.5 px-2.5 text-right font-black text-slate-900">
+                            ₹{stat.revenue.toLocaleString("en-IN")}
+                          </td>
+                          <td className="py-2.5 px-2.5 text-right">
+                            <span className="text-[11px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">
+                              {sharePct}%
+                            </span>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Column 3: Payment Modes & Summary */}
+            <div className="bg-white rounded-xl p-4 border border-slate-200/80 shadow-2xs space-y-4">
+              <h3 className="font-bold text-sm text-slate-900 flex items-center gap-1.5 border-b border-slate-100 pb-2">
+                <DollarSign size={15} className="text-emerald-600" />
+                <span>Payment Mode Breakdown</span>
+              </h3>
+
+              <div className="space-y-3">
+                <div className="bg-emerald-50/60 border border-emerald-200/70 rounded-xl p-3 flex justify-between items-center">
+                  <div>
+                    <span className="text-xs font-bold text-emerald-900 block">UPI / QR Transfer</span>
+                    <span className="text-[10.5px] text-emerald-700">PhonePe, GooglePay, Paytm</span>
+                  </div>
+                  <span className="font-black text-sm text-emerald-900">₹{paymentStats.upi.toLocaleString("en-IN")}</span>
+                </div>
+
+                <div className="bg-amber-50/60 border border-amber-200/70 rounded-xl p-3 flex justify-between items-center">
+                  <div>
+                    <span className="text-xs font-bold text-amber-900 block">Cash at Desk</span>
+                    <span className="text-[10.5px] text-amber-700">Counter Cash Handover</span>
+                  </div>
+                  <span className="font-black text-sm text-amber-900">₹{paymentStats.cash.toLocaleString("en-IN")}</span>
+                </div>
+
+                <div className="bg-sky-50/60 border border-sky-200/70 rounded-xl p-3 flex justify-between items-center">
+                  <div>
+                    <span className="text-xs font-bold text-sky-900 block">Card / POS</span>
+                    <span className="text-[10.5px] text-sky-700">Debit / Credit Cards</span>
+                  </div>
+                  <span className="font-black text-sm text-sky-900">₹{paymentStats.card.toLocaleString("en-IN")}</span>
+                </div>
+              </div>
+
+              {/* Station Hub Note */}
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 text-slate-600 text-[11px] space-y-1">
+                <p className="font-bold text-slate-800">💡 Business Metric Tip:</p>
+                <p className="leading-relaxed">
+                  Cruisers and Himalayan adventure bikes yield 2.5x higher daily tariff than scooties, with peak demand during May-June Chardham opening.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Transactions Ledger Table */}
+          <div className="bg-white rounded-xl p-4 border border-slate-200/80 shadow-2xs space-y-3">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+              <h3 className="font-bold text-sm text-slate-900 flex items-center gap-1.5">
+                <FileText size={15} className="text-[#0369a1]" />
+                <span>Rental Transaction Ledger ({filteredReportBookings.length} Records)</span>
+              </h3>
+              <button
+                type="button"
+                onClick={handleExportRevenueCsv}
+                className="text-xs text-emerald-700 font-bold hover:underline flex items-center gap-1 cursor-pointer"
+              >
+                <Download size={12} />
+                <span>Download CSV</span>
+              </button>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead className="text-[10px] font-bold uppercase text-slate-400 bg-slate-50/50">
+                  <tr>
+                    <th className="py-2 px-2.5">Date</th>
+                    <th className="py-2 px-2">ID</th>
+                    <th className="py-2 px-2.5">Customer</th>
+                    <th className="py-2 px-2.5">Vehicle</th>
+                    <th className="py-2 px-2 text-center">Days</th>
+                    <th className="py-2 px-2.5 text-right">Rent</th>
+                    <th className="py-2 px-2.5 text-right">Advance</th>
+                    <th className="py-2 px-2.5 text-right">Deposit</th>
+                    <th className="py-2 px-2 text-center">Status</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {filteredReportBookings.map((b) => (
+                    <tr key={b.id} className="hover:bg-slate-50/70 transition">
+                      <td className="py-2 px-2.5 font-medium text-slate-600 whitespace-nowrap">{b.startDate}</td>
+                      <td className="py-2 px-2 font-mono text-[10px] text-slate-500">{b.id}</td>
+                      <td className="py-2 px-2.5">
+                        <span className="font-bold text-slate-900 block">{b.customerName}</span>
+                        <span className="font-mono text-[10.5px] text-slate-500">{b.customerPhone}</span>
+                      </td>
+                      <td className="py-2 px-2.5">
+                        <span className="font-bold text-slate-900 block">{b.vehicleName}</span>
+                        <span className="font-mono text-[10.5px] text-amber-800 font-semibold">{b.plateNumber}</span>
+                      </td>
+                      <td className="py-2 px-2 text-center font-bold text-slate-700">{b.daysCount}d</td>
+                      <td className="py-2 px-2.5 text-right font-black text-slate-900">₹{b.totalRent}</td>
+                      <td className="py-2 px-2.5 text-right font-semibold text-emerald-700">₹{b.advancePaid}</td>
+                      <td className="py-2 px-2.5 text-right font-semibold text-amber-800">₹{b.securityDeposit}</td>
+                      <td className="py-2 px-2 text-center">
+                        <span className={`text-[9.5px] px-2 py-0.5 rounded-full font-bold uppercase ${
+                          b.status === "active" 
+                            ? "bg-amber-100 text-amber-900" 
+                            : b.status === "completed" 
+                            ? "bg-emerald-100 text-emerald-900" 
+                            : "bg-slate-100 text-slate-600"
+                        }`}>
+                          {b.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* 5. TAB: FLEET VEHICLES INVENTORY */}
       {/* ========================================================================= */}
       {activeTab === "fleet" && (
         <div className="space-y-4">
@@ -1243,43 +1994,105 @@ export default function TwoWheelerRentalsPage() {
               </div>
 
               {/* Dates & Duration */}
-              <div className="grid grid-cols-2 gap-3 bg-slate-50 p-3 rounded-lg border border-slate-200/80">
-                <div className="space-y-1">
-                  <label className="text-[11px] font-semibold text-slate-600">Pickup Date &amp; Time</label>
-                  <div className="flex gap-1.5">
-                    <input
-                      type="date"
-                      required
-                      value={newBooking.startDate}
-                      onChange={e => setNewBooking({ ...newBooking, startDate: e.target.value })}
-                      className="w-full text-xs p-1.5 rounded border border-slate-200 bg-white"
-                    />
-                    <input
-                      type="time"
-                      value={newBooking.startTime}
-                      onChange={e => setNewBooking({ ...newBooking, startTime: e.target.value })}
-                      className="w-24 text-xs p-1.5 rounded border border-slate-200 bg-white"
-                    />
+              <div className="bg-slate-50 p-3 rounded-lg border border-slate-200/80 space-y-2.5">
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <label className="text-[11px] font-semibold text-slate-600 flex items-center gap-1">
+                      <Calendar size={12} className="text-amber-600" />
+                      <span>Pickup Date &amp; Time</span>
+                    </label>
+                    <div className="flex gap-1.5">
+                      <input
+                        type="date"
+                        required
+                        value={newBooking.startDate}
+                        onChange={e => {
+                          const newStart = e.target.value;
+                          const startObj = new Date(newStart);
+                          const endObj = new Date(startObj.getTime() + newBooking.daysCount * 86400000);
+                          setNewBooking({
+                            ...newBooking,
+                            startDate: newStart,
+                            expectedEndDate: endObj.toISOString().split("T")[0]
+                          });
+                        }}
+                        className="w-full text-xs p-1.5 rounded border border-slate-200 bg-white"
+                      />
+                      <input
+                        type="time"
+                        value={newBooking.startTime}
+                        onChange={e => setNewBooking({ ...newBooking, startTime: e.target.value })}
+                        className="w-24 text-xs p-1.5 rounded border border-slate-200 bg-white"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[11px] font-semibold text-slate-600 flex items-center gap-1">
+                      <Calendar size={12} className="text-emerald-600" />
+                      <span>Drop Date &amp; Time</span>
+                    </label>
+                    <div className="flex gap-1.5">
+                      <input
+                        type="date"
+                        required
+                        value={newBooking.expectedEndDate}
+                        onChange={e => {
+                          const newEnd = e.target.value;
+                          let days = newBooking.daysCount;
+                          if (newBooking.startDate && newEnd) {
+                            const diff = Math.round((new Date(newEnd).getTime() - new Date(newBooking.startDate).getTime()) / 86400000);
+                            days = Math.max(1, diff);
+                          }
+                          setNewBooking({ ...newBooking, expectedEndDate: newEnd, daysCount: days });
+                        }}
+                        className="w-full text-xs p-1.5 rounded border border-slate-200 bg-white"
+                      />
+                      <input
+                        type="time"
+                        value={newBooking.expectedEndTime}
+                        onChange={e => setNewBooking({ ...newBooking, expectedEndTime: e.target.value })}
+                        className="w-24 text-xs p-1.5 rounded border border-slate-200 bg-white"
+                      />
+                    </div>
                   </div>
                 </div>
 
-                <div className="space-y-1">
-                  <label className="text-[11px] font-semibold text-slate-600">Drop Date &amp; Time</label>
-                  <div className="flex gap-1.5">
-                    <input
-                      type="date"
-                      required
-                      value={newBooking.expectedEndDate}
-                      onChange={e => setNewBooking({ ...newBooking, expectedEndDate: e.target.value })}
-                      className="w-full text-xs p-1.5 rounded border border-slate-200 bg-white"
-                    />
-                    <input
-                      type="time"
-                      value={newBooking.expectedEndTime}
-                      onChange={e => setNewBooking({ ...newBooking, expectedEndTime: e.target.value })}
-                      className="w-24 text-xs p-1.5 rounded border border-slate-200 bg-white"
-                    />
-                  </div>
+                {/* Quick Duration Shortcuts */}
+                <div className="pt-2 border-t border-slate-200/60 flex items-center gap-1.5 flex-wrap">
+                  <span className="text-[10px] text-slate-500 font-bold flex items-center gap-1">
+                    <CalendarDays size={12} className="text-amber-600" />
+                    <span>Quick Days:</span>
+                  </span>
+                  {[
+                    { label: "1 Day (Local)", days: 1 },
+                    { label: "2 Days (Rishikesh)", days: 2 },
+                    { label: "3 Days (Mussoorie)", days: 3 },
+                    { label: "5 Days (Do Dham)", days: 5 },
+                    { label: "7 Days (Chardham)", days: 7 },
+                    { label: "10 Days (Full Circuit)", days: 10 }
+                  ].map(chip => (
+                    <button
+                      key={chip.days}
+                      type="button"
+                      onClick={() => {
+                        const start = new Date(newBooking.startDate || new Date());
+                        const end = new Date(start.getTime() + chip.days * 86400000);
+                        setNewBooking({
+                          ...newBooking,
+                          daysCount: chip.days,
+                          expectedEndDate: end.toISOString().split("T")[0]
+                        });
+                      }}
+                      className={`text-[10px] px-2 py-0.5 rounded-full border transition cursor-pointer ${
+                        newBooking.daysCount === chip.days
+                          ? "bg-amber-600 text-white border-amber-600 font-bold shadow-2xs"
+                          : "bg-white text-slate-700 border-slate-200 hover:bg-slate-100 font-medium"
+                      }`}
+                    >
+                      {chip.label}
+                    </button>
+                  ))}
                 </div>
               </div>
 
@@ -2046,6 +2859,135 @@ export default function TwoWheelerRentalsPage() {
                     <span>Save Changes</span>
                   </button>
                 </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Extend Booking Modal */}
+      {showExtendModal && extendingBooking && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in">
+          <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden border border-slate-200">
+            <div className="p-4 bg-gradient-to-r from-amber-600 to-amber-700 text-white flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Clock size={18} className="text-amber-200" />
+                <h3 className="font-bold text-sm tracking-wide">Extend Rental Duration</h3>
+              </div>
+              <button
+                onClick={() => {
+                  setShowExtendModal(false);
+                  setExtendingBooking(null);
+                }}
+                className="text-white/80 hover:text-white p-1 rounded-lg hover:bg-white/10"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <form onSubmit={handleExtendBooking} className="p-5 space-y-4">
+              <div className="bg-amber-50/60 p-3 rounded-xl border border-amber-200/70 flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-bold text-amber-950">{extendingBooking.vehicleName}</p>
+                  <p className="text-[11px] font-mono font-bold text-amber-800">{extendingBooking.plateNumber}</p>
+                  <p className="text-[10px] text-slate-500 mt-0.5">{extendingBooking.customerName} &bull; {extendingBooking.customerPhone}</p>
+                </div>
+                <div className="text-right">
+                  <span className="text-[10px] uppercase font-bold text-slate-400 block">Current Return</span>
+                  <span className="text-xs font-bold text-slate-800">{extendingBooking.expectedEndDate}</span>
+                  <span className="text-[10px] text-slate-500 block">{extendingBooking.expectedEndTime}</span>
+                </div>
+              </div>
+
+              <div>
+                <label className="text-[11px] font-bold text-slate-700 block mb-1.5">Extend By (Days)</label>
+                <div className="flex gap-2">
+                  {[1, 2, 3, 5].map((d) => (
+                    <button
+                      key={d}
+                      type="button"
+                      onClick={() => {
+                        setExtendDays(d);
+                        setExtendExtraRent(d * extendingBooking.dailyRate);
+                      }}
+                      className={`flex-1 py-1.5 rounded-lg text-xs font-bold border transition ${
+                        extendDays === d
+                          ? "bg-amber-600 text-white border-amber-600 shadow-xs"
+                          : "bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200"
+                      }`}
+                    >
+                      +{d} Day{d > 1 ? "s" : ""}
+                    </button>
+                  ))}
+                </div>
+                <div className="mt-2 flex items-center gap-2">
+                  <span className="text-xs text-slate-500">Custom Days:</span>
+                  <input
+                    type="number"
+                    min="1"
+                    max="30"
+                    value={extendDays}
+                    onChange={(e) => {
+                      const d = Math.max(1, parseInt(e.target.value) || 1);
+                      setExtendDays(d);
+                      setExtendExtraRent(d * extendingBooking.dailyRate);
+                    }}
+                    className="w-20 px-2 py-1 border border-slate-300 rounded-lg text-xs font-bold text-center"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="text-[11px] font-bold text-slate-700 block mb-1">Additional Rent Amount (₹)</label>
+                <div className="relative">
+                  <span className="absolute left-3 top-2 text-xs font-bold text-slate-400">₹</span>
+                  <input
+                    type="number"
+                    min="0"
+                    value={extendExtraRent}
+                    onChange={(e) => setExtendExtraRent(Number(e.target.value) || 0)}
+                    className="w-full pl-7 pr-3 py-1.5 border border-slate-300 rounded-lg text-xs font-bold text-slate-800"
+                  />
+                </div>
+                <p className="text-[10px] text-slate-400 mt-1">
+                  Based on daily tariff ₹{extendingBooking.dailyRate}/day x {extendDays} days. Editable if giving discount.
+                </p>
+              </div>
+
+              <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-200 text-[11px] text-slate-600">
+                <p className="font-semibold text-slate-800">
+                  New Return Date:{" "}
+                  <span className="text-amber-700 font-bold">
+                    {(() => {
+                      const d = new Date(extendingBooking.expectedEndDate);
+                      d.setDate(d.getDate() + (Number(extendDays) || 1));
+                      return d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+                    })()}
+                  </span>
+                </p>
+                <p className="text-[10px] text-slate-500 mt-0.5">
+                  Sends automated WhatsApp extension confirmation directly to customer.
+                </p>
+              </div>
+
+              <div className="pt-2 flex items-center justify-end gap-2 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowExtendModal(false);
+                    setExtendingBooking(null);
+                  }}
+                  className="px-3 py-1.5 text-xs text-slate-600 hover:bg-slate-100 rounded-lg cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-lg flex items-center gap-1.5 shadow-sm cursor-pointer"
+                >
+                  <Send size={13} />
+                  <span>Confirm & Send WhatsApp</span>
+                </button>
               </div>
             </form>
           </div>
