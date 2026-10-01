@@ -37,7 +37,10 @@ import {
   AlertTriangle,
   Send,
   BellRing,
-  Check
+  Check,
+  PhoneCall,
+  PhoneForwarded,
+  PhoneOutgoing
 } from "lucide-react";
 import Link from "next/link";
 
@@ -81,6 +84,11 @@ export interface RentalBooking {
   paymentMode: "cash" | "upi" | "card";
   helmetsGiven: number;
   status: "active" | "completed" | "cancelled";
+  callReminderDate?: string;
+  callReminderTime?: string;
+  callReminderNote?: string;
+  callReminderStatus?: "pending" | "done";
+  lastCalledAt?: string;
   notes?: string;
   createdAt: string;
 }
@@ -217,11 +225,18 @@ export default function TwoWheelerRentalsPage() {
   const [searchQuery, setSearchQuery] = useState("");
 
   // Follow-up & Reports State
-  const [followupFilter, setFollowupFilter] = useState<"all" | "due_today" | "overdue">("all");
+  const [followupFilter, setFollowupFilter] = useState<"all" | "due_today" | "overdue" | "calls_due">("all");
   const [showExtendModal, setShowExtendModal] = useState(false);
   const [extendingBooking, setExtendingBooking] = useState<RentalBooking | null>(null);
   const [extendDays, setExtendDays] = useState<number>(1);
   const [extendExtraRent, setExtendExtraRent] = useState<number>(0);
+
+  // Call Reminder State
+  const [showCallReminderModal, setShowCallReminderModal] = useState(false);
+  const [selectedBookingForCall, setSelectedBookingForCall] = useState<RentalBooking | null>(null);
+  const [callReminderDate, setCallReminderDate] = useState<string>("");
+  const [callReminderTime, setCallReminderTime] = useState<string>("17:00");
+  const [callReminderNote, setCallReminderNote] = useState<string>("");
 
   // Revenue Report Range State
   const [reportRange, setReportRange] = useState<"all" | "today" | "week" | "month" | "custom">("all");
@@ -583,6 +598,11 @@ export default function TwoWheelerRentalsPage() {
     return new Date() > end;
   });
 
+  // Call Reminders Tracking
+  const callRemindersList = activeBookings.filter(b => b.callReminderDate && b.callReminderStatus !== "done");
+  const dueTodayCalls = callRemindersList.filter(b => b.callReminderDate === todayStr);
+  const overdueCalls = callRemindersList.filter(b => b.callReminderDate && b.callReminderDate < todayStr);
+
   const filteredFollowupBookings = activeBookings.filter(b => {
     if (followupFilter === "due_today") {
       return b.expectedEndDate === todayStr;
@@ -590,6 +610,9 @@ export default function TwoWheelerRentalsPage() {
     if (followupFilter === "overdue") {
       const end = new Date(`${b.expectedEndDate}T${b.expectedEndTime || "21:00"}`);
       return new Date() > end;
+    }
+    if (followupFilter === "calls_due") {
+      return b.callReminderDate && b.callReminderStatus !== "done";
     }
     return true;
   }).filter(b => {
@@ -680,6 +703,74 @@ export default function TwoWheelerRentalsPage() {
   };
 
   // ----------------------------------------------------
+  // CALL REMINDER HANDLERS FOR ISSUED FLEET
+  // ----------------------------------------------------
+  const handleOpenCallReminderModal = (b: RentalBooking) => {
+    setSelectedBookingForCall(b);
+    setCallReminderDate(b.callReminderDate || todayStr);
+    setCallReminderTime(b.callReminderTime || "17:00");
+    setCallReminderNote(b.callReminderNote || "Confirm return time & location");
+    setShowCallReminderModal(true);
+  };
+
+  const handleSaveCallReminder = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedBookingForCall) return;
+
+    const updated = bookings.map(b => {
+      if (b.id === selectedBookingForCall.id) {
+        return {
+          ...b,
+          callReminderDate,
+          callReminderTime,
+          callReminderNote,
+          callReminderStatus: "pending" as const
+        };
+      }
+      return b;
+    });
+
+    saveBookings(updated);
+    setShowCallReminderModal(false);
+    setSelectedBookingForCall(null);
+  };
+
+  const handleMarkCallDone = (bookingId: string) => {
+    const timeNow = new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" });
+    const dateNow = new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short" });
+    const updated = bookings.map(b => {
+      if (b.id === bookingId) {
+        return {
+          ...b,
+          callReminderStatus: "done" as const,
+          lastCalledAt: `${timeNow}, ${dateNow}`,
+          notes: (b.notes ? b.notes + "\n" : "") + `[Follow-up call completed on ${dateNow} at ${timeNow}]`
+        };
+      }
+      return b;
+    });
+
+    saveBookings(updated);
+  };
+
+  const handleRemoveCallReminder = (bookingId: string) => {
+    const updated = bookings.map(b => {
+      if (b.id === bookingId) {
+        return {
+          ...b,
+          callReminderDate: undefined,
+          callReminderTime: undefined,
+          callReminderNote: undefined,
+          callReminderStatus: undefined
+        };
+      }
+      return b;
+    });
+
+    saveBookings(updated);
+  };
+
+  // ----------------------------------------------------
   // REVENUE & REPORTS CALCULATIONS
   // ----------------------------------------------------
   const filteredReportBookings = bookings.filter(b => {
@@ -758,6 +849,87 @@ export default function TwoWheelerRentalsPage() {
     document.body.removeChild(link);
   };
 
+  // Comprehensive Rental Bookings & Issued Fleet CSV Exporter
+  const handleExportBookingsCsv = (customList?: RentalBooking[], label?: string) => {
+    const list = customList || bookings;
+    if (list.length === 0) {
+      alert("No rental bookings to export.");
+      return;
+    }
+
+    const headers = [
+      "Booking ID",
+      "Status",
+      "Customer Name",
+      "Customer Phone",
+      "DL Number",
+      "Aadhaar Number",
+      "Vehicle Name",
+      "Plate Number",
+      "Issue Date",
+      "Issue Time",
+      "Expected Return Date",
+      "Expected Return Time",
+      "Actual Return Date",
+      "Days",
+      "Daily Rate (INR)",
+      "Start KM",
+      "Return KM",
+      "Total Rent (INR)",
+      "Advance Paid (INR)",
+      "Security Deposit (INR)",
+      "Deposit Mode",
+      "Payment Mode",
+      "Call Reminder Date",
+      "Call Reminder Time",
+      "Call Status",
+      "Call Purpose",
+      "Last Called At",
+      "Notes"
+    ];
+
+    const rows = list.map(b => [
+      `"${b.id}"`,
+      `"${b.status.toUpperCase()}"`,
+      `"${(b.customerName || '').replace(/"/g, '""')}"`,
+      `"${b.customerPhone || ''}"`,
+      `"${b.dlNumber || ''}"`,
+      `"${b.aadhaarNumber || ''}"`,
+      `"${(b.vehicleName || '').replace(/"/g, '""')}"`,
+      `"${b.plateNumber || ''}"`,
+      `"${b.startDate || ''}"`,
+      `"${b.startTime || ''}"`,
+      `"${b.expectedEndDate || ''}"`,
+      `"${b.expectedEndTime || ''}"`,
+      `"${b.actualEndDate || ''}"`,
+      b.daysCount || 1,
+      b.dailyRate || 0,
+      b.startKm || 0,
+      b.endKm || "",
+      b.totalRent || 0,
+      b.advancePaid || 0,
+      b.securityDeposit || 0,
+      `"${(b.depositType || '').toUpperCase()}"`,
+      `"${(b.paymentMode || '').toUpperCase()}"`,
+      `"${b.callReminderDate || ''}"`,
+      `"${b.callReminderTime || ''}"`,
+      `"${b.callReminderStatus || ''}"`,
+      `"${(b.callReminderNote || '').replace(/"/g, '""')}"`,
+      `"${b.lastCalledAt || ''}"`,
+      `"${(b.notes || '').replace(/"/g, '""').replace(/\n/g, ' ')}"`
+    ]);
+
+    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(r => r.join(","))].join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    const titleLabel = label || (activeTab === "followup" ? "Issued_OnRoad_Fleet" : "All_Bookings");
+    link.setAttribute("download", `Traymbhkam_Rentals_${titleLabel}_${todayStr}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   // Fleet Counts
   const totalFleetCount = fleet.length;
   const onRentCount = fleet.filter(v => v.status === "rented").length;
@@ -826,6 +998,15 @@ export default function TwoWheelerRentalsPage() {
           >
             <Key size={14} className="text-slate-500" />
             <span>Add Vehicle</span>
+          </button>
+
+          <button
+            onClick={() => handleExportBookingsCsv(activeTab === "followup" ? filteredFollowupBookings : filteredBookings, activeTab === "followup" ? "FollowUp_Fleet" : "All_Bookings")}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-lg font-bold text-xs shadow-2xs transition cursor-pointer"
+            title="Download CSV / Excel export of bookings and fleet"
+          >
+            <Download size={14} className="text-emerald-700" />
+            <span>Export CSV</span>
           </button>
         </div>
       </div>
@@ -961,15 +1142,26 @@ export default function TwoWheelerRentalsPage() {
         </div>
 
         {(activeTab === "bookings" || activeTab === "followup") && (
-          <div className="relative w-56">
-            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="Search by name, DL, phone..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-8 pr-3 py-1 text-xs rounded-lg border border-slate-200/80 bg-white focus:outline-none focus:border-amber-400"
-            />
+          <div className="flex items-center gap-2">
+            <div className="relative w-56">
+              <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+              <input
+                type="text"
+                placeholder="Search by name, DL, phone..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-8 pr-3 py-1 text-xs rounded-lg border border-slate-200/80 bg-white focus:outline-none focus:border-amber-400"
+              />
+            </div>
+            <button
+              type="button"
+              onClick={() => handleExportBookingsCsv(activeTab === "followup" ? filteredFollowupBookings : filteredBookings, activeTab === "followup" ? "FollowUp_Fleet" : "Filtered_Bookings")}
+              className="px-2.5 py-1 text-xs bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-semibold rounded-lg flex items-center gap-1 shadow-2xs transition cursor-pointer shrink-0"
+              title="Export Current Table View to CSV"
+            >
+              <Download size={13} className="text-emerald-600" />
+              <span className="hidden sm:inline">Export</span>
+            </button>
           </div>
         )}
       </div>
@@ -1055,6 +1247,24 @@ export default function TwoWheelerRentalsPage() {
                         <span>&rarr;</span>
                         <span>Drop Expected: {b.expectedEndDate} {b.expectedEndTime}</span>
                       </div>
+
+                      {/* Call Reminder Status badge if active */}
+                      {isActive && (
+                        <div className="pt-0.5">
+                          {b.callReminderDate && b.callReminderStatus !== "done" ? (
+                            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-amber-50 text-amber-900 border border-amber-300 text-[10.5px] font-bold">
+                              <PhoneCall size={11} className="text-amber-700" />
+                              <span>Call: {b.callReminderDate === todayStr ? "Today" : b.callReminderDate} at {b.callReminderTime}</span>
+                              {b.callReminderNote && <span className="text-slate-600 font-normal">({b.callReminderNote})</span>}
+                            </span>
+                          ) : b.lastCalledAt ? (
+                            <span className="inline-flex items-center gap-1 text-[10.5px] text-slate-500">
+                              <Check size={11} className="text-emerald-600" />
+                              <span>Called: {b.lastCalledAt}</span>
+                            </span>
+                          ) : null}
+                        </div>
+                      )}
                     </div>
 
                     {/* Right: Financials & Action Triggers */}
@@ -1076,6 +1286,18 @@ export default function TwoWheelerRentalsPage() {
                           >
                             <CheckCircle2 size={13} />
                             <span>Check-in Return</span>
+                          </button>
+                        )}
+
+                        {isActive && (
+                          <button
+                            type="button"
+                            onClick={() => handleOpenCallReminderModal(b)}
+                            title="Set or reschedule call reminder"
+                            className="px-2 py-1.5 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 text-xs font-semibold transition cursor-pointer flex items-center gap-1"
+                          >
+                            <PhoneCall size={12} className="text-amber-700" />
+                            <span className="hidden sm:inline">Remind Call</span>
                           </button>
                         )}
 
@@ -1153,12 +1375,171 @@ export default function TwoWheelerRentalsPage() {
                 <span>🚨 Overdue Attention</span>
                 <span className="px-1.5 py-0.2 bg-red-200 text-red-900 rounded-full text-[10px] font-black">{overdueBookings.length}</span>
               </button>
+
+              <button
+                type="button"
+                onClick={() => setFollowupFilter("calls_due")}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 ${
+                  followupFilter === "calls_due"
+                    ? "bg-amber-600 text-white shadow-xs"
+                    : "bg-amber-50 text-amber-900 border border-amber-300 hover:bg-amber-100"
+                }`}
+              >
+                <PhoneCall size={12} />
+                <span>📞 Calls Due</span>
+                <span className="px-1.5 py-0.2 bg-amber-200 text-amber-900 rounded-full text-[10px] font-black">{callRemindersList.length}</span>
+              </button>
             </div>
 
-            <div className="text-xs text-slate-500 font-medium">
-              Showing {filteredFollowupBookings.length} vehicles currently with tourists
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-slate-500 font-medium hidden sm:inline">
+                {filteredFollowupBookings.length} on road
+              </span>
+              <button
+                type="button"
+                onClick={() => handleExportBookingsCsv(filteredFollowupBookings, "FollowUp_Calling_Sheet")}
+                className="px-2.5 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs font-bold flex items-center gap-1.5 transition cursor-pointer shadow-2xs"
+                title="Download calling sheet for patrol and counter team"
+              >
+                <Download size={13} className="text-emerald-700" />
+                <span>Export Calling Sheet</span>
+              </button>
             </div>
           </div>
+
+          {/* Call Reminders Hub Banner */}
+          {callRemindersList.length > 0 && (
+            <div className="bg-gradient-to-r from-amber-500/10 via-sky-500/10 to-emerald-500/10 border border-amber-300/80 rounded-2xl p-4 space-y-3 shadow-2xs">
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center shadow-xs">
+                    <PhoneCall size={16} />
+                  </div>
+                  <div>
+                    <h3 className="text-xs font-bold text-slate-900 flex items-center gap-2">
+                      <span>Tourist Call Reminders</span>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-500 text-white">
+                        {callRemindersList.length} Scheduled
+                      </span>
+                      {dueTodayCalls.length > 0 && (
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-black bg-red-600 text-white animate-pulse">
+                          {dueTodayCalls.length} Due Today
+                        </span>
+                      )}
+                    </h3>
+                    <p className="text-[11px] text-slate-500">
+                      Scheduled tourist follow-ups for return confirmation, road safety, and extension
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setFollowupFilter(followupFilter === "calls_due" ? "all" : "calls_due")}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer flex items-center gap-1.5 ${
+                    followupFilter === "calls_due"
+                      ? "bg-amber-600 text-white shadow-xs"
+                      : "bg-white text-slate-700 border border-slate-200 hover:bg-slate-50"
+                  }`}
+                >
+                  <Filter size={12} />
+                  <span>{followupFilter === "calls_due" ? "Show All Vehicles" : "Filter Only Calls Due"}</span>
+                </button>
+              </div>
+
+              {/* Quick Call Reminder Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2.5 pt-1">
+                {callRemindersList.map((b) => {
+                  const isToday = b.callReminderDate === todayStr;
+                  const isPast = b.callReminderDate && b.callReminderDate < todayStr;
+                  return (
+                    <div
+                      key={b.id}
+                      className={`p-3 rounded-xl border flex flex-col justify-between gap-2 transition ${
+                        isPast
+                          ? "bg-red-50/70 border-red-300"
+                          : isToday
+                          ? "bg-amber-50/80 border-amber-300 shadow-2xs"
+                          : "bg-white border-slate-200"
+                      }`}
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className={`text-[10px] font-black px-2 py-0.5 rounded flex items-center gap-1 ${
+                            isPast
+                              ? "bg-red-600 text-white"
+                              : isToday
+                              ? "bg-amber-600 text-white"
+                              : "bg-slate-100 text-slate-700"
+                          }`}>
+                            <Clock size={10} />
+                            <span>
+                              {isPast ? "OVERDUE CALL" : isToday ? `Today at ${b.callReminderTime}` : `${b.callReminderDate} (${b.callReminderTime})`}
+                            </span>
+                          </span>
+                          <span className="font-mono text-[10px] text-slate-400 font-bold">{b.plateNumber}</span>
+                        </div>
+
+                        <p className="text-xs font-bold text-slate-900">{b.customerName}</p>
+                        <a
+                          href={`tel:${b.customerPhone}`}
+                          className="text-[11px] font-mono font-bold text-amber-900 hover:underline flex items-center gap-1 mt-0.5"
+                        >
+                          <Phone size={11} className="text-amber-700" />
+                          {b.customerPhone}
+                        </a>
+
+                        {b.callReminderNote && (
+                          <p className="text-[11px] text-slate-600 bg-white/70 p-1.5 rounded-lg border border-slate-200/60 mt-1.5 line-clamp-2">
+                            💬 {b.callReminderNote}
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="flex items-center justify-between pt-2 border-t border-slate-200/50 gap-1.5">
+                        <a
+                          href={`tel:${b.customerPhone}`}
+                          className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-[11px] font-bold flex items-center gap-1 cursor-pointer transition shadow-2xs"
+                          title="Call customer directly"
+                        >
+                          <PhoneCall size={11} />
+                          <span>Call Now</span>
+                        </a>
+
+                        <div className="flex items-center gap-1">
+                          <button
+                            type="button"
+                            onClick={() => handleMarkCallDone(b.id)}
+                            className="px-2 py-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-lg text-[11px] font-bold flex items-center gap-1 cursor-pointer transition"
+                            title="Mark this reminder as completed"
+                          >
+                            <Check size={11} />
+                            <span>Done</span>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleOpenCallReminderModal(b)}
+                            className="p-1 hover:bg-slate-100 text-slate-600 rounded-lg text-[11px] cursor-pointer"
+                            title="Reschedule reminder"
+                          >
+                            <Clock size={12} />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveCallReminder(b.id)}
+                            className="p-1 hover:bg-red-50 text-red-500 rounded-lg text-[11px] cursor-pointer"
+                            title="Delete reminder"
+                          >
+                            <Trash2 size={12} />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           {filteredFollowupBookings.length === 0 ? (
             <div className="bg-white rounded-xl p-12 text-center border border-slate-200/70 space-y-3">
@@ -1257,6 +1638,45 @@ export default function TwoWheelerRentalsPage() {
                             </span>
                           )}
                         </div>
+
+                        {/* Call Reminder Status badge in Followup Card */}
+                        <div className="pt-1">
+                          {b.callReminderDate && b.callReminderStatus !== "done" ? (
+                            <div className="flex items-center gap-1.5 flex-wrap bg-amber-50/90 border border-amber-300 px-2 py-1 rounded-lg text-xs text-amber-950">
+                              <PhoneCall size={12} className="text-amber-700 shrink-0" />
+                              <span className="font-bold">
+                                📞 Call Scheduled: {b.callReminderDate === todayStr ? "Today" : b.callReminderDate} at {b.callReminderTime}
+                              </span>
+                              {b.callReminderNote && <span className="text-slate-600 font-medium">({b.callReminderNote})</span>}
+                              <button
+                                type="button"
+                                onClick={() => handleMarkCallDone(b.id)}
+                                className="ml-auto text-[10.5px] font-bold text-emerald-700 hover:text-emerald-900 flex items-center gap-0.5 underline cursor-pointer"
+                              >
+                                <Check size={11} /> Mark Done
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleOpenCallReminderModal(b)}
+                                className="text-[10.5px] font-bold text-sky-700 hover:text-sky-900 underline cursor-pointer"
+                              >
+                                Reschedule
+                              </button>
+                            </div>
+                          ) : b.lastCalledAt ? (
+                            <div className="flex items-center gap-1 text-[11px] text-slate-500">
+                              <Check size={12} className="text-emerald-600" />
+                              <span>Last Called: {b.lastCalledAt}</span>
+                              <button
+                                type="button"
+                                onClick={() => handleOpenCallReminderModal(b)}
+                                className="text-[10.5px] text-amber-700 hover:underline font-bold ml-1 cursor-pointer"
+                              >
+                                + Set Reminder
+                              </button>
+                            </div>
+                          ) : null}
+                        </div>
                       </div>
                     </div>
 
@@ -1306,6 +1726,16 @@ export default function TwoWheelerRentalsPage() {
                         <Phone size={13} />
                         <span className="hidden sm:inline">Call</span>
                       </a>
+
+                      <button
+                        type="button"
+                        onClick={() => handleOpenCallReminderModal(b)}
+                        className="p-1.5 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 text-xs font-bold transition cursor-pointer flex items-center gap-1 shadow-2xs"
+                        title="Set reminder to call customer"
+                      >
+                        <PhoneCall size={13} className="text-amber-700" />
+                        <span>Remind Call</span>
+                      </button>
 
                       <button
                         type="button"
@@ -2988,6 +3418,208 @@ export default function TwoWheelerRentalsPage() {
                   <Send size={13} />
                   <span>Confirm & Send WhatsApp</span>
                 </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Call Reminder Modal */}
+      {showCallReminderModal && selectedBookingForCall && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-in fade-in">
+          <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl overflow-hidden border border-slate-200">
+            <div className="p-4 bg-gradient-to-r from-amber-600 via-amber-700 to-amber-800 text-white flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <PhoneCall size={18} className="text-amber-200" />
+                <h3 className="font-bold text-sm tracking-wide">Schedule Tourist Call Reminder</h3>
+              </div>
+              <button
+                onClick={() => {
+                  setShowCallReminderModal(false);
+                  setSelectedBookingForCall(null);
+                }}
+                className="text-white/80 hover:text-white p-1 rounded-lg hover:bg-white/10 cursor-pointer"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveCallReminder} className="p-5 space-y-4">
+              {/* Customer / Vehicle context */}
+              <div className="bg-amber-50/70 p-3 rounded-xl border border-amber-200/80 flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-bold text-slate-900">{selectedBookingForCall.customerName}</p>
+                  <a
+                    href={`tel:${selectedBookingForCall.customerPhone}`}
+                    className="text-xs font-mono font-bold text-emerald-800 hover:underline flex items-center gap-1 mt-0.5"
+                  >
+                    <Phone size={12} className="text-emerald-600" />
+                    {selectedBookingForCall.customerPhone}
+                  </a>
+                  <p className="text-[11px] text-slate-600 mt-1">
+                    {selectedBookingForCall.vehicleName} &bull; <strong className="text-amber-900 font-mono">{selectedBookingForCall.plateNumber}</strong>
+                  </p>
+                </div>
+                <div className="text-right">
+                  <span className="text-[10px] uppercase font-bold text-slate-400 block">Expected Return</span>
+                  <span className="text-xs font-bold text-slate-800">{selectedBookingForCall.expectedEndDate}</span>
+                  <span className="text-[10px] text-slate-500 block">{selectedBookingForCall.expectedEndTime}</span>
+                </div>
+              </div>
+
+              {/* Date & Time */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-[11px] font-bold text-slate-700 block mb-1">Call Reminder Date</label>
+                  <input
+                    type="date"
+                    required
+                    value={callReminderDate}
+                    onChange={(e) => setCallReminderDate(e.target.value)}
+                    className="w-full px-2.5 py-1.5 border border-slate-300 rounded-lg text-xs font-bold text-slate-800 bg-white"
+                  />
+                </div>
+                <div>
+                  <label className="text-[11px] font-bold text-slate-700 block mb-1">Call Time</label>
+                  <input
+                    type="time"
+                    required
+                    value={callReminderTime}
+                    onChange={(e) => setCallReminderTime(e.target.value)}
+                    className="w-full px-2.5 py-1.5 border border-slate-300 rounded-lg text-xs font-bold text-slate-800 bg-white"
+                  />
+                </div>
+              </div>
+
+              {/* Quick Preset Buttons for Date & Time */}
+              <div>
+                <label className="text-[10.5px] font-semibold text-slate-500 block mb-1.5">Quick Schedule Shortcuts:</label>
+                <div className="grid grid-cols-2 gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCallReminderDate(todayStr);
+                      const d = new Date();
+                      d.setHours(d.getHours() + 2);
+                      const hh = String(d.getHours()).padStart(2, "0");
+                      const mm = String(d.getMinutes()).padStart(2, "0");
+                      setCallReminderTime(`${hh}:${mm}`);
+                      setCallReminderNote("Highway & Rishikesh Check (2 Hrs post issue)");
+                    }}
+                    className="px-2 py-1 text-[11px] bg-slate-50 hover:bg-amber-50 hover:border-amber-300 border border-slate-200 rounded-lg font-medium text-slate-700 text-left transition cursor-pointer"
+                  >
+                    ⏱️ In 2 Hours (Road Check)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCallReminderDate(todayStr);
+                      setCallReminderTime("17:00");
+                      setCallReminderNote("Evening return & location status");
+                    }}
+                    className="px-2 py-1 text-[11px] bg-slate-50 hover:bg-amber-50 hover:border-amber-300 border border-slate-200 rounded-lg font-medium text-slate-700 text-left transition cursor-pointer"
+                  >
+                    🌆 Today Evening (05:00 PM)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const d = new Date();
+                      d.setDate(d.getDate() + 1);
+                      setCallReminderDate(d.toISOString().split("T")[0]);
+                      setCallReminderTime("10:00");
+                      setCallReminderNote("Morning hill ride & fuel check");
+                    }}
+                    className="px-2 py-1 text-[11px] bg-slate-50 hover:bg-amber-50 hover:border-amber-300 border border-slate-200 rounded-lg font-medium text-slate-700 text-left transition cursor-pointer"
+                  >
+                    ☀️ Tomorrow (10:00 AM)
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCallReminderDate(selectedBookingForCall.expectedEndDate);
+                      setCallReminderTime("11:00");
+                      setCallReminderNote("Return day checkout & ETA confirmation");
+                    }}
+                    className="px-2 py-1 text-[11px] bg-slate-50 hover:bg-amber-50 hover:border-amber-300 border border-slate-200 rounded-lg font-medium text-slate-700 text-left transition cursor-pointer"
+                  >
+                    🏁 On Return Day (11:00 AM)
+                  </button>
+                </div>
+              </div>
+
+              {/* Call Purpose / Reason Chips */}
+              <div>
+                <label className="text-[11px] font-bold text-slate-700 block mb-1.5">Reminder Purpose / Instructions</label>
+                <div className="flex flex-wrap gap-1 mb-2">
+                  {[
+                    "Confirm Return Time",
+                    "Check Highway & Traffic Status",
+                    "Follow-up for Rental Extension",
+                    "Overdue Notice / Location Check",
+                    "Chardham Route Safety Check",
+                    "Security Deposit & Balance Check"
+                  ].map((preset) => (
+                    <button
+                      key={preset}
+                      type="button"
+                      onClick={() => setCallReminderNote(preset)}
+                      className={`text-[10px] px-2 py-0.5 rounded-full border transition cursor-pointer ${
+                        callReminderNote === preset
+                          ? "bg-amber-600 text-white border-amber-600 font-bold"
+                          : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
+                      }`}
+                    >
+                      {preset}
+                    </button>
+                  ))}
+                </div>
+                <input
+                  type="text"
+                  placeholder="Or enter custom call note..."
+                  value={callReminderNote}
+                  onChange={(e) => setCallReminderNote(e.target.value)}
+                  className="w-full px-2.5 py-1.5 border border-slate-300 rounded-lg text-xs bg-white"
+                />
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-3 flex items-center justify-between border-t border-slate-200">
+                {selectedBookingForCall.callReminderDate ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleRemoveCallReminder(selectedBookingForCall.id);
+                      setShowCallReminderModal(false);
+                      setSelectedBookingForCall(null);
+                    }}
+                    className="px-3 py-1.5 rounded-lg border border-rose-200 text-rose-600 hover:bg-rose-50 text-xs font-semibold cursor-pointer"
+                  >
+                    Clear Reminder
+                  </button>
+                ) : (
+                  <div></div>
+                )}
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowCallReminderModal(false);
+                      setSelectedBookingForCall(null);
+                    }}
+                    className="px-3 py-1.5 text-xs text-slate-600 hover:bg-slate-100 rounded-lg cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-4 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-lg flex items-center gap-1.5 shadow-sm cursor-pointer"
+                  >
+                    <Check size={13} />
+                    <span>Save Reminder</span>
+                  </button>
+                </div>
               </div>
             </form>
           </div>
