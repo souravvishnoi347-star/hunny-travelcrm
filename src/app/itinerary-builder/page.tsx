@@ -3220,6 +3220,46 @@ ${data.motto}`;
             </div>
           </div>
 
+          {/* Agency Fleet & Mountain Vehicle Lineup Showcase (Fills the Page 5 whitespace) */}
+          <div className="space-y-1.5 pt-1">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xs font-serif-luxury font-bold text-[#0f2744] flex items-center gap-1.5">
+                <span>🚐 Agency Dedicated Fleet &amp; Mountain Travel Comfort</span>
+                <span className="text-[9px] font-display font-semibold px-2 py-0.5 bg-emerald-50 text-emerald-800 rounded-full border border-emerald-200">
+                  Inspected &amp; Hill-Certified Fleet
+                </span>
+              </h3>
+              <span className="text-[9.5px] text-amber-700 font-display font-medium">Traymbhkam Verified Mountain Transport</span>
+            </div>
+
+            <div className="rounded-2xl overflow-hidden border border-amber-300/80 shadow-xs bg-white p-2.5 bg-gradient-to-r from-amber-50/50 via-white to-sky-50/50">
+              <div className="w-full h-36 relative rounded-xl overflow-hidden border border-slate-200/80 bg-slate-900 shadow-2xs">
+                <img 
+                  src="/gallery/traymbhkam_fleet_lineup.png" 
+                  alt="Traymbhkam Dedicated Mountain Fleet Lineup" 
+                  className="w-full h-full object-cover object-center"
+                />
+                <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-xs text-white px-2.5 py-1 rounded-lg text-[9px] font-display font-bold flex items-center gap-1.5 border border-white/20">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  <span>Swift Dzire · Maruti Ertiga · Toyota Innova Crysta · Deluxe Tempo Traveller</span>
+                </div>
+              </div>
+
+              <div className="mt-2 flex items-center justify-between gap-3 px-1 text-[9.5px]">
+                <div className="flex items-center gap-2 text-gray-700 font-medium">
+                  <span className="text-emerald-700 font-bold">✓ 100% Sanitized &amp; Commercial Reg.</span>
+                  <span className="text-slate-300">•</span>
+                  <span>Certified Hill Chauffeurs</span>
+                  <span className="text-slate-300">•</span>
+                  <span>Carrier Racks &amp; Music System</span>
+                </div>
+                <div className="text-right font-display font-bold text-amber-900 bg-amber-100/70 px-2 py-0.5 rounded border border-amber-200">
+                  All Toll Taxes &amp; Green Permits Included
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         {/* Page 5 Footer */}

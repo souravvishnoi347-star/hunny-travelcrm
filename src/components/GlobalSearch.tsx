@@ -35,7 +35,7 @@ const QUICK_NAV: SearchResult[] = [
   { id: "nav-gallery", category: "navigation", title: "Dham Photo Library & Media", subtitle: "High-resolution photography repository for tour brochures", href: "/gallery", badge: "Gallery", badgeColor: "bg-cyan-100 text-cyan-700" },
   { id: "nav-hotel", category: "navigation", title: "Hotel Service Voucher", subtitle: "A4 Accommodation Confirmation Voucher", href: "/hotels", badge: "Voucher", badgeColor: "bg-amber-100 text-amber-700" },
   { id: "nav-trans", category: "navigation", title: "Transport Service Voucher", subtitle: "Vehicle & Day-wise Transfer Voucher", href: "/transport", badge: "Voucher", badgeColor: "bg-purple-100 text-purple-700" },
-  { id: "nav-inv", category: "navigation", title: "Tax Invoice Studio", subtitle: "Bill of Supply & Service Tax Invoice", href: "/invoices", badge: "Invoice", badgeColor: "bg-emerald-100 text-emerald-700" },
+  { id: "nav-inv", category: "navigation", title: "Payment Receipt Studio", subtitle: "Official Payment Receipt & Advance Vouchers", href: "/invoices", badge: "Receipt", badgeColor: "bg-emerald-100 text-emerald-700" },
   { id: "nav-leads", category: "navigation", title: "Leads & Inquiries Pipeline", subtitle: "Kanban board for all customer inquiries", href: "/leads", badge: "CRM", badgeColor: "bg-blue-100 text-blue-700" },
   { id: "nav-vendors", category: "navigation", title: "Vendor Directory & Payables", subtitle: "Hotel partners, cab fleets & payment entries", href: "/vendors", badge: "Finance", badgeColor: "bg-orange-100 text-orange-700" },
   { id: "nav-settings", category: "navigation", title: "Agency & Owner Settings", subtitle: "Update business details, API keys & contact", href: "/settings", badge: "Config", badgeColor: "bg-gray-100 text-gray-700" },

@@ -41,7 +41,7 @@ const navSections = [
     title: "Commercials & Leads",
     items: [
       { name: "Trip Cost Calculator", href: "/quotation-calculator", icon: Calculator },
-      { name: "Invoices & Billing", href: "/invoices", icon: FileText },
+      { name: "Payment Receipts", href: "/invoices", icon: FileText },
       { name: "Pilgrim Leads", href: "/leads", icon: Users },
       { name: "WhatsApp Live Desk", href: "/whatsapp-desk", icon: MessageSquare, badge: "Live" },
     ]

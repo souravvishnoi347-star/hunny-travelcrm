@@ -83,7 +83,7 @@ function numberToWords(num: number): string {
 const DEFAULT_INVOICE_DATA: InvoiceData = {
   companySettings: "Traymbhkam Tour and Travels",
   invoiceType: "advance",
-  invoiceNumber: "INV-2026-0001",
+  invoiceNumber: "REC-2026-0001",
   guestName: "",
   guestPhone: "",
   guestEmail: "",
@@ -468,15 +468,15 @@ export default function InvoicesPage() {
         `• IFSC Code: ${data.ifscCode || "CBIN0280274"}\n` +
         (data.upiId ? `• UPI ID: ${data.upiId}\n` : "") +
         `\n⚠️ *Note:* Please share screenshot after transferring the advance. Confirmed Payment Receipt and Hotel/Vehicle Vouchers will be issued immediately upon credit.\n\n` +
-        `📞 *24x7 Helpline:* +91 82660 16066 (Mr. Gagandeep)\n` +
+        `📞 *24x7 Helpline:* +91 82660 16066 (Mr. Gagandeep - Hunny)\n` +
         `📍 Purusharthi Market, Opp. Railway Station Gate No. 2, Haridwar\n\n` +
         `Wishing you a divine and blessed journey! 🙏🛕`;
     } else {
-      return `*🧾 PAYMENT RECEIPT & INVOICE - TRAYMBHKAM TOUR AND TRAVELS*\n\n` +
+      return `*🧾 OFFICIAL PAYMENT RECEIPT - TRAYMBHKAM TOUR AND TRAVELS*\n\n` +
         `Dear ${data.guestName || "Honourable Guest"},\n\n` +
-        `We have received your advance payment with thanks! Here is your official Payment Receipt & Invoice:\n` +
+        `We have received your advance payment with thanks! Here is your official Payment Receipt:\n` +
         `━━━━━━━━━━━━━━━━━━━━━\n` +
-        `• *Invoice / Receipt No:* ${data.invoiceNumber}\n` +
+        `• *Receipt No:* ${data.invoiceNumber}\n` +
         `• *Receipt Date:* ${data.bookingDate}\n` +
         (data.travelDate ? `• *Travel Date:* ${data.travelDate}\n` : "") +
         `• *Total Tour Package:* ₹${calculations.total.toLocaleString("en-IN")}\n` +
@@ -485,7 +485,7 @@ export default function InvoicesPage() {
         (data.paymentMode ? `• *Payment Mode:* ${data.paymentMode}\n` : "") +
         `━━━━━━━━━━━━━━━━━━━━━\n\n` +
         `Your booking is confirmed. Your hotel & vehicle service vouchers will be dispatched prior to travel.\n\n` +
-        `📞 *24x7 Helpline:* +91 82660 16066 (Mr. Gagandeep)\n` +
+        `📞 *24x7 Helpline:* +91 82660 16066 (Mr. Gagandeep - Hunny)\n` +
         `📍 Purusharthi Market, Opp. Railway Station Gate No. 2, Haridwar\n\n` +
         `Jai Shree Kedar · Jai Badri Vishal! 🙏🛕`;
     }
@@ -536,19 +536,19 @@ export default function InvoicesPage() {
     if (mode === "image") {
       const copied = await copyInvoiceAsImage();
       const caption = encodeURIComponent(
-        `*${data.invoiceType === "advance" ? "📋 OFFICIAL ADVANCE INVOICE" : "🧾 OFFICIAL PAYMENT RECEIPT"}*\n*Traymbhkam Tour and Travels*\n\nDear ${data.guestName || "Guest"},\nPlease find your official ${data.invoiceType === "advance" ? "Booking Advance Invoice" : "Payment Receipt"}.\n\nHelpline: +91 82660 16066\n🌐 Haridwar, Uttarakhand`
+        `*${data.invoiceType === "advance" ? "📋 OFFICIAL ADVANCE RECEIPT" : "🧾 OFFICIAL PAYMENT RECEIPT"}*\n*Traymbhkam Tour and Travels*\n\nDear ${data.guestName || "Guest"},\nPlease find your official ${data.invoiceType === "advance" ? "Booking Advance Receipt" : "Payment Receipt"}.\n\nHelpline: +91 82660 16066 (Mr. Gagandeep - Hunny)\n🌐 Haridwar, Uttarakhand`
       );
       window.open(`https://wa.me/${cleanPhone}?text=${caption}`, "_blank");
       setShowWhatsAppModal(false);
       if (copied) {
-        alert("✓ Invoice image clipboard me copy ho gayi hai!\n\nWhatsApp chat khulte hi 'Ctrl + V' (Paste) dabayein — poori original invoice image aa jayegi aur Send daba dein!");
+        alert("✓ Receipt image clipboard me copy ho gayi hai!\n\nWhatsApp chat khulte hi 'Ctrl + V' (Paste) dabayein — poori original receipt image aa jayegi aur Send daba dein!");
       }
       return;
     }
 
     if (mode === "pdf") {
       handleDownload();
-      const briefMessage = `*${data.invoiceType === "advance" ? "📋 BOOKING ADVANCE INVOICE" : "🧾 PAYMENT RECEIPT"} - TRAYMBHKAM TOUR AND TRAVELS*\n\nDear ${data.guestName || "Guest"},\n\nPlease find your official ${data.invoiceType === "advance" ? "Booking Advance Invoice" : "Payment Receipt"} attached (PDF has been downloaded to attach here).\n\n📞 24x7 Helpline: +91 82660 16066 (Mr. Gagandeep)\n📍 Purusharthi Market, Opp. Railway Station Gate No. 2, Haridwar\n\nWishing you a divine and blessed journey! 🙏`;
+      const briefMessage = `*${data.invoiceType === "advance" ? "📋 BOOKING ADVANCE RECEIPT" : "🧾 PAYMENT RECEIPT"} - TRAYMBHKAM TOUR AND TRAVELS*\n\nDear ${data.guestName || "Guest"},\n\nPlease find your official ${data.invoiceType === "advance" ? "Booking Advance Receipt" : "Payment Receipt"} attached (PDF has been downloaded to attach here).\n\n📞 24x7 Helpline: +91 82660 16066 (Mr. Gagandeep - Hunny)\n📍 Purusharthi Market, Opp. Railway Station Gate No. 2, Haridwar\n\nWishing you a divine and blessed journey! 🙏`;
       const encoded = encodeURIComponent(briefMessage);
       window.open(`https://wa.me/${cleanPhone}?text=${encoded}`, "_blank");
       setShowWhatsAppModal(false);
@@ -582,7 +582,7 @@ export default function InvoicesPage() {
             <img src="/logo.png" alt="Logo" className="h-24 w-auto object-contain mb-1.5 drop-shadow-xs" />
             <p className="text-[11px] uppercase tracking-widest text-[#0369a1] font-bold">Traymbhkam Tour and Travels</p>
             <h1 className="text-3xl font-serif font-black text-[#0369a1] tracking-tight mt-0.5 uppercase">
-              {data.invoiceType === "advance" ? "BOOKING ADVANCE INVOICE" : "TAX INVOICE & PAYMENT RECEIPT"}
+              {data.invoiceType === "advance" ? "BOOKING ADVANCE PAYMENT RECEIPT" : "PAYMENT RECEIPT"}
             </h1>
             <p className={`text-xs font-bold tracking-widest uppercase mt-0.5 px-2 py-0.5 rounded border ${
               data.invoiceType === "advance"
@@ -590,7 +590,7 @@ export default function InvoicesPage() {
                 : "text-emerald-800 bg-emerald-50 border-emerald-200"
             }`}>
               {data.invoiceType === "advance" 
-                ? "PROFORMA INVOICE & BOOKING ADVANCE DEMAND" 
+                ? "BOOKING ADVANCE PAYMENT DEMAND" 
                 : "BOOKING CONFIRMATION & PAYMENT RECEIPT"}
             </p>
             <div className="text-[10px] text-gray-500 mt-1 flex flex-wrap justify-center gap-2">
@@ -604,7 +604,7 @@ export default function InvoicesPage() {
 
           {/* Metadata Line */}
           <div className="bg-sky-50/70 border border-sky-200 rounded-lg py-1 px-3.5 text-center text-[11px] font-semibold text-gray-800 flex justify-between items-center">
-            <span>{data.invoiceType === "advance" ? "Proforma No:" : "Invoice No:"} <strong className="text-[#0369a1] font-mono">{data.invoiceNumber}</strong></span>
+            <span>Receipt No: <strong className="text-[#0369a1] font-mono">{data.invoiceNumber}</strong></span>
             <span>Date: <strong className="text-gray-900">{data.bookingDate}</strong></span>
             <span>{data.dateType}: <strong className="text-gray-900">{data.travelDate || "As Confirmed"}</strong></span>
             <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${
@@ -914,7 +914,7 @@ export default function InvoicesPage() {
             <span className="font-bold text-[#0369a1]">
               Purusharthi Market, Haridwar
             </span>
-            <span>{data.invoiceType === "advance" ? "Booking Advance Invoice · Page 1 of 1" : "Tax Invoice & Payment Receipt · Page 1 of 1"}</span>
+            <span>{data.invoiceType === "advance" ? "Booking Advance Payment Receipt · Page 1 of 1" : "Official Payment Receipt · Page 1 of 1"}</span>
           </div>
         </div>
 
@@ -936,8 +936,8 @@ export default function InvoicesPage() {
                 <FileText className="w-5 h-5" />
               </div>
               <div>
-                <h1 className="text-lg font-bold text-gray-900 leading-tight">Tax Invoice Studio</h1>
-                <p className="text-xs text-gray-500">Traymbhkam Tour and Travels • 100% Editable</p>
+                <h1 className="text-lg font-bold text-gray-900 leading-tight">Payment Receipt Studio</h1>
+                <p className="text-xs text-gray-500">Traymbhkam Tour and Travels • Official Booking &amp; Payment Receipts</p>
               </div>
             </div>
             <button
@@ -1010,16 +1010,16 @@ export default function InvoicesPage() {
               </div>
             </div>
 
-            {/* 1. Invoice Particulars */}
+            {/* 1. Receipt Particulars */}
             <div className="bg-gray-50 p-3 rounded-xl border border-gray-200 space-y-2.5">
-              <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wider block">Invoice Particulars</span>
+              <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wider block">Receipt Particulars</span>
               <div className="grid grid-cols-3 gap-2">
                 <div>
-                  <label className="block text-[10px] text-gray-500 mb-0.5">Invoice No.</label>
+                  <label className="block text-[10px] text-gray-500 mb-0.5">Receipt No.</label>
                   <input type="text" className="w-full px-2 py-1.5 bg-white border border-gray-200 rounded text-xs font-mono font-bold text-[#0369a1]" value={data.invoiceNumber} onChange={e => setData({ ...data, invoiceNumber: e.target.value })} />
                 </div>
                 <div>
-                  <label className="block text-[10px] text-gray-500 mb-0.5">Invoice Date</label>
+                  <label className="block text-[10px] text-gray-500 mb-0.5">Receipt Date</label>
                   <input type="text" className="w-full px-2 py-1.5 bg-white border border-gray-200 rounded text-xs" value={data.bookingDate} onChange={e => setData({ ...data, bookingDate: e.target.value })} />
                 </div>
                 <div>
@@ -1575,7 +1575,7 @@ export default function InvoicesPage() {
                 </div>
                 <div>
                   <h3 className="font-bold text-gray-900 text-sm">
-                    {data.invoiceType === "advance" ? "Share Advance Invoice on WhatsApp" : "Share Payment Receipt on WhatsApp"}
+                    {data.invoiceType === "advance" ? "Share Advance Receipt on WhatsApp" : "Share Payment Receipt on WhatsApp"}
                   </h3>
                   <p className="text-[11px] text-gray-500">
                     Direct chat with customer (no search needed)
@@ -1621,7 +1621,7 @@ export default function InvoicesPage() {
                 className="w-full flex items-center justify-center gap-2 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm transition cursor-pointer"
               >
                 <span>🖼️</span>
-                <span>Send as Full Invoice Image (Paste with Ctrl+V)</span>
+                <span>Send as Full Receipt Image (Paste with Ctrl+V)</span>
               </button>
 
               <button
@@ -1642,7 +1642,7 @@ export default function InvoicesPage() {
             </div>
 
             <div className="bg-amber-50 p-2.5 rounded-lg border border-amber-200 text-[10px] text-amber-900 leading-snug">
-              💡 <strong>Instant Image Tip:</strong> First button par click karein, WhatsApp chat khulte hi <strong>Ctrl + V</strong> dabayein — poori original color invoice image automatically paste ho jayegi!
+              💡 <strong>Instant Image Tip:</strong> First button par click karein, WhatsApp chat khulte hi <strong>Ctrl + V</strong> dabayein — poori original color receipt image automatically paste ho jayegi!
             </div>
           </div>
         </div>

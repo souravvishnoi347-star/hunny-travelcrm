@@ -119,8 +119,8 @@ export default function DocumentsHubPage() {
           saveDocumentToHub({
             id: `cloud-inv-${inv.id}`,
             type: "invoice",
-            title: `Tax Invoice - ${data.guestName || inv.invoice_number || "Invoice"}`,
-            docNumber: inv.invoice_number || `INV-${inv.id.slice(0, 6).toUpperCase()}`,
+            title: `Payment Receipt - ${data.guestName || inv.invoice_number || "Receipt"}`,
+            docNumber: inv.invoice_number || `REC-${inv.id.slice(0, 6).toUpperCase()}`,
             guestName: data.guestName || "Valued Client",
             guestPhone: data.guestPhone || "",
             travelDates: data.travelDate || data.bookingDate || "",
@@ -264,7 +264,7 @@ export default function DocumentsHubPage() {
       case "itinerary":
         return { label: "Chardham Itinerary", icon: Map, bg: "bg-purple-50", text: "text-purple-700", border: "border-purple-200" };
       case "invoice":
-        return { label: "Tax Invoice", icon: FileText, bg: "bg-sky-50", text: "text-sky-700", border: "border-sky-200" };
+        return { label: "Payment Receipt", icon: FileText, bg: "bg-sky-50", text: "text-sky-700", border: "border-sky-200" };
     }
   };
 
@@ -289,7 +289,7 @@ export default function DocumentsHubPage() {
               Documents & Records Hub
             </h1>
             <p className="text-xs text-gray-500">
-              Central vault for all generated Vouchers, Itineraries & Tax Invoices with live search & analytics
+              Central vault for all generated Vouchers, Itineraries & Payment Receipts with live search & analytics
             </p>
           </div>
         </div>
@@ -383,7 +383,7 @@ export default function DocumentsHubPage() {
         {/* Total Invoiced Amount */}
         <div className="bg-gradient-to-br from-sky-50 to-blue-50/70 p-4 rounded-xl border border-sky-200 shadow-xs flex flex-col justify-between col-span-2 md:col-span-4 lg:col-span-1">
           <div className="flex items-center justify-between text-sky-800">
-            <span className="text-[11px] font-bold uppercase tracking-wider">Total Invoiced</span>
+            <span className="text-[11px] font-bold uppercase tracking-wider">Total Receipts</span>
             <IndianRupee className="w-4 h-4 text-sky-600" />
           </div>
           <div className="mt-2">
@@ -410,7 +410,7 @@ export default function DocumentsHubPage() {
               { id: "hotel_voucher", label: "Hotels", count: analytics.hotelVouchers, icon: Hotel },
               { id: "transport_voucher", label: "Transport", count: analytics.transportVouchers, icon: Car },
               { id: "itinerary", label: "Itineraries", count: analytics.itineraries, icon: Map },
-              { id: "invoice", label: "Invoices", count: analytics.invoices, icon: FileText }
+              { id: "invoice", label: "Receipts", count: analytics.invoices, icon: FileText }
             ].map((tab) => {
               const Icon = tab.icon;
               const isActive = selectedType === tab.id;
