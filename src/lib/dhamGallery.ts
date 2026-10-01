@@ -158,9 +158,19 @@ export const INITIAL_DHAM_GALLERY: DhamGalleryPhoto[] = [
   {
     id: "dham-all4-banner",
     url: "/gallery/chardham_10d_img_1.jpg",
-    caption: "Char Dham Yatra 4 Holy Shrines: Yamunotri, Gangotri, Kedarnath, Badrinath",
+    caption: "Char Dham Yatra 4 Holy Shrines: Yamunotri · Gangotri · Kedarnath · Badrinath",
     dham: "himalayas",
     dhamLabel: "Chardham Circuit",
+    isDefault: true
+  },
+
+  // Complete Do Dham 2 Dhams Composite Banner (Kedarnath + Badrinath)
+  {
+    id: "dham-dodham-banner",
+    url: "/gallery/dodham_banner.jpg",
+    caption: "Do Dham Yatra: Shri Kedarnath Dham & Shri Badrinath Dham",
+    dham: "himalayas",
+    dhamLabel: "Do Dham Circuit",
     isDefault: true
   },
 
@@ -234,10 +244,18 @@ export function getStoredDhamGallery(): DhamGalleryPhoto[] {
     if (saved) {
       const parsed = JSON.parse(saved);
       if (Array.isArray(parsed) && parsed.length > 0) {
-        const cleaned = parsed.filter((p: any) => !p.url?.includes("unsplash.com"));
-        if (cleaned.length !== parsed.length) {
-          localStorage.setItem("traymbhkam_dham_gallery", JSON.stringify(cleaned));
+        let cleaned = parsed.filter((p: any) => !p.url?.includes("unsplash.com"));
+        const hasDoDhamBanner = cleaned.some((p: any) => p.url === "/gallery/dodham_banner.jpg");
+        if (!hasDoDhamBanner) {
+          const doDhamBanner = INITIAL_DHAM_GALLERY.find(p => p.id === "dham-dodham-banner");
+          if (doDhamBanner) cleaned = [doDhamBanner, ...cleaned];
         }
+        const hasCharDhamBanner = cleaned.some((p: any) => p.url === "/gallery/chardham_10d_img_1.jpg");
+        if (!hasCharDhamBanner) {
+          const charDhamBanner = INITIAL_DHAM_GALLERY.find(p => p.id === "dham-all4-banner");
+          if (charDhamBanner) cleaned = [charDhamBanner, ...cleaned];
+        }
+        localStorage.setItem("traymbhkam_dham_gallery", JSON.stringify(cleaned));
         return cleaned.length > 0 ? cleaned : INITIAL_DHAM_GALLERY;
       }
     }
@@ -286,21 +304,7 @@ export function pickDhamPhotosForItinerary(
   ].join(" ").toLowerCase();
 
   const selectedPhotos: { id: string; url: string; caption: string }[] = [];
-  const addedIds = new Set<string>();
-
-  // 1. HIGHEST PRIORITY: User's own custom uploaded photos from the gallery!
-  // These are the user's authentic client/group photos (e.g., Chardham group)
-  const customPhotos = gallery.filter(p => p.isCustom);
-  for (const cp of customPhotos) {
-    if (!addedIds.has(cp.id) && selectedPhotos.length < 6) {
-      selectedPhotos.push({
-        id: `photo-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
-        url: cp.url,
-        caption: cp.caption
-      });
-      addedIds.add(cp.id);
-    }
-  }
+  const addedUrls = new Set<string>();
 
   // Detect which destinations are mentioned
   const hasKedarnath = /kedarnath|kedar|shri kedar/i.test(textCorpus);
@@ -311,18 +315,92 @@ export function pickDhamPhotosForItinerary(
   const hasHaridwarRishi = /haridwar|rishikesh|ganga aarti|har ki pauri|ram jhula/i.test(textCorpus);
   const hasChopta = /chopta|tungnath|chandrashila|deoriatal/i.test(textCorpus);
 
+  const isCharDham =
+    /chardham|char dham/i.test(textCorpus) ||
+    ((hasYamunotri || hasGangotri) && hasKedarnath && hasBadrinath) ||
+    ((itinerary.days?.length || 0) >= 8);
+  const isDoDham =
+    !isCharDham &&
+    (/do dham|dodham|kedarnath badrinath/i.test(textCorpus) ||
+      (hasKedarnath && hasBadrinath) ||
+      ((itinerary.days?.length || 0) <= 7));
+
+  // 1. FIRST SLOT (Page 1 Hero Cover): Always pick the full Char Dham 4-shrine banner or Do Dham 2-shrine banner!
+  if (isCharDham) {
+    selectedPhotos.push({
+      id: `photo-cover-chardham-${Date.now()}`,
+      url: "/gallery/chardham_10d_img_1.jpg",
+      caption: "Char Dham Yatra — Yamunotri · Gangotri · Kedarnath · Badrinath"
+    });
+    addedUrls.add("/gallery/chardham_10d_img_1.jpg");
+  } else if (isDoDham) {
+    selectedPhotos.push({
+      id: `photo-cover-dodham-${Date.now()}`,
+      url: "/gallery/dodham_banner.jpg",
+      caption: "Do Dham Yatra — Shri Kedarnath Dham & Shri Badrinath Dham"
+    });
+    addedUrls.add("/gallery/dodham_banner.jpg");
+  } else if (hasKedarnath && !hasBadrinath) {
+    selectedPhotos.push({
+      id: `photo-cover-kedar-${Date.now()}`,
+      url: "/gallery/kedarnath_temple.png",
+      caption: "Shri Kedarnath Temple & Holy Nandi Darshan"
+    });
+    addedUrls.add("/gallery/kedarnath_temple.png");
+  } else if (hasBadrinath && !hasKedarnath) {
+    selectedPhotos.push({
+      id: `photo-cover-badri-${Date.now()}`,
+      url: "/gallery/chardham_10d_img_15.jpg",
+      caption: "Holy Shri Badrinath Ji Temple"
+    });
+    addedUrls.add("/gallery/chardham_10d_img_15.jpg");
+  } else if (hasGangotri) {
+    selectedPhotos.push({
+      id: `photo-cover-gangotri-${Date.now()}`,
+      url: "/gallery/chardham_10d_img_8.jpg",
+      caption: "Holy Shri Gangotri Dham Temple"
+    });
+    addedUrls.add("/gallery/chardham_10d_img_8.jpg");
+  } else if (hasYamunotri) {
+    selectedPhotos.push({
+      id: `photo-cover-yamunotri-${Date.now()}`,
+      url: "/gallery/chardham_10d_img_5.jpg",
+      caption: "Holy Shri Yamunotri Dham Temple"
+    });
+    addedUrls.add("/gallery/chardham_10d_img_5.jpg");
+  } else {
+    selectedPhotos.push({
+      id: `photo-cover-default-${Date.now()}`,
+      url: "/gallery/chardham_10d_img_1.jpg",
+      caption: "Char Dham Yatra — Sacred Himalayan Shrines"
+    });
+    addedUrls.add("/gallery/chardham_10d_img_1.jpg");
+  }
+
+  // 2. Include user's custom uploaded photos in subsequent slots
+  const customPhotos = gallery.filter(p => p.isCustom);
+  for (const cp of customPhotos) {
+    if (!addedUrls.has(cp.url) && selectedPhotos.length < 6) {
+      selectedPhotos.push({
+        id: `photo-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
+        url: cp.url,
+        caption: cp.caption
+      });
+      addedUrls.add(cp.url);
+    }
+  }
+
   const addPhotoFromDham = (dhamKey: string) => {
     if (selectedPhotos.length >= 6) return;
-    const candidates = gallery.filter(p => p.dham === dhamKey && !addedIds.has(p.id));
+    const candidates = gallery.filter(p => p.dham === dhamKey && !addedUrls.has(p.url));
     if (candidates.length > 0) {
-      // Prioritize custom uploads within category, then default
       const photo = candidates.find(p => p.isCustom) || candidates[0];
       selectedPhotos.push({
         id: `photo-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
         url: photo.url,
         caption: photo.caption
       });
-      addedIds.add(photo.id);
+      addedUrls.add(photo.url);
     }
   };
 
@@ -335,20 +413,20 @@ export function pickDhamPhotosForItinerary(
   if (hasChopta) addPhotoFromDham("chopta_tungnath");
   if (hasHaridwarRishi) addPhotoFromDham("haridwar_rishikesh");
 
-  // If fewer than 4 photos, supplement with top gallery photos
-  if (selectedPhotos.length < 4) {
+  // If fewer than 6 photos, supplement with top gallery photos
+  if (selectedPhotos.length < 6) {
     for (const p of gallery) {
-      if (!addedIds.has(p.id) && selectedPhotos.length < 6) {
+      if (!addedUrls.has(p.url) && selectedPhotos.length < 6) {
         selectedPhotos.push({
           id: `photo-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`,
           url: p.url,
           caption: p.caption
         });
-        addedIds.add(p.id);
+        addedUrls.add(p.url);
       }
     }
   }
 
-  // Cap at 6 photos (3 for Page 1 cover strip, 3 for Page 3 destinations gallery)
+  // Cap at 6 photos
   return selectedPhotos.slice(0, 6);
 }

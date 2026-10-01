@@ -792,33 +792,33 @@ export const DODHAM_6D_PRESET: ItineraryData = {
   photos: [
     {
       id: "ph-dd-1",
+      url: "/gallery/dodham_banner.jpg",
+      caption: "Do Dham Yatra — Shri Kedarnath Dham & Shri Badrinath Dham"
+    },
+    {
+      id: "ph-dd-2",
       url: "/gallery/kedarnath_temple.png",
       caption: "Shri Kedarnath Temple & Holy Nandi Darshan"
     },
     {
-      id: "ph-dd-2",
+      id: "ph-dd-3",
       url: "/gallery/chardham_10d_img_15.jpg",
       caption: "Shri Badrinath Ji Divine Facade"
     },
     {
-      id: "ph-dd-3",
+      id: "ph-dd-4",
       url: "/gallery/chardham_10d_img_14.jpg",
       caption: "Chopta Tungnath Alpine Meadows"
     },
     {
-      id: "ph-dd-4",
+      id: "ph-dd-5",
       url: "/gallery/chardham_10d_img_18.jpg",
       caption: "Maa Dhari Devi Sacred Shrine"
     },
     {
-      id: "ph-dd-5",
+      id: "ph-dd-6",
       url: "/gallery/chardham_10d_img_19.jpg",
       caption: "Sacred Panch Prayag Confluence"
-    },
-    {
-      id: "ph-dd-6",
-      url: "/gallery/chardham_10d_img_1.jpg",
-      caption: "Sacred Himalayan Darshan"
     }
   ],
   hotelPhotos: CURATED_HOTEL_PHOTO_PRESETS,
@@ -833,7 +833,12 @@ const CURATED_PHOTO_PRESETS = [
   {
     id: "preset-all4-real",
     url: "/gallery/chardham_10d_img_1.jpg",
-    caption: "4 Dhams Sacred Shrines"
+    caption: "Char Dham Yatra - 4 Sacred Shrines"
+  },
+  {
+    id: "preset-dodham-real",
+    url: "/gallery/dodham_banner.jpg",
+    caption: "Do Dham Yatra - Kedarnath & Badrinath"
   },
   {
     id: "preset-kedarnath-real",
@@ -1026,6 +1031,79 @@ export default function ItineraryBuilder() {
     // 4. Fetch latest itinerary from local cache or cloud
     const migrateLegacyItinerary = (itin: any) => {
       if (!itin || !Array.isArray(itin.days)) return itin;
+
+      const isDoDhamItin =
+        itin.days.length <= 7 ||
+        itin.title?.toLowerCase().includes("do dham") ||
+        itin.subTitle?.toLowerCase().includes("do dham") ||
+        itin.title?.toLowerCase().includes("kedarnath badrinath") ||
+        (!itin.dhamsSubtitle?.toLowerCase().includes("yamunotri") && !itin.routeCovered?.toLowerCase().includes("yamunotri"));
+
+      // Force-upgrade any older cached itinerary to the official 2026 PDF day-wise schedule & full landscape cover photo
+      if (itin._schemaVersion !== "2026-v5-landscape-official") {
+        if (isDoDhamItin) {
+          itin.days = DODHAM_6D_PRESET.days;
+          itin.title = DODHAM_6D_PRESET.title;
+          itin.subTitle = DODHAM_6D_PRESET.subTitle;
+          itin.duration = DODHAM_6D_PRESET.duration;
+          itin.glanceDuration = DODHAM_6D_PRESET.glanceDuration;
+          itin.glanceDhams = DODHAM_6D_PRESET.glanceDhams;
+          itin.glanceSector = DODHAM_6D_PRESET.glanceSector;
+          itin.glanceStartEnd = DODHAM_6D_PRESET.glanceStartEnd;
+          itin.spiritualHeadline = DODHAM_6D_PRESET.spiritualHeadline;
+          itin.dhamsSubtitle = DODHAM_6D_PRESET.dhamsSubtitle;
+          itin.routeCovered = DODHAM_6D_PRESET.routeCovered;
+          itin.overviewSummary = DODHAM_6D_PRESET.overviewSummary;
+          itin.inclusions = DODHAM_6D_PRESET.inclusions;
+          itin.exclusions = DODHAM_6D_PRESET.exclusions;
+          itin.goodToKnow = DODHAM_6D_PRESET.goodToKnow;
+          itin.bookingPayment = DODHAM_6D_PRESET.bookingPayment;
+          itin.contactPerson = DODHAM_6D_PRESET.contactPerson;
+          itin.contactPhone = DODHAM_6D_PRESET.contactPhone;
+          itin.photos = DODHAM_6D_PRESET.photos;
+        } else {
+          const is12Pax = itin.preparedFor?.toLowerCase().includes("12 pax");
+          const targetPreset = is12Pax ? CHARDHAM_12P_10D_PRESET : CHARDHAM_PRESET;
+          itin.days = targetPreset.days;
+          itin.title = targetPreset.title;
+          itin.subTitle = targetPreset.subTitle;
+          itin.duration = targetPreset.duration;
+          itin.glanceDuration = targetPreset.glanceDuration;
+          itin.glanceDhams = targetPreset.glanceDhams;
+          itin.glanceSector = targetPreset.glanceSector;
+          itin.glanceStartEnd = targetPreset.glanceStartEnd;
+          itin.spiritualHeadline = targetPreset.spiritualHeadline;
+          itin.dhamsSubtitle = targetPreset.dhamsSubtitle;
+          itin.routeCovered = targetPreset.routeCovered;
+          itin.overviewSummary = targetPreset.overviewSummary;
+          itin.inclusions = targetPreset.inclusions;
+          itin.exclusions = targetPreset.exclusions;
+          itin.goodToKnow = targetPreset.goodToKnow;
+          itin.bookingPayment = targetPreset.bookingPayment;
+          itin.contactPerson = targetPreset.contactPerson;
+          itin.contactPhone = targetPreset.contactPhone;
+          itin.photos = targetPreset.photos;
+        }
+        itin._schemaVersion = "2026-v5-landscape-official";
+      }
+
+      // Ensure first cover photo matches Do Dham vs Char Dham
+      if (Array.isArray(itin.photos) && itin.photos.length > 0) {
+        if (isDoDhamItin && (itin.photos[0].url === "/gallery/chardham_10d_img_1.jpg" || itin.photos[0].url === "/gallery/kedarnath_temple.png")) {
+          itin.photos[0] = {
+            id: "ph-dd-1",
+            url: "/gallery/dodham_banner.jpg",
+            caption: "Do Dham Yatra — Shri Kedarnath Dham & Shri Badrinath Dham"
+          };
+        } else if (!isDoDhamItin && (itin.photos[0].url === "/gallery/dodham_banner.jpg" || itin.photos[0].url === "/gallery/kedarnath_temple.png")) {
+          itin.photos[0] = {
+            id: "ph-1",
+            url: "/gallery/chardham_10d_img_1.jpg",
+            caption: "Char Dham Yatra - 4 Sacred Shrines"
+          };
+        }
+      }
+
       // Auto-migrate legacy 3-tier pricing to single Standard Package
       if (Array.isArray(itin.pricingTiers) && itin.pricingTiers.length > 1) {
         itin.pricingTiers = [
@@ -1038,49 +1116,6 @@ export default function ItineraryBuilder() {
           }
         ];
         itin.glancePackages = "Standard Package";
-      }
-      // Auto-migrate legacy 10-Day Chardham day sequence (where Day 7 or Day 8 stayed at Badrinath instead of Guptkashi/Pipalkoti)
-      if (
-        itin.days.length === 10 &&
-        (itin.days[6]?.overnightStay?.toLowerCase().includes("badrinath") ||
-          itin.days[7]?.overnightStay?.toLowerCase().includes("badrinath") ||
-          itin.days[8]?.overnightStay?.toLowerCase().includes("rishikesh"))
-      ) {
-        const is12Pax = itin.preparedFor?.toLowerCase().includes("12 pax");
-        const targetPreset = is12Pax ? CHARDHAM_12P_10D_PRESET : CHARDHAM_PRESET;
-        itin.days = targetPreset.days;
-        itin.duration = targetPreset.duration;
-        itin.glanceDuration = targetPreset.glanceDuration;
-        itin.spiritualHeadline = targetPreset.spiritualHeadline;
-        itin.routeCovered = targetPreset.routeCovered;
-        itin.overviewSummary = targetPreset.overviewSummary;
-        itin.inclusions = targetPreset.inclusions;
-        itin.exclusions = targetPreset.exclusions;
-        itin.goodToKnow = targetPreset.goodToKnow;
-        itin.bookingPayment = targetPreset.bookingPayment;
-        itin.contactPerson = targetPreset.contactPerson;
-        itin.contactPhone = targetPreset.contactPhone;
-      }
-      // Auto-migrate legacy 6-Day Do Dham day sequence (where Day 4 stayed at Badrinath instead of Pipalkoti)
-      if (
-        itin.days.length === 6 &&
-        (itin.days[3]?.overnightStay?.toLowerCase().includes("badrinath") ||
-          itin.days[4]?.route?.toLowerCase().startsWith("badrinath"))
-      ) {
-        itin.days = DODHAM_6D_PRESET.days;
-        itin.title = DODHAM_6D_PRESET.title;
-        itin.subTitle = DODHAM_6D_PRESET.subTitle;
-        itin.duration = DODHAM_6D_PRESET.duration;
-        itin.glanceDuration = DODHAM_6D_PRESET.glanceDuration;
-        itin.spiritualHeadline = DODHAM_6D_PRESET.spiritualHeadline;
-        itin.routeCovered = DODHAM_6D_PRESET.routeCovered;
-        itin.overviewSummary = DODHAM_6D_PRESET.overviewSummary;
-        itin.inclusions = DODHAM_6D_PRESET.inclusions;
-        itin.exclusions = DODHAM_6D_PRESET.exclusions;
-        itin.goodToKnow = DODHAM_6D_PRESET.goodToKnow;
-        itin.bookingPayment = DODHAM_6D_PRESET.bookingPayment;
-        itin.contactPerson = DODHAM_6D_PRESET.contactPerson;
-        itin.contactPhone = DODHAM_6D_PRESET.contactPhone;
       }
       // Auto-migrate to Hindi blessing motto
       if (!itin.motto || itin.motto === "ॐ नमः शिवाय" || itin.motto === "!! HAR HAR MAHADEV !!") {
@@ -1164,13 +1199,17 @@ export default function ItineraryBuilder() {
     const storedGallery = getStoredDhamGallery();
     setDhamGallery(storedGallery);
 
-    // Auto-sync user's custom uploaded photos from Gallery into current brochure
+    // Auto-sync user's custom uploaded photos from Gallery into current brochure (keeping slot 0 cover banner intact)
     const customPhotos = storedGallery.filter(p => p.isCustom);
     if (customPhotos.length > 0) {
       setData(prev => {
-        const hasCustomAlready = (prev.photos || []).some(p => customPhotos.some(cp => cp.url === p.url));
-        if (!hasCustomAlready) {
+        const existingPhotos = prev.photos || [];
+        const hasCustomAlready = existingPhotos.some(p => customPhotos.some(cp => cp.url === p.url));
+        if (!hasCustomAlready && existingPhotos.length > 0) {
+          const coverPhoto = existingPhotos[0];
+          const restPhotos = existingPhotos.slice(1).filter(p => !customPhotos.some(cp => cp.url === p.url));
           const newPhotos: ItineraryPhoto[] = [
+            coverPhoto,
             ...customPhotos.map((cp, idx) => ({
               id: `custom-p-${Date.now()}-${idx}`,
               url: cp.url,
@@ -1178,7 +1217,7 @@ export default function ItineraryBuilder() {
               position: "center" as const,
               fit: "cover" as const
             })),
-            ...(prev.photos || []).filter(p => !customPhotos.some(cp => cp.url === p.url))
+            ...restPhotos
           ].slice(0, 6);
           return { ...prev, photos: newPhotos };
         }
@@ -2208,7 +2247,75 @@ ${data.motto}`;
   // =========================================================
   
   const renderPage1 = (prefix: string) => {
-    const heroPhotoUrl = data.photos?.[0]?.url || "/gallery/kedarnath_temple.png";
+    // Dynamic Circuit and Dham Detection
+    const textCorpus = [
+      data.title || "",
+      data.subTitle || "",
+      data.dhamsSubtitle || "",
+      data.routeCovered || "",
+      data.overviewSummary || "",
+      ...(data.days || []).flatMap(d => [d.route || "", ...(d.activities || []), d.overnightStay || ""])
+    ].join(" ").toLowerCase();
+
+    const hasKedarnath = /kedarnath|kedar|shri kedar/i.test(textCorpus);
+    const hasBadrinath = /badrinath|badri|mana village|joshimath/i.test(textCorpus);
+    const hasGangotri = /gangotri|bhagirathi|uttarkashi|harsil/i.test(textCorpus);
+    const hasYamunotri = /yamunotri|yamuna|barkot|janki chatti/i.test(textCorpus);
+
+    const isCharDham =
+      /chardham|char dham/i.test(textCorpus) ||
+      ((hasYamunotri || hasGangotri) && hasKedarnath && hasBadrinath) ||
+      data.days.length >= 8;
+
+    const isDoDham =
+      !isCharDham &&
+      (/do dham|dodham|kedarnath badrinath/i.test(textCorpus) ||
+        (hasKedarnath && hasBadrinath) ||
+        data.days.length <= 7);
+
+    // Resolve matching default authentic hero image for the active Dham circuit
+    let defaultHeroUrl = "/gallery/chardham_10d_img_1.jpg";
+    let defaultHeroCaption = "Char Dham Yatra — Yamunotri · Gangotri · Kedarnath · Badrinath";
+
+    if (isDoDham) {
+      defaultHeroUrl = "/gallery/dodham_banner.jpg";
+      defaultHeroCaption = "Do Dham Yatra — Shri Kedarnath Dham & Shri Badrinath Dham";
+    } else if (isCharDham) {
+      defaultHeroUrl = "/gallery/chardham_10d_img_1.jpg";
+      defaultHeroCaption = "Char Dham Yatra — Yamunotri · Gangotri · Kedarnath · Badrinath";
+    } else if (hasKedarnath && !hasBadrinath) {
+      defaultHeroUrl = "/gallery/kedarnath_temple.png";
+      defaultHeroCaption = "Shri Kedarnath Temple & Holy Nandi Darshan";
+    } else if (hasBadrinath && !hasKedarnath) {
+      defaultHeroUrl = "/gallery/chardham_10d_img_15.jpg";
+      defaultHeroCaption = "Holy Shri Badrinath Ji Temple";
+    } else if (hasGangotri) {
+      defaultHeroUrl = "/gallery/chardham_10d_img_8.jpg";
+      defaultHeroCaption = "Holy Shri Gangotri Dham Temple";
+    } else if (hasYamunotri) {
+      defaultHeroUrl = "/gallery/chardham_10d_img_5.jpg";
+      defaultHeroCaption = "Holy Shri Yamunotri Dham Temple";
+    }
+
+    const firstPhoto = data.photos?.[0];
+    let heroPhotoUrl = firstPhoto?.url;
+    let heroCaption = firstPhoto?.caption || defaultHeroCaption;
+
+    // Smart auto-selection if not explicitly customized or if older circular/fallback photo was saved
+    if (!heroPhotoUrl || heroPhotoUrl === "/gallery/kedarnath_temple.png") {
+      heroPhotoUrl = defaultHeroUrl;
+      heroCaption = defaultHeroCaption;
+    } else if (isDoDham && heroPhotoUrl === "/gallery/chardham_10d_img_1.jpg") {
+      heroPhotoUrl = "/gallery/dodham_banner.jpg";
+      heroCaption = defaultHeroCaption;
+    } else if (isCharDham && heroPhotoUrl === "/gallery/dodham_banner.jpg") {
+      heroPhotoUrl = "/gallery/chardham_10d_img_1.jpg";
+      heroCaption = defaultHeroCaption;
+    }
+
+    const photoFitClass = firstPhoto?.fit === "contain" ? "object-contain bg-slate-950" : "object-cover";
+    const photoPosClass = firstPhoto?.position === "top" ? "object-top" : firstPhoto?.position === "bottom" ? "object-bottom" : "object-[center_35%]";
+
     return (
       <div
         id={`${prefix}-itinerary-page-1`}
@@ -2249,27 +2356,31 @@ ${data.motto}`;
           </div>
         </div>
 
-        {/* Central Grand Hero Showcase: Circular Temple Frame with Concentric Gold Rings */}
-        <div className="relative z-10 flex flex-col items-center justify-center my-auto py-2">
-          {/* Circular Frame with Gold Ring */}
-          <div className="relative p-2 rounded-full border-2 border-amber-400/60 ring-4 ring-amber-500/20 shadow-xl bg-gradient-to-b from-amber-100/60 via-white to-amber-50/80">
-            <div className="w-56 h-56 rounded-full overflow-hidden bg-slate-900 border border-amber-300 relative shadow-inner">
+        {/* Central Grand Hero Showcase: Rectangular Master Frame (No Circle) */}
+        <div className="relative z-10 flex flex-col items-center justify-center my-auto py-1 w-full">
+          {/* Rectangular Master Frame with Gold Rim & Subtle Shadow */}
+          <div className="relative w-full rounded-2xl p-1.5 border-2 border-amber-400/80 ring-4 ring-amber-500/15 shadow-2xl bg-gradient-to-b from-amber-200/70 via-white to-amber-100/80 mb-3">
+            <div className="w-full h-[310px] rounded-xl overflow-hidden bg-slate-950 border border-amber-300/80 relative shadow-inner">
               <img 
                 src={heroPhotoUrl} 
-                alt="Sacred Dham Himalayan Temple" 
-                className="w-full h-full object-cover object-center scale-105"
+                alt={heroCaption || "Sacred Dham Himalayan Shrines"} 
+                className={`w-full h-full ${photoFitClass} ${photoPosClass}`}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0a192f]/70 via-transparent to-transparent" />
-              <div className="absolute bottom-3 inset-x-0 text-center px-2">
-                <span className="text-[9.5px] font-display font-bold text-amber-200 tracking-wider uppercase drop-shadow-sm">
-                  {data.photos?.[0]?.caption || "Kedarnath Dham · Badrinath Dham"}
+              {/* Subtle dark gradient overlay at bottom for contrast */}
+              <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-[#0a192f]/90 via-[#0a192f]/50 to-transparent pointer-events-none" />
+              <div className="absolute bottom-2.5 inset-x-0 flex items-center justify-between px-4 pointer-events-none">
+                <span className="text-[11px] font-display font-bold text-amber-200 tracking-wider uppercase drop-shadow-md">
+                  {heroCaption || (isDoDham ? "Shri Kedarnath Dham & Shri Badrinath Dham" : "Yamunotri · Gangotri · Kedarnath · Badrinath")}
+                </span>
+                <span className="text-[9.5px] font-display font-bold text-amber-300 bg-[#0f2744]/90 px-3 py-0.5 rounded-full border border-amber-400/50 shadow-xs uppercase tracking-wider">
+                  {isDoDham ? "✦ Do Dham Sacred Route ✦" : isCharDham ? "✦ Char Dham Complete Circuit ✦" : "✦ Holy Pilgrimage Circuit ✦"}
                 </span>
               </div>
             </div>
           </div>
 
           {/* Titles & Holy Chant */}
-          <div className="text-center mt-4 space-y-1 max-w-xl">
+          <div className="text-center space-y-1 max-w-xl">
             <p className="font-display text-[11px] font-bold tracking-[0.25em] text-amber-700 uppercase">
               UTTARAKHAND · SACRED HIMALAYAN EXPEDITION
             </p>
@@ -2285,10 +2396,6 @@ ${data.motto}`;
 
             {/* Sacred Circuit Badges */}
             {(() => {
-              const isDoDham =
-                data.days.length <= 7 ||
-                (data.title?.toLowerCase().includes("do dham") || data.subTitle?.toLowerCase().includes("do dham")) ||
-                (!data.dhamsSubtitle?.toLowerCase().includes("yamunotri") && !data.routeCovered?.toLowerCase().includes("yamunotri"));
               const badges = isDoDham
                 ? ["Shri Kedarnath Dham", "Chopta Valley", "Shri Badrinath Dham", "Mana Village & Dhari Devi"]
                 : ["Yamunotri", "Gangotri", "Kedarnath", "Badrinath"];
@@ -2308,7 +2415,7 @@ ${data.motto}`;
           </div>
 
           {/* Trust Strip */}
-          <div className="mt-4 px-4 py-1.5 bg-gradient-to-r from-amber-50 via-amber-100/60 to-amber-50 border border-amber-300/80 rounded-full text-center">
+          <div className="mt-3 px-4 py-1.5 bg-gradient-to-r from-amber-50 via-amber-100/60 to-amber-50 border border-amber-300/80 rounded-full text-center">
             <p className="text-[10px] font-display font-bold uppercase tracking-wider text-amber-950 flex items-center justify-center gap-2">
               <span>✦ 12+ YEARS SERVING DEVOTEES</span>
               <span className="text-amber-500">•</span>

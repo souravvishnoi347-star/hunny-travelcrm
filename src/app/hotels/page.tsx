@@ -31,10 +31,22 @@ import {
   Upload,
   Car,
   Hash,
-  ShieldCheck
+  ShieldCheck,
+  Search,
+  Edit3,
+  Check,
+  X,
+  BookmarkCheck,
+  BookOpen
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { saveDocumentToHub } from "@/lib/documentsHub";
+import { 
+  MasterHotel, 
+  getStoredHotelDirectory, 
+  saveStoredHotelDirectory, 
+  DEFAULT_HOTEL_DIRECTORY 
+} from "@/lib/hotelDirectory";
 
 export interface HotelStay {
   id: string;
@@ -728,10 +740,31 @@ export default function HotelVouchersPage() {
   const [waRecipientName, setWaRecipientName] = useState("");
   const previewContainerRef = useRef<HTMLDivElement>(null);
 
-  // Load saved voucher from localStorage
+  // Hotel Master Directory State
+  const [hotelDirectory, setHotelDirectory] = useState<MasterHotel[]>(DEFAULT_HOTEL_DIRECTORY);
+  const [showDirectoryModal, setShowDirectoryModal] = useState(false);
+  const [dirSearchTerm, setDirSearchTerm] = useState("");
+  const [dirSelectedCity, setDirSelectedCity] = useState("All");
+  const [editingHotel, setEditingHotel] = useState<MasterHotel | null>(null);
+  const [showAddHotelForm, setShowAddHotelForm] = useState(false);
+  const [newHotelForm, setNewHotelForm] = useState<Omit<MasterHotel, "id">>({
+    name: "",
+    city: "Barkot / Yamunotri",
+    address: "",
+    phone: "",
+    category: "Hotel"
+  });
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Load saved voucher & hotel directory from localStorage
   useEffect(() => {
     if (typeof window !== "undefined") {
       try {
+        const loadedDir = getStoredHotelDirectory();
+        if (loadedDir && loadedDir.length > 0) {
+          setHotelDirectory(loadedDir);
+        }
+
         const savedTab = localStorage.getItem("traymbhkam_hotel_active_tab");
         if (savedTab === "single" || savedTab === "group") {
           setActiveTab(savedTab);
@@ -805,6 +838,118 @@ export default function HotelVouchersPage() {
       } catch (e) {}
     }
   };
+
+  // ----------------------------------------------------
+  // HOTEL MASTER DIRECTORY HELPERS
+  // ----------------------------------------------------
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => {
+      setToastMessage(null);
+    }, 3500);
+  };
+
+  const saveDirectory = (updated: MasterHotel[]) => {
+    setHotelDirectory(updated);
+    saveStoredHotelDirectory(updated);
+  };
+
+  const handleQuickSaveToDirectory = (name: string, address: string, phone: string, city: string) => {
+    if (!name || !name.trim()) {
+      alert("Please provide a hotel name first.");
+      return;
+    }
+    const cleanName = name.trim();
+    const cleanPhone = phone ? phone.trim() : "";
+    const cleanAddress = address ? address.trim() : "";
+    const cleanCity = city && city.trim() ? city.trim() : "Uttarakhand";
+
+    const existingIndex = hotelDirectory.findIndex(h => h.name.toLowerCase() === cleanName.toLowerCase());
+    if (existingIndex >= 0) {
+      const updated = [...hotelDirectory];
+      updated[existingIndex] = {
+        ...updated[existingIndex],
+        phone: cleanPhone || updated[existingIndex].phone,
+        address: cleanAddress || updated[existingIndex].address,
+        city: cleanCity || updated[existingIndex].city
+      };
+      saveDirectory(updated);
+      showToast(`✓ Updated existing master hotel: "${cleanName}"`);
+    } else {
+      const newHotel: MasterHotel = {
+        id: `h-custom-${Date.now()}`,
+        name: cleanName,
+        phone: cleanPhone,
+        address: cleanAddress,
+        city: cleanCity,
+        category: "Hotel"
+      };
+      saveDirectory([newHotel, ...hotelDirectory]);
+      showToast(`🎉 "${cleanName}" saved to Hotel Master Directory!`);
+    }
+  };
+
+  const handleCreateHotel = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (!newHotelForm.name.trim()) {
+      alert("Hotel name is required.");
+      return;
+    }
+    const newEntry: MasterHotel = {
+      id: `h-${Date.now()}`,
+      name: newHotelForm.name.trim(),
+      city: newHotelForm.city.trim() || "Uttarakhand",
+      address: newHotelForm.address.trim(),
+      phone: newHotelForm.phone.trim(),
+      category: newHotelForm.category || "Hotel"
+    };
+    saveDirectory([newEntry, ...hotelDirectory]);
+    setNewHotelForm({ name: "", city: "Barkot / Yamunotri", address: "", phone: "", category: "Hotel" });
+    setShowAddHotelForm(false);
+    showToast(`✓ Added "${newEntry.name}" to Master Directory!`);
+  };
+
+  const handleSaveEditHotel = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (!editingHotel || !editingHotel.name.trim()) return;
+    const updated = hotelDirectory.map(h => h.id === editingHotel.id ? editingHotel : h);
+    saveDirectory(updated);
+    showToast(`✓ Updated "${editingHotel.name}"`);
+    setEditingHotel(null);
+  };
+
+  const handleDeleteHotel = (id: string, name: string) => {
+    if (confirm(`Remove "${name}" from Hotel Directory?`)) {
+      const updated = hotelDirectory.filter(h => h.id !== id);
+      saveDirectory(updated);
+      showToast(`Removed "${name}" from directory.`);
+    }
+  };
+
+  const handleResetToDefaults = () => {
+    if (confirm("Reset hotel directory to default curated list of Chardham pilgrimage hotels? Custom hotels will be replaced.")) {
+      saveDirectory(DEFAULT_HOTEL_DIRECTORY);
+      showToast("✓ Directory reset to curated Chardham defaults.");
+    }
+  };
+
+  // Grouped and filtered hotels for easy selection
+  const uniqueCities = Array.from(new Set(hotelDirectory.map(h => h.city))).sort();
+  const groupedDestinations = uniqueCities.map(city => ({
+    city,
+    hotels: hotelDirectory.filter(h => h.city === city)
+  }));
+
+  const filteredHotels = hotelDirectory.filter(hotel => {
+    const term = dirSearchTerm.toLowerCase();
+    const matchesSearch = 
+      hotel.name.toLowerCase().includes(term) ||
+      hotel.city.toLowerCase().includes(term) ||
+      hotel.phone.toLowerCase().includes(term) ||
+      hotel.address.toLowerCase().includes(term);
+    const matchesCity = dirSelectedCity === "All" || hotel.city.toLowerCase() === dirSelectedCity.toLowerCase();
+    return matchesSearch && matchesCity;
+  });
 
   // Group Allocations CRUD
   const addGroupAllocation = () => {
@@ -2193,10 +2338,21 @@ export default function HotelVouchersPage() {
                 <div className="space-y-2.5">
                   <div className="flex items-center justify-between">
                     <div>
-                      <span className="text-[11px] font-bold text-[#0369a1] uppercase tracking-wider block">
-                        3. Hotel Stay Schedule ({groupData.hotelSchedules.length} Night Halts)
-                      </span>
-                      <span className="text-[10px] text-gray-500">Dates, Destinations & Hotel Contacts</span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[11px] font-bold text-[#0369a1] uppercase tracking-wider block">
+                          3. Hotel Stay Schedule ({groupData.hotelSchedules.length} Night Halts)
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => setShowDirectoryModal(true)}
+                          className="flex items-center gap-1 px-2 py-0.5 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 rounded text-[10.5px] font-bold transition shadow-2xs cursor-pointer"
+                          title="Open Hotel Master Directory"
+                        >
+                          <BookOpen className="w-3 h-3 text-amber-700" />
+                          <span>Hotel Directory ({hotelDirectory.length})</span>
+                        </button>
+                      </div>
+                      <span className="text-[10px] text-gray-500">Pick from saved hotels or type custom</span>
                     </div>
                     <button
                       type="button"
@@ -2208,7 +2364,7 @@ export default function HotelVouchersPage() {
                     </button>
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-2.5">
                     {groupData.hotelSchedules.map((hotel, idx) => (
                       <div key={hotel.id || idx} className="bg-gray-50 p-2.5 rounded-xl border border-gray-200 space-y-2">
                         <div className="flex items-center justify-between">
@@ -2257,6 +2413,53 @@ export default function HotelVouchersPage() {
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
                           </div>
+                        </div>
+
+                        {/* Quick Pick Hotel Dropdown */}
+                        <div className="bg-sky-50/80 border border-sky-200/80 p-1.5 rounded-lg flex items-center gap-2">
+                          <label className="text-[9.5px] font-bold text-[#0369a1] whitespace-nowrap flex items-center gap-1">
+                            <Building2 className="w-3 h-3 text-[#0369a1]" />
+                            <span>Quick Pick:</span>
+                          </label>
+                          <select
+                            className="flex-1 px-2 py-1 bg-white border border-sky-200 rounded text-xs font-semibold text-gray-800 cursor-pointer focus:outline-none focus:ring-1 focus:ring-[#0369a1]"
+                            value=""
+                            onChange={e => {
+                              const selectedId = e.target.value;
+                              if (!selectedId) return;
+                              const selected = hotelDirectory.find(h => h.id === selectedId);
+                              if (selected) {
+                                updateGroupHotel(idx, {
+                                  hotelName: selected.name,
+                                  hotelMobile: selected.phone,
+                                  place: hotel.place && hotel.place.trim() ? hotel.place : selected.city.toUpperCase()
+                                });
+                                showToast(`✓ Filled ${selected.name}`);
+                              }
+                            }}
+                          >
+                            <option value="">⚡ Select Saved Hotel (Auto-fills name &amp; phone)...</option>
+                            {groupedDestinations.map(group => (
+                              <optgroup key={group.city} label={`📍 ${group.city}`}>
+                                {group.hotels.map(h => (
+                                  <option key={h.id} value={h.id}>
+                                    {h.name} — 📞 {h.phone} ({h.city})
+                                  </option>
+                                ))}
+                              </optgroup>
+                            ))}
+                          </select>
+                          {hotel.hotelName && (
+                            <button
+                              type="button"
+                              onClick={() => handleQuickSaveToDirectory(hotel.hotelName, "", hotel.hotelMobile, hotel.place)}
+                              className="text-[9.5px] font-bold text-amber-900 hover:text-amber-950 bg-amber-100/90 hover:bg-amber-200 border border-amber-300 px-2 py-1 rounded flex items-center gap-1 shrink-0 cursor-pointer shadow-2xs"
+                              title="Save this hotel name & mobile to Master Directory"
+                            >
+                              <BookmarkCheck className="w-3 h-3 text-amber-700" />
+                              <span>Save to Master</span>
+                            </button>
+                          )}
                         </div>
 
                         <div className="grid grid-cols-2 gap-2">
@@ -2497,9 +2700,20 @@ export default function HotelVouchersPage() {
             {/* 3. MULTI-HOTEL / HOSTEL STAYS LIST */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-bold text-[#0369a1] uppercase tracking-wider block">
-                  3. Confirmed Stays ({data.stays.length} Hotels / Hostels)
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-[11px] font-bold text-[#0369a1] uppercase tracking-wider block">
+                    3. Confirmed Stays ({data.stays.length} Hotels / Hostels)
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setShowDirectoryModal(true)}
+                    className="flex items-center gap-1 px-2.5 py-1 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 rounded-lg text-xs font-bold transition shadow-2xs cursor-pointer"
+                    title="Open Hotel Master Directory"
+                  >
+                    <BookOpen className="w-3.5 h-3.5 text-amber-700" />
+                    <span>Hotel Directory ({hotelDirectory.length})</span>
+                  </button>
+                </div>
                 <button
                   type="button"
                   onClick={addStay}
@@ -2572,6 +2786,56 @@ export default function HotelVouchersPage() {
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
                     </div>
+                  </div>
+
+                  {/* Quick Select from Master Hotel Directory */}
+                  <div className="bg-sky-50/90 border border-sky-200/90 p-2.5 rounded-lg space-y-1.5 shadow-2xs">
+                    <div className="flex items-center justify-between">
+                      <label className="text-[10.5px] font-bold text-[#0369a1] flex items-center gap-1.5">
+                        <Building2 className="w-3.5 h-3.5 text-[#0369a1]" />
+                        <span>Quick Pick from Saved Hotel Directory:</span>
+                      </label>
+                      {stay.hotelName && (
+                        <button
+                          type="button"
+                          onClick={() => handleQuickSaveToDirectory(stay.hotelName, stay.hotelAddress, stay.contactNo, stay.city)}
+                          className="text-[10px] font-bold text-amber-900 hover:text-amber-950 bg-amber-100/90 hover:bg-amber-200 border border-amber-300 px-2 py-0.5 rounded flex items-center gap-1 transition cursor-pointer shadow-2xs"
+                          title="Save this hotel name, address & phone to Master Directory"
+                        >
+                          <BookmarkCheck className="w-3.5 h-3.5 text-amber-700" />
+                          <span>Save Hotel to Master</span>
+                        </button>
+                      )}
+                    </div>
+                    <select
+                      className="w-full px-2.5 py-1.5 bg-white border border-sky-300 rounded-md text-xs font-semibold text-gray-800 shadow-2xs focus:ring-2 focus:ring-[#0369a1] focus:outline-none cursor-pointer"
+                      value=""
+                      onChange={e => {
+                        const selectedId = e.target.value;
+                        if (!selectedId) return;
+                        const selected = hotelDirectory.find(h => h.id === selectedId);
+                        if (selected) {
+                          updateStay(idx, {
+                            hotelName: selected.name,
+                            hotelAddress: selected.address,
+                            contactNo: selected.phone,
+                            city: stay.city && stay.city.trim() !== "" ? stay.city : selected.city
+                          });
+                          showToast(`✓ Auto-filled ${selected.name} (${selected.phone})`);
+                        }
+                      }}
+                    >
+                      <option value="">⚡ Select Hotel (Auto-fills name, phone &amp; address)...</option>
+                      {groupedDestinations.map(group => (
+                        <optgroup key={group.city} label={`📍 ${group.city}`}>
+                          {group.hotels.map(h => (
+                            <option key={h.id} value={h.id}>
+                              {h.name} — 📞 {h.phone} ({h.city})
+                            </option>
+                          ))}
+                        </optgroup>
+                      ))}
+                    </select>
                   </div>
 
                   {/* Hotel Name & Address */}
@@ -2992,6 +3256,397 @@ export default function HotelVouchersPage() {
               💡 <strong>Instant Image Tip:</strong> First button par click karein, WhatsApp chat khulte hi <strong>Ctrl + V</strong> dabayein — poori original color voucher photo automatically paste ho jayegi!
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Hotel Master Directory Management Modal */}
+      {showDirectoryModal && (
+        <div 
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4"
+          onClick={() => {
+            setShowDirectoryModal(false);
+            setEditingHotel(null);
+            setShowAddHotelForm(false);
+          }}
+        >
+          <div 
+            className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in duration-150 border border-sky-100"
+            onClick={e => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="p-4 border-b border-gray-100 flex items-center justify-between bg-gradient-to-r from-sky-50 via-white to-amber-50">
+              <div className="flex items-center gap-2.5">
+                <div className="w-10 h-10 rounded-xl bg-[#0369a1] text-white flex items-center justify-center shadow-xs">
+                  <Building2 className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-900 text-base leading-tight">
+                    Hotel Master Directory
+                  </h3>
+                  <p className="text-xs text-gray-500">
+                    Manage pre-verified pilgrimage hotels &amp; contacts ({hotelDirectory.length} Saved)
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowAddHotelForm(!showAddHotelForm);
+                    setEditingHotel(null);
+                  }}
+                  className="flex items-center gap-1.5 px-3 py-1.5 bg-[#0369a1] hover:bg-[#025684] text-white rounded-lg text-xs font-bold transition shadow-xs cursor-pointer"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>{showAddHotelForm ? "Hide Form" : "Add New Hotel"}</span>
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => {
+                    setShowDirectoryModal(false);
+                    setEditingHotel(null);
+                    setShowAddHotelForm(false);
+                  }}
+                  className="w-8 h-8 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-800 flex items-center justify-center text-sm font-bold cursor-pointer transition"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Body: Search, Filters, Add/Edit Form & List */}
+            <div className="p-4 overflow-y-auto flex-1 space-y-4 custom-scrollbar">
+
+              {/* Add New Hotel Form */}
+              {showAddHotelForm && (
+                <form 
+                  onSubmit={handleCreateHotel}
+                  className="bg-sky-50/70 border border-sky-200 rounded-xl p-3.5 space-y-3 shadow-2xs"
+                >
+                  <div className="flex items-center justify-between border-b border-sky-100 pb-2">
+                    <span className="text-xs font-bold text-[#0369a1] uppercase tracking-wider flex items-center gap-1.5">
+                      <Plus className="w-3.5 h-3.5" />
+                      <span>Add New Hotel to Directory</span>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setShowAddHotelForm(false)}
+                      className="text-xs text-gray-400 hover:text-gray-600 cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    <div>
+                      <label className="block text-[10px] font-bold text-gray-600 mb-0.5">Hotel / Camp Name *</label>
+                      <input 
+                        type="text"
+                        required
+                        placeholder="e.g. Hotel Shiv Ganga"
+                        className="w-full px-2.5 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-bold text-gray-900"
+                        value={newHotelForm.name}
+                        onChange={e => setNewHotelForm({ ...newHotelForm, name: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-bold text-gray-600 mb-0.5">Destination / City / Sector *</label>
+                      <input 
+                        type="text"
+                        required
+                        placeholder="e.g. Barkot / Yamunotri, Phata, Kedarnath"
+                        className="w-full px-2.5 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-semibold text-gray-900"
+                        value={newHotelForm.city}
+                        onChange={e => setNewHotelForm({ ...newHotelForm, city: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-bold text-gray-600 mb-0.5">Phone / Reception Number *</label>
+                      <input 
+                        type="text"
+                        placeholder="e.g. +91 94120 XXXXX / 8392932020"
+                        className="w-full px-2.5 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-semibold text-emerald-800"
+                        value={newHotelForm.phone}
+                        onChange={e => setNewHotelForm({ ...newHotelForm, phone: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-bold text-gray-600 mb-0.5">Category</label>
+                      <select
+                        className="w-full px-2.5 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-medium text-gray-800"
+                        value={newHotelForm.category}
+                        onChange={e => setNewHotelForm({ ...newHotelForm, category: e.target.value })}
+                      >
+                        <option value="Hotel">Hotel</option>
+                        <option value="Camp / Tent">Camp / Tent</option>
+                        <option value="Resort">Resort</option>
+                        <option value="Luxury Cottage">Luxury Cottage</option>
+                        <option value="Dharamshala">Dharamshala</option>
+                        <option value="Homestay">Homestay</option>
+                      </select>
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-[10px] font-bold text-gray-600 mb-0.5">Address / Landmark</label>
+                      <input 
+                        type="text"
+                        placeholder="e.g. Near Helipad, Phata Highway, Uttarakhand"
+                        className="w-full px-2.5 py-1.5 bg-white border border-gray-200 rounded-lg text-xs text-gray-900"
+                        value={newHotelForm.address}
+                        onChange={e => setNewHotelForm({ ...newHotelForm, address: e.target.value })}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex justify-end gap-2 pt-1">
+                    <button
+                      type="submit"
+                      className="px-4 py-1.5 bg-[#0369a1] hover:bg-[#025684] text-white rounded-lg text-xs font-bold transition shadow-xs cursor-pointer flex items-center gap-1.5"
+                    >
+                      <Check className="w-3.5 h-3.5" />
+                      <span>Save Hotel to Master</span>
+                    </button>
+                  </div>
+                </form>
+              )}
+
+              {/* Edit Hotel Form Inline */}
+              {editingHotel && (
+                <form 
+                  onSubmit={handleSaveEditHotel}
+                  className="bg-amber-50/80 border border-amber-200 rounded-xl p-3.5 space-y-3 shadow-2xs"
+                >
+                  <div className="flex items-center justify-between border-b border-amber-100 pb-2">
+                    <span className="text-xs font-bold text-amber-900 uppercase tracking-wider flex items-center gap-1.5">
+                      <Edit3 className="w-3.5 h-3.5 text-amber-700" />
+                      <span>Edit Hotel: {editingHotel.name}</span>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setEditingHotel(null)}
+                      className="text-xs text-gray-400 hover:text-gray-600 cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    <div>
+                      <label className="block text-[10px] font-bold text-gray-600 mb-0.5">Hotel Name</label>
+                      <input 
+                        type="text"
+                        required
+                        className="w-full px-2.5 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-bold text-gray-900"
+                        value={editingHotel.name}
+                        onChange={e => setEditingHotel({ ...editingHotel, name: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-bold text-gray-600 mb-0.5">Destination / City / Sector</label>
+                      <input 
+                        type="text"
+                        required
+                        className="w-full px-2.5 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-semibold text-gray-900"
+                        value={editingHotel.city}
+                        onChange={e => setEditingHotel({ ...editingHotel, city: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-bold text-gray-600 mb-0.5">Phone / Reception Number</label>
+                      <input 
+                        type="text"
+                        className="w-full px-2.5 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-semibold text-emerald-800"
+                        value={editingHotel.phone}
+                        onChange={e => setEditingHotel({ ...editingHotel, phone: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-bold text-gray-600 mb-0.5">Category</label>
+                      <input 
+                        type="text"
+                        className="w-full px-2.5 py-1.5 bg-white border border-gray-200 rounded-lg text-xs text-gray-800"
+                        value={editingHotel.category || "Hotel"}
+                        onChange={e => setEditingHotel({ ...editingHotel, category: e.target.value })}
+                      />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className="block text-[10px] font-bold text-gray-600 mb-0.5">Address / Landmark</label>
+                      <input 
+                        type="text"
+                        className="w-full px-2.5 py-1.5 bg-white border border-gray-200 rounded-lg text-xs text-gray-900"
+                        value={editingHotel.address}
+                        onChange={e => setEditingHotel({ ...editingHotel, address: e.target.value })}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex justify-end gap-2 pt-1">
+                    <button
+                      type="button"
+                      onClick={() => setEditingHotel(null)}
+                      className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg text-xs font-semibold cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="px-4 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-xs font-bold transition shadow-xs cursor-pointer flex items-center gap-1.5"
+                    >
+                      <Check className="w-3.5 h-3.5" />
+                      <span>Update Hotel</span>
+                    </button>
+                  </div>
+                </form>
+              )}
+
+              {/* Search & City Filter Bar */}
+              <div className="space-y-2">
+                <div className="relative">
+                  <Search className="w-4 h-4 text-gray-400 absolute left-3 top-2.5" />
+                  <input
+                    type="text"
+                    placeholder="Search hotels by name, city, phone number or address..."
+                    className="w-full pl-9 pr-8 py-2 bg-gray-50 border border-gray-200 rounded-xl text-xs font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#0369a1] focus:bg-white transition"
+                    value={dirSearchTerm}
+                    onChange={e => setDirSearchTerm(e.target.value)}
+                  />
+                  {dirSearchTerm && (
+                    <button
+                      type="button"
+                      onClick={() => setDirSearchTerm("")}
+                      className="absolute right-3 top-2.5 text-xs text-gray-400 hover:text-gray-600 cursor-pointer"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+
+                {/* City Filter Pills */}
+                <div className="flex items-center gap-1.5 overflow-x-auto pb-1 custom-scrollbar text-[11px]">
+                  <button
+                    type="button"
+                    onClick={() => setDirSelectedCity("All")}
+                    className={`px-2.5 py-1 rounded-full font-bold whitespace-nowrap transition cursor-pointer border ${
+                      dirSelectedCity === "All"
+                        ? "bg-[#0369a1] text-white border-[#0369a1] shadow-2xs"
+                        : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
+                    }`}
+                  >
+                    All ({hotelDirectory.length})
+                  </button>
+                  {uniqueCities.map(city => {
+                    const count = hotelDirectory.filter(h => h.city === city).length;
+                    return (
+                      <button
+                        key={city}
+                        type="button"
+                        onClick={() => setDirSelectedCity(city)}
+                        className={`px-2.5 py-1 rounded-full font-semibold whitespace-nowrap transition cursor-pointer border ${
+                          dirSelectedCity === city
+                            ? "bg-[#0369a1] text-white border-[#0369a1] shadow-2xs"
+                            : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
+                        }`}
+                      >
+                        {city} ({count})
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Hotels List */}
+              <div className="space-y-2">
+                {filteredHotels.length === 0 ? (
+                  <div className="text-center py-8 bg-gray-50 rounded-xl border border-dashed border-gray-200">
+                    <Building2 className="w-8 h-8 text-gray-300 mx-auto mb-2" />
+                    <p className="text-xs font-bold text-gray-600">No hotels match your search or filter</p>
+                    <p className="text-[11px] text-gray-400 mt-0.5">Try searching with a different keyword or add a new hotel</p>
+                  </div>
+                ) : (
+                  filteredHotels.map(hotel => (
+                    <div 
+                      key={hotel.id}
+                      className="bg-white border border-gray-200 hover:border-sky-300 rounded-xl p-3 transition flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-2xs hover:shadow-xs"
+                    >
+                      <div className="space-y-1 min-w-0 flex-1">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="font-bold text-xs text-gray-900">
+                            {hotel.name}
+                          </span>
+                          <span className="text-[9.5px] px-2 py-0.5 bg-sky-50 text-[#0369a1] border border-sky-200 rounded-full font-bold">
+                            📍 {hotel.city}
+                          </span>
+                          {hotel.category && (
+                            <span className="text-[9.5px] px-1.5 py-0.5 bg-gray-100 text-gray-600 rounded font-medium">
+                              {hotel.category}
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="flex items-center gap-3 text-xs text-gray-600 flex-wrap">
+                          <span className="font-mono font-bold text-emerald-800 flex items-center gap-1">
+                            <Phone className="w-3 h-3 text-emerald-600" />
+                            {hotel.phone || "No phone"}
+                          </span>
+                          {hotel.address && (
+                            <span className="text-[11px] text-gray-500 truncate flex items-center gap-1">
+                              <MapPin className="w-3 h-3 text-gray-400 shrink-0" />
+                              <span className="truncate">{hotel.address}</span>
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-1.5 self-end sm:self-center shrink-0">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setEditingHotel(hotel);
+                            setShowAddHotelForm(false);
+                          }}
+                          className="p-1.5 hover:bg-amber-50 text-amber-700 border border-amber-200 rounded-lg transition cursor-pointer text-xs font-semibold flex items-center gap-1"
+                          title="Edit Hotel Details"
+                        >
+                          <Edit3 className="w-3.5 h-3.5" />
+                          <span className="hidden sm:inline">Edit</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteHotel(hotel.id, hotel.name)}
+                          className="p-1.5 hover:bg-red-50 text-red-600 border border-red-200 rounded-lg transition cursor-pointer text-xs font-semibold"
+                          title="Delete Hotel from Directory"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+
+              {/* Bottom Actions */}
+              <div className="pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
+                <span>Showing {filteredHotels.length} of {hotelDirectory.length} hotels</span>
+                <button
+                  type="button"
+                  onClick={handleResetToDefaults}
+                  className="text-gray-400 hover:text-amber-700 underline text-[11px] cursor-pointer"
+                  title="Restore original curated list of 25+ pilgrimage hotels"
+                >
+                  Reset to Curated Chardham Defaults
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Instant Action Toast Notification */}
+      {toastMessage && (
+        <div className="fixed bottom-5 right-5 z-50 bg-slate-900 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-xl border border-slate-700 flex items-center gap-2 animate-in slide-in-from-bottom-2 duration-200">
+          <span className="text-emerald-400">✓</span>
+          <span>{toastMessage}</span>
         </div>
       )}
 

@@ -24,7 +24,10 @@ import {
   ArrowRight, 
   X,
   Sparkles,
-  ChevronDown
+  ChevronDown,
+  Pencil,
+  Trash2,
+  Upload
 } from "lucide-react";
 import Link from "next/link";
 
@@ -206,6 +209,8 @@ export default function TwoWheelerRentalsPage() {
   // Modals
   const [showNewBookingModal, setShowNewBookingModal] = useState(false);
   const [showAddVehicleModal, setShowAddVehicleModal] = useState(false);
+  const [showEditVehicleModal, setShowEditVehicleModal] = useState(false);
+  const [editingVehicle, setEditingVehicle] = useState<RentalVehicle | null>(null);
   const [showReturnModal, setShowReturnModal] = useState(false);
   const [selectedBookingForReturn, setSelectedBookingForReturn] = useState<RentalBooking | null>(null);
   const [viewAgreementBooking, setViewAgreementBooking] = useState<RentalBooking | null>(null);
@@ -412,6 +417,60 @@ export default function TwoWheelerRentalsPage() {
       fuelLevel: "Full",
       image: "/vehicles/honda-activa-125.png"
     });
+  };
+
+  // Open Edit Vehicle Modal
+  const handleOpenEditVehicle = (veh: RentalVehicle) => {
+    setEditingVehicle({ ...veh });
+    setShowEditVehicleModal(true);
+  };
+
+  // Save Edited Vehicle Submit
+  const handleSaveEditVehicle = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingVehicle) return;
+
+    const updatedFleet = fleet.map(v => 
+      v.id === editingVehicle.id 
+        ? {
+            ...editingVehicle,
+            plateNumber: editingVehicle.plateNumber.toUpperCase(),
+            dailyRate: Number(editingVehicle.dailyRate),
+            odometer: Number(editingVehicle.odometer),
+            helmetsIncluded: Number(editingVehicle.helmetsIncluded || 2)
+          } 
+        : v
+    );
+    saveFleet(updatedFleet);
+    setShowEditVehicleModal(false);
+    setEditingVehicle(null);
+  };
+
+  // Delete Vehicle from Fleet
+  const handleDeleteVehicle = (vehId: string) => {
+    if (confirm("Are you sure you want to remove this vehicle from the fleet?")) {
+      const updatedFleet = fleet.filter(v => v.id !== vehId);
+      saveFleet(updatedFleet);
+      setShowEditVehicleModal(false);
+      setEditingVehicle(null);
+    }
+  };
+
+  // Vehicle Photo Upload (File -> Base64 Data URL)
+  const handleVehiclePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>, isEdit: boolean) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      if (isEdit && editingVehicle) {
+        setEditingVehicle(prev => prev ? { ...prev, image: result } : null);
+      } else {
+        setNewVehicle(prev => ({ ...prev, image: result }));
+      }
+    };
+    reader.readAsDataURL(file);
   };
 
   // Open Return Modal
@@ -858,20 +917,33 @@ export default function TwoWheelerRentalsPage() {
                     <div>
                       {/* Vehicle Studio Image Container */}
                       <div className="relative h-44 w-full bg-gradient-to-b from-slate-50 via-slate-100/50 to-amber-50/10 p-3 flex items-center justify-center border-b border-slate-100 overflow-hidden">
-                        {/* Status Badges */}
-                        <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between pointer-events-none z-10">
+                        {/* Status Badges & Quick Edit */}
+                        <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between z-10">
                           <span className="text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider bg-white/90 backdrop-blur-xs text-slate-700 shadow-2xs border border-slate-200/60">
                             {v.type}
                           </span>
-                          <span className={`text-[9.5px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider backdrop-blur-xs shadow-2xs ${
-                            isAvailable 
-                              ? "bg-emerald-500/90 text-white"
-                              : isRented
-                              ? "bg-amber-500/90 text-white"
-                              : "bg-rose-500/90 text-white"
-                          }`}>
-                            {isAvailable ? "● Ready" : isRented ? "● On Road" : "Service"}
-                          </span>
+                          <div className="flex items-center gap-1.5">
+                            <span className={`text-[9.5px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider backdrop-blur-xs shadow-2xs ${
+                              isAvailable 
+                                ? "bg-emerald-500/90 text-white"
+                                : isRented
+                                ? "bg-amber-500/90 text-white"
+                                : "bg-rose-500/90 text-white"
+                            }`}>
+                              {isAvailable ? "● Ready" : isRented ? "● On Road" : "Service"}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleOpenEditVehicle(v);
+                              }}
+                              className="p-1 rounded-full bg-white/90 hover:bg-white text-slate-600 hover:text-amber-800 shadow-xs border border-slate-200 cursor-pointer transition"
+                              title="Edit Vehicle Details"
+                            >
+                              <Pencil size={11} />
+                            </button>
+                          </div>
                         </div>
 
                         {/* Transparent PNG Cutout */}
@@ -923,10 +995,21 @@ export default function TwoWheelerRentalsPage() {
                     </div>
 
                     {/* Bottom Action Bar */}
-                    <div className="p-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
-                      <span className="text-[10px] text-slate-500 flex items-center gap-1 font-medium">
-                        <ShieldCheck size={12} className="text-emerald-600" /> {v.helmetsIncluded || 2} Helmets Incl.
-                      </span>
+                    <div className="p-3 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => handleOpenEditVehicle(v)}
+                          className="px-2.5 py-1 rounded-lg border border-slate-200 bg-white hover:bg-amber-50 hover:border-amber-300 text-slate-700 hover:text-amber-900 text-xs font-semibold transition cursor-pointer flex items-center gap-1.5 shadow-2xs"
+                          title="Edit vehicle details, number plate, price & picture"
+                        >
+                          <Pencil size={11} className="text-amber-600" />
+                          <span>Edit</span>
+                        </button>
+                        <span className="text-[10px] text-slate-500 hidden sm:flex items-center gap-1 font-medium">
+                          <ShieldCheck size={12} className="text-emerald-600" /> {v.helmetsIncluded || 2}
+                        </span>
+                      </div>
 
                       {isAvailable ? (
                         <button
@@ -1659,6 +1742,28 @@ export default function TwoWheelerRentalsPage() {
                   })}
                 </div>
 
+                {/* Custom Photo Upload & URL */}
+                <div className="flex items-center justify-between pt-1">
+                  <label className="text-[11px] font-semibold text-amber-700 hover:text-amber-800 flex items-center gap-1 cursor-pointer bg-amber-50 px-2 py-1 rounded border border-amber-200">
+                    <Upload size={11} />
+                    <span>Upload Device Photo</span>
+                    <input 
+                      type="file" 
+                      accept="image/*" 
+                      className="hidden" 
+                      onChange={e => handleVehiclePhotoUpload(e, false)} 
+                    />
+                  </label>
+                  <span className="text-[10px] text-slate-400">or enter image path / URL below</span>
+                </div>
+                <input
+                  type="text"
+                  placeholder="Custom image path or URL (e.g. /vehicles/... or https://...)"
+                  value={newVehicle.image || ""}
+                  onChange={e => setNewVehicle({ ...newVehicle, image: e.target.value })}
+                  className="w-full text-[11px] p-2 rounded-lg border border-slate-200 bg-white"
+                />
+
                 {/* Selected Preview Showcase */}
                 {newVehicle.image && (
                   <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-amber-50/50 via-slate-50 to-white rounded-xl border border-amber-200/60 mt-2">
@@ -1688,6 +1793,259 @@ export default function TwoWheelerRentalsPage() {
                   <Plus size={13} />
                   <span>Save Vehicle to Fleet</span>
                 </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* 11. MODAL: EDIT VEHICLE DETAILS */}
+      {/* ========================================================================= */}
+      {showEditVehicleModal && editingVehicle && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl w-full max-w-lg border border-slate-200 shadow-2xl overflow-hidden my-auto animate-fade-in">
+            <div className="p-4 bg-[#0b1320] text-white flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center">
+                  <Pencil size={15} />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-amber-300">Edit Vehicle Details</h3>
+                  <p className="text-[10px] text-slate-400 font-mono">{editingVehicle.name} &bull; {editingVehicle.plateNumber}</p>
+                </div>
+              </div>
+              <button 
+                onClick={() => {
+                  setShowEditVehicleModal(false);
+                  setEditingVehicle(null);
+                }}
+                className="text-slate-400 hover:text-white p-1 cursor-pointer"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <form onSubmit={handleSaveEditVehicle} className="p-5 space-y-4 max-h-[80vh] overflow-y-auto">
+              {/* Vehicle Name & Type */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">Vehicle Model &amp; Name *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Honda Activa 125 (Grey)"
+                    value={editingVehicle.name}
+                    onChange={e => setEditingVehicle({ ...editingVehicle, name: e.target.value })}
+                    className="w-full text-xs p-2 rounded-lg border border-slate-200 bg-white"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">Category / Type *</label>
+                  <select
+                    value={editingVehicle.type}
+                    onChange={e => setEditingVehicle({ ...editingVehicle, type: e.target.value as any })}
+                    className="w-full text-xs p-2 rounded-lg border border-slate-200 bg-white"
+                  >
+                    <option value="scooty">Scooty (Automatic 110-125cc)</option>
+                    <option value="cruiser">Royal Enfield / Cruiser</option>
+                    <option value="touring">Adventure / Touring</option>
+                    <option value="commuter">Commuter / Sports Bike</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Registration Plate & Daily Tariff */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">Registration Plate (Number Plate) *</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="UK 08 AB 1122"
+                    value={editingVehicle.plateNumber}
+                    onChange={e => setEditingVehicle({ ...editingVehicle, plateNumber: e.target.value })}
+                    className="w-full text-xs p-2 rounded-lg border border-slate-200 font-mono uppercase bg-white font-bold text-amber-900"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">Daily Tariff Rate (₹/day) *</label>
+                  <input
+                    type="number"
+                    required
+                    min="100"
+                    placeholder="500"
+                    value={editingVehicle.dailyRate}
+                    onChange={e => setEditingVehicle({ ...editingVehicle, dailyRate: Number(e.target.value) })}
+                    className="w-full text-xs p-2 rounded-lg border border-slate-200 bg-white font-bold"
+                  />
+                </div>
+              </div>
+
+              {/* Odometer, Fuel Level & Status */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">Odometer (KM) *</label>
+                  <input
+                    type="number"
+                    required
+                    min="0"
+                    value={editingVehicle.odometer}
+                    onChange={e => setEditingVehicle({ ...editingVehicle, odometer: Number(e.target.value) })}
+                    className="w-full text-xs p-2 rounded-lg border border-slate-200 bg-white"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">Fuel Level</label>
+                  <select
+                    value={editingVehicle.fuelLevel}
+                    onChange={e => setEditingVehicle({ ...editingVehicle, fuelLevel: e.target.value as any })}
+                    className="w-full text-xs p-2 rounded-lg border border-slate-200 bg-white"
+                  >
+                    <option value="Full">Full</option>
+                    <option value="75%">75%</option>
+                    <option value="50%">50%</option>
+                    <option value="25%">25%</option>
+                    <option value="Reserve">Reserve</option>
+                  </select>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">Vehicle Status</label>
+                  <select
+                    value={editingVehicle.status}
+                    onChange={e => setEditingVehicle({ ...editingVehicle, status: e.target.value as any })}
+                    className="w-full text-xs p-2 rounded-lg border border-slate-200 bg-white font-semibold"
+                  >
+                    <option value="available">● Available / Ready</option>
+                    <option value="rented">● Active / On Road</option>
+                    <option value="maintenance">● In Maintenance</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Helmets Included */}
+              <div className="space-y-1">
+                <label className="text-xs font-semibold text-slate-700">Helmets Included in Rent</label>
+                <input
+                  type="number"
+                  min="0"
+                  max="4"
+                  value={editingVehicle.helmetsIncluded || 2}
+                  onChange={e => setEditingVehicle({ ...editingVehicle, helmetsIncluded: Number(e.target.value) })}
+                  className="w-full text-xs p-2 rounded-lg border border-slate-200 bg-white"
+                />
+              </div>
+
+              {/* Choose Vehicle Photo / Cutout */}
+              <div className="space-y-2 pt-2 border-t border-slate-100">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-semibold text-slate-700 block">
+                    Vehicle Photo / Studio Image
+                  </label>
+                  <label className="text-[11px] font-semibold text-amber-700 hover:text-amber-800 flex items-center gap-1 cursor-pointer bg-amber-50 px-2 py-0.5 rounded border border-amber-200">
+                    <Upload size={11} />
+                    <span>Upload Device Photo</span>
+                    <input 
+                      type="file" 
+                      accept="image/*" 
+                      className="hidden" 
+                      onChange={e => handleVehiclePhotoUpload(e, true)} 
+                    />
+                  </label>
+                </div>
+                
+                {/* Presets Grid */}
+                <div className="grid grid-cols-5 gap-2">
+                  {[
+                    { label: "Activa 125", img: "/vehicles/honda-activa-125.png" },
+                    { label: "Access 125", img: "/vehicles/suzuki-access-125.png" },
+                    { label: "Burgman", img: "/vehicles/suzuki-burgman-125.png" },
+                    { label: "Classic 350", img: "/vehicles/royal-enfield-classic-350.png" },
+                    { label: "Hunter 350", img: "/vehicles/royal-enfield-hunter-350.png" },
+                    { label: "Meteor 350", img: "/vehicles/royal-enfield-meteor-350.png" },
+                    { label: "Himalayan 450", img: "/vehicles/royal-enfield-himalayan-450.png" },
+                    { label: "Hero XPulse", img: "/vehicles/hero-xpulse-200.png" },
+                    { label: "Apache RTR", img: "/vehicles/apache-rtr-160-4v.png" },
+                    { label: "Avenger 160", img: "/vehicles/bajaj-avenger-160.png" },
+                  ].map((preset) => {
+                    const isSelected = editingVehicle.image === preset.img;
+                    return (
+                      <button
+                        type="button"
+                        key={preset.img}
+                        onClick={() => setEditingVehicle({ ...editingVehicle, image: preset.img })}
+                        className={`p-1.5 rounded-xl border flex flex-col items-center gap-1 transition cursor-pointer text-center ${
+                          isSelected
+                            ? "border-amber-500 bg-amber-50/50 ring-2 ring-amber-400/30"
+                            : "border-slate-200 bg-slate-50 hover:bg-white hover:border-slate-300"
+                        }`}
+                      >
+                        <img src={preset.img} alt={preset.label} className="h-10 w-full object-contain" />
+                        <span className="text-[9px] font-medium text-slate-700 line-clamp-1">{preset.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Custom Photo URL Input */}
+                <div className="pt-1">
+                  <input
+                    type="text"
+                    placeholder="Or enter custom image URL (e.g. /vehicles/... or https://...)"
+                    value={editingVehicle.image || ""}
+                    onChange={e => setEditingVehicle({ ...editingVehicle, image: e.target.value })}
+                    className="w-full text-[11px] p-2 rounded-lg border border-slate-200 bg-white"
+                  />
+                </div>
+
+                {/* Selected Preview Showcase */}
+                {editingVehicle.image && (
+                  <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-amber-50/50 via-slate-50 to-white rounded-xl border border-amber-200/60 mt-2">
+                    <img src={editingVehicle.image} alt="Preview" className="h-16 w-24 object-contain drop-shadow-md" />
+                    <div>
+                      <p className="text-xs font-bold text-slate-900">{editingVehicle.name || "Vehicle Preview"}</p>
+                      <p className="text-[11px] text-amber-800 font-mono font-bold">{editingVehicle.plateNumber}</p>
+                      <p className="text-[10px] text-slate-500">Daily: ₹{editingVehicle.dailyRate} &bull; Type: {editingVehicle.type} &bull; Status: {editingVehicle.status}</p>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Submit / Actions */}
+              <div className="pt-3 border-t border-slate-200 flex items-center justify-between">
+                <button
+                  type="button"
+                  onClick={() => handleDeleteVehicle(editingVehicle.id)}
+                  className="px-3 py-1.5 rounded-lg border border-rose-200 text-rose-600 hover:bg-rose-50 text-xs font-semibold flex items-center gap-1 cursor-pointer transition"
+                  title="Remove vehicle from fleet"
+                >
+                  <Trash2 size={13} />
+                  <span>Delete Vehicle</span>
+                </button>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowEditVehicleModal(false);
+                      setEditingVehicle(null);
+                    }}
+                    className="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs font-medium text-slate-600 hover:bg-slate-50 cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-4 py-1.5 rounded-lg bg-[#0b1320] hover:bg-[#16233b] text-amber-300 hover:text-white font-semibold text-xs transition cursor-pointer shadow-xs flex items-center gap-1"
+                  >
+                    <CheckCircle2 size={13} />
+                    <span>Save Changes</span>
+                  </button>
+                </div>
               </div>
             </form>
           </div>
