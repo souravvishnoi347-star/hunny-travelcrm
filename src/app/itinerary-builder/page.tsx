@@ -1552,7 +1552,15 @@ SCHEMA:
       }
 
       // Sanitize JSON text
-      const cleanJson = textResponse.replace(/^```json\s*/i, "").replace(/^```\s*/, "").replace(/\s*```$/, "").trim();
+      let cleanJson = textResponse.replace(/^```json\s*/i, "").replace(/^```\s*/, "").replace(/\s*```$/, "").trim();
+      
+      const jsonStartIndex = cleanJson.indexOf("{");
+      const jsonEndIndex = cleanJson.lastIndexOf("}");
+      
+      if (jsonStartIndex >= 0 && jsonEndIndex >= jsonStartIndex) {
+        cleanJson = cleanJson.substring(jsonStartIndex, jsonEndIndex + 1);
+      }
+
       const parsed = JSON.parse(cleanJson);
 
       // Helper to clean up any unwanted symbols, corrupted encodings, or garbled quotes
