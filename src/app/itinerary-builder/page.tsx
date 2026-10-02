@@ -1419,6 +1419,11 @@ SCHEMA:
               const orJson = await orRes.json();
               textResponse = orJson.choices?.[0]?.message?.content?.trim() || "";
               if (textResponse) {
+                if (!textResponse.includes("{") || !textResponse.includes("}")) {
+                  lastErrorMessage = "Model returned non-JSON text: " + textResponse.substring(0, 30);
+                  textResponse = "";
+                  continue;
+                }
                 openRouterSuccess = true;
                 break;
               }
@@ -1528,7 +1533,13 @@ SCHEMA:
             });
 
             if (res.ok) {
-              geminiResponse = res;
+              const tempJson = await res.json();
+              const tempText = tempJson.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "";
+              if (!tempText.includes("{") || !tempText.includes("}")) {
+                lastErrorMessage = "Gemini returned non-JSON text: " + tempText.substring(0, 30);
+                continue;
+              }
+              geminiResponse = new Response(JSON.stringify(tempJson), { status: 200, statusText: "OK" });
               break;
             } else {
               const errData = await res.json().catch(() => null);
@@ -1559,9 +1570,16 @@ SCHEMA:
       
       if (jsonStartIndex >= 0 && jsonEndIndex >= jsonStartIndex) {
         cleanJson = cleanJson.substring(jsonStartIndex, jsonEndIndex + 1);
+      } else {
+        throw new Error("AI output was blocked or did not contain valid JSON. Response: " + cleanJson.substring(0, 50));
       }
 
-      const parsed = JSON.parse(cleanJson);
+      let parsed;
+      try {
+        parsed = JSON.parse(cleanJson);
+      } catch (err: any) {
+        throw new Error("Failed to parse AI output: " + err.message);
+      }
 
       // Helper to clean up any unwanted symbols, corrupted encodings, or garbled quotes
       const cleanText = (str: string): string => {
