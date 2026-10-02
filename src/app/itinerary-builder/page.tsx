@@ -2408,6 +2408,15 @@ ${data.motto}`;
           </div>
         </div>
 
+        {/* Sacred Hindi Mantra / Motto */}
+        <div className="relative z-10 w-full flex items-center justify-between px-6 mt-6 mb-1 text-amber-600">
+          <span className="text-4xl text-amber-500 drop-shadow-xs leading-none">ॐ</span>
+          <span className="text-[28px] font-bold tracking-wider text-[#bf5b17] leading-none drop-shadow-xs" style={{ fontFamily: "'Yatra One', 'Tiro Devanagari Hindi', 'Noto Serif Devanagari', 'Mangal', serif", textShadow: "0px 1px 2px rgba(0,0,0,0.1)" }}>
+            {isDoDham ? "सेवा संकल्प दो धाम यात्रा" : "सेवा संकल्प चारधाम यात्रा"}
+          </span>
+          <span className="text-4xl text-amber-500 drop-shadow-xs leading-none">ॐ</span>
+        </div>
+
         {/* Central Grand Hero Showcase: Rectangular Master Frame (No Circle) */}
         <div className="relative z-10 flex flex-col items-center justify-center my-auto py-1 w-full">
           {/* Rectangular Master Frame with Gold Rim & Subtle Shadow */}
