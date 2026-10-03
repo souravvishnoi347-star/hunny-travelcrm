@@ -6,7 +6,7 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim() || '';
 // Strict 2-second timeout to prevent blocking when remote database is slow/offline
 const fetchWithTimeout: typeof fetch = async (url, options = {}) => {
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 2000);
+  const timeoutId = setTimeout(() => controller.abort(), 8000);
   
   if (options.signal) {
     options.signal.addEventListener('abort', () => controller.abort());
