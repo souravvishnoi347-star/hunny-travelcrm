@@ -834,6 +834,600 @@ export const DODHAM_6D_PRESET: ItineraryData = {
   showTrustSection: true
 };
 
+// Dedicated 04 Nights / 05 Days Yamunotri & Gangotri Do Dham Yatra Preset
+export const YAMUNOTRI_GANGOTRI_5D_PRESET: ItineraryData = {
+  title: "YAMUNOTRI GANGOTRI YATRA 2026",
+  subTitle: "DO DHAM YATRA · UTTARAKHAND",
+  spiritualHeadline: "04 Nights · 05 Days Pilgrimage Plan",
+  dhamsSubtitle: "Shri Yamunotri Dham · Shri Gangotri Dham",
+  preparedFor: "Valued Pilgrims / Family Group",
+  travelDates: "May – Oct 2026 Season",
+  duration: "04 Nights / 05 Days",
+  startingPoint: "Haridwar, Uttarakhand",
+  routeCovered: "Haridwar – Mussoorie – Barkot – Janki Chatti – Yamunotri – Barkot – Radi Top – Uttarkashi – Harsil Valley – Gangotri – Chamba / Rishikesh – Haridwar",
+  overviewSummary: "A sacred 04 Nights / 05 Days Yamunotri & Gangotri Do Dham Yatra starting and concluding at Haridwar. Well-paced stays at Barkot (2N) and Uttarkashi / Netala (2N), covering Janki Chatti, Yamunotri Temple (Divya Shila & Surya Kund), Kashi Vishwanath Temple Uttarkashi, the emerald Harsil Apple Valley, Gangotri Dham and sacred Ganga Darshan.",
+
+  glanceDuration: "04 Nights / 05 Days",
+  glanceDhams: "Yamunotri Dham · Gangotri Dham",
+  glanceSector: "Haridwar ⇄ Yamunotri & Gangotri Circuit",
+  glanceStartEnd: "Haridwar (Pickup & Drop)",
+  glancePackages: "Standard Package",
+
+  days: [
+    {
+      id: 1,
+      dayNumber: 1,
+      dateStr: "Haridwar to Barkot via Mussoorie",
+      route: "Haridwar → Dehradun / Mussoorie → Kempty Falls → Barkot / Kharadi",
+      activities: [
+        "Morning departure from Haridwar. Drive along the scenic mountain highway via Mussoorie and Kempty Falls.",
+        "Enjoy scenic vistas of the Yamuna River and pine-covered Himalayan valleys as you ascend into Uttarkashi district.",
+        "Arrive at Barkot / Kharadi by evening; check in at hotel, freshen up, enjoy delicious dinner and rest in preparation for the Yamunotri trek."
+      ],
+      overnightStay: "Barkot (Hotel)"
+    },
+    {
+      id: 2,
+      dayNumber: 2,
+      dateStr: "Barkot to Yamunotri Dham & Return",
+      route: "Barkot → Janki Chatti → Shri Yamunotri Dham Trek (6 km) → Janki Chatti → Barkot",
+      activities: [
+        "Early morning drive from Barkot to Janki Chatti (approx. 45 km), the base camp for the holy Yamunotri pilgrimage.",
+        "Begin the sacred 6 km trek to Shri Yamunotri Dham on foot or by pony / doli along the pristine Yamuna gorge.",
+        "Take a holy dip in the natural thermal springs of Jamunabai Kund, cook prasad in Surya Kund, perform puja at Divya Shila, and seek divine blessings of Goddess Yamuna.",
+        "Descend back to Janki Chatti in the afternoon and drive back to Barkot for dinner and overnight stay."
+      ],
+      overnightStay: "Barkot (Hotel)"
+    },
+    {
+      id: 3,
+      dayNumber: 3,
+      dateStr: "Barkot to Uttarkashi & Kashi Vishwanath Darshan",
+      route: "Barkot → Radi Top / Dharasu Bend → Uttarkashi / Netala",
+      activities: [
+        "Post breakfast, check out from Barkot and embark on a scenic drive to Uttarkashi (approx. 100 km / 4 hrs) via Radi Top.",
+        "Drive along the Bhagirathi River with splendid views of mountain terraced fields and Garhwal villages.",
+        "Arrive in Uttarkashi, check in at hotel. In the evening, visit the ancient Kashi Vishwanath Temple and the miraculous Shakti Temple featuring the 6-meter unbroken divine brass trident (Shakti Stambh)."
+      ],
+      overnightStay: "Uttarkashi (Hotel)"
+    },
+    {
+      id: 4,
+      dayNumber: 4,
+      dateStr: "Uttarkashi to Gangotri Dham & Return via Harsil",
+      route: "Uttarkashi → Bhatwari → Harsil Apple Valley → Shri Gangotri Dham → Uttarkashi",
+      activities: [
+        "Early morning drive (approx. 100 km each way) towards Gangotri Dham through the breathtaking Harsil Valley, renowned for its deodar forests and apple orchards.",
+        "Stop at Gangnani hot water sulfur spring en route; marvel at the roaring Bhagirathi River flowing through granite gorges.",
+        "Reach Shri Gangotri Dham; take a sacred dip in the holy Bhagirathi (Ganga), offer puja at Gangotri Temple, visit the Submerged Shivling and Bhagirath Shila where King Bhagirath meditated.",
+        "Drive back to Uttarkashi in the evening for dinner and overnight stay."
+      ],
+      overnightStay: "Uttarkashi (Hotel)"
+    },
+    {
+      id: 5,
+      dayNumber: 5,
+      dateStr: "Uttarkashi to Haridwar via Chamba & Rishikesh",
+      route: "Uttarkashi → Dharasu → Chamba / Tehri Lake view → Rishikesh → Haridwar",
+      activities: [
+        "Post breakfast, check out from Uttarkashi and begin the return journey descending towards the holy plains.",
+        "Pass through Chamba with panoramic views of the Tehri reservoir and Garhwal ranges.",
+        "Arrive in Rishikesh / Haridwar by late afternoon; visit Ram Jhula / Laxman Jhula or participate in Ganga Aarti at Har Ki Pauri as time permits. Sacred Do Dham Yatra concludes with divine blessings."
+      ],
+      overnightStay: "Tour Concludes (Haridwar Drop)"
+    }
+  ],
+
+  pricingSubtitle: "Confirmed 04 Nights / 05 Days Yamunotri Gangotri Do Dham Package with dedicated hill vehicle and verified stays.",
+  pricingTiers: [
+    { package: "Standard Package", price: "", hotelCategory: "Standard Clean Rooms (Triple/Quad)", meals: "Breakfast & Dinner (As per Hotel Menu)", specialFeature: "All Toll, Tax & Parking Included" }
+  ],
+  pricingNote: "Note: All stays are on Triple or Quad-sharing basis. All toll, state tax, driver allowance and parking included.",
+
+  inclusions: [
+    "Dedicated Hill Vehicle (Innova / Dzire / Tempo Traveller - Non-AC in hill areas) from Haridwar to Haridwar",
+    "2 Nights Stay at Barkot (Hotel - Meals as per hotel menu)",
+    "2 Nights Stay at Uttarkashi / Netala (Hotel - Meals as per hotel menu)",
+    "Breakfast & Dinner provided at all hotels as per hotel menu",
+    "All Toll, State Tax, Parking charges and Driver Allowance included in the package",
+    "All hotel stays on Triple or Quad-sharing basis",
+    "Sightseeing: Kempty Falls Mussoorie, Yamunotri Dham, Divya Shila, Surya Kund, Kashi Vishwanath Temple Uttarkashi, Shakti Temple, Harsil Valley, Gangotri Dham, Bhagirath Shila & Rishikesh"
+  ],
+  exclusions: [
+    "AC will not be allowed on the Yatra in mountain/hill areas",
+    "Pony, palki, doli or porter charges during Yamunotri trek",
+    "Any extra sightseeing or destinations apart from mentioned inclusions",
+    "VIP / special puja tickets, room heaters, laundry, tips, lunch or mineral water",
+    "Costs arising from natural calamities, landslides or road closures"
+  ],
+
+  goodToKnow: [
+    "All stays are on Triple or Quad-sharing basis.",
+    "Meals are provided as per hotel menu (Breakfast & Dinner at hotels only).",
+    "AC will not be allowed on the Yatra in hill areas due to steep mountain climbs.",
+    "All toll, tax, and parking charges are included in the package.",
+    "Carry valid government photo ID proof, warm woollens, raincoats, and comfortable trekking shoes."
+  ],
+  bookingPayment: [
+    "25% advance at the time of booking and balance amount to be deposited before starting the Yatra.",
+    "Official Website: www.traymbhkamtour.com | Contact: Hunny (+91 82660 16066, 9389880277)."
+  ],
+
+  contactAgency: "Traymbhkam Tour and Travels",
+  contactPerson: "Mr. Gagandeep (Hunny)",
+  contactPhone: "+91 82660 16066 · 9389880277",
+  motto: "जय माँ यमुने · जय माँ गंगे",
+
+  photos: [
+    {
+      id: "ph-yg-1",
+      url: "/gallery/chardham_10d_img_8.jpg",
+      caption: "Shri Gangotri Dham & Holy Bhagirathi Valley"
+    },
+    {
+      id: "ph-yg-2",
+      url: "/gallery/chardham_10d_img_5.jpg",
+      caption: "Shri Yamunotri Dham Temple & Divya Shila"
+    },
+    {
+      id: "ph-yg-3",
+      url: "/gallery/chardham_10d_img_10.jpg",
+      caption: "Harsil Valley Pine Forests & Apple Orchards"
+    },
+    {
+      id: "ph-yg-4",
+      url: "/gallery/chardham_10d_img_18.jpg",
+      caption: "Kashi Vishwanath Temple & Shakti Stambh Uttarkashi"
+    },
+    {
+      id: "ph-yg-5",
+      url: "/gallery/chardham_10d_img_19.jpg",
+      caption: "Sacred Devprayag & Ganga River Confluence"
+    },
+    {
+      id: "ph-yg-6",
+      url: "/gallery/chardham_10d_img_2.jpg",
+      caption: "Kempty Falls Mussoorie Mountain Vista"
+    }
+  ],
+  hotelPhotos: CURATED_HOTEL_PHOTO_PRESETS,
+  showPhotosPage1: true,
+  showPhotosPage3: true,
+  showHotelPhotos: true,
+  trustPhotos: DEFAULT_TRUST_PHOTOS,
+  showTrustSection: true
+};
+
+// Dedicated 10 Nights / 11 Days Panch Kedar Yatra Sacred Circuit Preset
+export const PANCH_KEDAR_11D_PRESET: ItineraryData = {
+  title: "PANCH KEDAR YATRA 2026",
+  subTitle: "THE SUPREME SHIVA PILGRIMAGE · GARHWAL HIMALAYAS",
+  spiritualHeadline: "10 Nights · 11 Days Sacred Odyssey",
+  dhamsSubtitle: "Kedarnath · Madhyamaheshwar · Tungnath · Rudranath · Kalpeshwar",
+  preparedFor: "Devotees / Trekkers / Spiritual Group",
+  travelDates: "May – Oct 2026 Season",
+  duration: "10 Nights / 11 Days",
+  startingPoint: "Haridwar, Uttarakhand",
+  routeCovered: "Haridwar – Guptkashi – Kedarnath – Guptkashi – Ransi – Madhyamaheshwar – Ransi – Chopta (Tungnath) – Sagar – Rudranath – Helang – Kalpeshwar (Urgam) – Haridwar",
+  overviewSummary: "An extraordinarily divine 10 Nights / 11 Days Panch Kedar pilgrimage journey visiting all 5 holy shrines of Lord Shiva situated in the Garhwal Himalayas. Starting and concluding at Haridwar, this sacred circuit covers Kedarnath (Hump), Madhyamaheshwar (Navel), Tungnath (Arms), Rudranath (Face), and Kalpeshwar (Jata / Locks), traversing alpine meadows, ancient confluences, and high Himalayan ridges.",
+
+  glanceDuration: "10 Nights / 11 Days",
+  glanceDhams: "All 5 Holy Kedars of Lord Shiva",
+  glanceSector: "Haridwar ⇄ Panch Kedar Himalayan Circuit",
+  glanceStartEnd: "Haridwar (Pickup & Drop)",
+  glancePackages: "Standard Package",
+
+  days: [
+    {
+      id: 1,
+      dayNumber: 1,
+      dateStr: "Haridwar to Guptkashi / Sitapur",
+      route: "Haridwar → Devprayag (Sangam) → Rudraprayag → Guptkashi / Sitapur",
+      activities: [
+        "Start early from Haridwar driving alongside the holy Ganges and Alaknanda rivers.",
+        "Witness the holy river confluences at Devprayag and Rudraprayag along the mountain highway.",
+        "Arrive at Guptkashi / Sitapur by evening; check in at hotel, dinner and overnight stay."
+      ],
+      overnightStay: "Guptkashi / Sitapur (Hotel)"
+    },
+    {
+      id: 2,
+      dayNumber: 2,
+      dateStr: "1st Kedar: Trek to Shri Kedarnath Dham",
+      route: "Guptkashi/Sitapur → Gaurikund → Shri Kedarnath Dham (18 km Trek)",
+      activities: [
+        "Drive to Sonprayag/Gaurikund and begin the sacred 18 km trek to Shri Kedarnath Dham (1st Kedar - where Lord Shiva's hump is worshipped).",
+        "Trek past Rambara, Jungle Chatti and Lincholi amidst majestic snow-capped peaks.",
+        "Arrive at Kedarnath base, check in to tents, and attend the sublime Evening Aarti at the ancient temple."
+      ],
+      overnightStay: "Kedarnath (Tent House - Without Food)"
+    },
+    {
+      id: 3,
+      dayNumber: 3,
+      dateStr: "Kedarnath Darshan & Descend to Guptkashi",
+      route: "Shri Kedarnath Dham → Bhairavnath Temple → Gaurikund → Guptkashi",
+      activities: [
+        "Early morning divine Darshan and Puja at Kedarnath Temple; visit Bhairavnath shrine on the cliff above.",
+        "Descend back to Gaurikund and drive to Guptkashi.",
+        "Rest and replenish energy for the upcoming Madhyamaheshwar trek. Dinner and stay at Guptkashi."
+      ],
+      overnightStay: "Guptkashi (Hotel)"
+    },
+    {
+      id: 4,
+      dayNumber: 4,
+      dateStr: "Guptkashi to Ransi & Trek to Goundar / Bantoli",
+      route: "Guptkashi → Mansuna → Ransi Village (Drive 32 km) → Goundar / Bantoli (Trek 8 km)",
+      activities: [
+        "Post breakfast, drive from Guptkashi to Ransi village, the base camp for the 2nd Kedar trek.",
+        "Begin trek through dense oak and rhododendron forests along the roaring Madhyamaheshwar Ganga river.",
+        "Pass by picturesque hamlets and reach Goundar / Bantoli confluence for overnight stay in guesthouse/homestay."
+      ],
+      overnightStay: "Goundar / Bantoli (Guesthouse / Homestay)"
+    },
+    {
+      id: 5,
+      dayNumber: 5,
+      dateStr: "2nd Kedar: Trek to Shri Madhyamaheshwar Temple",
+      route: "Bantoli → Khatara → Nanu → Shri Madhyamaheshwar Dham (Trek 10 km)",
+      activities: [
+        "Ascend through pristine virgin Himalayan forests past Nanu Chatti.",
+        "Reach the sacred meadow of Madhyamaheshwar (3,497 m), the 2nd Kedar where Lord Shiva's navel (Nabhi) is worshipped.",
+        "Attend evening Aarti at the ancient stone temple surrounded by the magnificent Chaukhamba Himalayan peaks."
+      ],
+      overnightStay: "Madhyamaheshwar (Guesthouse / Temple Stay)"
+    },
+    {
+      id: 6,
+      dayNumber: 6,
+      dateStr: "Madhyamaheshwar to Ransi & Drive to Chopta",
+      route: "Madhyamaheshwar → Bantoli → Ransi (Descend Trek 16 km) → Ukhimath → Chopta",
+      activities: [
+        "Wake up to breathtaking morning views of Chaukhamba; attend morning Puja.",
+        "Descend the scenic mountain trail back to Ransi village.",
+        "Board vehicle at Ransi and drive through Ukhimath to the alpine meadows of Chopta (Mini Switzerland of Uttarakhand)."
+      ],
+      overnightStay: "Chopta (Camp / Hotel)"
+    },
+    {
+      id: 7,
+      dayNumber: 7,
+      dateStr: "3rd Kedar: Trek to Shri Tungnath & Chandrashila",
+      route: "Chopta → Shri Tungnath Temple (Trek 3.5 km) → Chandrashila Peak (1.5 km) → Chopta → Sagar Village",
+      activities: [
+        "Early morning trek from Chopta to Shri Tungnath Temple (3,680 m) - the highest Shiva temple in the world and 3rd Kedar (where Lord Shiva's arms appeared).",
+        "Continue an extra 1.5 km to the summit of Chandrashila (4,000 m) for a 360-degree panorama of Nanda Devi, Trishul, and Chaukhamba peaks.",
+        "Descend to Chopta and drive to Sagar village (near Gopeshwar), the base camp for Rudranath. Rest for the night."
+      ],
+      overnightStay: "Sagar Village / Gopeshwar (Hotel)"
+    },
+    {
+      id: 8,
+      dayNumber: 8,
+      dateStr: "Trek towards Rudranath: Sagar to Panar Bugyal",
+      route: "Sagar Village → Pun Bugyal → Litti Bugyal → Panar Bugyal (Trek 12 km)",
+      activities: [
+        "Begin the trek through virgin mossy forests and dense birch trees towards 4th Kedar.",
+        "Climb past Shepherd huts at Pun Bugyal and Litti Bugyal.",
+        "Arrive at the endless rolling alpine meadows of Panar Bugyal with magnificent views of Bandarpoonch, Trishul, and Nanda Devi peaks. Overnight in alpine camp/homestay."
+      ],
+      overnightStay: "Panar Bugyal (Alpine Camp / Shepherd Hut)"
+    },
+    {
+      id: 9,
+      dayNumber: 9,
+      dateStr: "4th Kedar: Rudranath Darshan & Descend to Sagar",
+      route: "Panar Bugyal → Pitradhar → Shri Rudranath Dham (Trek 8 km) → Return to Sagar Village",
+      activities: [
+        "Cross Pitradhar ridge and traverse scenic rhododendron trails to reach the natural rock temple of Shri Rudranath (4th Kedar).",
+        "Seek blessings before the mystical natural stone face (Mukharwinda / divine face of Lord Shiva). Take holy water at Surya Kund and Chandra Kund.",
+        "Descend back via Panar Bugyal to Sagar village for hot meals and comfortable overnight rest."
+      ],
+      overnightStay: "Sagar Village / Gopeshwar (Hotel)"
+    },
+    {
+      id: 10,
+      dayNumber: 10,
+      dateStr: "5th Kedar: Kalpeshwar Temple & Drive to Pipalkoti",
+      route: "Gopeshwar → Chamoli → Helang → Urgam Valley → Shri Kalpeshwar Dham → Pipalkoti",
+      activities: [
+        "Post breakfast, drive from Gopeshwar through Chamoli to Helang.",
+        "Enter the peaceful Urgam Valley to visit Shri Kalpeshwar Temple (5th Kedar, 2,200 m), where Lord Shiva's matted hair (Jata) is worshipped inside a sacred rock cave.",
+        "Perform special Abhishek and celebrate the completion of all 5 sacred Kedars. Drive to Pipalkoti for hotel check-in and celebratory dinner."
+      ],
+      overnightStay: "Pipalkoti (Hotel)"
+    },
+    {
+      id: 11,
+      dayNumber: 11,
+      dateStr: "Pipalkoti to Haridwar via Dhari Devi & Devprayag",
+      route: "Pipalkoti → Karnaprayag → Rudraprayag → Maa Dhari Devi Temple → Rishikesh → Haridwar",
+      activities: [
+        "Final leg of the supreme Panch Kedar odyssey descending along the Alaknanda valley.",
+        "Seek blessings at the divine Dhari Devi Temple on the riverbank and witness the grand Devprayag confluence.",
+        "Arrive at Haridwar by late afternoon. Haridwar Railway Station / Hotel drop-off. Supreme Panch Kedar Yatra concludes with eternal peace and divine grace."
+      ],
+      overnightStay: "Tour Concludes (Haridwar Drop)"
+    }
+  ],
+
+  pricingSubtitle: "Confirmed 10 Nights / 11 Days Complete Panch Kedar Sacred Pilgrimage Package with hill transport and verified stays.",
+  pricingTiers: [
+    { package: "Standard Package", price: "", hotelCategory: "Standard Clean Rooms & Alpine Camps / Guesthouses", meals: "Breakfast & Dinner (As per Hotel/Camp Menu)", specialFeature: "All Toll, Tax & Parking Included" }
+  ],
+  pricingNote: "Note: Stays during trekking sections (Madhyamaheshwar, Panar Bugyal, Kedarnath) are in basic guesthouses / camps / homestays. All toll, tax, and parking included.",
+
+  inclusions: [
+    "Dedicated Hill Vehicle (Innova / Bolero / Tempo Traveller - Non-AC in hill areas) from Haridwar to Haridwar",
+    "2 Nights Stay at Guptkashi / Sitapur (Hotel - Meals as per hotel menu)",
+    "1 Night Stay at Shri Kedarnath Dham (Tent House - Without Food)",
+    "1 Night Stay at Bantoli / Goundar (Guesthouse / Homestay)",
+    "1 Night Stay at Madhyamaheshwar (Guesthouse / Temple stay)",
+    "1 Night Stay at Chopta (Camp / Hotel)",
+    "2 Nights Stay at Sagar Village / Gopeshwar (Hotel)",
+    "1 Night Stay at Panar Bugyal (Alpine Camp / Shepherd Hut)",
+    "1 Night Stay at Pipalkoti (Hotel)",
+    "Meals provided as per hotel/camp menu (Breakfast & Dinner)",
+    "All Toll, State Tax, Parking charges and Driver Allowance included",
+    "Sightseeing & Treks: All 5 Holy Kedars (Kedarnath, Madhyamaheshwar, Tungnath, Rudranath, Kalpeshwar), Chandrashila Summit, Chopta Meadows, Urgam Valley, Dhari Devi Temple & Panch Prayag"
+  ],
+  exclusions: [
+    "Meals during Kedarnath stay (Kedarnath stay is strictly without food)",
+    "AC will not be allowed on the Yatra in mountain/hill areas",
+    "Pony, palki, doli, porter or guide charges during treks",
+    "VIP / special puja tickets, room heaters, laundry, tips, lunch or mineral water",
+    "Costs arising from natural calamities, landslides or road closures"
+  ],
+
+  goodToKnow: [
+    "Panch Kedar involves high-altitude Himalayan trekking; good physical fitness is recommended.",
+    "Stays at Madhyamaheshwar, Panar Bugyal, and Kedarnath are basic alpine accommodations.",
+    "Meals are provided as per hotel/camp menu (Breakfast & Dinner).",
+    "AC will not be allowed on the Yatra in hill areas due to steep mountain climbs.",
+    "Carry valid photo ID, sturdy trekking shoes, warm woollens, trekking pole, and rain gear."
+  ],
+  bookingPayment: [
+    "25% advance at the time of booking and balance amount to be deposited before starting the Yatra.",
+    "Official Website: www.traymbhkamtour.com | Contact: Hunny (+91 82660 16066, 9389880277)."
+  ],
+
+  contactAgency: "Traymbhkam Tour and Travels",
+  contactPerson: "Mr. Gagandeep (Hunny)",
+  contactPhone: "+91 82660 16066 · 9389880277",
+  motto: "ॐ नमः शिवाय · जय पंच केदार",
+
+  photos: [
+    {
+      id: "ph-pk-1",
+      url: "/gallery/kedarnath_temple.png",
+      caption: "Shri Kedarnath Dham (1st Kedar - Hump of Lord Shiva)"
+    },
+    {
+      id: "ph-pk-2",
+      url: "/gallery/chardham_10d_img_14.jpg",
+      caption: "Shri Tungnath Temple & Chandrashila (3rd Kedar - Highest Shiva Shrine)"
+    },
+    {
+      id: "ph-pk-3",
+      url: "/gallery/chardham_10d_img_11.jpg",
+      caption: "Shri Madhyamaheshwar Valley (2nd Kedar - Navel of Shiva)"
+    },
+    {
+      id: "ph-pk-4",
+      url: "/gallery/chardham_10d_img_20.jpg",
+      caption: "Shri Rudranath Meadow Trails (4th Kedar - Face of Shiva)"
+    },
+    {
+      id: "ph-pk-5",
+      url: "/gallery/chardham_10d_img_21.jpg",
+      caption: "Shri Kalpeshwar Temple Urgam (5th Kedar - Jata of Shiva)"
+    },
+    {
+      id: "ph-pk-6",
+      url: "/gallery/chardham_10d_img_18.jpg",
+      caption: "Maa Dhari Devi & Sacred Himalayan Confluences"
+    }
+  ],
+  hotelPhotos: CURATED_HOTEL_PHOTO_PRESETS,
+  showPhotosPage1: true,
+  showPhotosPage3: true,
+  showHotelPhotos: true,
+  trustPhotos: DEFAULT_TRUST_PHOTOS,
+  showTrustSection: true
+};
+
+// Dedicated 06 Nights / 07 Days Kedarnath - Tungnath - Badrinath Yatra Preset
+export const KEDAR_TUNGNATH_BADRI_7D_PRESET: ItineraryData = {
+  title: "KEDARNATH TUNGNATH BADRINATH YATRA 2026",
+  subTitle: "THE DIVINE SHIVA & VISHNU PILGRIMAGE · CHOPTA CHANDRASHILA CIRCUIT",
+  spiritualHeadline: "06 Nights · 07 Days Complete Himalayan Plan",
+  dhamsSubtitle: "Kedarnath Jyotirlinga · Chopta Tungnath (Highest Shiva Shrine) · Badrinath Dham",
+  preparedFor: "Valued Pilgrims / Family Group",
+  travelDates: "May – Oct 2026 Season",
+  duration: "06 Nights / 07 Days",
+  startingPoint: "Haridwar, Uttarakhand",
+  routeCovered: "Haridwar – Devprayag – Guptkashi – Kedarnath – Guptkashi – Chopta – Tungnath & Chandrashila – Pipalkoti – Badrinath & Mana Village – Pipalkoti – Dhari Devi – Haridwar",
+  overviewSummary: "A magnificent 06 Nights / 07 Days spiritual journey uniting Lord Shiva's sacred Kedarnath Jyotirlinga, the highest Shiva temple on earth at Tungnath (Chopta), and Lord Vishnu's divine seat at Badrinath Dham. Includes stays at Guptkashi / Sitapur (2N), Kedarnath (1N Tent House), Pipalkoti / Chopta (1N), Badrinath (1N), and Pipalkoti (1N), featuring Chandrashila summit views, Mana Village, Vyas Gufa, and Maa Dhari Devi Temple.",
+
+  glanceDuration: "06 Nights / 07 Days",
+  glanceDhams: "Kedarnath · Tungnath · Badrinath",
+  glanceSector: "Haridwar ⇄ Kedar-Tungnath-Badri Circuit",
+  glanceStartEnd: "Haridwar (Pickup & Drop)",
+  glancePackages: "Standard Package",
+
+  days: [
+    {
+      id: 1,
+      dayNumber: 1,
+      dateStr: "Haridwar to Guptkashi / Sitapur",
+      route: "Haridwar → Devprayag (Sangam) → Rudraprayag → Guptkashi / Sitapur",
+      activities: [
+        "Start early morning from Haridwar along the scenic mountain highway following the sacred Alaknanda and Mandakini rivers.",
+        "Witness the holy river confluences at Devprayag (Bhagirathi meets Alaknanda to form Ganga) and Rudraprayag.",
+        "Arrive at Guptkashi / Sitapur by evening; check into hotel, freshen up, enjoy hot dinner and rest."
+      ],
+      overnightStay: "Guptkashi / Sitapur (Hotel)"
+    },
+    {
+      id: 2,
+      dayNumber: 2,
+      dateStr: "Guptkashi to Shri Kedarnath Dham Trek",
+      route: "Guptkashi/Sitapur → Sonprayag → Gaurikund → Shri Kedarnath Dham (18 km Trek)",
+      activities: [
+        "Start at 5:00 AM, drive to Sonprayag and take local union shuttle to Gaurikund.",
+        "Begin the sacred 18 km climb to Shri Kedarnath Dham on foot, pony, palki, or helicopter shuttle.",
+        "Arrive at Kedarnath base, check in to tents/rooms, and attend the spellbinding Evening Aarti at Kedarnath Temple against the backdrop of snow-clad Himalayan peaks."
+      ],
+      overnightStay: "Kedarnath (Tent House - Without Food)"
+    },
+    {
+      id: 3,
+      dayNumber: 3,
+      dateStr: "Kedarnath Darshan & Return to Sitapur / Guptkashi",
+      route: "Shri Kedarnath Dham → Bhairavnath Temple → Gaurikund → Sonprayag → Guptkashi / Sitapur",
+      activities: [
+        "Early morning divine Darshan and Puja at Kedarnath Temple; visit Bhairavnath temple perched on the hill above.",
+        "Descend back along the mountain trail to Gaurikund, shuttle to Sonprayag.",
+        "Return to hotel in Sitapur / Guptkashi for hot meals and relaxing overnight stay."
+      ],
+      overnightStay: "Guptkashi / Sitapur (Hotel)"
+    },
+    {
+      id: 4,
+      dayNumber: 4,
+      dateStr: "Chopta, Tungnath Trek & Drive to Pipalkoti",
+      route: "Guptkashi → Chopta Meadows (Drive 45 km) → Shri Tungnath Temple Trek (3.5 km) → Chandrashila (1.5 km) → Pipalkoti",
+      activities: [
+        "Post breakfast, embark on a scenic drive to Chopta, renowned as the 'Mini Switzerland of Uttarakhand'.",
+        "Trek 3.5 km through lush alpine meadows to Shri Tungnath Temple (3,680 m) - the highest Shiva temple in the world and 3rd Kedar.",
+        "Devotees can hike an extra 1.5 km to Chandrashila Peak (4,000 m) for stunning 360-degree views of Chaukhamba, Trishul, and Nanda Devi peaks.",
+        "Descend back to Chopta in the afternoon and drive through Mandal / Chamoli to Pipalkoti for dinner and overnight stay."
+      ],
+      overnightStay: "Pipalkoti / Chopta (Hotel)"
+    },
+    {
+      id: 5,
+      dayNumber: 5,
+      dateStr: "Pipalkoti to Shri Badrinath Dham",
+      route: "Pipalkoti → Joshimath → Vishnuprayag → Shri Badrinath Dham",
+      activities: [
+        "Morning drive from Pipalkoti to Shri Badrinath Dham (approx. 75 km / 3.5 hrs) along the deep Alaknanda gorge.",
+        "Pass by Vishnuprayag confluence and ascend to the holy shrine of Lord Badri Vishal.",
+        "Check in at hotel in Badrinath. Take a purifying bath in the natural hot sulfur spring of Tapt Kund, perform Darshan and attend the divine Evening Swarna Aarti at Badrinath Temple."
+      ],
+      overnightStay: "Badrinath (Hotel)"
+    },
+    {
+      id: 6,
+      dayNumber: 6,
+      dateStr: "Badrinath, Mana Village & Return to Pipalkoti",
+      route: "Shri Badrinath Dham → Mana Village (Last Indian Village) → Pipalkoti",
+      activities: [
+        "Attend early morning Abhishek ceremony at Badrinath Temple.",
+        "Visit historic Mana Village (3 km ahead): explore Vyas Gufa where Maharishi Ved Vyas composed the Mahabharata, Ganesh Gufa, the colossal rock bridge of Bhim Pul, and the roaring Saraswati River origin.",
+        "In the afternoon, drive back to Pipalkoti; check in at hotel for dinner and restful overnight stay."
+      ],
+      overnightStay: "Pipalkoti (Hotel)"
+    },
+    {
+      id: 7,
+      dayNumber: 7,
+      dateStr: "Pipalkoti to Haridwar via Dhari Devi Temple",
+      route: "Pipalkoti → Karnaprayag → Rudraprayag → Maa Dhari Devi Temple → Devprayag → Rishikesh → Haridwar",
+      activities: [
+        "Final leg of the sacred circuit descending towards the holy plains of Haridwar.",
+        "En route, visit the powerful Maa Dhari Devi Temple situated in the middle of the Alaknanda River (guardian deity of the Char Dham yatra).",
+        "Witness the sacred confluence at Devprayag and pass through Rishikesh. Drop-off at Haridwar Railway Station / Hotel. Tour concludes with divine blessings."
+      ],
+      overnightStay: "Tour Concludes (Haridwar Drop)"
+    }
+  ],
+
+  pricingSubtitle: "Confirmed 06 Nights / 07 Days Kedarnath Tungnath Badrinath Package with dedicated hill vehicle and verified stays.",
+  pricingTiers: [
+    { package: "Standard Package", price: "", hotelCategory: "Standard Clean Rooms (Triple/Quad) & Kedarnath Tent", meals: "Breakfast & Dinner (As per Hotel Menu)", specialFeature: "All Toll, Tax & Parking Included" }
+  ],
+  pricingNote: "Note: All stays are on Triple or Quad-sharing basis (in Kedarnath 5 to 6 sharing Tent House without food). All toll, tax, and parking included.",
+
+  inclusions: [
+    "Dedicated Hill Vehicle (Innova / Dzire / Tempo Traveller - Non-AC in hill areas) from Haridwar to Haridwar",
+    "2 Nights Stay at Guptkashi / Sitapur (Hotel - Meal as per hotel menu)",
+    "1 Night Stay at Shri Kedarnath Dham (Tent House - Without Food, 5 to 6 sharing basis)",
+    "1 Night Stay at Pipalkoti / Chopta (Hotel - Meal as per hotel menu)",
+    "1 Night Stay at Badrinath (Hotel - Meal as per hotel menu)",
+    "1 Night Stay at Pipalkoti (Hotel - Meal as per hotel menu)",
+    "Meals provided as per hotel menu (Breakfast & Dinner at hotels only)",
+    "All Toll, State Tax, Parking charges and Driver Allowance included in the package",
+    "All hotel stays on Triple or Quad-sharing basis",
+    "Sightseeing: Shri Kedarnath Dham, Bhairavnath Temple, Chopta Alpine Meadows, Shri Tungnath Temple Trek, Chandrashila Peak, Shri Badrinath Dham, Mana Village, Vyas Gufa, Bhim Pul, Dhari Devi Temple & Panch Prayag"
+  ],
+  exclusions: [
+    "Meals during Kedarnath overnight stay (Kedarnath Tent House stay is strictly without food)",
+    "AC will not be allowed on the Yatra in mountain/hill areas",
+    "Pony, palki, doli, porter or helicopter shuttle charges at Kedarnath trek",
+    "Any extra sightseeing or destinations apart from mentioned inclusions",
+    "VIP / special puja tickets, room heaters, laundry, tips, lunch or mineral water",
+    "Costs arising from natural calamities, landslides or road closures"
+  ],
+
+  goodToKnow: [
+    "All stays are on Triple or Quad-sharing basis; in Kedarnath stay will be on Five to Six sharing basis (Tent House without food).",
+    "Meals are provided as per hotel menu (Breakfast & Dinner at hotels only).",
+    "AC will not be allowed on the Yatra in hill areas due to steep mountain climbs.",
+    "All toll, tax, and parking charges are included in the package.",
+    "Carry valid government photo ID proof, warm woollens, raincoats, and comfortable trekking shoes."
+  ],
+  bookingPayment: [
+    "25% advance at the time of booking and balance amount to be deposited before starting the Yatra.",
+    "Official Website: www.traymbhkamtour.com | Contact: Hunny (+91 82660 16066, 9389880277)."
+  ],
+
+  contactAgency: "Traymbhkam Tour and Travels",
+  contactPerson: "Mr. Gagandeep (Hunny)",
+  contactPhone: "+91 82660 16066 · 9389880277",
+  motto: "जय श्री केदार · ॐ नमः शिवाय · जय बद्री विशाल",
+
+  photos: [
+    {
+      id: "ph-ktb-1",
+      url: "/gallery/kedarnath_temple.png",
+      caption: "Shri Kedarnath Temple & Holy Nandi Darshan"
+    },
+    {
+      id: "ph-ktb-2",
+      url: "/gallery/chardham_10d_img_14.jpg",
+      caption: "Chopta Tungnath Meadows & Chandrashila Peak (3,680 m)"
+    },
+    {
+      id: "ph-ktb-3",
+      url: "/gallery/chardham_10d_img_15.jpg",
+      caption: "Shri Badrinath Ji Temple - Divine Swarna Facade"
+    },
+    {
+      id: "ph-ktb-4",
+      url: "/gallery/chardham_10d_img_16.jpg",
+      caption: "Mana Village, Vyas Gufa & Bhim Pul Rock Bridge"
+    },
+    {
+      id: "ph-ktb-5",
+      url: "/gallery/chardham_10d_img_18.jpg",
+      caption: "Maa Dhari Devi Temple on Sacred Alaknanda"
+    },
+    {
+      id: "ph-ktb-6",
+      url: "/gallery/chardham_10d_img_19.jpg",
+      caption: "Sacred Devprayag Sangam & Himalayan Valleys"
+    }
+  ],
+  hotelPhotos: CURATED_HOTEL_PHOTO_PRESETS,
+  showPhotosPage1: true,
+  showPhotosPage3: true,
+  showHotelPhotos: true,
+  trustPhotos: DEFAULT_TRUST_PHOTOS,
+  showTrustSection: true
+};
+
 const CURATED_PHOTO_PRESETS = [
   {
     id: "preset-all4-real",
@@ -1282,6 +1876,9 @@ export default function ItineraryBuilder() {
   const QUICK_PROMPTS = [
     "Do Dham Yatra (Kedarnath & Badrinath 5 Nights / 6 Days Plan)",
     "Chardham Yatra 9 Nights / 10 Days Official Plan from Haridwar",
+    "Yamunotri & Gangotri 4 Nights / 5 Days Plan from Haridwar",
+    "Panch Kedar Yatra 10 Nights / 11 Days Sacred Circuit",
+    "Kedarnath - Tungnath - Badrinath 6 Nights / 7 Days Tour",
     "Kashmir Paradise 6D/5N (Srinagar, Gulmarg, Pahalgam)",
     "Golden Triangle Delhi-Agra-Jaipur 5D/4N luxury tour",
     "Kerala Honeymoon 6D/5N (Munnar, Thekkady, Alleppey Houseboat)"
@@ -1307,13 +1904,16 @@ CRITICAL RULES:
 1. Write in flawless, elegant British/Indian English. Absolutely ZERO spelling mistakes, grammatical errors, or garbled characters.
 2. Under NO circumstance should you use weird symbols, unreadable encoding, or corrupted Unicode characters (e.g., do NOT output weird symbols like , special smart quotes, or corrupted apostrophes). Use only clean standard alphanumeric characters, commas, periods, hyphens (-), and simple arrows (→).
 3. DAY NUMBERING: In the "days" array, "dayNumber" must be an integer (1, 2, 3...). In "dateStr", do NOT repeat the word "Day" or write "Day - Day 1" or "Day 1". Provide a concise day title (e.g. "Arrival & The Ascent", "The First Dham - Yamunotri", "Drive to Badrinath & Return").
-4. OFFICIAL TRAYMBHKAM DAY-BY-DAY ROUTING FOR CHAR DHAM (9N/10D) & DO DHAM (5N/6D):
+4. OFFICIAL TRAYMBHKAM DAY-BY-DAY ROUTING FOR UTTARAKHAND YATRA CIRCUITS:
    - For 10 Days / 9 Nights Char Dham Yatra: Day 1 Haridwar to Barkot via Kempty Falls (Stay: Barkot), Day 2 Barkot to Janki Chatti & Yamunotri Dham Trek 6km & return (Stay: Barkot), Day 3 Barkot to Uttarkashi & Kashi Vishwanath Shakti Stambh (Stay: Uttarkashi), Day 4 Uttarkashi to Harsil Valley & Gangotri Dham & return (Stay: Uttarkashi), Day 5 Uttarkashi to Guptkashi & registration check (Stay: Guptkashi), Day 6 Guptkashi to Sonprayag/Gaurikund & 18km trek to Kedarnath Evening Aarti (Stay: Kedarnath Tent House - Without Food), Day 7 Kedarnath morning Abhishek & Bhairav Nath Temple then descend to Guptkashi (Stay: Guptkashi), Day 8 Guptkashi to Pipalkoti via Chopta (Stay: Pipalkoti), Day 9 Pipalkoti to Badrinath Dham & Mana Village (Vyas Gufa, Bhim Pul) 140km UP/DOWN & return to Pipalkoti (Stay: Pipalkoti), Day 10 Pipalkoti to Haridwar via Narsingh Temple Joshimath, Dhari Devi Temple & Panch Prayag (Tour Concludes).
    - For 6 Days / 5 Nights Do Dham (Kedarnath + Badrinath) Yatra: Day 1 Haridwar to Guptkashi / Sitapur (Stay: Guptkashi / Sitapur), Day 2 Guptkashi/Sitapur to Sonprayag/Gaurikund & 18km trek to Kedarnath (Stay: Kedarnath Tent House - Without Food), Day 3 Kedarnath & Bhairav Nath Temple then descend to Sitapur / Guptkashi (Stay: Sitapur / Guptkashi), Day 4 Sitapur/Guptkashi to Pipalkoti via Chopta (Stay: Pipalkoti), Day 5 Pipalkoti to Badrinath Dham & Mana Village (Vyas Gufa, Bhim Pul) 140km UP/DOWN & return to Pipalkoti (Stay: Pipalkoti), Day 6 Pipalkoti to Haridwar via Narsingh Temple Joshimath, Dhari Devi Temple & Panch Prayag (Tour Concludes).
+   - For 5 Days / 4 Nights Yamunotri & Gangotri Do Dham: Day 1 Haridwar to Barkot via Mussoorie/Kempty Falls (Stay: Barkot), Day 2 Barkot to Janki Chatti & Yamunotri Trek (6km) & return (Stay: Barkot), Day 3 Barkot to Uttarkashi & Kashi Vishwanath Darshan (Stay: Uttarkashi), Day 4 Uttarkashi to Harsil Valley & Gangotri Dham Darshan & return (Stay: Uttarkashi), Day 5 Uttarkashi to Haridwar via Chamba/Rishikesh (Tour Concludes).
+   - For 7 Days / 6 Nights Kedarnath - Tungnath - Badrinath: Day 1 Haridwar to Guptkashi (Stay: Guptkashi), Day 2 Guptkashi to Kedarnath Trek 18km (Stay: Kedarnath Tent), Day 3 Kedarnath to Guptkashi (Stay: Guptkashi), Day 4 Guptkashi to Chopta, Tungnath & Chandrashila Trek to Pipalkoti (Stay: Pipalkoti), Day 5 Pipalkoti to Badrinath Dham Darshan (Stay: Badrinath), Day 6 Badrinath & Mana Village to Pipalkoti (Stay: Pipalkoti), Day 7 Pipalkoti to Haridwar via Dhari Devi & Rishikesh (Tour Concludes).
+   - For 11 Days / 10 Nights Panch Kedar Yatra: Day 1 Haridwar to Guptkashi (Stay: Guptkashi), Day 2 1st Kedar: Kedarnath Trek (Stay: Kedarnath), Day 3 Kedarnath to Guptkashi (Stay: Guptkashi), Day 4 Guptkashi to Ransi & Trek Bantoli (Stay: Bantoli), Day 5 2nd Kedar: Madhyamaheshwar Trek (Stay: Madhyamaheshwar), Day 6 Madhyamaheshwar to Ransi & Drive Chopta (Stay: Chopta), Day 7 3rd Kedar: Tungnath & Chandrashila to Sagar (Stay: Sagar/Gopeshwar), Day 8 Sagar to Panar Bugyal (Stay: Panar Bugyal), Day 9 4th Kedar: Rudranath Darshan to Sagar (Stay: Sagar), Day 10 5th Kedar: Kalpeshwar to Pipalkoti (Stay: Pipalkoti), Day 11 Pipalkoti to Haridwar (Tour Concludes).
 5. SIGHTSEEING ROUTE: Use clean arrow formatting like "Haridwar → Guptkashi → Kedarnath".
 6. RETURN ONLY valid, raw JSON (strictly no markdown wrappers, no \`\`\`json).
 7. SINGLE PACKAGE ONLY: In "pricingTiers", generate strictly ONE package tier titled "Standard Package". Never generate 3 packages or multiple package tiers.
-8. BLESSING MOTTO: "motto" must strictly be in Hindi: "जय श्री केदार · जय बद्री विशाल". Only this blessing tagline must be used.
+8. BLESSING MOTTO: "motto" must strictly be in Hindi: "जय श्री केदार · जय बद्री विशाल" or matching the deity (e.g. "जय माँ यमुने · जय माँ गंगे" or "ॐ नमः शिवाय · जय पंच केदार").
 9. VEHICLE & NON-AC IN HILLS: In Uttarakhand mountain and hill areas, AC is not allowed on the Yatra. Strictly write "Dedicated Hill Vehicle (Innova Crysta / Tempo Traveller - Non-AC in hill areas)".
 10. STANDARD PACKAGE & SHARING TERMS: All hotel stays are on Triple or Quad-sharing basis (Meal provided as per hotel menu); in Kedarnath stay is on Five to Six sharing basis in Tent House (Without Food). 25% advance at the time of booking and balance amount to be deposited before starting the Yatra. In goodToKnow or booking terms, NEVER mention GST.
 
@@ -2313,23 +2913,33 @@ ${data.motto}`;
     const hasBadrinath = /badrinath|badri|mana village|joshimath/i.test(textCorpus);
     const hasGangotri = /gangotri|bhagirathi|uttarkashi|harsil/i.test(textCorpus);
     const hasYamunotri = /yamunotri|yamuna|barkot|janki chatti/i.test(textCorpus);
+    const isPanchKedar = /panch kedar|panchkedar|madhyamaheshwar|rudranath|kalpeshwar/i.test(textCorpus);
+    const isKedarTungnathBadri = /tungnath|chandrashila/i.test(textCorpus) && hasKedarnath && hasBadrinath;
 
     const isCharDham =
-      /chardham|char dham/i.test(textCorpus) ||
-      ((hasYamunotri || hasGangotri) && hasKedarnath && hasBadrinath) ||
-      data.days.length >= 8;
+      !isPanchKedar && !isKedarTungnathBadri &&
+      (/chardham|char dham/i.test(textCorpus) ||
+        ((hasYamunotri || hasGangotri) && hasKedarnath && hasBadrinath) ||
+        data.days.length >= 8);
 
     const isDoDham =
-      !isCharDham &&
-      (/do dham|dodham|kedarnath badrinath/i.test(textCorpus) ||
+      !isCharDham && !isPanchKedar &&
+      (/do dham|dodham|kedarnath badrinath|yamunotri gangotri/i.test(textCorpus) ||
         (hasKedarnath && hasBadrinath) ||
+        (hasYamunotri && hasGangotri) ||
         data.days.length <= 7);
 
     // Resolve matching default authentic hero image for the active Dham circuit
     let defaultHeroUrl = "/gallery/chardham_10d_img_1.jpg";
     let defaultHeroCaption = "Char Dham Yatra — Yamunotri · Gangotri · Kedarnath · Badrinath";
 
-    if (isDoDham) {
+    if (isPanchKedar) {
+      defaultHeroUrl = "/gallery/kedarnath_temple.png";
+      defaultHeroCaption = "Panch Kedar Yatra — Kedarnath · Madhyamaheshwar · Tungnath · Rudranath · Kalpeshwar";
+    } else if (hasYamunotri && hasGangotri && !hasKedarnath) {
+      defaultHeroUrl = "/gallery/chardham_10d_img_8.jpg";
+      defaultHeroCaption = "Do Dham Yatra — Shri Yamunotri Dham & Shri Gangotri Dham";
+    } else if (isDoDham || isKedarTungnathBadri) {
       defaultHeroUrl = "/gallery/dodham_banner.jpg";
       defaultHeroCaption = "Do Dham Yatra — Shri Kedarnath Dham & Shri Badrinath Dham";
     } else if (isCharDham) {
@@ -2412,7 +3022,13 @@ ${data.motto}`;
         <div className="relative z-10 w-full flex items-center justify-between px-6 mt-6 mb-1 text-amber-600">
           <span className="text-4xl text-amber-500 drop-shadow-xs leading-none">ॐ</span>
           <span className="text-[28px] font-bold tracking-wider text-[#bf5b17] leading-none drop-shadow-xs" style={{ fontFamily: "'Yatra One', 'Tiro Devanagari Hindi', 'Noto Serif Devanagari', 'Mangal', serif", textShadow: "0px 1px 2px rgba(0,0,0,0.1)" }}>
-            {isDoDham ? "सेवा संकल्प दो धाम यात्रा" : "सेवा संकल्प चारधाम यात्रा"}
+            {isPanchKedar 
+              ? "सेवा संकल्प पंच केदार यात्रा" 
+              : isKedarTungnathBadri
+              ? "सेवा संकल्प केदारनाथ तुंगनाथ बद्रीनाथ यात्रा"
+              : isDoDham 
+              ? "सेवा संकल्प दो धाम यात्रा" 
+              : "सेवा संकल्प चारधाम यात्रा"}
           </span>
           <span className="text-4xl text-amber-500 drop-shadow-xs leading-none">ॐ</span>
         </div>
@@ -3657,6 +4273,45 @@ ${data.motto}`;
               title="Official 05 Nights / 06 Days Do Dham Yatra (Kedarnath + Badrinath Plan)"
             >
               6D Do Dham (5N/6D Official)
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setData(YAMUNOTRI_GANGOTRI_5D_PRESET);
+                if (typeof window !== "undefined") {
+                  localStorage.setItem("traymbhkam_current_itinerary", JSON.stringify(YAMUNOTRI_GANGOTRI_5D_PRESET));
+                }
+              }}
+              className="px-2.5 py-1 bg-amber-50 text-amber-900 hover:bg-amber-100 border border-amber-300 rounded-lg text-xs font-semibold transition cursor-pointer shadow-2xs"
+              title="Official 04 Nights / 05 Days Yamunotri & Gangotri Do Dham Yatra Plan"
+            >
+              5D Yamunotri &amp; Gangotri
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setData(PANCH_KEDAR_11D_PRESET);
+                if (typeof window !== "undefined") {
+                  localStorage.setItem("traymbhkam_current_itinerary", JSON.stringify(PANCH_KEDAR_11D_PRESET));
+                }
+              }}
+              className="px-2.5 py-1 bg-indigo-50 text-indigo-900 hover:bg-indigo-100 border border-indigo-300 rounded-lg text-xs font-semibold transition cursor-pointer shadow-2xs"
+              title="Official 10 Nights / 11 Days Panch Kedar Sacred Pilgrimage Circuit"
+            >
+              11D Panch Kedar Yatra
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setData(KEDAR_TUNGNATH_BADRI_7D_PRESET);
+                if (typeof window !== "undefined") {
+                  localStorage.setItem("traymbhkam_current_itinerary", JSON.stringify(KEDAR_TUNGNATH_BADRI_7D_PRESET));
+                }
+              }}
+              className="px-2.5 py-1 bg-rose-50 text-rose-900 hover:bg-rose-100 border border-rose-300 rounded-lg text-xs font-semibold transition cursor-pointer shadow-2xs"
+              title="Official 06 Nights / 07 Days Kedarnath, Chopta Tungnath & Badrinath Circuit"
+            >
+              7D Kedar-Tungnath-Badri
             </button>
             <button
               type="button"

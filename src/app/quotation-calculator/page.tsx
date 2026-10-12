@@ -47,6 +47,9 @@ interface PresetPackage {
 const QUICK_PRESETS: PresetPackage[] = [
   { name: "Char Dham Deluxe 9N/10D", pax: 4, days: 10, hotelCost: 38000, cabCost: 55000, mealCost: 18000, otherCost: 3000 },
   { name: "Do Dham Kedar-Badri 5N/6D", pax: 2, days: 6, hotelCost: 18500, cabCost: 24000, mealCost: 7500, otherCost: 2000 },
+  { name: "Yamunotri & Gangotri 4N/5D", pax: 2, days: 5, hotelCost: 14000, cabCost: 21000, mealCost: 6500, otherCost: 1500 },
+  { name: "Kedar-Tungnath-Badri 6N/7D", pax: 4, days: 7, hotelCost: 24000, cabCost: 34000, mealCost: 12000, otherCost: 2500 },
+  { name: "Panch Kedar Circuit 10N/11D", pax: 4, days: 11, hotelCost: 35000, cabCost: 48000, mealCost: 16000, otherCost: 4000 },
   { name: "Ek Dham Kedarnath 3N/4D", pax: 4, days: 4, hotelCost: 16000, cabCost: 17000, mealCost: 8000, otherCost: 2500 },
   { name: "Haridwar-Rishikesh-Mussoorie 2N/3D", pax: 2, days: 3, hotelCost: 8000, cabCost: 9000, mealCost: 3500, otherCost: 1000 },
 ];

@@ -58,7 +58,7 @@ const CLEAN_INITIAL_STATS: DashboardStats = {
   recentActivity: []
 };
 
-// 4 Dham Circuit Quick Presets (Haridwar Departures)
+// 4 Dham & Sacred Himalayan Circuit Quick Presets (Haridwar Departures)
 const DHAM_CIRCUITS = [
   {
     name: "Complete Char Dham Yatra",
@@ -75,18 +75,32 @@ const DHAM_CIRCUITS = [
     badge: "High Demand",
   },
   {
+    name: "Yamunotri & Gangotri Do Dham",
+    dhams: "Yamunotri Dham • Harsil Apple Valley • Gangotri",
+    days: "4N / 5D",
+    route: "Ex-Haridwar / Dehradun",
+    badge: "Sacred Rivers",
+  },
+  {
+    name: "Kedarnath - Tungnath - Badrinath",
+    dhams: "Kedarnath Jyotirlinga • Chopta Tungnath • Badrinath",
+    days: "6N / 7D",
+    route: "Ex-Haridwar Hub",
+    badge: "Highest Shiva Shrine",
+  },
+  {
+    name: "Panch Kedar Holy Circuit",
+    dhams: "Kedarnath • Madhyamaheshwar • Tungnath • Rudranath • Kalpeshwar",
+    days: "10N / 11D",
+    route: "Ex-Haridwar Hub",
+    badge: "Supreme Shiva Yatra",
+  },
+  {
     name: "Ek Dham (Kedarnath Trek / Heli)",
     dhams: "Guptkashi • Phata • Kedarnath Shrine",
     days: "3N / 4D",
     route: "Ex-Haridwar / Dehradun",
     badge: "Helicopter / Trek",
-  },
-  {
-    name: "Badrinath & Mana Village Excursion",
-    dhams: "Badrinath Temple • Vyas Gufa • Joshimath",
-    days: "3N / 4D",
-    route: "Ex-Haridwar",
-    badge: "Senior Friendly",
   }
 ];
 
