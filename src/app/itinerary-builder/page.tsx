@@ -971,8 +971,8 @@ export const YAMUNOTRI_GANGOTRI_5D_PRESET: ItineraryData = {
     },
     {
       id: "ph-yg-3",
-      url: "/gallery/chardham_10d_img_10.jpg",
-      caption: "Harsil Valley Pine Forests & Apple Orchards"
+      url: "/gallery/chardham_10d_img_14.jpg",
+      caption: "Scenic Himalayan Valleys & Pine Meadows"
     },
     {
       id: "ph-yg-4",
