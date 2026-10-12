@@ -986,8 +986,8 @@ export const YAMUNOTRI_GANGOTRI_5D_PRESET: ItineraryData = {
     },
     {
       id: "ph-yg-6",
-      url: "/gallery/chardham_10d_img_2.jpg",
-      caption: "Kempty Falls Mussoorie Mountain Vista"
+      url: "/gallery/chardham_10d_img_1.jpg",
+      caption: "Sacred Himalayan Shrines & Mountain Valleys"
     }
   ],
   hotelPhotos: CURATED_HOTEL_PHOTO_PRESETS,
@@ -1210,23 +1210,23 @@ export const PANCH_KEDAR_11D_PRESET: ItineraryData = {
     },
     {
       id: "ph-pk-3",
-      url: "/gallery/chardham_10d_img_11.jpg",
-      caption: "Shri Madhyamaheshwar Valley (2nd Kedar - Navel of Shiva)"
+      url: "/gallery/chardham_10d_img_1.jpg",
+      caption: "Sacred Himalayan Shrines & Divine Mountain Ridges"
     },
     {
       id: "ph-pk-4",
-      url: "/gallery/chardham_10d_img_20.jpg",
-      caption: "Shri Rudranath Meadow Trails (4th Kedar - Face of Shiva)"
+      url: "/gallery/chardham_10d_img_15.jpg",
+      caption: "Holy Alaknanda Valley & Himalayan Shrine Facade"
     },
     {
       id: "ph-pk-5",
-      url: "/gallery/chardham_10d_img_21.jpg",
-      caption: "Shri Kalpeshwar Temple Urgam (5th Kedar - Jata of Shiva)"
+      url: "/gallery/chardham_10d_img_18.jpg",
+      caption: "Maa Dhari Devi Sacred Temple on Alaknanda"
     },
     {
       id: "ph-pk-6",
-      url: "/gallery/chardham_10d_img_18.jpg",
-      caption: "Maa Dhari Devi & Sacred Himalayan Confluences"
+      url: "/gallery/chardham_10d_img_19.jpg",
+      caption: "Sacred Devprayag Sangam & Holy Confluences"
     }
   ],
   hotelPhotos: CURATED_HOTEL_PHOTO_PRESETS,
