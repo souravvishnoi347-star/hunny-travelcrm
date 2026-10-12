@@ -21,7 +21,8 @@ import {
   ArrowDownRight,
   Check,
   ShieldCheck,
-  IndianRupee
+  IndianRupee,
+  FileText
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { saveDocumentToHub, generateNextDocNumber } from "@/lib/documentsHub";
@@ -212,6 +213,7 @@ export default function TransportVouchers() {
   const [data, setData] = useState(DEFAULT_TRANSPORT_DATA);
   const [isDownloading, setIsDownloading] = useState(false);
   const [isFormCollapsed, setIsFormCollapsed] = useState(false);
+  const [mobileTab, setMobileTab] = useState<"form" | "preview">("form");
   const [autoScale, setAutoScale] = useState<number>(0.55);
   const [manualZoom, setManualZoom] = useState<number | null>(null);
   const [fitMode, setFitMode] = useState<"screen" | "width">("screen");
@@ -253,7 +255,7 @@ export default function TransportVouchers() {
       window.removeEventListener("resize", updateScale);
       if (ro) ro.disconnect();
     };
-  }, [isFormCollapsed, fitMode]);
+  }, [isFormCollapsed, fitMode, mobileTab]);
 
   // Load saved transport voucher from localStorage or sync with itinerary
   const [hasSavedItinerary, setHasSavedItinerary] = useState(false);
@@ -886,11 +888,41 @@ export default function TransportVouchers() {
   );
 
   return (
-    <div className="flex flex-col lg:flex-row gap-5 w-full h-[calc(100vh-5rem)]">
+    <div className="flex flex-col lg:flex-row gap-4 lg:gap-5 w-full lg:h-[calc(100vh-5rem)] min-h-0">
       
+      {/* Mobile Mode Segmented Switcher (Edit Details vs Live Voucher & PDF) */}
+      <div className="lg:hidden flex items-center bg-slate-200/90 p-1 rounded-xl shadow-xs shrink-0">
+        <button
+          type="button"
+          onClick={() => setMobileTab("form")}
+          className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-bold transition cursor-pointer ${
+            mobileTab === "form"
+              ? "bg-white text-slate-900 shadow-xs"
+              : "text-slate-600 hover:text-slate-900"
+          }`}
+        >
+          <Car className="w-3.5 h-3.5 text-sky-600" />
+          <span>Edit Details</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setMobileTab("preview")}
+          className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-bold transition cursor-pointer ${
+            mobileTab === "preview"
+              ? "bg-[#0f2744] text-amber-300 shadow-xs"
+              : "text-slate-600 hover:text-slate-900"
+          }`}
+        >
+          <FileText className="w-3.5 h-3.5" />
+          <span>Voucher Preview &amp; PDF</span>
+        </button>
+      </div>
+
       {/* Left Column: Form Controls */}
       {!isFormCollapsed && (
-        <div className="w-full lg:w-[38%] bg-white rounded-2xl shadow-xs border border-gray-100 p-5 overflow-y-auto shrink-0 h-full space-y-4 transition-all duration-300 custom-scrollbar">
+        <div className={`w-full lg:w-[38%] bg-white rounded-2xl shadow-xs border border-gray-100 p-4 sm:p-5 overflow-y-auto shrink-0 lg:h-full space-y-4 transition-all duration-300 custom-scrollbar ${
+          mobileTab === "preview" ? "hidden lg:block" : "block"
+        }`}>
           <div className="flex items-center justify-between pb-3 border-b border-gray-100">
             <div className="flex items-center gap-2.5">
               <div className="w-9 h-9 rounded-xl bg-sky-100 text-sky-600 flex items-center justify-center font-bold">
@@ -1333,7 +1365,9 @@ export default function TransportVouchers() {
       )}
 
       {/* Right Column: Live Centered Preview */}
-      <div className={`flex flex-col gap-3 transition-all duration-300 h-full ${isFormCollapsed ? "w-full" : "w-full lg:w-[62%]"}`}>
+      <div className={`flex flex-col gap-3 transition-all duration-300 lg:h-full ${isFormCollapsed ? "w-full" : "w-full lg:w-[62%]"} ${
+        mobileTab === "form" ? "hidden lg:flex" : "flex"
+      }`}>
         
         {/* Sleek Toolbar */}
         <div className="bg-white px-4 py-2.5 rounded-2xl shadow-xs border border-gray-100 flex flex-wrap items-center justify-between gap-3 shrink-0">

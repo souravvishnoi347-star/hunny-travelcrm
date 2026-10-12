@@ -224,18 +224,18 @@ export default function Dashboard() {
         </div>
 
         {/* Executive Action Buttons */}
-        <div className="flex items-center gap-2 shrink-0 flex-wrap">
+        <div className="grid grid-cols-2 sm:flex sm:items-center gap-2 shrink-0 w-full sm:w-auto">
           <Link 
             href="/rentals" 
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20 text-amber-900 rounded-lg font-medium text-xs transition cursor-pointer"
+            className="inline-flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 sm:py-1.5 bg-amber-500/10 border border-amber-500/30 hover:bg-amber-500/20 text-amber-900 rounded-lg font-medium text-xs transition cursor-pointer"
           >
             <Bike size={14} className="text-amber-700" />
-            <span>Bike &amp; Scooty Desk</span>
+            <span>Bike Desk</span>
           </Link>
 
           <Link 
             href="/invoices" 
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-200/90 hover:border-slate-300 hover:bg-slate-50 text-slate-700 rounded-lg font-medium text-xs shadow-[0_1px_2px_rgba(0,0,0,0.03)] transition cursor-pointer"
+            className="inline-flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 sm:py-1.5 bg-white border border-slate-200/90 hover:border-slate-300 hover:bg-slate-50 text-slate-700 rounded-lg font-medium text-xs shadow-[0_1px_2px_rgba(0,0,0,0.03)] transition cursor-pointer"
           >
             <FileText size={14} className="text-amber-600" />
             <span>Quick Invoice</span>
@@ -243,7 +243,7 @@ export default function Dashboard() {
 
           <Link 
             href="/transport" 
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-200/90 hover:border-slate-300 hover:bg-slate-50 text-slate-700 rounded-lg font-medium text-xs shadow-[0_1px_2px_rgba(0,0,0,0.03)] transition cursor-pointer"
+            className="inline-flex items-center justify-center sm:justify-start gap-1.5 px-3 py-2 sm:py-1.5 bg-white border border-slate-200/90 hover:border-slate-300 hover:bg-slate-50 text-slate-700 rounded-lg font-medium text-xs shadow-[0_1px_2px_rgba(0,0,0,0.03)] transition cursor-pointer"
           >
             <Car size={14} className="text-slate-600" />
             <span>Fleet Voucher</span>
@@ -251,7 +251,7 @@ export default function Dashboard() {
 
           <Link 
             href="/itinerary-builder" 
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#0b1320] hover:bg-[#16233b] text-white rounded-lg font-semibold text-xs shadow-sm transition cursor-pointer border border-slate-800"
+            className="inline-flex items-center justify-center sm:justify-start gap-1.5 px-3.5 py-2 sm:py-1.5 bg-[#0b1320] hover:bg-[#16233b] text-white rounded-lg font-semibold text-xs shadow-sm transition cursor-pointer border border-slate-800"
           >
             <Plus size={14} className="text-amber-400" />
             <span>New Proposal</span>

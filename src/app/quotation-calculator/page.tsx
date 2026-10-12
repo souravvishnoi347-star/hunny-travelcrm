@@ -233,43 +233,43 @@ export default function QuotationCalculatorPage() {
   return (
     <div className="min-h-screen bg-slate-50/70 text-slate-900 pb-16">
       {/* Luxury Compact Top Navigation Header */}
-      <div className="bg-white border-b border-slate-200/90 sticky top-0 z-30 shadow-[0_1px_3px_rgba(0,0,0,0.03)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5">
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-[#0b1320] text-amber-400 flex items-center justify-center shadow-xs border border-slate-800">
+      <div className="bg-white border-b border-slate-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.03)]">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2.5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div className="w-8 h-8 rounded-lg bg-[#0b1320] text-amber-400 flex items-center justify-center shadow-xs border border-slate-800 shrink-0">
                 <Calculator className="w-4 h-4" />
               </div>
-              <div>
-                <div className="flex items-center gap-1.5">
-                  <h1 className="text-sm font-bold text-slate-900 leading-tight">Trip Quotation &amp; Margin Calculator</h1>
+              <div className="min-w-0">
+                <div className="flex items-center gap-1.5 flex-wrap">
+                  <h1 className="text-sm font-bold text-slate-900 leading-tight">Trip Quotation Calculator</h1>
                   <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200/60 uppercase">
-                    Traymbhkam Pricing Desk
+                    Pricing Desk
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-500">Fast cost calculation, margins &amp; instant branded WhatsApp quotes</p>
+                <p className="text-[11px] text-slate-500 hidden sm:block">Fast cost calculation, margins &amp; instant branded WhatsApp quotes</p>
               </div>
             </div>
 
             {/* Mode Switcher: Quick vs Detailed & Action Buttons */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto">
               <div className="bg-slate-100 p-0.5 rounded-lg flex items-center border border-slate-200/80">
                 <button
                   type="button"
                   onClick={() => setViewMode("quick")}
-                  className={`px-3 py-1 text-xs font-semibold rounded-md transition-all cursor-pointer flex items-center gap-1.5 ${
+                  className={`px-2.5 py-1 text-xs font-semibold rounded-md transition-all cursor-pointer flex items-center gap-1 ${
                     viewMode === "quick"
                       ? "bg-white text-slate-900 shadow-xs border border-slate-200/90 font-bold"
                       : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
                   <Zap className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-                  Quick Mode
+                  Quick
                 </button>
                 <button
                   type="button"
                   onClick={() => setViewMode("detailed")}
-                  className={`px-3 py-1 text-xs font-semibold rounded-md transition-all cursor-pointer flex items-center gap-1.5 ${
+                  className={`px-2.5 py-1 text-xs font-semibold rounded-md transition-all cursor-pointer flex items-center gap-1 ${
                     viewMode === "detailed"
                       ? "bg-white text-slate-900 shadow-xs border border-slate-200/90 font-bold"
                       : "text-slate-600 hover:text-slate-900"
@@ -281,27 +281,29 @@ export default function QuotationCalculatorPage() {
               </div>
 
               {/* Action Buttons */}
-              <button
-                onClick={copyQuotation}
-                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200/90 rounded-lg text-xs font-semibold transition cursor-pointer shadow-xs"
-              >
-                {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5 text-slate-500" />}
-                {copied ? "Copied" : "Copy"}
-              </button>
+              <div className="flex items-center gap-1.5">
+                <button
+                  onClick={copyQuotation}
+                  className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200/90 rounded-lg text-xs font-semibold transition cursor-pointer shadow-xs"
+                >
+                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5 text-slate-500" />}
+                  <span>{copied ? "Copied" : "Copy"}</span>
+                </button>
 
-              <button
-                onClick={shareOnWhatsApp}
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#25D366] hover:bg-[#20bd5a] text-slate-950 rounded-lg text-xs font-bold shadow-xs transition cursor-pointer"
-              >
-                <Share2 className="w-3.5 h-3.5 text-slate-950" />
-                WhatsApp
-              </button>
+                <button
+                  onClick={shareOnWhatsApp}
+                  className="inline-flex items-center gap-1 px-3 py-1.5 bg-[#25D366] hover:bg-[#20bd5a] text-slate-950 rounded-lg text-xs font-bold shadow-xs transition cursor-pointer"
+                >
+                  <Share2 className="w-3.5 h-3.5 text-slate-950" />
+                  <span>WhatsApp</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 pt-3 sm:pt-4">
         {/* Quick Presets Bar (Refined Luxury Pills) */}
         <div className="bg-white rounded-xl p-2.5 border border-slate-200/80 shadow-[0_1px_3px_rgba(0,0,0,0.02)] mb-4 flex items-center gap-2 overflow-x-auto">
           <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider shrink-0 flex items-center gap-1 pl-1">

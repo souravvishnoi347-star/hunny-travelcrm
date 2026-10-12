@@ -34,9 +34,9 @@ export function CrmLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <Sidebar />
-      <main className="lg:pl-72 flex-1 flex flex-col min-h-screen pt-16 lg:pt-0 bg-[#f8fafc]">
-        {/* Sleek Top Header Bar */}
-        <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200/70 px-4 md:px-7 py-2.5 flex items-center justify-between shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
+      <main className="lg:pl-72 flex-1 flex flex-col min-h-screen pt-[calc(3.75rem+env(safe-area-inset-top,0px))] lg:pt-0 pb-[calc(4.25rem+env(safe-area-inset-bottom,0px))] lg:pb-0 bg-[#f8fafc]">
+        {/* Sleek Top Header Bar (Desktop & Tablet only - Mobile uses unified App Header) */}
+        <header className="hidden lg:flex sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200/70 px-4 md:px-7 py-2.5 items-center justify-between shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
           <GlobalSearch />
           
           <div className="flex items-center gap-3 text-xs">
@@ -75,7 +75,7 @@ export function CrmLayout({ children }: { children: React.ReactNode }) {
         </header>
 
         {/* Content Area */}
-        <div className="flex-1 w-full mx-auto p-4 md:p-6 lg:p-7">
+        <div className="flex-1 w-full mx-auto p-3 sm:p-5 lg:p-7">
           {children}
         </div>
       </main>

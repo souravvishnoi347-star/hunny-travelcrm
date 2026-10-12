@@ -21,7 +21,8 @@ import {
   MessageSquare,
   Calculator,
   ShieldCheck,
-  ChevronRight
+  ChevronRight,
+  PhoneCall
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 
@@ -63,43 +64,68 @@ export function Sidebar() {
 
   return (
     <>
-      {/* Mobile Top Navigation */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-[#0c1524] border-b border-slate-800 z-50 flex items-center justify-between px-4">
-        <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-lg bg-white p-1 flex items-center justify-center shadow-xs border border-amber-500/30">
+      {/* Mobile Top Navigation (Unified single app header with safe area) */}
+      <div 
+        className="lg:hidden fixed top-0 left-0 right-0 bg-[#0c1524] border-b border-slate-800/90 z-50 flex items-center justify-between px-3.5 shadow-md"
+        style={{ 
+          paddingTop: "env(safe-area-inset-top, 0px)",
+          height: "calc(3.75rem + env(safe-area-inset-top, 0px))" 
+        }}
+      >
+        <Link 
+          href="/" 
+          onClick={() => setMobileMenuOpen(false)}
+          className="flex items-center gap-2.5 min-w-0"
+        >
+          <div className="w-9 h-9 rounded-xl bg-white p-1 flex items-center justify-center shadow-xs border border-amber-500/40 shrink-0">
             <img src="/logo.png" alt="Traymbhkam Travels" className="h-full w-full object-contain" />
           </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-bold text-white tracking-tight">Traymbhkam Travels</span>
-            <span className="text-[9px] text-amber-400 font-semibold tracking-wider uppercase">Chardham Specialist</span>
+          <div className="flex flex-col min-w-0">
+            <span className="text-sm font-bold text-white tracking-tight truncate">Traymbhkam Travels</span>
+            <span className="text-[9.5px] text-amber-400 font-semibold tracking-wider uppercase truncate">Haridwar Operations Hub</span>
           </div>
+        </Link>
+
+        <div className="flex items-center gap-1.5 shrink-0">
+          <a
+            href="tel:+918266016066"
+            title="Helpline Call: +91 82660 16066"
+            className="p-2 rounded-lg text-amber-400 hover:text-amber-300 hover:bg-slate-800/70 transition"
+          >
+            <PhoneCall size={18} />
+          </a>
+          <button
+            onClick={() => setMobileMenuOpen(true)}
+            aria-label="Open Navigation Menu"
+            className="p-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition cursor-pointer"
+          >
+            <Menu size={22} />
+          </button>
         </div>
-        <button
-          onClick={() => setMobileMenuOpen(true)}
-          className="p-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition"
-        >
-          <Menu size={22} />
-        </button>
       </div>
 
       {/* Mobile Backdrop */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-xs lg:hidden transition-opacity"
+          className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs lg:hidden transition-opacity"
           onClick={() => setMobileMenuOpen(false)}
         />
       )}
 
-      {/* Luxury Dark Sidebar */}
+      {/* Luxury Dark Sidebar Drawer */}
       <aside
+        style={{ 
+          paddingTop: "env(safe-area-inset-top, 0px)",
+          paddingBottom: "env(safe-area-inset-bottom, 0px)" 
+        }}
         className={`fixed inset-y-0 left-0 z-50 w-72 bg-[#0b1320] text-slate-300 border-r border-slate-800/80 flex flex-col transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
-          mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+          mobileMenuOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
         }`}
       >
-        {/* Brand Header */}
-        <div className="px-5 py-5 border-b border-slate-800/80 bg-[#080e18]">
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-11 h-11 rounded-xl bg-white p-1 shadow-sm flex items-center justify-center border border-amber-400/40 group-hover:border-amber-400 transition-colors shrink-0">
+        {/* Brand Header with Close Button on Mobile */}
+        <div className="px-4 py-4 border-b border-slate-800/80 bg-[#080e18] flex items-center justify-between">
+          <Link href="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2.5 group min-w-0">
+            <div className="w-10 h-10 rounded-xl bg-white p-1 shadow-sm flex items-center justify-center border border-amber-400/40 group-hover:border-amber-400 transition-colors shrink-0">
               <img 
                 src="/logo.png" 
                 alt="Traymbhkam Tour and Travels" 
@@ -108,18 +134,27 @@ export function Sidebar() {
             </div>
             <div className="flex flex-col min-w-0">
               <div className="flex items-center gap-1.5">
-                <span className="text-[14px] font-bold text-white tracking-tight group-hover:text-amber-300 transition-colors truncate">
+                <span className="text-[13.5px] font-bold text-white tracking-tight group-hover:text-amber-300 transition-colors truncate">
                   Traymbhkam
                 </span>
-                <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-amber-500/15 text-amber-400 border border-amber-500/30">
+                <span className="text-[8.5px] font-bold px-1.5 py-0.2 rounded bg-amber-500/15 text-amber-400 border border-amber-500/30">
                   EST. 2022
                 </span>
               </div>
-              <span className="text-[9.5px] font-semibold text-slate-400 uppercase tracking-widest mt-0.5">
+              <span className="text-[9px] font-semibold text-slate-400 uppercase tracking-widest mt-0.5 truncate">
                 Tour &amp; Travels &bull; Haridwar
               </span>
             </div>
           </Link>
+
+          {/* Close button on mobile drawer */}
+          <button
+            onClick={() => setMobileMenuOpen(false)}
+            aria-label="Close navigation drawer"
+            className="lg:hidden p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer shrink-0 ml-1"
+          >
+            <X size={20} />
+          </button>
         </div>
 
         {/* Categorized Navigation */}
@@ -207,6 +242,77 @@ export function Sidebar() {
           </button>
         </div>
       </aside>
+
+      {/* Mobile Bottom Navigation Bar (Native App Style) */}
+      <nav 
+        className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200/90 shadow-[0_-2px_10px_rgba(0,0,0,0.06)] flex items-center justify-around px-1.5 py-1"
+        style={{ paddingBottom: "max(0.35rem, env(safe-area-inset-bottom, 0px))" }}
+      >
+        <Link
+          href="/"
+          onClick={() => setMobileMenuOpen(false)}
+          className={`flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition ${
+            pathname === "/"
+              ? "text-amber-800 font-bold bg-amber-500/15"
+              : "text-slate-500 hover:text-slate-900"
+          }`}
+        >
+          <LayoutDashboard className={`w-5 h-5 ${pathname === "/" ? "text-amber-600" : "text-slate-500"}`} />
+          <span className="text-[10px] mt-0.5 tracking-tight font-medium">Home</span>
+        </Link>
+
+        <Link
+          href="/itinerary-builder"
+          onClick={() => setMobileMenuOpen(false)}
+          className={`flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition ${
+            pathname === "/itinerary-builder"
+              ? "text-amber-800 font-bold bg-amber-500/15"
+              : "text-slate-500 hover:text-slate-900"
+          }`}
+        >
+          <Map className={`w-5 h-5 ${pathname === "/itinerary-builder" ? "text-amber-600" : "text-slate-500"}`} />
+          <span className="text-[10px] mt-0.5 tracking-tight font-medium">Itinerary</span>
+        </Link>
+
+        <Link
+          href="/transport"
+          onClick={() => setMobileMenuOpen(false)}
+          className={`flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition ${
+            pathname === "/transport"
+              ? "text-amber-800 font-bold bg-amber-500/15"
+              : "text-slate-500 hover:text-slate-900"
+          }`}
+        >
+          <Car className={`w-5 h-5 ${pathname === "/transport" ? "text-amber-600" : "text-slate-500"}`} />
+          <span className="text-[10px] mt-0.5 tracking-tight font-medium">Transport</span>
+        </Link>
+
+        <Link
+          href="/quotation-calculator"
+          onClick={() => setMobileMenuOpen(false)}
+          className={`flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition ${
+            pathname === "/quotation-calculator"
+              ? "text-amber-800 font-bold bg-amber-500/15"
+              : "text-slate-500 hover:text-slate-900"
+          }`}
+        >
+          <Calculator className={`w-5 h-5 ${pathname === "/quotation-calculator" ? "text-amber-600" : "text-slate-500"}`} />
+          <span className="text-[10px] mt-0.5 tracking-tight font-medium">Pricing</span>
+        </Link>
+
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="More Features"
+          className={`flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition cursor-pointer ${
+            mobileMenuOpen
+              ? "text-amber-800 font-bold bg-amber-500/15"
+              : "text-slate-500 hover:text-slate-900"
+          }`}
+        >
+          <Menu className={`w-5 h-5 ${mobileMenuOpen ? "text-amber-600" : "text-slate-500"}`} />
+          <span className="text-[10px] mt-0.5 tracking-tight font-medium">Menu</span>
+        </button>
+      </nav>
     </>
   );
 }

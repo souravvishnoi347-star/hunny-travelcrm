@@ -728,6 +728,7 @@ const BLANK_VOUCHER: HotelVoucherData = {
 
 export default function HotelVouchersPage() {
   const [activeTab, setActiveTab] = useState<"single" | "group">("group");
+  const [mobileTab, setMobileTab] = useState<"form" | "preview">("form");
   const [data, setData] = useState<HotelVoucherData>(PRESET_CHARDHAM_10D);
   const [groupData, setGroupData] = useState<GroupTravelVoucherData>(PRESET_GROUP_CHARDHAM_28APRIL);
   const [isDownloading, setIsDownloading] = useState(false);
@@ -1218,7 +1219,7 @@ export default function HotelVouchersPage() {
       window.removeEventListener("resize", updateScale);
       if (ro) ro.disconnect();
     };
-  }, [isFormCollapsed, fitMode, data.stays.length]);
+  }, [isFormCollapsed, fitMode, data.stays.length, mobileTab]);
 
   const currentScale = manualZoom !== null ? manualZoom : autoScale;
 
@@ -2084,8 +2085,36 @@ export default function HotelVouchersPage() {
   };
 
   return (
-    <div className="flex flex-col gap-3 w-full h-[calc(100vh-5rem)]">
+    <div className="flex flex-col gap-3 w-full lg:h-[calc(100vh-5rem)] min-h-0">
       
+      {/* Mobile Mode Segmented Switcher (Edit Details vs Live Voucher & PDF) */}
+      <div className="lg:hidden flex items-center bg-slate-200/90 p-1 rounded-xl shadow-xs shrink-0">
+        <button
+          type="button"
+          onClick={() => setMobileTab("form")}
+          className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-bold transition cursor-pointer ${
+            mobileTab === "form"
+              ? "bg-white text-slate-900 shadow-xs"
+              : "text-slate-600 hover:text-slate-900"
+          }`}
+        >
+          <Building2 className="w-3.5 h-3.5 text-sky-600" />
+          <span>Edit Details</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setMobileTab("preview")}
+          className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-bold transition cursor-pointer ${
+            mobileTab === "preview"
+              ? "bg-[#0369a1] text-white shadow-xs"
+              : "text-slate-600 hover:text-slate-900"
+          }`}
+        >
+          <FileText className="w-3.5 h-3.5" />
+          <span>Voucher Preview &amp; PDF</span>
+        </button>
+      </div>
+
       {/* TOP TABS: Single Family Voucher vs Group Travel Allocation Voucher */}
       <div className="flex flex-wrap items-center justify-between bg-white border border-gray-200 rounded-xl p-2 shadow-2xs shrink-0 gap-2">
         <div className="flex items-center gap-2">
@@ -2136,7 +2165,9 @@ export default function HotelVouchersPage() {
       <div className="flex flex-col lg:flex-row gap-5 w-full flex-1 min-h-0">
         {/* Left Column: Form Controls */}
         {!isFormCollapsed && (
-          <div className="w-full lg:w-[42%] bg-white rounded-2xl shadow-xs border border-gray-100 p-5 overflow-y-auto shrink-0 h-full space-y-4 transition-all duration-300 custom-scrollbar">
+          <div className={`w-full lg:w-[42%] bg-white rounded-2xl shadow-xs border border-gray-100 p-4 sm:p-5 overflow-y-auto shrink-0 lg:h-full space-y-4 transition-all duration-300 custom-scrollbar ${
+            mobileTab === "preview" ? "hidden lg:block" : "block"
+          }`}>
             {activeTab === "group" ? (
               <div className="space-y-4 text-xs">
                 {/* Header & Quick Preset Bar */}
@@ -3195,7 +3226,9 @@ export default function HotelVouchersPage() {
       )}
 
       {/* Right Column: Live Centered Preview */}
-      <div className={`flex flex-col gap-3 transition-all duration-300 h-full ${isFormCollapsed ? "w-full" : "w-full lg:w-[58%]"}`}>
+      <div className={`flex flex-col gap-3 transition-all duration-300 lg:h-full ${isFormCollapsed ? "w-full" : "w-full lg:w-[58%]"} ${
+        mobileTab === "form" ? "hidden lg:flex" : "flex"
+      }`}>
         
         {/* Sleek Toolbar */}
         <div className="bg-white px-4 py-2.5 rounded-2xl shadow-xs border border-gray-100 flex flex-wrap items-center justify-between gap-3 shrink-0">

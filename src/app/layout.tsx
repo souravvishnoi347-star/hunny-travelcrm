@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Outfit, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
@@ -21,6 +21,14 @@ const playfair = Playfair_Display({
   variable: "--font-playfair",
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
+  themeColor: "#0b1320",
+};
 
 export const metadata: Metadata = {
   title: "Traymbhkam Tour and Travels - Chardham Yatra CRM",

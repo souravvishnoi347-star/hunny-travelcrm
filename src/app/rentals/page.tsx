@@ -1044,11 +1044,11 @@ export default function TwoWheelerRentalsPage() {
         </div>
 
         {/* Quick Top Actions */}
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center gap-2 shrink-0 flex-wrap w-full sm:w-auto">
           <button
             onClick={() => handleStartBooking()}
             disabled={availableCount === 0}
-            className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg font-semibold text-xs shadow-sm transition cursor-pointer ${
+            className={`flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3.5 py-2 sm:py-1.5 rounded-lg font-semibold text-xs shadow-sm transition cursor-pointer ${
               availableCount > 0
                 ? "bg-[#0b1320] hover:bg-[#16233b] text-white border border-slate-800"
                 : "bg-slate-200 text-slate-400 cursor-not-allowed"
@@ -1060,7 +1060,7 @@ export default function TwoWheelerRentalsPage() {
 
           <button
             onClick={() => setShowAddVehicleModal(true)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-200/90 hover:border-slate-300 hover:bg-slate-50 text-slate-700 rounded-lg font-medium text-xs shadow-[0_1px_2px_rgba(0,0,0,0.03)] transition cursor-pointer"
+            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 bg-white border border-slate-200/90 hover:border-slate-300 hover:bg-slate-50 text-slate-700 rounded-lg font-medium text-xs shadow-[0_1px_2px_rgba(0,0,0,0.03)] transition cursor-pointer"
           >
             <Key size={14} className="text-slate-500" />
             <span>Add Vehicle</span>
@@ -1068,7 +1068,7 @@ export default function TwoWheelerRentalsPage() {
 
           <button
             onClick={() => handleExportBookingsCsv(activeTab === "followup" ? filteredFollowupBookings : filteredBookings, activeTab === "followup" ? "FollowUp_Fleet" : "All_Bookings")}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-lg font-bold text-xs shadow-2xs transition cursor-pointer"
+            className="inline-flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-lg font-bold text-xs shadow-2xs transition cursor-pointer"
             title="Download CSV / Excel export of bookings and fleet"
           >
             <Download size={14} className="text-emerald-700" />

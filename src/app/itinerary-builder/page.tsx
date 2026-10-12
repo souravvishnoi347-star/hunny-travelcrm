@@ -1504,6 +1504,7 @@ export default function ItineraryBuilder() {
 
   // Preview Controls
   const [activePreviewPage, setActivePreviewPage] = useState<number | "all">(1);
+  const [mobileTab, setMobileTab] = useState<"form" | "preview">("form");
   const [autoScale, setAutoScale] = useState<number>(0.55);
   const [manualZoom, setManualZoom] = useState<number | null>(null);
   const [fitMode, setFitMode] = useState<"screen" | "width">("screen");
@@ -1558,7 +1559,7 @@ export default function ItineraryBuilder() {
       window.removeEventListener("resize", updateScale);
       if (ro) ro.disconnect();
     };
-  }, [activePreviewPage, isFormCollapsed, fitMode]);
+  }, [activePreviewPage, isFormCollapsed, fitMode, mobileTab]);
 
   const currentScale = manualZoom !== null ? manualZoom : autoScale;
 
@@ -4200,11 +4201,41 @@ ${data.motto}`;
   };
 
   return (
-    <div className="flex flex-col lg:flex-row gap-5 w-full h-[calc(100vh-5rem)]">
+    <div className="flex flex-col lg:flex-row gap-4 lg:gap-5 w-full lg:h-[calc(100vh-5rem)] min-h-0">
       
+      {/* Mobile Mode Segmented Switcher (Edit Details vs Live Brochure Preview & PDF) */}
+      <div className="lg:hidden flex items-center bg-slate-200/90 p-1 rounded-xl shadow-xs shrink-0">
+        <button
+          type="button"
+          onClick={() => setMobileTab("form")}
+          className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-bold transition cursor-pointer ${
+            mobileTab === "form"
+              ? "bg-white text-slate-900 shadow-xs"
+              : "text-slate-600 hover:text-slate-900"
+          }`}
+        >
+          <Map className="w-3.5 h-3.5 text-sky-600" />
+          <span>Edit Details</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setMobileTab("preview")}
+          className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-bold transition cursor-pointer ${
+            mobileTab === "preview"
+              ? "bg-[#002f6c] text-amber-300 shadow-xs"
+              : "text-slate-600 hover:text-slate-900"
+          }`}
+        >
+          <FileText className="w-3.5 h-3.5" />
+          <span>Brochure Preview &amp; PDF</span>
+        </button>
+      </div>
+
       {/* LEFT COLUMN: Controls, AI Generator, and Editing Tabs (Can be collapsed for full preview) */}
       {!isFormCollapsed && (
-        <div className="w-full lg:w-[38%] bg-white rounded-2xl shadow-xs border border-gray-100 p-5 overflow-y-auto shrink-0 h-full space-y-5 transition-all duration-300 custom-scrollbar">
+        <div className={`w-full lg:w-[38%] bg-white rounded-2xl shadow-xs border border-gray-100 p-4 sm:p-5 overflow-y-auto shrink-0 lg:h-full space-y-5 transition-all duration-300 custom-scrollbar ${
+          mobileTab === "preview" ? "hidden lg:block" : "block"
+        }`}>
           
           {/* Header with Title & Reset Button */}
           <div className="flex items-center justify-between pb-3 border-b border-gray-100">
@@ -6260,7 +6291,9 @@ ${data.motto}`;
       )}
 
       {/* RIGHT COLUMN: Live Multi-Page Luxury Brochure Preview (Auto-Fitted & Perfectly Proportioned) */}
-      <div className={`flex flex-col gap-3 transition-all duration-300 h-full ${isFormCollapsed ? "w-full" : "w-full lg:w-[62%]"}`}>
+      <div className={`flex flex-col gap-3 transition-all duration-300 lg:h-full ${isFormCollapsed ? "w-full" : "w-full lg:w-[62%]"} ${
+        mobileTab === "form" ? "hidden lg:flex" : "flex"
+      }`}>
         
         {/* Sleek Top Toolbar (No awkward wrapping) */}
         <div className="bg-white px-4 py-2.5 rounded-2xl shadow-xs border border-gray-100 flex flex-wrap items-center justify-between gap-3 shrink-0">
@@ -6289,8 +6322,8 @@ ${data.motto}`;
               <ChevronLeft className="w-3.5 h-3.5" />
             </button>
 
-            {/* Quick Page Jump Buttons */}
-            <div className="flex items-center bg-gray-100 p-0.5 rounded-lg text-xs font-bold text-gray-600">
+            {/* Desktop Quick Page Jump Buttons */}
+            <div className="hidden sm:flex items-center bg-gray-100 p-0.5 rounded-lg text-xs font-bold text-gray-600">
               {[1, 2, 3, 4, 5, 6].map((p) => (
                 <button
                   key={p}
@@ -6310,6 +6343,11 @@ ${data.motto}`;
               >
                 All Pages
               </button>
+            </div>
+
+            {/* Mobile Compact Page Pill */}
+            <div className="sm:hidden px-2 py-1 bg-gray-100 rounded-md text-xs font-bold text-slate-800">
+              {activePreviewPage === "all" ? "All Pages" : `Page ${activePreviewPage}/6`}
             </div>
 
             {/* Next Page */}
