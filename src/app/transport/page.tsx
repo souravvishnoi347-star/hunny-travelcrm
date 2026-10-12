@@ -19,7 +19,9 @@ import {
   ZoomOut,
   Sparkles,
   ArrowDownRight,
-  Check
+  Check,
+  ShieldCheck,
+  IndianRupee
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { saveDocumentToHub, generateNextDocNumber } from "@/lib/documentsHub";
@@ -38,6 +40,15 @@ const PRESET_TRANSPORT_CHARDHAM_ACTUAL = {
   favouringGuest: "Mr. Jayesh Bhai Patel",
   favouringPax: "7",
   favouringVehicle: "Innova",
+  voucherMode: "single_block" as "single_block" | "day_wise",
+  tourName: "Chardham Yatra 2026 (09 Nights / 10 Days Plan)",
+  tourRoute: "Haridwar – Barkot – Yamunotri – Uttarkashi – Gangotri – Guptkashi – Kedarnath – Chopta – Badrinath – Haridwar",
+  totalAmount: "46,000",
+  advanceAmount: "11,500",
+  balanceAmount: "34,500",
+  driverName: "Assigned at Haridwar Pickup",
+  vehiclePlateNo: "UK 07 TA Series",
+  paymentTermsNote: "All Toll, State Tax, Parking Charges & Driver Night Allowances Included.",
   itinerary: [
     { date: "14/05/2026", details: "Haridwar pickup, drive to Barkot via Mussoorie & Kempty Falls", hotel: "Hotel Sarutal, Barkot (7818854893)" },
     { date: "15/05/2026", details: "Barkot to Janki Chatti (36 km), Yamunotri Dham 6 km trek & return to Barkot", hotel: "Hotel Sarutal, Barkot (7818854893)" },
@@ -66,6 +77,15 @@ const PRESET_TRANSPORT_DODHAM_ACTUAL = {
   favouringGuest: "Mr. Surendar Kumar Patti",
   favouringPax: "24+2",
   favouringVehicle: "Tempo Traveller",
+  voucherMode: "single_block" as "single_block" | "day_wise",
+  tourName: "Kedarnath & Badrinath Do Dham Yatra (05 Nights / 06 Days)",
+  tourRoute: "Haridwar – Devprayag – Guptkashi – Sitapur – Kedarnath – Chopta – Pipalkoti – Badrinath – Mana – Haridwar",
+  totalAmount: "28,000",
+  advanceAmount: "8,000",
+  balanceAmount: "20,000",
+  driverName: "Assigned at Haridwar Pickup",
+  vehiclePlateNo: "UK 07 TA Series",
+  paymentTermsNote: "All Toll, State Tax, Parking Charges & Driver Night Allowances Included.",
   itinerary: [
     { date: "14/05/2026", details: "Early morning Haridwar pickup & scenic drive to Guptkashi / Sitapur", hotel: "Hotel Omkara, Guptkashi/Sitapur (8923334391)" },
     { date: "15/05/2026", details: "5:00 AM transfer to Sonprayag/Gaurikund, 18 km Kedarnath Trek & Evening Aarti", hotel: "Kedarnath (Tent House - Without Food)" },
@@ -89,6 +109,15 @@ const PRESET_TRANSPORT_12P_10D = {
   favouringGuest: "12 Pax Group",
   favouringPax: "12",
   favouringVehicle: "Tempo Traveller",
+  voucherMode: "single_block" as "single_block" | "day_wise",
+  tourName: "12 Pax Chardham Yatra (09 Nights / 10 Days)",
+  tourRoute: "Haridwar – Barkot – Yamunotri – Uttarkashi – Gangotri – Guptkashi – Kedarnath – Chopta – Badrinath – Haridwar",
+  totalAmount: "58,000",
+  advanceAmount: "15,000",
+  balanceAmount: "43,000",
+  driverName: "Dedicated Mountain Captain",
+  vehiclePlateNo: "UK 07 TA Series",
+  paymentTermsNote: "All Toll, State Tax, Parking Charges & Driver Night Allowances Included.",
   itinerary: [
     { date: "Day 1", details: "Haridwar pickup, climb into Shivalik ranges via Mussoorie & Kempty Falls to Barkot", hotel: "Hotel, Barkot (Meal as per menu)" },
     { date: "Day 2", details: "36 km drive to Janki Chatti, 6 km trek to Yamunotri Dham, Surya Kund & return to Barkot", hotel: "Hotel, Barkot (Meal as per menu)" },
@@ -103,7 +132,6 @@ const PRESET_TRANSPORT_12P_10D = {
   ]
 };
 
-
 const DEFAULT_TRANSPORT_DATA = {
   date: "15 May 2026",
   exoNo: "UK-TR-2026",
@@ -117,6 +145,15 @@ const DEFAULT_TRANSPORT_DATA = {
   favouringGuest: "Valued Guest",
   favouringPax: "04",
   favouringVehicle: "01 Innova Crysta / Dzire (Non-AC in Hills)",
+  voucherMode: "single_block" as "single_block" | "day_wise",
+  tourName: "Complete Char Dham Yatra (09 Nights / 10 Days)",
+  tourRoute: "Haridwar – Mussoorie – Barkot – Yamunotri – Uttarkashi – Gangotri – Guptkashi – Kedarnath – Chopta – Badrinath – Pipalkoti – Haridwar",
+  totalAmount: "48,000",
+  advanceAmount: "12,000",
+  balanceAmount: "36,000",
+  driverName: "Assigned at Haridwar Pickup",
+  vehiclePlateNo: "UK Commercial Hill Tourist Cab",
+  paymentTermsNote: "All Toll, State Tax, Parking Charges & Driver Night Allowances Included. Balance payable at Haridwar pickup.",
   itinerary: [
     { 
       date: "Day 1", 
@@ -229,7 +266,19 @@ export default function TransportVouchers() {
         if (savedTransport) {
           const parsed = JSON.parse(savedTransport);
           if (parsed && parsed.itinerary && parsed.itinerary.length > 0) {
-            setData(parsed);
+            setData({
+              ...DEFAULT_TRANSPORT_DATA,
+              ...parsed,
+              voucherMode: parsed.voucherMode || "single_block",
+              tourName: parsed.tourName || DEFAULT_TRANSPORT_DATA.tourName,
+              tourRoute: parsed.tourRoute || DEFAULT_TRANSPORT_DATA.tourRoute,
+              totalAmount: parsed.totalAmount || DEFAULT_TRANSPORT_DATA.totalAmount,
+              advanceAmount: parsed.advanceAmount || DEFAULT_TRANSPORT_DATA.advanceAmount,
+              balanceAmount: parsed.balanceAmount || DEFAULT_TRANSPORT_DATA.balanceAmount,
+              driverName: parsed.driverName || DEFAULT_TRANSPORT_DATA.driverName,
+              vehiclePlateNo: parsed.vehiclePlateNo || DEFAULT_TRANSPORT_DATA.vehiclePlateNo,
+              paymentTermsNote: parsed.paymentTermsNote || DEFAULT_TRANSPORT_DATA.paymentTermsNote,
+            });
           }
         } else {
           // Fetch latest saved transport voucher from Supabase Cloud
@@ -244,7 +293,20 @@ export default function TransportVouchers() {
                 .single();
 
               if (cloudVoucher && cloudVoucher.document_data && Array.isArray((cloudVoucher.document_data as any).itinerary)) {
-                setData(cloudVoucher.document_data as typeof DEFAULT_TRANSPORT_DATA);
+                const doc = cloudVoucher.document_data as any;
+                setData({
+                  ...DEFAULT_TRANSPORT_DATA,
+                  ...doc,
+                  voucherMode: doc.voucherMode || "single_block",
+                  tourName: doc.tourName || DEFAULT_TRANSPORT_DATA.tourName,
+                  tourRoute: doc.tourRoute || DEFAULT_TRANSPORT_DATA.tourRoute,
+                  totalAmount: doc.totalAmount || DEFAULT_TRANSPORT_DATA.totalAmount,
+                  advanceAmount: doc.advanceAmount || DEFAULT_TRANSPORT_DATA.advanceAmount,
+                  balanceAmount: doc.balanceAmount || DEFAULT_TRANSPORT_DATA.balanceAmount,
+                  driverName: doc.driverName || DEFAULT_TRANSPORT_DATA.driverName,
+                  vehiclePlateNo: doc.vehiclePlateNo || DEFAULT_TRANSPORT_DATA.vehiclePlateNo,
+                  paymentTermsNote: doc.paymentTermsNote || DEFAULT_TRANSPORT_DATA.paymentTermsNote,
+                });
                 localStorage.setItem("traymbhkam_transport_voucher_data", JSON.stringify(cloudVoucher.document_data));
               }
             } catch {}
@@ -301,24 +363,44 @@ export default function TransportVouchers() {
         };
       });
 
-      const importedData = {
+      // Construct Route string from itinerary
+      const routeList = itin.routeCovered 
+        ? itin.routeCovered 
+        : itin.days.map((d: any) => d.route || d.overnightStay).filter(Boolean).slice(0, 8).join(" – ");
+
+      // Extract pricing if available
+      const rawPrice = itin.pricingTiers?.[0]?.price ? String(itin.pricingTiers[0].price).replace(/[^0-9]/g, "") : "46000";
+      const totalNum = parseInt(rawPrice) || 46000;
+      const advNum = Math.round(totalNum * 0.25);
+      const balNum = totalNum - advNum;
+
+      const importedData: typeof DEFAULT_TRANSPORT_DATA = {
         date: itin.travelDates || new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }),
         exoNo: `UK-TR-${new Date().getFullYear()}`,
         fileNo: "01",
         guestName: itin.preparedFor || "Valued Guest",
-        managerMobile: itin.contactPhone || "+91 97190 38278",
-        noOfAdults: "04 Adults",
+        managerMobile: itin.contactPhone || "+91 82660 16066 · 9389880277",
+        noOfAdults: itin.passengers || "04 Adults",
         vehicleType: "01 Innova Crysta / Tempo Traveller (Non-AC in Hills)",
         arrivalDate: itin.travelDates ? `${itin.travelDates} ~ ${itin.startingPoint || "Haridwar / Dehradun"}` : "Haridwar / Dehradun",
         departureDate: itin.travelDates ? `${itin.travelDates} ~ Tour Concludes` : "Tour Concludes",
         favouringGuest: itin.preparedFor || "Valued Guest",
-        favouringPax: "04",
+        favouringPax: itin.passengers ? String(itin.passengers).replace(/[^0-9]/g, "") || "04" : "04",
         favouringVehicle: "01 Innova Crysta / Tempo Traveller (Non-AC in Hills)",
+        voucherMode: "single_block",
+        tourName: itin.title || "Uttarakhand Pilgrimage Tour",
+        tourRoute: routeList || "Haridwar – Barkot – Yamunotri – Uttarkashi – Gangotri – Guptkashi – Kedarnath – Chopta – Badrinath – Haridwar",
+        totalAmount: totalNum.toLocaleString("en-IN"),
+        advanceAmount: advNum.toLocaleString("en-IN"),
+        balanceAmount: balNum.toLocaleString("en-IN"),
+        driverName: "Assigned at Haridwar Pickup",
+        vehiclePlateNo: "UK Commercial Hill Tourist Cab",
+        paymentTermsNote: "All Toll, State Tax, Parking Charges & Driver Night Allowances Included. Balance payable upon Haridwar pickup.",
         itinerary: transportSchedule
       };
 
       updateData(importedData);
-      setImportNotification(`✓ Successfully imported ${transportSchedule.length} days from Itinerary: "${itin.title || itin.preparedFor || 'Customer Tour'}"`);
+      setImportNotification(`✓ Successfully imported from Itinerary: "${itin.title || itin.preparedFor || 'Customer Tour'}"`);
       setTimeout(() => setImportNotification(null), 4500);
     } catch (err) {
       console.error("Failed to import itinerary:", err);
@@ -614,45 +696,190 @@ export default function TransportVouchers() {
             <span className="text-[11px] font-bold text-slate-800 bg-white px-2.5 py-0.5 rounded border border-slate-200">{data.favouringVehicle}</span>
           </div>
 
-          {/* Day-by-Day Schedule Table */}
-          <div className="space-y-1">
-            <div className="flex items-center justify-between">
-              <h3 className="font-display font-bold text-[12.5px] uppercase tracking-wider text-[#0b1320] flex items-center gap-1.5">
-                <Car className="w-4 h-4 text-amber-600" />
-                <span>Day-by-Day Transport Schedule ({data.itinerary.length} Legs / Days)</span>
-              </h3>
-              <span className="text-[10.5px] text-emerald-800 bg-emerald-50 border border-emerald-300 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
-                100% Confirmed
-              </span>
-            </div>
+          {/* Day-by-Day Schedule Table OR Single Tour & Fare Block */}
+          {data.voucherMode === "day_wise" ? (
+            <div className="space-y-1">
+              <div className="flex items-center justify-between">
+                <h3 className="font-display font-bold text-[12.5px] uppercase tracking-wider text-[#0b1320] flex items-center gap-1.5">
+                  <Car className="w-4 h-4 text-amber-600" />
+                  <span>Day-by-Day Transport Schedule ({data.itinerary.length} Legs / Days)</span>
+                </h3>
+                <span className="text-[10.5px] text-emerald-800 bg-emerald-50 border border-emerald-300 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
+                  100% Confirmed
+                </span>
+              </div>
 
-            <div className="rounded-lg overflow-hidden border border-slate-200">
-              <table className="w-full text-left">
-                <thead className="bg-[#0b1320] text-amber-300 font-display text-[11px] uppercase font-bold tracking-wider">
-                  <tr>
-                    <th className="py-1.5 px-3 w-[18%]">Date &amp; Day</th>
-                    <th className="py-1.5 px-3 w-[52%]">Transfers &amp; Sightseeing Route</th>
-                    <th className="py-1.5 px-3 w-[30%]">Night Stay / Dropping</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100 text-xs">
-                  {data.itinerary.map((item, idx) => (
-                    <tr key={idx} className={idx % 2 === 0 ? "bg-white" : "bg-amber-50/25"}>
-                      <td className="py-1.5 px-3 font-bold text-amber-800 align-top">
-                        <div className="text-[12px] font-bold text-amber-800 leading-tight">{item.date || `Day ${idx + 1}`}</div>
-                      </td>
-                      <td className="py-1.5 px-3 text-slate-800 align-top">
-                        <div className="text-[11.5px] font-medium leading-snug">{item.details}</div>
-                      </td>
-                      <td className="py-1.5 px-3 align-top">
-                        <div className="text-[11.5px] font-bold text-slate-900 leading-snug">{item.hotel}</div>
-                      </td>
+              <div className="rounded-lg overflow-hidden border border-slate-200">
+                <table className="w-full text-left">
+                  <thead className="bg-[#0b1320] text-amber-300 font-display text-[11px] uppercase font-bold tracking-wider">
+                    <tr>
+                      <th className="py-1.5 px-3 w-[18%]">Date &amp; Day</th>
+                      <th className="py-1.5 px-3 w-[52%]">Transfers &amp; Sightseeing Route</th>
+                      <th className="py-1.5 px-3 w-[30%]">Night Stay / Dropping</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 text-xs">
+                    {data.itinerary.map((item, idx) => (
+                      <tr key={idx} className={idx % 2 === 0 ? "bg-white" : "bg-amber-50/25"}>
+                        <td className="py-1.5 px-3 font-bold text-amber-800 align-top">
+                          <div className="text-[12px] font-bold text-amber-800 leading-tight">{item.date || `Day ${idx + 1}`}</div>
+                        </td>
+                        <td className="py-1.5 px-3 text-slate-800 align-top">
+                          <div className="text-[11.5px] font-medium leading-snug">{item.details}</div>
+                        </td>
+                        <td className="py-1.5 px-3 align-top">
+                          <div className="text-[11.5px] font-bold text-slate-900 leading-snug">{item.hotel}</div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="space-y-2.5">
+              <div className="flex items-center justify-between">
+                <h3 className="font-display font-bold text-[12.5px] uppercase tracking-wider text-[#0b1320] flex items-center gap-1.5">
+                  <Car className="w-4 h-4 text-amber-600" />
+                  <span>Confirmed Tour Circuit &amp; Vehicle Allocation</span>
+                </h3>
+                <span className="text-[10px] text-emerald-800 bg-emerald-50 border border-emerald-300 px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider flex items-center gap-1">
+                  <ShieldCheck className="w-3 h-3 text-emerald-600" />
+                  100% Confirmed Allocation
+                </span>
+              </div>
+
+              {/* 1. Assigned Tour & Circuit Box */}
+              <div className="bg-gradient-to-br from-amber-50/60 via-white to-slate-50 border-2 border-amber-200/90 rounded-xl p-3 space-y-2 shadow-2xs">
+                <div className="flex items-start justify-between gap-3 border-b border-amber-100 pb-1.5">
+                  <div className="min-w-0">
+                    <span className="text-[9.5px] font-display font-black text-amber-800 uppercase tracking-widest block">
+                      ASSIGNED TOUR PACKAGE / CIRCUIT
+                    </span>
+                    <h4 className="text-[14.5px] font-serif-luxury font-black text-[#0f2744] tracking-tight leading-tight mt-0.5 truncate">
+                      {data.tourName || "Complete Char Dham Yatra"}
+                    </h4>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <span className="text-[9px] font-semibold text-slate-500 uppercase block">Tour Schedule</span>
+                    <span className="text-[11px] font-bold text-slate-900 bg-white px-2 py-0.5 rounded border border-slate-200 shadow-2xs inline-block mt-0.5">
+                      {data.arrivalDate?.split("~")[0]?.trim() || "Arrival"} → {data.departureDate?.split("~")[0]?.trim() || "Drop"}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Circuit Route Box */}
+                <div>
+                  <div className="flex items-center gap-1.5 text-[9px] font-display font-bold text-slate-600 uppercase tracking-wider mb-1">
+                    <MapPin className="w-3 h-3 text-amber-600 shrink-0" />
+                    <span>Authorized Travel Route &amp; Covered Destinations:</span>
+                  </div>
+                  <div className="bg-white border border-amber-200/80 rounded-lg p-2 text-[11px] font-semibold text-slate-800 leading-relaxed shadow-2xs">
+                    {data.tourRoute || "Haridwar – Barkot – Yamunotri – Uttarkashi – Gangotri – Guptkashi – Kedarnath – Chopta – Badrinath – Haridwar"}
+                  </div>
+                </div>
+
+                {/* Vehicle & Captain Specifications (3-column pill grid) */}
+                <div className="grid grid-cols-3 gap-2 pt-0.5">
+                  <div className="bg-white border border-slate-200/90 rounded-lg p-2 space-y-0.5">
+                    <span className="text-[9px] font-display font-bold text-slate-500 uppercase tracking-wider block">Assigned Vehicle</span>
+                    <p className="text-[11.5px] font-bold text-amber-900 leading-tight truncate">{data.vehicleType}</p>
+                    <span className="text-[9.5px] text-slate-500 block truncate font-medium">{data.vehiclePlateNo || "UK Commercial Cab"}</span>
+                  </div>
+
+                  <div className="bg-white border border-slate-200/90 rounded-lg p-2 space-y-0.5">
+                    <span className="text-[9px] font-display font-bold text-slate-500 uppercase tracking-wider block">Mountain Captain / Pilot</span>
+                    <p className="text-[11.5px] font-bold text-slate-900 leading-tight truncate">{data.driverName || "Assigned at Pickup"}</p>
+                    <span className="text-[9.5px] text-emerald-700 block font-semibold truncate">Helpline: {data.managerMobile}</span>
+                  </div>
+
+                  <div className="bg-white border border-slate-200/90 rounded-lg p-2 space-y-0.5">
+                    <span className="text-[9px] font-display font-bold text-slate-500 uppercase tracking-wider block">Passenger Group</span>
+                    <p className="text-[11.5px] font-bold text-slate-900 leading-tight truncate">{data.noOfAdults}</p>
+                    <span className="text-[9.5px] text-slate-500 block font-medium">Dedicated Private Fleet</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* 2. Commercial Contract & Amount Settlement Card */}
+              <div className="bg-gradient-to-r from-[#0b1320] via-[#0f2744] to-[#0b1320] text-white rounded-xl p-3 shadow-md border border-amber-400/40 space-y-2">
+                <div className="flex items-center justify-between border-b border-white/10 pb-1.5">
+                  <div className="flex items-center gap-1.5 text-amber-300 font-display text-[10.5px] font-bold uppercase tracking-wider">
+                    <IndianRupee className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Vehicle Fare &amp; Payment Settlement Breakdown</span>
+                  </div>
+                  <span className="text-[8.5px] uppercase font-bold tracking-widest text-slate-300 bg-white/10 px-2 py-0.5 rounded">
+                    Official Rate Contract
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-3 gap-2 text-center">
+                  {/* Total Amount */}
+                  <div className="bg-white/5 border border-white/10 rounded-lg p-1.5 space-y-0.5">
+                    <span className="text-[9px] uppercase font-display font-bold tracking-wider text-slate-300 block">
+                      Total Agreed Fare
+                    </span>
+                    <div className="text-[18px] font-display font-black text-amber-300 tracking-tight leading-none py-0.5">
+                      ₹ {data.totalAmount || "0"}
+                    </div>
+                    <span className="text-[8px] text-slate-400 block font-medium">Complete Tour Vehicle Cost</span>
+                  </div>
+
+                  {/* Advance Received */}
+                  <div className="bg-emerald-950/40 border border-emerald-500/40 rounded-lg p-1.5 space-y-0.5">
+                    <span className="text-[9px] uppercase font-display font-bold tracking-wider text-emerald-300 block flex items-center justify-center gap-1">
+                      <Check className="w-3 h-3 text-emerald-400" /> Advance Received
+                    </span>
+                    <div className="text-[18px] font-display font-black text-emerald-400 tracking-tight leading-none py-0.5">
+                      ₹ {data.advanceAmount || "0"}
+                    </div>
+                    <span className="text-[8px] text-emerald-300/80 block font-medium">Booking Advance Paid</span>
+                  </div>
+
+                  {/* Balance Payable */}
+                  <div className="bg-amber-950/40 border border-amber-500/40 rounded-lg p-1.5 space-y-0.5">
+                    <span className="text-[9px] uppercase font-display font-bold tracking-wider text-amber-200 block">
+                      Balance Due at Pickup
+                    </span>
+                    <div className="text-[18px] font-display font-black text-white tracking-tight leading-none py-0.5">
+                      ₹ {data.balanceAmount || "0"}
+                    </div>
+                    <span className="text-[8px] text-amber-300/80 block font-medium">Payable at Haridwar Pickup</span>
+                  </div>
+                </div>
+
+                {/* Terms Note */}
+                {data.paymentTermsNote && (
+                  <div className="bg-black/30 border border-white/10 rounded-lg px-2.5 py-1 text-[9.5px] text-slate-200 leading-snug flex items-start gap-1.5">
+                    <span className="text-amber-400 font-bold shrink-0">✦</span>
+                    <span className="font-medium">{data.paymentTermsNote}</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Authorized Signatory and Acceptance Stamp */}
+              <div className="border border-slate-200 rounded-lg p-2 bg-slate-50/70 grid grid-cols-2 gap-4 text-[10.5px]">
+                <div className="space-y-3">
+                  <span className="text-[8.5px] uppercase font-display font-bold text-slate-500 tracking-wider block">
+                    Guest / Group Representative:
+                  </span>
+                  <div className="border-b border-dashed border-slate-300 pb-0.5">
+                    <span className="font-bold text-slate-800 text-[11px]">{data.guestName || "Valued Guest"}</span>
+                    <span className="text-[8.5px] text-slate-400 block">Signature &amp; Acceptance</span>
+                  </div>
+                </div>
+                <div className="space-y-3 text-right">
+                  <span className="text-[8.5px] uppercase font-display font-bold text-slate-500 tracking-wider block">
+                    For Traymbhkam Tour and Travels:
+                  </span>
+                  <div className="border-b border-dashed border-slate-300 pb-0.5">
+                    <span className="font-bold text-[#0f2744] text-[11px]">Authorized Fleet Operations Manager</span>
+                    <span className="text-[8.5px] text-amber-800 block font-medium">Haridwar (Uttarakhand) • Dedicated Fleet Cell</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Transport Guidelines */}
           <div className="space-y-0.5">
@@ -964,121 +1191,333 @@ export default function TransportVouchers() {
               </div>
             </div>
 
-            {/* 3. Schedule Table CRUD */}
-            <div className="bg-gray-50 p-3 rounded-xl border border-gray-200 space-y-2.5">
-              <div className="flex items-center justify-between">
-                <div>
-                  <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wider block">Transport Schedule ({data.itinerary.length} Legs)</span>
-                  <div className="flex items-center gap-1.5 mt-0.5">
-                    <Calendar size={11} className="text-sky-700" />
-                    <span className="text-[10px] text-slate-600 font-medium">Auto-sequence dates:</span>
-                    <input
-                      type="date"
-                      className="text-[10px] border border-sky-300 rounded px-1 py-0.5 bg-white cursor-pointer font-mono"
-                      title="Select Start Date to Auto-fill all leg dates"
-                      onChange={(e) => {
-                        if (!e.target.value) return;
-                        const startDate = new Date(e.target.value);
-                        const updated = data.itinerary.map((it, i) => {
-                          const cur = new Date(startDate);
-                          cur.setDate(startDate.getDate() + i);
-                          const dd = String(cur.getDate()).padStart(2, "0");
-                          const mm = String(cur.getMonth() + 1).padStart(2, "0");
-                          const yyyy = cur.getFullYear();
-                          return { ...it, date: `${dd}/${mm}/${yyyy}` };
-                        });
-                        updateData({ ...data, itinerary: updated });
-                      }}
-                    />
-                  </div>
+            {/* 3. Voucher Format & Schedule Details */}
+            <div className="bg-gray-50 p-3 rounded-xl border border-gray-200 space-y-3">
+              {/* Format Toggle */}
+              <div className="flex items-center justify-between pb-2 border-b border-gray-200">
+                <span className="text-[11px] font-bold text-gray-700 uppercase tracking-wider block">
+                  Voucher Layout:
+                </span>
+                <div className="flex items-center bg-gray-200/80 p-0.5 rounded-lg text-[11px]">
+                  <button
+                    type="button"
+                    onClick={() => updateData({ ...data, voucherMode: "single_block" })}
+                    className={`px-2.5 py-1 rounded-md font-bold transition cursor-pointer ${
+                      data.voucherMode !== "day_wise"
+                        ? "bg-white text-sky-700 shadow-2xs"
+                        : "text-gray-600 hover:text-gray-900"
+                    }`}
+                  >
+                    ★ Single Tour &amp; Fare Block
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => updateData({ ...data, voucherMode: "day_wise" })}
+                    className={`px-2.5 py-1 rounded-md font-bold transition cursor-pointer ${
+                      data.voucherMode === "day_wise"
+                        ? "bg-white text-sky-700 shadow-2xs"
+                        : "text-gray-600 hover:text-gray-900"
+                    }`}
+                  >
+                    Day-Wise Legs List
+                  </button>
                 </div>
-                <button onClick={addDay} className="flex items-center gap-1 px-2.5 py-1 bg-sky-600 text-white text-[11px] font-semibold rounded-lg hover:bg-sky-700 transition-colors cursor-pointer">
-                  <Plus size={12} /> Add Day
-                </button>
               </div>
-              <div className="space-y-2">
-                {data.itinerary.map((item, idx) => (
-                  <div key={idx} className="p-2.5 bg-white border border-gray-200 rounded-lg space-y-2 relative">
-                    <div className="flex justify-between items-center">
-                      <span className="font-bold text-[#0369a1] text-[11px]">Leg / Day {idx + 1}</span>
-                      <button onClick={() => removeDay(idx)} className="text-gray-400 hover:text-rose-600 transition cursor-pointer">
-                        <Trash2 size={13} />
+
+              {data.voucherMode !== "day_wise" ? (
+                /* SINGLE BLOCK CONTROLS: Tour Specification & Amounts */
+                <div className="space-y-3">
+                  <div>
+                    <div className="flex items-center justify-between mb-1">
+                      <label className="block text-[10.5px] font-bold text-gray-700">Tour / Circuit Name</label>
+                      <span className="text-[9.5px] text-gray-500 font-medium">Assigned Package</span>
+                    </div>
+                    <input
+                      type="text"
+                      className="w-full px-2.5 py-1.5 bg-white border border-gray-200 rounded text-xs font-bold text-slate-800"
+                      placeholder="e.g. Complete Char Dham Yatra (09 Nights / 10 Days)"
+                      value={data.tourName || ""}
+                      onChange={(e) => updateData({ ...data, tourName: e.target.value })}
+                    />
+                    {/* Quick Tour Name Presets */}
+                    <div className="flex items-center gap-1 mt-1.5 flex-wrap">
+                      <button
+                        type="button"
+                        onClick={() => updateData({ ...data, tourName: "Complete Char Dham Yatra (09 Nights / 10 Days)" })}
+                        className="text-[9px] px-1.5 py-0.5 bg-white hover:bg-sky-50 border border-gray-200 rounded text-gray-700 cursor-pointer"
+                      >
+                        Chardham 10D
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => updateData({ ...data, tourName: "Kedarnath & Badrinath Do Dham (05 Nights / 06 Days)" })}
+                        className="text-[9px] px-1.5 py-0.5 bg-white hover:bg-sky-50 border border-gray-200 rounded text-gray-700 cursor-pointer"
+                      >
+                        Do Dham 6D
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => updateData({ ...data, tourName: "Yamunotri & Gangotri Dham (04 Nights / 05 Days)" })}
+                        className="text-[9px] px-1.5 py-0.5 bg-white hover:bg-sky-50 border border-gray-200 rounded text-gray-700 cursor-pointer"
+                      >
+                        Yamunotri-Gangotri 5D
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => updateData({ ...data, tourName: "Panch Kedar Holy Yatra (10 Nights / 11 Days)" })}
+                        className="text-[9px] px-1.5 py-0.5 bg-white hover:bg-sky-50 border border-gray-200 rounded text-gray-700 cursor-pointer"
+                      >
+                        Panch Kedar 11D
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => updateData({ ...data, tourName: "Kedarnath, Tungnath & Badrinath (06 Nights / 07 Days)" })}
+                        className="text-[9px] px-1.5 py-0.5 bg-white hover:bg-sky-50 border border-gray-200 rounded text-gray-700 cursor-pointer"
+                      >
+                        Kedar-Tungnath-Badri 7D
                       </button>
                     </div>
-                    <div className="grid grid-cols-2 gap-2">
-                      <div>
-                        <div className="flex items-center justify-between mb-0.5">
-                          <label className="block text-[10px] text-gray-500">Date</label>
-                          <span className="text-[9px] text-[#0369a1] font-semibold">📅 Pick</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <input type="text" className="w-full px-2 py-1 bg-gray-50 border border-gray-200 rounded text-xs" value={item.date} onChange={e => handleItineraryChange(idx, 'date', e.target.value)} />
-                          <input
-                            type="date"
-                            className="w-6 h-6 p-0 border border-gray-200 rounded bg-white cursor-pointer shrink-0 text-xs"
-                            title="Pick Date"
-                            onChange={(e) => {
-                              if (!e.target.value) return;
-                              const [y, m, d] = e.target.value.split("-");
-                              handleItineraryChange(idx, 'date', `${d}/${m}/${y}`);
-                            }}
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="flex items-center justify-between mb-0.5">
-                          <label className="block text-[10px] text-gray-500">Night Stay / Drop</label>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              const current = item.hotel || "";
-                              if (!current.includes("Tent Only")) {
-                                handleItineraryChange(idx, 'hotel', current ? `${current.replace(/\(Tent.*?\)/i, "").trim()} (Tent Only)` : "Kedarnath (Tent Only)");
-                              }
-                            }}
-                            className={`text-[9px] px-1.5 py-0.2 rounded font-bold transition cursor-pointer ${
-                              item.hotel?.includes("Tent Only")
-                                ? "bg-amber-600 text-white"
-                                : "text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-200"
-                            }`}
-                            title="Set Tent Only"
-                          >
-                            ⛺ Tent Only
-                          </button>
-                        </div>
-                        <input type="text" className="w-full px-2 py-1 bg-gray-50 border border-gray-200 rounded text-xs font-semibold" value={item.hotel} onChange={e => handleItineraryChange(idx, 'hotel', e.target.value)} />
-                        <div className="flex items-center gap-1 mt-1 flex-wrap">
-                          <button
-                            type="button"
-                            onClick={() => handleItineraryChange(idx, 'hotel', "Kedarnath (Tent Only)")}
-                            className="text-[9px] px-1.5 py-0.5 rounded border border-gray-200 bg-white hover:bg-gray-50 text-gray-600 transition cursor-pointer"
-                          >
-                            Kedarnath (Tent Only)
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => handleItineraryChange(idx, 'hotel', "Hotel Stay")}
-                            className="text-[9px] px-1.5 py-0.5 rounded border border-gray-200 bg-white hover:bg-gray-50 text-gray-600 transition cursor-pointer"
-                          >
-                            Hotel Stay
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => handleItineraryChange(idx, 'hotel', "Haridwar Drop")}
-                            className="text-[9px] px-1.5 py-0.5 rounded border border-gray-200 bg-white hover:bg-gray-50 text-gray-600 transition cursor-pointer"
-                          >
-                            Drop Off
-                          </button>
-                        </div>
-                      </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-[10.5px] font-bold text-gray-700 mb-1">Covered Route &amp; Destinations</label>
+                    <textarea
+                      rows={2}
+                      className="w-full px-2.5 py-1.5 bg-white border border-gray-200 rounded text-xs font-medium text-slate-800 leading-snug"
+                      placeholder="e.g. Haridwar – Barkot – Yamunotri – Uttarkashi – Gangotri – Guptkashi – Kedarnath – Chopta – Badrinath – Haridwar"
+                      value={data.tourRoute || ""}
+                      onChange={(e) => updateData({ ...data, tourRoute: e.target.value })}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <div>
+                      <label className="block text-[10px] text-gray-600 mb-0.5 font-semibold">Vehicle Plate / Registration</label>
+                      <input
+                        type="text"
+                        className="w-full px-2 py-1.5 bg-white border border-gray-200 rounded text-xs"
+                        placeholder="e.g. UK 07 TA Series / Private Cab"
+                        value={data.vehiclePlateNo || ""}
+                        onChange={(e) => updateData({ ...data, vehiclePlateNo: e.target.value })}
+                      />
                     </div>
                     <div>
-                      <label className="block text-[10px] text-gray-500 mb-0.5">Route & Sightseeing Details</label>
-                      <textarea rows={2} className="w-full px-2 py-1 bg-gray-50 border border-gray-200 rounded text-xs leading-tight" value={item.details} onChange={e => handleItineraryChange(idx, 'details', e.target.value)} />
+                      <label className="block text-[10px] text-gray-600 mb-0.5 font-semibold">Driver / Captain Name</label>
+                      <input
+                        type="text"
+                        className="w-full px-2 py-1.5 bg-white border border-gray-200 rounded text-xs"
+                        placeholder="e.g. Assigned at Haridwar Pickup"
+                        value={data.driverName || ""}
+                        onChange={(e) => updateData({ ...data, driverName: e.target.value })}
+                      />
                     </div>
                   </div>
-                ))}
-              </div>
+
+                  {/* Commercial Settlement Block */}
+                  <div className="bg-sky-50/70 border border-sky-200 rounded-lg p-2.5 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10.5px] font-bold text-sky-900 uppercase tracking-wider flex items-center gap-1">
+                        <IndianRupee className="w-3 h-3 text-sky-700" />
+                        Commercial Vehicle Fare (₹)
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const totalNum = parseInt(String(data.totalAmount || "0").replace(/[^0-9]/g, "")) || 0;
+                          const advNum = parseInt(String(data.advanceAmount || "0").replace(/[^0-9]/g, "")) || 0;
+                          const bal = Math.max(0, totalNum - advNum);
+                          updateData({ ...data, balanceAmount: bal.toLocaleString("en-IN") });
+                        }}
+                        className="text-[9.5px] px-2 py-0.5 bg-white hover:bg-sky-100 border border-sky-300 rounded text-sky-800 font-semibold cursor-pointer"
+                        title="Auto-calculate Balance = Total - Advance"
+                      >
+                        Auto-Calc Balance
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-2">
+                      <div>
+                        <label className="block text-[9.5px] font-bold text-gray-600 mb-0.5">Total Amount (₹)</label>
+                        <input
+                          type="text"
+                          className="w-full px-2 py-1.5 bg-white border border-gray-200 rounded text-xs font-bold text-slate-900"
+                          placeholder="48,000"
+                          value={data.totalAmount || ""}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            const totalNum = parseInt(val.replace(/[^0-9]/g, "")) || 0;
+                            const advNum = parseInt(String(data.advanceAmount || "0").replace(/[^0-9]/g, "")) || 0;
+                            const bal = Math.max(0, totalNum - advNum);
+                            updateData({ 
+                              ...data, 
+                              totalAmount: val,
+                              balanceAmount: bal > 0 ? bal.toLocaleString("en-IN") : data.balanceAmount
+                            });
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[9.5px] font-bold text-emerald-700 mb-0.5">Advance Paid (₹)</label>
+                        <input
+                          type="text"
+                          className="w-full px-2 py-1.5 bg-white border border-emerald-300 rounded text-xs font-bold text-emerald-800"
+                          placeholder="12,000"
+                          value={data.advanceAmount || ""}
+                          onChange={(e) => {
+                            const val = e.target.value;
+                            const advNum = parseInt(val.replace(/[^0-9]/g, "")) || 0;
+                            const totalNum = parseInt(String(data.totalAmount || "0").replace(/[^0-9]/g, "")) || 0;
+                            const bal = Math.max(0, totalNum - advNum);
+                            updateData({ 
+                              ...data, 
+                              advanceAmount: val,
+                              balanceAmount: bal > 0 ? bal.toLocaleString("en-IN") : data.balanceAmount
+                            });
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[9.5px] font-bold text-amber-800 mb-0.5">Balance Due (₹)</label>
+                        <input
+                          type="text"
+                          className="w-full px-2 py-1.5 bg-white border border-amber-300 rounded text-xs font-bold text-amber-900"
+                          placeholder="36,000"
+                          value={data.balanceAmount || ""}
+                          onChange={(e) => updateData({ ...data, balanceAmount: e.target.value })}
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-[9.5px] font-bold text-gray-600 mb-0.5">Inclusions &amp; Payment Terms Note</label>
+                      <textarea
+                        rows={2}
+                        className="w-full px-2 py-1 bg-white border border-gray-200 rounded text-[11px] text-gray-700 leading-snug"
+                        placeholder="e.g. All Toll, State Tax, Parking Charges & Driver Night Allowances Included. Balance payable at Haridwar pickup."
+                        value={data.paymentTermsNote || ""}
+                        onChange={(e) => updateData({ ...data, paymentTermsNote: e.target.value })}
+                      />
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                /* DAY-WISE CRUD CONTROLS */
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wider block">Transport Schedule ({data.itinerary.length} Legs)</span>
+                      <div className="flex items-center gap-1.5 mt-0.5">
+                        <Calendar size={11} className="text-sky-700" />
+                        <span className="text-[10px] text-slate-600 font-medium">Auto-sequence dates:</span>
+                        <input
+                          type="date"
+                          className="text-[10px] border border-sky-300 rounded px-1 py-0.5 bg-white cursor-pointer font-mono"
+                          title="Select Start Date to Auto-fill all leg dates"
+                          onChange={(e) => {
+                            if (!e.target.value) return;
+                            const startDate = new Date(e.target.value);
+                            const updated = data.itinerary.map((it, i) => {
+                              const cur = new Date(startDate);
+                              cur.setDate(startDate.getDate() + i);
+                              const dd = String(cur.getDate()).padStart(2, "0");
+                              const mm = String(cur.getMonth() + 1).padStart(2, "0");
+                              const yyyy = cur.getFullYear();
+                              return { ...it, date: `${dd}/${mm}/${yyyy}` };
+                            });
+                            updateData({ ...data, itinerary: updated });
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <button onClick={addDay} className="flex items-center gap-1 px-2.5 py-1 bg-sky-600 text-white text-[11px] font-semibold rounded-lg hover:bg-sky-700 transition-colors cursor-pointer">
+                      <Plus size={12} /> Add Day
+                    </button>
+                  </div>
+                  <div className="space-y-2">
+                    {data.itinerary.map((item, idx) => (
+                      <div key={idx} className="p-2.5 bg-white border border-gray-200 rounded-lg space-y-2 relative">
+                        <div className="flex justify-between items-center">
+                          <span className="font-bold text-[#0369a1] text-[11px]">Leg / Day {idx + 1}</span>
+                          <button onClick={() => removeDay(idx)} className="text-gray-400 hover:text-rose-600 transition cursor-pointer">
+                            <Trash2 size={13} />
+                          </button>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2">
+                          <div>
+                            <div className="flex items-center justify-between mb-0.5">
+                              <label className="block text-[10px] text-gray-500">Date</label>
+                              <span className="text-[9px] text-[#0369a1] font-semibold">📅 Pick</span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <input type="text" className="w-full px-2 py-1 bg-gray-50 border border-gray-200 rounded text-xs" value={item.date} onChange={e => handleItineraryChange(idx, 'date', e.target.value)} />
+                              <input
+                                type="date"
+                                className="w-6 h-6 p-0 border border-gray-200 rounded bg-white cursor-pointer shrink-0 text-xs"
+                                title="Pick Date"
+                                onChange={(e) => {
+                                  if (!e.target.value) return;
+                                  const [y, m, d] = e.target.value.split("-");
+                                  handleItineraryChange(idx, 'date', `${d}/${m}/${y}`);
+                                }}
+                              />
+                            </div>
+                          </div>
+                          <div>
+                            <div className="flex items-center justify-between mb-0.5">
+                              <label className="block text-[10px] text-gray-500">Night Stay / Drop</label>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const current = item.hotel || "";
+                                  if (!current.includes("Tent Only")) {
+                                    handleItineraryChange(idx, 'hotel', current ? `${current.replace(/\(Tent.*?\)/i, "").trim()} (Tent Only)` : "Kedarnath (Tent Only)");
+                                  }
+                                }}
+                                className={`text-[9px] px-1.5 py-0.2 rounded font-bold transition cursor-pointer ${
+                                  item.hotel?.includes("Tent Only")
+                                    ? "bg-amber-600 text-white"
+                                    : "text-amber-700 bg-amber-50 hover:bg-amber-100 border border-amber-200"
+                                }`}
+                                title="Set Tent Only"
+                              >
+                                ⛺ Tent Only
+                              </button>
+                            </div>
+                            <input type="text" className="w-full px-2 py-1 bg-gray-50 border border-gray-200 rounded text-xs font-semibold" value={item.hotel} onChange={e => handleItineraryChange(idx, 'hotel', e.target.value)} />
+                            <div className="flex items-center gap-1 mt-1 flex-wrap">
+                              <button
+                                type="button"
+                                onClick={() => handleItineraryChange(idx, 'hotel', "Kedarnath (Tent Only)")}
+                                className="text-[9px] px-1.5 py-0.5 rounded border border-gray-200 bg-white hover:bg-gray-50 text-gray-600 transition cursor-pointer"
+                              >
+                                Kedarnath (Tent Only)
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleItineraryChange(idx, 'hotel', "Hotel Stay")}
+                                className="text-[9px] px-1.5 py-0.5 rounded border border-gray-200 bg-white hover:bg-gray-50 text-gray-600 transition cursor-pointer"
+                              >
+                                Hotel Stay
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleItineraryChange(idx, 'hotel', "Haridwar Drop")}
+                                className="text-[9px] px-1.5 py-0.5 rounded border border-gray-200 bg-white hover:bg-gray-50 text-gray-600 transition cursor-pointer"
+                              >
+                                Drop Off
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <div>
+                          <label className="block text-[10px] text-gray-500 mb-0.5">Route &amp; Sightseeing Details</label>
+                          <textarea rows={2} className="w-full px-2 py-1 bg-gray-50 border border-gray-200 rounded text-xs leading-tight" value={item.details} onChange={e => handleItineraryChange(idx, 'details', e.target.value)} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
           </div>
