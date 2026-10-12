@@ -641,10 +641,9 @@ export default function TransportVouchers() {
           </div>
 
           {/* Reference Meta Bar */}
-          <div className="bg-gradient-to-r from-amber-50/80 via-slate-50 to-amber-50/60 border border-amber-200/80 rounded-lg py-1 px-3.5 text-[12px] text-slate-800 flex justify-between items-center font-medium">
+          <div className="bg-gradient-to-r from-amber-50/80 via-slate-50 to-amber-50/60 border border-amber-200/80 rounded-lg py-1 px-4 text-[12px] text-slate-800 flex justify-between items-center font-medium">
             <span>Date: <strong className="text-amber-800 font-bold text-[12.5px]">{data.date || "N/A"}</strong></span>
-            <span>E.X.O. No: <strong className="text-slate-900 font-bold text-[12.5px]">{data.exoNo || "UK-TR-2026"}</strong></span>
-            <span>File No: <strong className="text-slate-900 font-bold text-[12.5px]">{data.fileNo || "01"}</strong></span>
+            <span>File / Voucher No: <strong className="text-slate-900 font-bold text-[12.5px]">{data.fileNo || "01"}</strong></span>
           </div>
 
           {/* Transfer & Vehicle Details Table */}
@@ -988,7 +987,7 @@ export default function TransportVouchers() {
             {/* 1. Voucher Particulars */}
             <div className="bg-gray-50 p-3 rounded-xl border border-gray-200 space-y-2.5">
               <span className="text-[11px] font-bold text-gray-500 uppercase tracking-wider block">Voucher Reference</span>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 gap-3">
                 <div>
                   <div className="flex items-center justify-between mb-0.5">
                     <label className="block text-[10px] text-gray-500">Date</label>
@@ -1027,12 +1026,8 @@ export default function TransportVouchers() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-[10px] text-gray-500 mb-0.5">E.X.O. No.</label>
-                  <input type="text" className="w-full px-2 py-1.5 bg-white border border-gray-200 rounded text-xs font-semibold" value={data.exoNo} onChange={e => updateData({ ...data, exoNo: e.target.value })} />
-                </div>
-                <div>
-                  <label className="block text-[10px] text-gray-500 mb-0.5">File No.</label>
-                  <input type="text" className="w-full px-2 py-1.5 bg-white border border-gray-200 rounded text-xs" value={data.fileNo} onChange={e => updateData({ ...data, fileNo: e.target.value })} />
+                  <label className="block text-[10px] text-gray-500 mb-0.5">File / Voucher No.</label>
+                  <input type="text" className="w-full px-2 py-1.5 bg-white border border-gray-200 rounded text-xs font-semibold" value={data.fileNo} onChange={e => updateData({ ...data, fileNo: e.target.value })} />
                 </div>
               </div>
             </div>
