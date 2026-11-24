@@ -83,7 +83,7 @@ function numberToWords(num: number): string {
 const DEFAULT_INVOICE_DATA: InvoiceData = {
   companySettings: "Traymbhkam Tour and Travels",
   invoiceType: "advance",
-  invoiceNumber: "REC-2026-0001",
+  invoiceNumber: "REC-2027-0001",
   guestName: "",
   guestPhone: "",
   guestEmail: "",

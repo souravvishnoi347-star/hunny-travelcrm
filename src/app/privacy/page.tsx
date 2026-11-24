@@ -9,7 +9,7 @@ export default function PrivacyPolicyPage() {
             Legal & Compliance
           </span>
           <h1 className="text-3xl font-extrabold text-slate-900 mt-3">Privacy Policy</h1>
-          <p className="text-sm text-slate-500 mt-1">Last Updated: September 22, 2026 | Traymbhkam Tour and Travels</p>
+          <p className="text-sm text-slate-500 mt-1">Last Updated: September 22, 2027 | Traymbhkam Tour and Travels</p>
         </div>
 
         <div className="space-y-6 text-sm sm:text-base leading-relaxed text-slate-700">

@@ -65,7 +65,7 @@ Devotee / Yatri ji, aapki Devbhoomi yatra ki best planning ke liye kripya yeh 5 
 Hamari team turant aapko customized yatra itinerary aur best rates share karegi.
 📞 *Senior Coordinator:* Mr. Gagandeep (Hunny) (+91 82660 16066)`,
 
-  chardhamBrochure: `🙏 *CHAR DHAM YATRA 2026 (9 Nights / 10 Days ex-Haridwar)*
+  chardhamBrochure: `🙏 *CHAR DHAM YATRA 2027 (9 Nights / 10 Days ex-Haridwar)*
 *Traymbhkam Tour and Travels*
 
 🚩 *Sacred Route:* Haridwar -> Barkot (Yamunotri) -> Uttarkashi (Gangotri) -> Guptkashi/Sonprayag -> Kedarnath Dham -> Pipalkoti/Joshimath -> Badrinath Dham -> Rishikesh -> Haridwar
@@ -94,7 +94,7 @@ Hamari team turant aapko customized yatra itinerary aur best rates share karegi.
 💰 *Starting from ₹9,500/person (Sharing) | ₹13,500/person (Private Cab)*
 📞 Coordinator: Mr. Gagandeep (Hunny) (+91 82660 16066)`,
 
-  taxiTariff: `🚕 *UTTARAKHAND HILL FLEET & TAXI TARIFFS (2026 Season)*
+  taxiTariff: `🚕 *UTTARAKHAND HILL FLEET & TAXI TARIFFS (2027 Season)*
 *Traymbhkam Tour and Travels, Haridwar*
 
 🚙 *Vehicle Options:*
@@ -112,11 +112,11 @@ Hamari team turant aapko customized yatra itinerary aur best rates share karegi.
 export const BULK_CAMPAIGN_TEMPLATES = {
   chardham: `🙏 *ॐ नमः शिवाय | जय बद्री विशाल* 🙏
 
-🚩 *श्री चार धाम यात्रा 2026 - स्पेशल अर्ली बर्ड बुकिंग ओपन!* 🚩
+🚩 *श्री चार धाम यात्रा 2027 - स्पेशल अर्ली बर्ड बुकिंग ओपन!* 🚩
 *Traymbhkam Tour and Travels (हरिद्वार)*
 
 प्रिय भक्तजन,
-चार धाम यात्रा 2026 (यमुनोत्री, गंगोत्री, केदारनाथ, बद्रीनाथ) के लिए स्पेशल फैमिली एवं ग्रुप पैकेज बुकिंग शुरू हो चुकी है!
+चार धाम यात्रा 2027 (यमुनोत्री, गंगोत्री, केदारनाथ, बद्रीनाथ) के लिए स्पेशल फैमिली एवं ग्रुप पैकेज बुकिंग शुरू हो चुकी है!
 
 ✨ *पैकेज में शामिल:*
 • हरिद्वार/देहरादून से कम्प्लीट 9N/10D सेनेटाइज्ड प्राइवेट कैब (Dzire, Ertiga, Innova, Tempo)
@@ -132,7 +132,7 @@ export const BULK_CAMPAIGN_TEMPLATES = {
 
   kedarnath: `🙏 *हर हर महादेव | ॐ नमः शिवाय* 🙏
 
-🛕 *श्री केदारनाथ धाम यात्रा 2026 - स्पेशल 3N/4D पैकेज*
+🛕 *श्री केदारनाथ धाम यात्रा 2027 - स्पेशल 3N/4D पैकेज*
 *Traymbhkam Tour and Travels, Haridwar*
 
 बाबा केदार के दर्शन की इच्छा रखने वाले सभी श्रद्धालुओं के लिए स्पेशल 3 रात / 4 दिन का एक्स-हरिद्वार/ऋषिकेश पैकेज उपलब्ध है।
@@ -913,7 +913,7 @@ export default function WhatsAppDeskPage() {
           body: JSON.stringify({
             phone: fullPhone,
             customerName: "Devotee",
-            destination: "Chardham Yatra 2026",
+            destination: "Chardham Yatra 2027",
             freeformMessage: activeCampaignMessage,
             customPhoneId: metaConfig.phoneNumberId || undefined,
             customAccessToken: metaConfig.accessToken || undefined
@@ -1415,7 +1415,7 @@ export default function WhatsAppDeskPage() {
                     id: `chat-${Date.now()}`,
                     customerName: nameInput,
                     phone: cleanPhone.startsWith("91") ? `+${cleanPhone}` : `+91 ${cleanPhone}`,
-                    destination: "Chardham Yatra 2026",
+                    destination: "Chardham Yatra 2027",
                     humanTakeover: true,
                     unreadCount: 0,
                     lastMessageTime: "Just now",
@@ -1576,7 +1576,7 @@ export default function WhatsAppDeskPage() {
                     id: `chat-${Date.now()}`,
                     customerName: nameInput,
                     phone: cleanPhone.startsWith("91") ? `+${cleanPhone}` : `+91 ${cleanPhone}`,
-                    destination: "Chardham Yatra 2026",
+                    destination: "Chardham Yatra 2027",
                     humanTakeover: true,
                     unreadCount: 0,
                     lastMessageTime: "Just now",
@@ -2144,7 +2144,7 @@ export default function WhatsAppDeskPage() {
                 {/* Campaign Template Selector Tabs */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 mt-3">
                   {[
-                    { key: "chardham", label: "🚩 Char Dham 2026" },
+                    { key: "chardham", label: "🚩 Char Dham 2027" },
                     { key: "kedarnath", label: "🛕 Kedarnath 4D" },
                     { key: "taxi", label: "🚕 Hill Taxi Fleet" },
                     { key: "custom", label: "✍️ Custom Text" }
@@ -2521,7 +2521,7 @@ export default function WhatsAppDeskPage() {
                 {
                   step: "06",
                   title: "Webhook Activation",
-                  desc: "Webhook URL (/api/whatsapp/webhook) aur verify token (traymbhkam_wa_webhook_token_2026) daal kar messages subscription enable karein.",
+                  desc: "Webhook URL (/api/whatsapp/webhook) aur verify token (traymbhkam_wa_webhook_token_2027) daal kar messages subscription enable karein.",
                   status: "Route Pre-built"
                 }
               ].map((s) => (
@@ -2650,7 +2650,7 @@ export default function WhatsAppDeskPage() {
                   <div>
                     <span className="text-[10px] uppercase font-bold text-gray-400 block">Verify Token</span>
                     <code className="text-[11px] text-gray-800 bg-gray-100 px-2 py-1 rounded block border border-gray-200 mt-0.5 font-mono">
-                      traymbhkam_wa_webhook_token_2026
+                      traymbhkam_wa_webhook_token_2027
                     </code>
                   </div>
 

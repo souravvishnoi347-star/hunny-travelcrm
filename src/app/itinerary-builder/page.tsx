@@ -204,14 +204,14 @@ export const CURATED_HOTEL_PHOTO_PRESETS: HotelPhoto[] = [
   }
 ];
 
-// Exact preset matching the client's official 09 Nights / 10 Days Chardham Yatra 2026 Plan (Traymbhkam Tour and Travels)
+// Exact preset matching the client's official 09 Nights / 10 Days Chardham Yatra 2027 Plan (Traymbhkam Tour and Travels)
 const CHARDHAM_PRESET: ItineraryData = {
-  title: "CHARDHAM YATRA 2026",
+  title: "CHARDHAM YATRA 2027",
   subTitle: "UTTARAKHAND",
   spiritualHeadline: "09 Nights · 10 Days Spiritual Journey",
   dhamsSubtitle: "Yamunotri · Gangotri · Kedarnath · Badrinath",
   preparedFor: "Valued Guest",
-  travelDates: "May – Oct 2026 Season",
+  travelDates: "May – Oct 2027 Season",
   duration: "09 Nights / 10 Days",
   startingPoint: "Haridwar, Uttarakhand",
   routeCovered: "Haridwar – Mussoorie (Kempty Falls) – Barkot – Yamunotri – Uttarkashi – Harsil – Gangotri – Guptkashi – Kedarnath – Chopta – Pipalkoti – Badrinath – Mana Village – Dhari Devi – Haridwar",
@@ -432,12 +432,12 @@ const CHARDHAM_PRESET: ItineraryData = {
 
 // Exact preset matching the client's 09 Nights / 10 Days 12-Pax Group Chardham Yatra Package (Traymbhkam Tour and Travels)
 const CHARDHAM_12P_10D_PRESET: ItineraryData = {
-  title: "CHARDHAM YATRA PACKAGE 2026",
+  title: "CHARDHAM YATRA PACKAGE 2027",
   subTitle: "UTTARAKHAND",
   spiritualHeadline: "09 Nights · 10 Days Pilgrimage Package",
   dhamsSubtitle: "Yamunotri · Gangotri · Kedarnath · Badrinath",
   preparedFor: "12 Pax Pilgrimage Group",
-  travelDates: "May – Oct 2026 Season",
+  travelDates: "May – Oct 2027 Season",
   duration: "09 Nights / 10 Days",
   startingPoint: "Haridwar / Rishikesh / Dehradun",
   routeCovered: "Haridwar – Mussoorie (Kempty Falls) – Barkot – Yamunotri – Uttarkashi – Harsil – Gangotri – Guptkashi – Kedarnath – Chopta – Pipalkoti – Badrinath – Mana Village – Dhari Devi – Haridwar",
@@ -659,12 +659,12 @@ const CHARDHAM_12P_10D_PRESET: ItineraryData = {
 
 // Dedicated 05 Nights / 06 Days Do Dham Yatra (Kedarnath + Badrinath) Preset matching client's official PDF
 export const DODHAM_6D_PRESET: ItineraryData = {
-  title: "KEDARNATH BADRINATH YATRA 2026",
+  title: "KEDARNATH BADRINATH YATRA 2027",
   subTitle: "DO DHAM YATRA · UTTARAKHAND",
   spiritualHeadline: "05 Nights · 06 Days Pilgrimage Plan",
   dhamsSubtitle: "Shri Kedarnath Dham · Shri Badrinath Dham",
   preparedFor: "Valued Pilgrims / Family Group",
-  travelDates: "May – Oct 2026 Season",
+  travelDates: "May – Oct 2027 Season",
   duration: "05 Nights / 06 Days",
   startingPoint: "Haridwar, Uttarakhand",
   routeCovered: "Haridwar – Devprayag – Rudraprayag – Guptkashi / Sitapur – Kedarnath – Sitapur – Badrinath & Mana Village – Pipalkoti – Dhari Devi – Haridwar",
@@ -836,12 +836,12 @@ export const DODHAM_6D_PRESET: ItineraryData = {
 
 // Dedicated 04 Nights / 05 Days Yamunotri & Gangotri Do Dham Yatra Preset
 export const YAMUNOTRI_GANGOTRI_5D_PRESET: ItineraryData = {
-  title: "YAMUNOTRI GANGOTRI YATRA 2026",
+  title: "YAMUNOTRI GANGOTRI YATRA 2027",
   subTitle: "DO DHAM YATRA · UTTARAKHAND",
   spiritualHeadline: "04 Nights · 05 Days Pilgrimage Plan",
   dhamsSubtitle: "Shri Yamunotri Dham · Shri Gangotri Dham",
   preparedFor: "Valued Pilgrims / Family Group",
-  travelDates: "May – Oct 2026 Season",
+  travelDates: "May – Oct 2027 Season",
   duration: "04 Nights / 05 Days",
   startingPoint: "Haridwar, Uttarakhand",
   routeCovered: "Haridwar – Mussoorie – Barkot – Janki Chatti – Yamunotri – Barkot – Radi Top – Uttarkashi – Harsil Valley – Gangotri – Chamba / Rishikesh – Haridwar",
@@ -1000,12 +1000,12 @@ export const YAMUNOTRI_GANGOTRI_5D_PRESET: ItineraryData = {
 
 // Dedicated 10 Nights / 11 Days Panch Kedar Yatra Sacred Circuit Preset
 export const PANCH_KEDAR_11D_PRESET: ItineraryData = {
-  title: "PANCH KEDAR YATRA 2026",
+  title: "PANCH KEDAR YATRA 2027",
   subTitle: "THE SUPREME SHIVA PILGRIMAGE · GARHWAL HIMALAYAS",
   spiritualHeadline: "10 Nights · 11 Days Sacred Odyssey",
   dhamsSubtitle: "Kedarnath · Madhyamaheshwar · Tungnath · Rudranath · Kalpeshwar",
   preparedFor: "Devotees / Trekkers / Spiritual Group",
-  travelDates: "May – Oct 2026 Season",
+  travelDates: "May – Oct 2027 Season",
   duration: "10 Nights / 11 Days",
   startingPoint: "Haridwar, Uttarakhand",
   routeCovered: "Haridwar – Guptkashi – Kedarnath – Guptkashi – Ransi – Madhyamaheshwar – Ransi – Chopta (Tungnath) – Sagar – Rudranath – Helang – Kalpeshwar (Urgam) – Haridwar",
@@ -1239,12 +1239,12 @@ export const PANCH_KEDAR_11D_PRESET: ItineraryData = {
 
 // Dedicated 06 Nights / 07 Days Kedarnath - Tungnath - Badrinath Yatra Preset
 export const KEDAR_TUNGNATH_BADRI_7D_PRESET: ItineraryData = {
-  title: "KEDARNATH TUNGNATH BADRINATH YATRA 2026",
+  title: "KEDARNATH TUNGNATH BADRINATH YATRA 2027",
   subTitle: "THE DIVINE SHIVA & VISHNU PILGRIMAGE · CHOPTA CHANDRASHILA CIRCUIT",
   spiritualHeadline: "06 Nights · 07 Days Complete Himalayan Plan",
   dhamsSubtitle: "Kedarnath Jyotirlinga · Chopta Tungnath (Highest Shiva Shrine) · Badrinath Dham",
   preparedFor: "Valued Pilgrims / Family Group",
-  travelDates: "May – Oct 2026 Season",
+  travelDates: "May – Oct 2027 Season",
   duration: "06 Nights / 07 Days",
   startingPoint: "Haridwar, Uttarakhand",
   routeCovered: "Haridwar – Devprayag – Guptkashi – Kedarnath – Guptkashi – Chopta – Tungnath & Chandrashila – Pipalkoti – Badrinath & Mana Village – Pipalkoti – Dhari Devi – Haridwar",
@@ -1639,8 +1639,8 @@ export default function ItineraryBuilder() {
         itin.title?.toLowerCase().includes("kedarnath badrinath") ||
         (!itin.dhamsSubtitle?.toLowerCase().includes("yamunotri") && !itin.routeCovered?.toLowerCase().includes("yamunotri"));
 
-      // Force-upgrade any older cached itinerary to the official 2026 PDF day-wise schedule & full landscape cover photo
-      if (itin._schemaVersion !== "2026-v5-landscape-official") {
+      // Force-upgrade any older cached itinerary to the official 2027 PDF day-wise schedule & full landscape cover photo
+      if (itin._schemaVersion !== "2027-v5-landscape-official") {
         if (isDoDhamItin) {
           itin.days = DODHAM_6D_PRESET.days;
           itin.title = DODHAM_6D_PRESET.title;
@@ -1684,7 +1684,7 @@ export default function ItineraryBuilder() {
           itin.contactPhone = targetPreset.contactPhone;
           itin.photos = targetPreset.photos;
         }
-        itin._schemaVersion = "2026-v5-landscape-official";
+        itin._schemaVersion = "2027-v5-landscape-official";
       }
 
       // Ensure first cover photo matches Do Dham vs Char Dham
@@ -1920,12 +1920,12 @@ CRITICAL RULES:
 
 SCHEMA:
 {
-  "title": "Main Trip Title in CAPS e.g. KEDARNATH BADRINATH YATRA 2026",
+  "title": "Main Trip Title in CAPS e.g. KEDARNATH BADRINATH YATRA 2027",
   "subTitle": "Region/State in CAPS e.g. UTTARAKHAND",
   "spiritualHeadline": "e.g. 05 Nights · 06 Days Pilgrimage Plan",
   "dhamsSubtitle": "Key highlights e.g. Shri Kedarnath Dham · Shri Badrinath Dham",
   "preparedFor": "Honourable Guest",
-  "travelDates": "e.g. May – October 2026",
+  "travelDates": "e.g. May – October 2027",
   "duration": "e.g. 05 Nights / 06 Days",
   "startingPoint": "e.g. Haridwar, Uttarakhand",
   "routeCovered": "e.g. Haridwar – Guptkashi – Kedarnath – Sitapur – Chopta – Pipalkoti – Badrinath & Mana Village – Dhari Devi – Haridwar",
@@ -3013,7 +3013,7 @@ ${data.motto}`;
 
           <div className="shrink-0 text-right">
             <div className="bg-[#0f2744] text-amber-300 border border-amber-400/40 px-4 py-1.5 rounded-full text-[11px] font-display font-bold uppercase tracking-wider shadow-2xs">
-              ✦ 2026 OFFICIAL ITINERARY ✦
+              ✦ 2027 OFFICIAL ITINERARY ✦
             </div>
             <p className="text-[10px] text-gray-500 font-bold mt-1.5">Haridwar Central Operations Desk</p>
           </div>
@@ -4288,7 +4288,7 @@ ${data.motto}`;
                 }
               }}
               className="px-2.5 py-1 bg-sky-50 text-sky-700 hover:bg-sky-100 border border-sky-300 rounded-lg text-xs font-semibold transition cursor-pointer shadow-2xs"
-              title="Official 09 Nights / 10 Days Chardham Yatra 2026 Plan"
+              title="Official 09 Nights / 10 Days Chardham Yatra 2027 Plan"
             >
               10D Chardham (9N/10D Official)
             </button>
@@ -4635,7 +4635,7 @@ ${data.motto}`;
                       type="text"
                       value={data.travelDates}
                       onChange={e => setData({ ...data, travelDates: e.target.value })}
-                      placeholder="e.g. 14 May 2026 to 23 May 2026"
+                      placeholder="e.g. 14 May 2027 to 23 May 2027"
                       className="w-full px-2.5 py-1.5 bg-white border border-gray-200 rounded text-xs"
                     />
                     <div className="flex items-center gap-1 mt-1 bg-sky-50/70 p-1 rounded-md border border-sky-100">
@@ -4809,7 +4809,7 @@ ${data.motto}`;
                             type="text"
                             value={day.dateStr}
                             onChange={e => updateDayField(day.id, "dateStr", e.target.value)}
-                            placeholder="e.g. 14 May 2026 - Arrival"
+                            placeholder="e.g. 14 May 2027 - Arrival"
                             className="w-full px-2 py-1 bg-white border border-gray-200 rounded text-xs"
                           />
                           <input

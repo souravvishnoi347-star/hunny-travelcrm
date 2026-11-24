@@ -276,9 +276,9 @@ export default function SettingsPage() {
         body: JSON.stringify({
           phone: testPhone,
           customerName: "Devotee Test",
-          yatraName: "Chardham Yatra 2026 (Live Test)",
+          yatraName: "Chardham Yatra 2027 (Live Test)",
           bookingId: "TEST-CD-001",
-          travelDates: "10 May – 19 May 2026",
+          travelDates: "10 May – 19 May 2027",
           paxCount: "04 Adults",
           totalAmount: 114000,
           advancePaid: 35000,
@@ -372,7 +372,7 @@ export default function SettingsPage() {
               type="text"
               value={settings.gst_number}
               onChange={(e) => update("gst_number", e.target.value)}
-              placeholder="UK-TO-2026-001"
+              placeholder="UK-TO-2027-001"
               className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-gray-900 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition"
             />
           </div>
@@ -726,7 +726,7 @@ export default function SettingsPage() {
               <div className="space-y-1.5 text-gray-600">
                 <p>• <strong>Primary Admin ID:</strong> <span className="font-mono text-gray-900">admin@traymbhkam.com</span></p>
                 <p>• <strong>Alternate Admin ID:</strong> <span className="font-mono text-gray-900">souravvishnoi347@gmail.com</span></p>
-                <p>• <strong>Default Password:</strong> <span className="font-mono text-gray-900">Devbhoomi@2026</span></p>
+                <p>• <strong>Default Password:</strong> <span className="font-mono text-gray-900">Devbhoomi@2027</span></p>
                 <p>• <strong>Master Recovery PIN:</strong> <span className="font-mono text-amber-700 font-bold">971903</span> (Linked to +91 82660 16066)</p>
               </div>
               <div className="p-2.5 rounded-lg bg-sky-50 border border-sky-100 text-[11px] text-sky-800 flex items-start gap-2">

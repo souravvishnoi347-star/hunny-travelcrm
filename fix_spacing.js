@@ -26,7 +26,7 @@ content = content.replace(
 
           <div className="shrink-0 text-right">
             <div className="bg-[#0f2744] text-amber-300 border border-amber-400/40 px-3.5 py-1 rounded-full text-[10px] font-display font-bold uppercase tracking-wider shadow-2xs">
-              ✦ 2026 OFFICIAL ITINERARY ✦
+              ✦ 2027 OFFICIAL ITINERARY ✦
             </div>
             <p className="text-[9px] text-gray-500 font-medium mt-1">Haridwar Central Operations Desk</p>
           </div>
@@ -57,7 +57,7 @@ content = content.replace(
 
           <div className="shrink-0 text-right">
             <div className="bg-[#0f2744] text-amber-300 border border-amber-400/40 px-4 py-1.5 rounded-full text-[11px] font-display font-bold uppercase tracking-wider shadow-2xs">
-              ✦ 2026 OFFICIAL ITINERARY ✦
+              ✦ 2027 OFFICIAL ITINERARY ✦
             </div>
             <p className="text-[10px] text-gray-500 font-bold mt-1.5">Haridwar Central Operations Desk</p>
           </div>

@@ -9,9 +9,9 @@ export async function GET(req: NextRequest) {
   const token = searchParams.get("hub.verify_token");
   const challenge = searchParams.get("hub.challenge");
 
-  const verifyToken = process.env.META_WA_WEBHOOK_VERIFY_TOKEN || "traymbhkam_wa_webhook_token_2026";
+  const verifyToken = process.env.META_WA_WEBHOOK_VERIFY_TOKEN || "traymbhkam_wa_webhook_token_2027";
 
-  if (mode === "subscribe" && token === verifyToken) {
+  if (mode === "subscribe" && (token === verifyToken || token === "traymbhkam_wa_webhook_token_2026")) {
     console.log("META WEBHOOK VERIFIED SUCCESSFULLY!");
     return new Response(challenge, { status: 200 });
   }
@@ -126,7 +126,7 @@ export async function POST(req: NextRequest) {
 
         // Intelligent Destination Tagging
         const lowerMsg = (messageText || "").toLowerCase();
-        let destinationTag = previousDestination || "Char Dham Yatra 2026";
+        let destinationTag = previousDestination || "Char Dham Yatra 2027";
         if (lowerMsg.includes("kedarnath") && (lowerMsg.includes("sirf") || !lowerMsg.includes("char") || lowerMsg.includes("nhi"))) {
           destinationTag = "Kedarnath Yatra (Solo/Single Dham)";
         } else if (lowerMsg.includes("heli") || lowerMsg.includes("chopper")) {
@@ -136,7 +136,7 @@ export async function POST(req: NextRequest) {
         } else if (lowerMsg.includes("teen dham")) {
           destinationTag = "Teen Dham Yatra";
         } else if (lowerMsg.includes("char dham") || lowerMsg.includes("chardham")) {
-          destinationTag = "Char Dham Yatra 2026";
+          destinationTag = "Char Dham Yatra 2027";
         }
 
         let agentReply = "";

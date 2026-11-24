@@ -29,20 +29,20 @@ import { saveDocumentToHub, generateNextDocNumber } from "@/lib/documentsHub";
 
 // Actual Old Voucher: Chardham 10D (Bill 604 - Jayesh Bhai Patel / Innova)
 const PRESET_TRANSPORT_CHARDHAM_ACTUAL = {
-  date: "14 May 2026",
+  date: "14 May 2027",
   exoNo: "BILL NO. 604",
   fileNo: "604",
   guestName: "Mr. Jayesh Bhai Babubhai Patel",
   managerMobile: "+91 82660 16066 · 9389880277",
   noOfAdults: "7 Members",
   vehicleType: "01 Innova (Private Taxi - Non-AC in Hills)",
-  arrivalDate: "14/05/2026 ~ Haridwar Railway Station",
-  departureDate: "23/05/2026 ~ Haridwar Drop",
+  arrivalDate: "14/05/2027 ~ Haridwar Railway Station",
+  departureDate: "23/05/2027 ~ Haridwar Drop",
   favouringGuest: "Mr. Jayesh Bhai Patel",
   favouringPax: "7",
   favouringVehicle: "Innova",
   voucherMode: "single_block" as "single_block" | "day_wise",
-  tourName: "Chardham Yatra 2026 (09 Nights / 10 Days Plan)",
+  tourName: "Chardham Yatra 2027 (09 Nights / 10 Days Plan)",
   tourRoute: "Haridwar – Barkot – Yamunotri – Uttarkashi – Gangotri – Guptkashi – Kedarnath – Chopta – Badrinath – Haridwar",
   totalAmount: "46,000",
   advanceAmount: "11,500",
@@ -51,30 +51,30 @@ const PRESET_TRANSPORT_CHARDHAM_ACTUAL = {
   vehiclePlateNo: "UK 07 TA Series",
   paymentTermsNote: "All Toll, State Tax, Parking Charges & Driver Night Allowances Included.",
   itinerary: [
-    { date: "14/05/2026", details: "Haridwar pickup, drive to Barkot via Mussoorie & Kempty Falls", hotel: "Hotel Sarutal, Barkot (7818854893)" },
-    { date: "15/05/2026", details: "Barkot to Janki Chatti (36 km), Yamunotri Dham 6 km trek & return to Barkot", hotel: "Hotel Sarutal, Barkot (7818854893)" },
-    { date: "16/05/2026", details: "Scenic drive from Barkot to Uttarkashi, Kashi Vishwanath Temple (Shakti Stambh)", hotel: "Hotel Skyline, Uttarkashi (8923184251)" },
-    { date: "17/05/2026", details: "Uttarkashi to Gangotri Dham Darshan via Harsil Valley & return to Uttarkashi", hotel: "Hotel Skyline, Uttarkashi (8923184251)" },
-    { date: "18/05/2026", details: "Uttarkashi to Guptkashi via Mandakini valley & Kedarnath registration check", hotel: "Hotel Maa Paa, Guptkashi (9634528441)" },
-    { date: "19/05/2026", details: "5:00 AM transfer to Sonprayag/Gaurikund, 18 km Kedarnath Trek & Evening Aarti", hotel: "Kedarnath (Tent House - Without Food)" },
-    { date: "20/05/2026", details: "Morning Abhishek & Bhairav Nath Temple, trek down to Gaurikund & return to Guptkashi", hotel: "Hotel Maa Paa, Guptkashi (9634528441)" },
-    { date: "21/05/2026", details: "Scenic drive from Guptkashi to Pipalkoti via Chopta (Mini Switzerland)", hotel: "Hotel Dabral, Pipalkoti (7452827619)" },
-    { date: "22/05/2026", details: "Pipalkoti to Badrinath Dham Darshan, Mana Village, Vyas Gufa, Bhim Pul & return to Pipalkoti (140 km UP/DOWN)", hotel: "Hotel Dabral, Pipalkoti (7452827619)" },
-    { date: "23/05/2026", details: "Pipalkoti to Haridwar via Narsingh Temple Joshimath, Dhari Devi Temple & Panch Prayag", hotel: "Tour Concludes (Haridwar Drop)" }
+    { date: "14/05/2027", details: "Haridwar pickup, drive to Barkot via Mussoorie & Kempty Falls", hotel: "Hotel Sarutal, Barkot (7818854893)" },
+    { date: "15/05/2027", details: "Barkot to Janki Chatti (36 km), Yamunotri Dham 6 km trek & return to Barkot", hotel: "Hotel Sarutal, Barkot (7818854893)" },
+    { date: "16/05/2027", details: "Scenic drive from Barkot to Uttarkashi, Kashi Vishwanath Temple (Shakti Stambh)", hotel: "Hotel Skyline, Uttarkashi (8923184251)" },
+    { date: "17/05/2027", details: "Uttarkashi to Gangotri Dham Darshan via Harsil Valley & return to Uttarkashi", hotel: "Hotel Skyline, Uttarkashi (8923184251)" },
+    { date: "18/05/2027", details: "Uttarkashi to Guptkashi via Mandakini valley & Kedarnath registration check", hotel: "Hotel Maa Paa, Guptkashi (9634528441)" },
+    { date: "19/05/2027", details: "5:00 AM transfer to Sonprayag/Gaurikund, 18 km Kedarnath Trek & Evening Aarti", hotel: "Kedarnath (Tent House - Without Food)" },
+    { date: "20/05/2027", details: "Morning Abhishek & Bhairav Nath Temple, trek down to Gaurikund & return to Guptkashi", hotel: "Hotel Maa Paa, Guptkashi (9634528441)" },
+    { date: "21/05/2027", details: "Scenic drive from Guptkashi to Pipalkoti via Chopta (Mini Switzerland)", hotel: "Hotel Dabral, Pipalkoti (7452827619)" },
+    { date: "22/05/2027", details: "Pipalkoti to Badrinath Dham Darshan, Mana Village, Vyas Gufa, Bhim Pul & return to Pipalkoti (140 km UP/DOWN)", hotel: "Hotel Dabral, Pipalkoti (7452827619)" },
+    { date: "23/05/2027", details: "Pipalkoti to Haridwar via Narsingh Temple Joshimath, Dhari Devi Temple & Panch Prayag", hotel: "Tour Concludes (Haridwar Drop)" }
   ]
 };
 
 // Actual Old Voucher: Do Dham 6D (Bill 626 - Surendar Kumar Patti / Tempo Traveller)
 const PRESET_TRANSPORT_DODHAM_ACTUAL = {
-  date: "14 May 2026",
+  date: "14 May 2027",
   exoNo: "BILL NO. 626",
   fileNo: "626",
   guestName: "Mr. Surendar Kumar Patti",
   managerMobile: "+91 82660 16066 · 9389880277",
   noOfAdults: "24+2 Members",
   vehicleType: "01 Tempo Traveller (Non-AC in Hills)",
-  arrivalDate: "14/05/2026 ~ Haridwar",
-  departureDate: "19/05/2026 ~ Haridwar Drop",
+  arrivalDate: "14/05/2027 ~ Haridwar",
+  departureDate: "19/05/2027 ~ Haridwar Drop",
   favouringGuest: "Mr. Surendar Kumar Patti",
   favouringPax: "24+2",
   favouringVehicle: "Tempo Traveller",
@@ -88,18 +88,18 @@ const PRESET_TRANSPORT_DODHAM_ACTUAL = {
   vehiclePlateNo: "UK 07 TA Series",
   paymentTermsNote: "All Toll, State Tax, Parking Charges & Driver Night Allowances Included.",
   itinerary: [
-    { date: "14/05/2026", details: "Early morning Haridwar pickup & scenic drive to Guptkashi / Sitapur", hotel: "Hotel Omkara, Guptkashi/Sitapur (8923334391)" },
-    { date: "15/05/2026", details: "5:00 AM transfer to Sonprayag/Gaurikund, 18 km Kedarnath Trek & Evening Aarti", hotel: "Kedarnath (Tent House - Without Food)" },
-    { date: "16/05/2026", details: "Morning Abhishek & Bhairav Nath Temple, trek down to Gaurikund & return to Sitapur / Guptkashi", hotel: "Hotel Omkara, Sitapur/Guptkashi (8923334391)" },
-    { date: "17/05/2026", details: "Scenic drive from Sitapur / Guptkashi to Pipalkoti via Chopta", hotel: "Hotel Dabral, Pipalkoti (7452827619)" },
-    { date: "18/05/2026", details: "Pipalkoti to Badrinath Dham Darshan, Mana Village, Vyas Gufa, Bhim Pul & return to Pipalkoti (140 km UP/DOWN)", hotel: "Hotel Dabral, Pipalkoti (7452827619)" },
-    { date: "19/05/2026", details: "Pipalkoti to Haridwar via Narsingh Temple Joshimath, Dhari Devi Temple & Panch Prayag", hotel: "Tour Concludes (Haridwar Drop)" }
+    { date: "14/05/2027", details: "Early morning Haridwar pickup & scenic drive to Guptkashi / Sitapur", hotel: "Hotel Omkara, Guptkashi/Sitapur (8923334391)" },
+    { date: "15/05/2027", details: "5:00 AM transfer to Sonprayag/Gaurikund, 18 km Kedarnath Trek & Evening Aarti", hotel: "Kedarnath (Tent House - Without Food)" },
+    { date: "16/05/2027", details: "Morning Abhishek & Bhairav Nath Temple, trek down to Gaurikund & return to Sitapur / Guptkashi", hotel: "Hotel Omkara, Sitapur/Guptkashi (8923334391)" },
+    { date: "17/05/2027", details: "Scenic drive from Sitapur / Guptkashi to Pipalkoti via Chopta", hotel: "Hotel Dabral, Pipalkoti (7452827619)" },
+    { date: "18/05/2027", details: "Pipalkoti to Badrinath Dham Darshan, Mana Village, Vyas Gufa, Bhim Pul & return to Pipalkoti (140 km UP/DOWN)", hotel: "Hotel Dabral, Pipalkoti (7452827619)" },
+    { date: "19/05/2027", details: "Pipalkoti to Haridwar via Narsingh Temple Joshimath, Dhari Devi Temple & Panch Prayag", hotel: "Tour Concludes (Haridwar Drop)" }
   ]
 };
 
 const PRESET_TRANSPORT_12P_10D = {
   date: new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }),
-  exoNo: "UK-TR-12P2026",
+  exoNo: "UK-TR-12P2027",
   fileNo: "12P-01",
   guestName: "12 Pax Pilgrimage Group",
   managerMobile: "+91 82660 16066 · 9389880277",
@@ -134,15 +134,15 @@ const PRESET_TRANSPORT_12P_10D = {
 };
 
 const DEFAULT_TRANSPORT_DATA = {
-  date: "15 May 2026",
-  exoNo: "UK-TR-2026",
+  date: "15 May 2027",
+  exoNo: "UK-TR-2027",
   fileNo: "01",
   guestName: "Valued Guest & Family",
   managerMobile: "+91 82660 16066 · 9389880277",
   noOfAdults: "04 Adults",
   vehicleType: "01 Innova Crysta / Dzire (Non-AC in Hills)",
-  arrivalDate: "15 May 2026 ~ Haridwar",
-  departureDate: "24 May 2026 ~ Haridwar Drop",
+  arrivalDate: "15 May 2027 ~ Haridwar",
+  departureDate: "24 May 2027 ~ Haridwar Drop",
   favouringGuest: "Valued Guest",
   favouringPax: "04",
   favouringVehicle: "01 Innova Crysta / Dzire (Non-AC in Hills)",
@@ -935,7 +935,7 @@ export default function TransportVouchers() {
             </div>
             <button
               onClick={() => {
-                const nextNum = generateNextDocNumber("transport_voucher", "EXO-2026-001");
+                const nextNum = generateNextDocNumber("transport_voucher", "EXO-2027-001");
                 updateData({ ...DEFAULT_TRANSPORT_DATA, exoNo: nextNum });
                 if (typeof window !== "undefined") {
                   localStorage.removeItem("traymbhkam_transport_voucher_data");

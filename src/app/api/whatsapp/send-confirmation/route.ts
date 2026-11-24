@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
       `Dear *${customerName || "Devotee / Valued Guest"}*,\n` +
       `Warm greetings from Traymbhkam Tour and Travels! Your sacred pilgrimage booking has been successfully confirmed. 🚩\n\n` +
       `📋 *Booking Details:*\n` +
-      `• *Yatra Package:* ${yatraName || "Chardham Yatra 2026"}\n` +
+      `• *Yatra Package:* ${yatraName || "Chardham Yatra 2027"}\n` +
       (bookingId ? `• *Booking ID / File:* ${bookingId}\n` : "") +
       (travelDates ? `• *Travel Dates:* ${travelDates}\n` : "") +
       (paxCount ? `• *Pilgrims (Pax):* ${paxCount}\n` : "") +

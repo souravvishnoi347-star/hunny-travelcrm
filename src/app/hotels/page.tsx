@@ -97,7 +97,7 @@ export interface GroupMemberAllocation {
 
 export interface GroupHotelSchedule {
   id: string;
-  date: string; // e.g. "28/04/2026"
+  date: string; // e.g. "28/04/2027"
   place: string; // e.g. "BARKOT"
   hotelName: string; // e.g. "HOTEL TRISHUL"
   hotelMobile: string; // e.g. "8392932020"
@@ -126,7 +126,7 @@ export const PRESET_GROUP_CHARDHAM_28APRIL: GroupTravelVoucherData = {
   contactEmail: "info@traymbhkam.com",
   contactPhones: "MR. GAGANDEEP: +91 82660 16066",
   transportType: "TEMPO TRAVELLER (Non-AC in Hills)",
-  yatraDates: "28 APRIL TO 07 MAY 2026",
+  yatraDates: "28 APRIL TO 07 MAY 2027",
   carNumber: "UK 07 TA 4821",
   driverName: "Dharmendra Singh",
   driverMobile: "9411582310",
@@ -142,15 +142,15 @@ export const PRESET_GROUP_CHARDHAM_28APRIL: GroupTravelVoucherData = {
     { id: "ga-8", sNo: 8, billNo: "Bill 518", member: "1 Pax", bedroom: "1 DOUBLE BEDROOM", name: "SUNITA LIMBOO", mobileNo: "9818765432" }
   ],
   hotelSchedules: [
-    { id: "gh-1", date: "28/04/2026", place: "BARKOT", hotelName: "HOTEL TRISHUL", hotelMobile: "8392932020" },
-    { id: "gh-2", date: "29/04/2026", place: "BARKOT", hotelName: "HOTEL TRISHUL", hotelMobile: "8392932020" },
-    { id: "gh-3", date: "30/04/2026", place: "UTTARKASHI HINA", hotelName: "HOTEL KAILASHA", hotelMobile: "9718640101" },
-    { id: "gh-4", date: "01/05/2026", place: "UTTARKASHI HINA", hotelName: "HOTEL KAILASHA", hotelMobile: "9718640101" },
-    { id: "gh-5", date: "02/05/2026", place: "PHATA", hotelName: "HOTEL MAA PAA", hotelMobile: "9634528441" },
-    { id: "gh-6", date: "03/05/2026", place: "KEDARNATH", hotelName: "BHAGWARI JI (Camps / Tents)", hotelMobile: "9068648285" },
-    { id: "gh-7", date: "04/05/2026", place: "PHATA", hotelName: "HOTEL MAA PAA", hotelMobile: "9634528441" },
-    { id: "gh-8", date: "05/05/2026", place: "PIPALKOTI", hotelName: "HOTEL DABRAL", hotelMobile: "7452827619" },
-    { id: "gh-9", date: "06/05/2026", place: "PIPALKOTI", hotelName: "HOTEL DABRAL", hotelMobile: "7452827619" }
+    { id: "gh-1", date: "28/04/2027", place: "BARKOT", hotelName: "HOTEL TRISHUL", hotelMobile: "8392932020" },
+    { id: "gh-2", date: "29/04/2027", place: "BARKOT", hotelName: "HOTEL TRISHUL", hotelMobile: "8392932020" },
+    { id: "gh-3", date: "30/04/2027", place: "UTTARKASHI HINA", hotelName: "HOTEL KAILASHA", hotelMobile: "9718640101" },
+    { id: "gh-4", date: "01/05/2027", place: "UTTARKASHI HINA", hotelName: "HOTEL KAILASHA", hotelMobile: "9718640101" },
+    { id: "gh-5", date: "02/05/2027", place: "PHATA", hotelName: "HOTEL MAA PAA", hotelMobile: "9634528441" },
+    { id: "gh-6", date: "03/05/2027", place: "KEDARNATH", hotelName: "BHAGWARI JI (Camps / Tents)", hotelMobile: "9068648285" },
+    { id: "gh-7", date: "04/05/2027", place: "PHATA", hotelName: "HOTEL MAA PAA", hotelMobile: "9634528441" },
+    { id: "gh-8", date: "05/05/2027", place: "PIPALKOTI", hotelName: "HOTEL DABRAL", hotelMobile: "7452827619" },
+    { id: "gh-9", date: "06/05/2027", place: "PIPALKOTI", hotelName: "HOTEL DABRAL", hotelMobile: "7452827619" }
   ]
 };
 
@@ -189,15 +189,15 @@ function parseExcelSerialDate(val: any): string {
 // Actual Old Voucher: Chardham 10 Days (Bill No. 604 - Mr. Jayesh Bhai Patel)
 const PRESET_CHARDHAM_ACTUAL_VOUCHER: HotelVoucherData = {
   voucherNo: "BILL NO. 604",
-  tripDates: "14/05/2026 TO 22/05/2026",
-  bookingId: "CH-2026-604",
-  dateOfIssue: "14 May 2026",
+  tripDates: "14/05/2027 TO 22/05/2027",
+  bookingId: "CH-2027-604",
+  dateOfIssue: "14 May 2027",
   guestName: "Mr. Jayesh Bhai Babubhai Patel",
   guestPhone: "7984641303",
   guestEmail: "traveltouttarakhand38@gmail.com",
   totalPax: "7 Members",
   totalRooms: "Family Rooms (Innova)",
-  tripDuration: "Chardham Yatra Package 10 Days 2026",
+  tripDuration: "Chardham Yatra Package 10 Days 2027",
   emergencyContact: "Mr. Gagandeep: +91 82660 16066",
   specialInstructions: "• Please present this original voucher with government photo ID at check-in.\n• Standard check-in time 12:00 PM, check-out 10:00 AM.\n• Pure vegetarian meals served across all destinations.\n• Non-AC rooms in mountain sectors.",
   inclusions: "• Confirmed Hotel accommodation across Barkot, Uttarkashi, Phata, Kedarnath (Tent Only), Badrinath & Pipalkoti.\n• Dedicated Innova with driver Haridwar to Haridwar.\n• All tolls, parking, interstate taxes included.",
@@ -209,8 +209,8 @@ const PRESET_CHARDHAM_ACTUAL_VOUCHER: HotelVoucherData = {
       hotelName: "Hotel Sarutal",
       hotelAddress: "Barkot, Yamunotri Road",
       contactNo: "7818854893",
-      checkIn: "14/05/2026 (12:00 PM)",
-      checkOut: "16/05/2026 (08:00 AM)",
+      checkIn: "14/05/2027 (12:00 PM)",
+      checkOut: "16/05/2027 (08:00 AM)",
       nights: 2,
       roomType: "Standard Rooms",
       noOfRooms: "Family Rooms",
@@ -225,8 +225,8 @@ const PRESET_CHARDHAM_ACTUAL_VOUCHER: HotelVoucherData = {
       hotelName: "Hotel Skyline",
       hotelAddress: "Uttarkashi, Gangotri Highway",
       contactNo: "8923184251",
-      checkIn: "16/05/2026 (01:00 PM)",
-      checkOut: "18/05/2026 (07:30 AM)",
+      checkIn: "16/05/2027 (01:00 PM)",
+      checkOut: "18/05/2027 (07:30 AM)",
       nights: 2,
       roomType: "Standard Rooms",
       noOfRooms: "Family Rooms",
@@ -241,8 +241,8 @@ const PRESET_CHARDHAM_ACTUAL_VOUCHER: HotelVoucherData = {
       hotelName: "Hotel Maa Paa",
       hotelAddress: "Phata, Kedarnath Route",
       contactNo: "9634528441",
-      checkIn: "18/05/2026 (02:00 PM)",
-      checkOut: "19/05/2026 (06:00 AM)",
+      checkIn: "18/05/2027 (02:00 PM)",
+      checkOut: "19/05/2027 (06:00 AM)",
       nights: 1,
       roomType: "Standard Rooms",
       noOfRooms: "Family Rooms",
@@ -257,8 +257,8 @@ const PRESET_CHARDHAM_ACTUAL_VOUCHER: HotelVoucherData = {
       hotelName: "Bhagwari Ji (Kedarnath Tent Only)",
       hotelAddress: "Near Shri Kedarnath Temple",
       contactNo: "9068648285",
-      checkIn: "19/05/2026 (04:00 PM)",
-      checkOut: "20/05/2026 (07:00 AM)",
+      checkIn: "19/05/2027 (04:00 PM)",
+      checkOut: "20/05/2027 (07:00 AM)",
       nights: 1,
       roomType: "Tent Only",
       noOfRooms: "Group Sharing",
@@ -273,8 +273,8 @@ const PRESET_CHARDHAM_ACTUAL_VOUCHER: HotelVoucherData = {
       hotelName: "Hotel Maa Paa",
       hotelAddress: "Phata, Kedarnath Route",
       contactNo: "9634528441",
-      checkIn: "20/05/2026 (02:00 PM)",
-      checkOut: "21/05/2026 (08:00 AM)",
+      checkIn: "20/05/2027 (02:00 PM)",
+      checkOut: "21/05/2027 (08:00 AM)",
       nights: 1,
       roomType: "Standard Rooms",
       noOfRooms: "Family Rooms",
@@ -289,8 +289,8 @@ const PRESET_CHARDHAM_ACTUAL_VOUCHER: HotelVoucherData = {
       hotelName: "Hotel Dhansree",
       hotelAddress: "Near Badrinath Temple",
       contactNo: "8395091744",
-      checkIn: "21/05/2026 (02:00 PM)",
-      checkOut: "22/05/2026 (08:30 AM)",
+      checkIn: "21/05/2027 (02:00 PM)",
+      checkOut: "22/05/2027 (08:30 AM)",
       nights: 1,
       roomType: "Standard Rooms",
       noOfRooms: "Family Rooms",
@@ -305,8 +305,8 @@ const PRESET_CHARDHAM_ACTUAL_VOUCHER: HotelVoucherData = {
       hotelName: "Hotel Dabral",
       hotelAddress: "Pipal Koti, Badrinath Highway",
       contactNo: "7452827619",
-      checkIn: "22/05/2026 (03:00 PM)",
-      checkOut: "23/05/2026 (08:00 AM)",
+      checkIn: "22/05/2027 (03:00 PM)",
+      checkOut: "23/05/2027 (08:00 AM)",
       nights: 1,
       roomType: "Standard Rooms",
       noOfRooms: "Family Rooms",
@@ -320,15 +320,15 @@ const PRESET_CHARDHAM_ACTUAL_VOUCHER: HotelVoucherData = {
 // Actual Old Voucher: Do Dham 6 Days (Bill No. 626 - Mr. Surendar Kumar Patti)
 const PRESET_DODHAM_ACTUAL_VOUCHER: HotelVoucherData = {
   voucherNo: "BILL NO. 626",
-  tripDates: "14/05/2026 TO 19/05/2026",
-  bookingId: "DD-2026-626",
-  dateOfIssue: "14 May 2026",
+  tripDates: "14/05/2027 TO 19/05/2027",
+  bookingId: "DD-2027-626",
+  dateOfIssue: "14 May 2027",
   guestName: "Mr. Surendar Kumar Patti",
   guestPhone: "9777765675",
   guestEmail: "traveltouttarakhand38@gmail.com",
   totalPax: "24+2 Members",
   totalRooms: "Hall Package (Tempo)",
-  tripDuration: "Do Dham Yatra Hall Package 6 Days 2026",
+  tripDuration: "Do Dham Yatra Hall Package 6 Days 2027",
   emergencyContact: "Mr. Gagandeep: +91 82660 16066",
   specialInstructions: "• Please carry valid photo ID at all hotels.\n• Hall package accommodation confirmed for group.\n• Early morning departure for Kedarnath & Badrinath Darshan.",
   inclusions: "• Hotel accommodation at Badashu, Kedarnath (Tent Only) & Pipal Koti.\n• Dedicated Tempo Traveller Haridwar to Haridwar.\n• Tolls, parking and driver charges included.",
@@ -340,8 +340,8 @@ const PRESET_DODHAM_ACTUAL_VOUCHER: HotelVoucherData = {
       hotelName: "Hotel Omkara",
       hotelAddress: "Badashu, Kedarnath Route",
       contactNo: "8923334391",
-      checkIn: "14/05/2026 (02:00 PM)",
-      checkOut: "15/05/2026 (06:00 AM)",
+      checkIn: "14/05/2027 (02:00 PM)",
+      checkOut: "15/05/2027 (06:00 AM)",
       nights: 1,
       roomType: "Hall / Group Rooms",
       noOfRooms: "Hall Basis",
@@ -356,8 +356,8 @@ const PRESET_DODHAM_ACTUAL_VOUCHER: HotelVoucherData = {
       hotelName: "Bhagwari Ji (Kedarnath Tent Only)",
       hotelAddress: "Near Kedarnath Temple",
       contactNo: "9068648285",
-      checkIn: "15/05/2026 (04:00 PM)",
-      checkOut: "16/05/2026 (07:00 AM)",
+      checkIn: "15/05/2027 (04:00 PM)",
+      checkOut: "16/05/2027 (07:00 AM)",
       nights: 1,
       roomType: "Tent Only",
       noOfRooms: "Group Sharing",
@@ -372,8 +372,8 @@ const PRESET_DODHAM_ACTUAL_VOUCHER: HotelVoucherData = {
       hotelName: "Hotel Omkara",
       hotelAddress: "Badashu, Kedarnath Route",
       contactNo: "8923334391",
-      checkIn: "16/05/2026 (02:00 PM)",
-      checkOut: "17/05/2026 (07:30 AM)",
+      checkIn: "16/05/2027 (02:00 PM)",
+      checkOut: "17/05/2027 (07:30 AM)",
       nights: 1,
       roomType: "Hall / Group Rooms",
       noOfRooms: "Hall Basis",
@@ -388,8 +388,8 @@ const PRESET_DODHAM_ACTUAL_VOUCHER: HotelVoucherData = {
       hotelName: "Hotel Dabral",
       hotelAddress: "Pipal Koti, Badrinath Highway",
       contactNo: "7452827619",
-      checkIn: "17/05/2026 (03:00 PM)",
-      checkOut: "19/05/2026 (08:00 AM)",
+      checkIn: "17/05/2027 (03:00 PM)",
+      checkOut: "19/05/2027 (08:00 AM)",
       nights: 2,
       roomType: "Hall / Group Rooms",
       noOfRooms: "Hall Basis",
@@ -401,9 +401,9 @@ const PRESET_DODHAM_ACTUAL_VOUCHER: HotelVoucherData = {
 };
 
 const PRESET_CHARDHAM_12P_10D: HotelVoucherData = {
-  voucherNo: "TV-2026-CH12P",
-  tripDates: "May – Oct 2026",
-  bookingId: "BKG-CH-12P2026",
+  voucherNo: "TV-2027-CH12P",
+  tripDates: "May – Oct 2027",
+  bookingId: "BKG-CH-12P2027",
   dateOfIssue: new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }),
   guestName: "12 Pax Pilgrimage Group",
   guestPhone: "+91 97190 38278",
@@ -515,10 +515,10 @@ const PRESET_CHARDHAM_12P_10D: HotelVoucherData = {
 };
 
 const PRESET_CHARDHAM_10D: HotelVoucherData = {
-  voucherNo: "TV-2026-CH01",
-  tripDates: "12 Sep 2026 to 20 Sep 2026",
-  bookingId: "12 Sep 2026 to 20 Sep 2026",
-  dateOfIssue: "10 May 2026",
+  voucherNo: "TV-2027-CH01",
+  tripDates: "12 Sep 2027 to 20 Sep 2027",
+  bookingId: "12 Sep 2027 to 20 Sep 2027",
+  dateOfIssue: "10 May 2027",
   guestName: "Guest & Family",
   guestPhone: "+91 ",
   guestEmail: "",
@@ -536,8 +536,8 @@ const PRESET_CHARDHAM_10D: HotelVoucherData = {
       hotelName: "Hotel Ganga Regency / Similar",
       hotelAddress: "Haridwar Bypass, Near Railway Station",
       contactNo: "+91 98765 43210",
-      checkIn: "15 May 2026 (12:00 PM)",
-      checkOut: "16 May 2026 (10:00 AM)",
+      checkIn: "15 May 2027 (12:00 PM)",
+      checkOut: "16 May 2027 (10:00 AM)",
       nights: 1,
       roomType: "Deluxe Room",
       noOfRooms: "02 Rooms",
@@ -552,8 +552,8 @@ const PRESET_CHARDHAM_10D: HotelVoucherData = {
       hotelName: "Camp & Resort Shivalik Heights",
       hotelAddress: "Kharadi, Yamunotri Highway",
       contactNo: "+91 94120 55678",
-      checkIn: "16 May 2026 (01:00 PM)",
-      checkOut: "18 May 2026 (08:00 AM)",
+      checkIn: "16 May 2027 (01:00 PM)",
+      checkOut: "18 May 2027 (08:00 AM)",
       nights: 2,
       roomType: "Luxury Cottage",
       noOfRooms: "02 Cottages",
@@ -568,8 +568,8 @@ const PRESET_CHARDHAM_10D: HotelVoucherData = {
       hotelName: "Hotel Bhagirathi View",
       hotelAddress: "Netala, Gangotri Road, Uttarkashi",
       contactNo: "+91 97190 11223",
-      checkIn: "18 May 2026 (02:00 PM)",
-      checkOut: "20 May 2026 (07:00 AM)",
+      checkIn: "18 May 2027 (02:00 PM)",
+      checkOut: "20 May 2027 (07:00 AM)",
       nights: 2,
       roomType: "River View Executive Room",
       noOfRooms: "02 Rooms",
@@ -584,8 +584,8 @@ const PRESET_CHARDHAM_10D: HotelVoucherData = {
       hotelName: "Kedar River Retreat",
       hotelAddress: "Sitapur, Near Kedarnath Helipad / Phata",
       contactNo: "+91 98371 44556",
-      checkIn: "20 May 2026 (03:00 PM)",
-      checkOut: "22 May 2026 (06:00 AM)",
+      checkIn: "20 May 2027 (03:00 PM)",
+      checkOut: "22 May 2027 (06:00 AM)",
       nights: 2,
       roomType: "Super Deluxe Room",
       noOfRooms: "02 Rooms",
@@ -600,8 +600,8 @@ const PRESET_CHARDHAM_10D: HotelVoucherData = {
       hotelName: "Hotel Badri Kedar Haven",
       hotelAddress: "Main Temple Road, Badrinath Dham",
       contactNo: "+91 94111 88990",
-      checkIn: "22 May 2026 (02:00 PM)",
-      checkOut: "23 May 2026 (09:00 AM)",
+      checkIn: "22 May 2027 (02:00 PM)",
+      checkOut: "23 May 2027 (09:00 AM)",
       nights: 1,
       roomType: "Heated Premium Deluxe",
       noOfRooms: "02 Rooms",
@@ -616,8 +616,8 @@ const PRESET_CHARDHAM_10D: HotelVoucherData = {
       hotelName: "Divine Ganga Cottage",
       hotelAddress: "Tapovan, Luxman Jhula Road, Rishikesh",
       contactNo: "+91 135 243 1234",
-      checkIn: "23 May 2026 (01:00 PM)",
-      checkOut: "24 May 2026 (11:00 AM)",
+      checkIn: "23 May 2027 (01:00 PM)",
+      checkOut: "24 May 2027 (11:00 AM)",
       nights: 1,
       roomType: "Ganga View Deluxe",
       noOfRooms: "02 Rooms",
@@ -629,9 +629,9 @@ const PRESET_CHARDHAM_10D: HotelVoucherData = {
 };
 
 const PRESET_DODHAM_5D: HotelVoucherData = {
-  voucherNo: "TV-2026-DD01",
+  voucherNo: "TV-2027-DD01",
   bookingId: "BKG-DD-5021",
-  dateOfIssue: "10 May 2026",
+  dateOfIssue: "10 May 2027",
   guestName: "Guest & Family",
   guestPhone: "+91 ",
   guestEmail: "",
@@ -649,8 +649,8 @@ const PRESET_DODHAM_5D: HotelVoucherData = {
       hotelName: "Hotel Ganga Heritage",
       hotelAddress: "Haridwar, Uttarakhand",
       contactNo: "+91 98765 12345",
-      checkIn: "15 May 2026 (12:00 PM)",
-      checkOut: "16 May 2026 (07:00 AM)",
+      checkIn: "15 May 2027 (12:00 PM)",
+      checkOut: "16 May 2027 (07:00 AM)",
       nights: 1,
       roomType: "Deluxe Room",
       noOfRooms: "01 Room",
@@ -665,8 +665,8 @@ const PRESET_DODHAM_5D: HotelVoucherData = {
       hotelName: "Kedar Valley Camp & Resort",
       hotelAddress: "Sitapur, Near Kedarnath Road",
       contactNo: "+91 98371 99887",
-      checkIn: "16 May 2026 (02:00 PM)",
-      checkOut: "18 May 2026 (07:00 AM)",
+      checkIn: "16 May 2027 (02:00 PM)",
+      checkOut: "18 May 2027 (07:00 AM)",
       nights: 2,
       roomType: "Deluxe Room",
       noOfRooms: "01 Room",
@@ -681,8 +681,8 @@ const PRESET_DODHAM_5D: HotelVoucherData = {
       hotelName: "Hotel Alaknanda View",
       hotelAddress: "Pipalkoti, Badrinath Highway",
       contactNo: "+91 94120 44332",
-      checkIn: "18 May 2026 (03:00 PM)",
-      checkOut: "19 May 2026 (08:00 AM)",
+      checkIn: "18 May 2027 (03:00 PM)",
+      checkOut: "19 May 2027 (08:00 AM)",
       nights: 1,
       roomType: "Super Deluxe Room",
       noOfRooms: "01 Room",
@@ -694,8 +694,8 @@ const PRESET_DODHAM_5D: HotelVoucherData = {
 };
 
 const BLANK_VOUCHER: HotelVoucherData = {
-  voucherNo: "TV-2026-001",
-  bookingId: "BKG-2026-",
+  voucherNo: "TV-2027-001",
+  bookingId: "BKG-2027-",
   dateOfIssue: new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }),
   guestName: "",
   guestPhone: "",
@@ -1321,7 +1321,7 @@ export default function HotelVouchersPage() {
             id: `group-hotel-${Date.now()}`,
             type: "hotel_voucher",
             title: `Group Voucher - ${groupData.subTitle || "Chardham Group"}`,
-            docNumber: `GRP-${groupData.yatraDates ? groupData.yatraDates.split(" ")[0] : "2026"}`,
+            docNumber: `GRP-${groupData.yatraDates ? groupData.yatraDates.split(" ")[0] : "2027"}`,
             guestName: `${groupData.allocations.length} Sub-Groups (${totalGroupMembers} Pax)`,
             guestPhone: groupData.driverMobile || groupData.contactPhones,
             travelDates: groupData.yatraDates,
@@ -1353,7 +1353,7 @@ export default function HotelVouchersPage() {
             id: `hotel-${data.voucherNo || Date.now()}`,
             type: "hotel_voucher",
             title: `Hotel Voucher - ${data.guestName || "Tour"}`,
-            docNumber: data.voucherNo || "TV-2026",
+            docNumber: data.voucherNo || "TV-2027",
             guestName: data.guestName || "Valued Guest",
             guestPhone: data.guestPhone || "",
             travelDates: data.tripDates || data.bookingId || "",
@@ -1657,7 +1657,7 @@ export default function HotelVouchersPage() {
           {/* Reference Meta Bar */}
           <div className="bg-gradient-to-r from-amber-50/80 via-slate-50 to-amber-50/60 border border-amber-200/80 rounded-lg py-1 px-3.5 text-[12px] text-slate-800 flex justify-between items-center font-medium">
             <span>Voucher No: <strong className="text-amber-800 font-bold text-[12.5px]">{data.voucherNo || "N/A"}</strong></span>
-            <span>Trip Dates: <strong className="text-slate-900 font-bold text-[12.5px]">{data.tripDates || data.bookingId || "12 Sep 2026 to 20 Sep 2026"}</strong></span>
+            <span>Trip Dates: <strong className="text-slate-900 font-bold text-[12.5px]">{data.tripDates || data.bookingId || "12 Sep 2027 to 20 Sep 2027"}</strong></span>
             <span>Issue Date: <strong className="text-slate-900 font-bold text-[12.5px]">{data.dateOfIssue || "N/A"}</strong></span>
           </div>
 
@@ -1906,7 +1906,7 @@ export default function HotelVouchersPage() {
 
             {/* Reference Meta Strip */}
             <div className="bg-gradient-to-r from-amber-50/80 via-slate-50 to-amber-50/60 border border-amber-200/80 rounded-xl py-1.5 px-3.5 text-[12px] text-slate-800 flex justify-between items-center font-medium shadow-2xs">
-              <span>Yatra Dates: <strong className="text-amber-800 font-bold text-[13px]">{groupData.yatraDates || "28 APRIL TO 07 MAY 2026"}</strong></span>
+              <span>Yatra Dates: <strong className="text-amber-800 font-bold text-[13px]">{groupData.yatraDates || "28 APRIL TO 07 MAY 2027"}</strong></span>
               <span>Total Bookings: <strong className="text-slate-900 font-bold">{groupData.allocations.length} Sub-Groups ({totalGroupMembers} Pax)</strong></span>
               <span>Helpline: <strong className="text-slate-900 font-bold">{groupData.contactPhones}</strong></span>
             </div>
@@ -2248,7 +2248,7 @@ export default function HotelVouchersPage() {
                       <input 
                         type="text" 
                         className="w-full px-2 py-1.5 bg-white border border-gray-200 rounded text-xs font-semibold text-[#0369a1]"
-                        placeholder="e.g. 28 APRIL TO 07 MAY 2026"
+                        placeholder="e.g. 28 APRIL TO 07 MAY 2027"
                         value={groupData.yatraDates}
                         onChange={e => updateGroupData({ ...groupData, yatraDates: e.target.value })}
                       />
@@ -2448,7 +2448,7 @@ export default function HotelVouchersPage() {
                             <div className="flex items-center gap-1 w-36">
                               <input
                                 type="text"
-                                placeholder="Date (28/04/2026)"
+                                placeholder="Date (28/04/2027)"
                                 className="w-full px-2 py-1 bg-white border border-gray-200 rounded text-xs font-bold text-gray-800"
                                 value={hotel.date}
                                 onChange={e => updateGroupHotel(idx, { date: e.target.value })}
@@ -2718,7 +2718,7 @@ export default function HotelVouchersPage() {
                   <input 
                     type="text" 
                     className="w-full px-2 py-1.5 bg-white border border-gray-200 rounded text-xs font-semibold text-[#0369a1]" 
-                    placeholder="e.g. 14/05/2026 TO 22/05/2026"
+                    placeholder="e.g. 14/05/2027 TO 22/05/2027"
                     value={data.tripDates ?? data.bookingId ?? ""} 
                     onChange={e => updateData({ ...data, tripDates: e.target.value, bookingId: e.target.value })} 
                   />
@@ -3122,7 +3122,7 @@ export default function HotelVouchersPage() {
                         <input 
                           type="text" 
                           className="flex-1 px-2 py-1 bg-white border border-gray-200 rounded text-xs font-medium text-gray-800" 
-                          placeholder="14/05/2026 (12:00 PM)" 
+                          placeholder="14/05/2027 (12:00 PM)" 
                           value={stay.checkIn || ""} 
                           onChange={e => updateStay(idx, { checkIn: e.target.value })} 
                         />
@@ -3150,7 +3150,7 @@ export default function HotelVouchersPage() {
                         <input 
                           type="text" 
                           className="flex-1 px-2 py-1 bg-white border border-gray-200 rounded text-xs font-medium text-gray-800" 
-                          placeholder="16/05/2026 (08:00 AM)" 
+                          placeholder="16/05/2027 (08:00 AM)" 
                           value={stay.checkOut || ""} 
                           onChange={e => updateStay(idx, { checkOut: e.target.value })} 
                         />

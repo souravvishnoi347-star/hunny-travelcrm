@@ -59,7 +59,7 @@ export default function QuotationCalculatorPage() {
   const [viewMode, setViewMode] = useState<"quick" | "detailed">("quick");
 
   // Core Trip Info
-  const [tripTitle, setTripTitle] = useState("Char Dham Deluxe Yatra 2026");
+  const [tripTitle, setTripTitle] = useState("Char Dham Deluxe Yatra 2027");
   const [customerName, setCustomerName] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
   const [paxCount, setPaxCount] = useState<number>(4);

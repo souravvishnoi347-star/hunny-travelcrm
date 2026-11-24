@@ -289,7 +289,7 @@ export default function LeadPipeline() {
   const openWhatsAppModal = (lead: Lead) => {
     setActiveWaLead(lead);
     setWaPhone(lead.phone || "");
-    setWaTravelDates(lead.travel_dates || "May – June 2026");
+    setWaTravelDates(lead.travel_dates || "May – June 2027");
     setWaPax(lead.pax_count || "04 Adults");
     setWaTotalCost(lead.budget || 0);
     setWaAdvance(lead.advance_amount || 0);
@@ -335,7 +335,7 @@ export default function LeadPipeline() {
         body: JSON.stringify({
           phone: waPhone,
           customerName: activeWaLead.name,
-          yatraName: activeWaLead.destination || "Chardham Yatra 2026",
+          yatraName: activeWaLead.destination || "Chardham Yatra 2027",
           bookingId: `BK-${activeWaLead.id.slice(-6).toUpperCase()}`,
           travelDates: waTravelDates,
           paxCount: waPax,
@@ -383,7 +383,7 @@ export default function LeadPipeline() {
       `Dear *${activeWaLead.name || "Devotee"}*,\n` +
       `Your sacred pilgrimage booking is successfully confirmed! 🚩\n\n` +
       `📋 *Booking Particulars:*\n` +
-      `• *Yatra Package:* ${activeWaLead.destination || "Chardham Yatra 2026"}\n` +
+      `• *Yatra Package:* ${activeWaLead.destination || "Chardham Yatra 2027"}\n` +
       `• *Booking ID:* BK-${activeWaLead.id.slice(-6).toUpperCase()}\n` +
       `• *Travel Dates:* ${waTravelDates}\n` +
       `• *Pilgrims (Pax):* ${waPax}\n` +
@@ -679,7 +679,7 @@ export default function LeadPipeline() {
                   <label className="block font-semibold text-gray-700 mb-1">Travel Dates</label>
                   <input 
                     type="text" 
-                    placeholder="e.g. 10 May – 19 May 2026" 
+                    placeholder="e.g. 10 May – 19 May 2027" 
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-sky-500" 
                     value={form.travel_dates} 
                     onChange={e => setForm({...form, travel_dates: e.target.value})} 
